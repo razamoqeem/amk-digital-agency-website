@@ -48,7 +48,7 @@ def _parse_date(text):
     return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
-def _result(domain, created, expires, registrar, source):
+def _result(domain, created, expires, registrar, source, nameservers=None):
     now = datetime.now(timezone.utc)
     age_days = max(0, (now - created).days)
     return {
@@ -58,6 +58,7 @@ def _result(domain, created, expires, registrar, source):
         "age_days": age_days,
         "age_years": round(age_days / 365.25, 1),
         "registrar": (str(registrar)[:120] if registrar else None),
+        "nameservers": sorted({str(n).lower().rstrip(".")[:120] for n in (nameservers or []) if n})[:8],
         "source": source,
     }
 
@@ -113,7 +114,8 @@ def _from_rdap(domain, base):
         created = _parse_date(events.get("registration"))
         if created is None:
             raise DomainAgeError("not_available", f"The registry does not publish a registration date for {name}.")
-        return _result(name, created, _parse_date(events.get("expiration")), _registrar_name(record), "rdap")
+        names = [n.get("ldhName") for n in record.get("nameservers") or [] if isinstance(n, dict)]
+        return _result(name, created, _parse_date(events.get("expiration")), _registrar_name(record), "rdap", names)
     raise DomainAgeError("not_found", f"{domain} does not appear to be registered.")
 
 
@@ -144,7 +146,10 @@ def _from_whois(domain):
     registrar = getattr(record, "registrar", None)
     if isinstance(registrar, (list, tuple)):
         registrar = registrar[0] if registrar else None
-    return _result(domain, created, first(getattr(record, "expiration_date", None)), registrar, "whois")
+    names = getattr(record, "name_servers", None) or []
+    if isinstance(names, str):
+        names = [names]
+    return _result(domain, created, first(getattr(record, "expiration_date", None)), registrar, "whois", names)
 
 
 def get_domain_age(domain: str, load_list=fetch_iana_list) -> dict:

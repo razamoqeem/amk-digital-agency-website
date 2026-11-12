@@ -30,7 +30,7 @@ from fastapi.staticfiles import StaticFiles
 from .domain_rank import DomainRankError, get_domain_rank
 from .domain_age import DomainAgeError, clean_domain, fetch_iana_list, get_domain_age
 from .engine.deep_audit import CLIENT_ERROR_KINDS, run_deep_audit
-from .engine.url_safety import UnsafeURLError, validate_public_url
+from .engine.url_safety import UnsafeURLError, _resolve, validate_public_url
 from .store import Store
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -77,7 +77,7 @@ DAILY_LIMITS = {"crawl": _int_setting("TOOLS_CRAWL_DAILY_LIMIT", 500),
                 "rank": _int_setting("TOOLS_RANK_DAILY_LIMIT", 500)}
 TURNSTILE_SECRET = os.getenv("TURNSTILE_SECRET", "").strip()
 OPEN_PAGERANK_KEY = os.getenv("OPEN_PAGERANK_KEY", "").strip()
-TOOLS = {"seo-audit": "crawl", "site-scan": "crawl", "domain-age": "registry"}
+TOOLS = {"seo-audit": "crawl", "site-scan": "crawl", "domain-age": "registry", "domain-overview": "crawl"}
 if OPEN_PAGERANK_KEY:                      # domain rank is switched on only when a key is set
     TOOLS["domain-rank"] = "rank"
 
@@ -421,6 +421,95 @@ async def domain_rank(request: Request):
                                    str(body.get("turnstile_token") or ""), work, lambda data: data)
 
 
+# ── Domain overview ────────────────────────────────────────────────────────
+# One report built from the same three sources the single tools use. Each part
+# is saved under the same key as its own tool, so nothing is fetched twice.
+_OVERVIEW_SECTIONS = ("redirects", "security", "mixed_content", "indexability", "canonical", "on_page", "images",
+                      "links", "structured_data", "social", "international", "crawlability", "tech_stack", "llms_txt")
+
+
+def _saved_or_run(key, upstream, run):
+    """Return (data, None) from the saved result or a fresh run, or (None, reason)."""
+    data = store.cache_get(key)
+    if data is not None:
+        return data, None
+    today = datetime.now(timezone.utc).date().isoformat()
+    if store.budget_calls(upstream, today) >= 0.8 * DAILY_LIMITS[upstream]:
+        return None, "This check is paused for today. Please try again tomorrow."
+    try:
+        data = run()
+    except ToolFailure as failure:
+        return None, failure.message
+    except (DomainAgeError, DomainRankError) as exc:
+        return None, exc.message
+    except Exception:
+        return None, "This check could not be completed."
+    store.budget_add(upstream, today)
+    store.cache_set(key, data, CACHE_SECONDS)
+    return data, None
+
+
+def _overview(domain):
+    out = {"domain": domain, "checked_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")}
+
+    try:
+        url = _checked_url("https://" + domain + "/")
+        report, reason = _saved_or_run("crawl:" + hashlib.sha256(url.encode()).hexdigest(), "crawl", lambda: _crawl(url))
+    except ToolFailure as failure:
+        report, reason = None, failure.message
+    if report:
+        sections = report.get("sections", {})
+        out["site"] = {"available": True, "final_url": report.get("final_url"), "status_code": report.get("status_code"),
+                       "score": report.get("score"), "grade": report.get("grade"),
+                       "issue_counts": report.get("issue_counts", {}), "total_issues": report.get("total_issues", 0),
+                       "findings": [{"severity": f["severity"], "category": f.get("category"), "title": f["title"],
+                                     "recommendation": f.get("recommendation") or ""}
+                                    for f in report.get("findings", [])[:10]],
+                       "sections": {name: sections.get(name, {}) for name in _OVERVIEW_SECTIONS}}
+    else:
+        out["site"] = {"available": False, "reason": reason}
+
+    age, reason = _saved_or_run("age:" + domain, "registry", lambda: get_domain_age(domain, _iana_list))
+    out["registration"] = {"available": True, **age} if age else {"available": False, "reason": reason}
+
+    if "domain-rank" in TOOLS:
+        rank, reason = _saved_or_run("rank:" + domain, "rank", lambda: get_domain_rank(domain, OPEN_PAGERANK_KEY))
+        out["rank"] = {"available": True, **rank} if rank else {"available": False, "reason": reason}
+    else:
+        out["rank"] = {"available": False, "reason": "Domain rank is not switched on."}
+
+    ips = _resolve(domain) or set()
+    out["hosting"] = {"available": bool(ips), "ip_addresses": sorted(ips)[:4]}
+
+    if not (out["site"]["available"] or out["registration"]["available"] or out["rank"]["available"]):
+        raise ToolFailure(422, "site_unreachable",
+                          out["site"].get("reason") or "No information could be found for that domain.")
+    return out
+
+
+def _overview_shape(data):
+    reg = data.get("registration") or {}
+    if reg.get("available") and reg.get("registered_on"):
+        # Age is worked out again on every reply so a saved result never shows a stale number.
+        registered = datetime.fromisoformat(reg["registered_on"]).replace(tzinfo=timezone.utc)
+        days = max(0, (datetime.now(timezone.utc) - registered).days)
+        data = {**data, "registration": {**reg, "age_days": days, "age_years": round(days / 365.25, 1)}}
+    return data
+
+
+@app.post("/v1/tools/domain-overview")
+async def domain_overview(request: Request):
+    from starlette.concurrency import run_in_threadpool
+    body = await _body(request)
+    try:
+        domain = clean_domain(str(body.get("domain") or ""))
+    except DomainAgeError as exc:
+        vid, is_new = _visitor(request)
+        return _fail(request, vid, is_new, "domain-overview", 400, exc.code, exc.message)
+    return await run_in_threadpool(_run_tool, request, "domain-overview", "overview:" + domain,
+                                   str(body.get("turnstile_token") or ""), lambda: _overview(domain), _overview_shape)
+
+
 # ── Usage, leads, health ───────────────────────────────────────────────────
 @app.get("/v1/usage")
 def usage(request: Request):
@@ -461,7 +550,7 @@ async def add_lead(request: Request):
 
 @app.get("/v1/leads/confirm")
 def confirm_lead(token: str = ""):
-    back = (SITE_URL or "") + "/tools/free-tools.html"
+    back = (SITE_URL or "") + "/tools/free-tools.html"   # the visitor continues from the tools list
     if not re.fullmatch(r"[A-Za-z0-9_-]{20,100}", token or ""):
         return RedirectResponse(back + "?confirmed=0", status_code=303)
     row = store.confirm_lead(keyed_hash("token", token))

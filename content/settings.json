@@ -58,11 +58,14 @@
     "js/site.js",
     "js/title-generator.js",
     "js/nav.js",
-    "js/theme-engine.js"
+    "js/theme-engine.js",
+    "js/tools-client.js",
+    "js/domain-overview.js"
   ],
   "legacy_sitemap_paths": [
     "/tools/free-tools.html",
-    "/tools/title-generator.html"
+    "/tools/title-generator.html",
+    "/tools/domain-overview.html"
   ],
   "not_found": {
     "title": "Page not found",
