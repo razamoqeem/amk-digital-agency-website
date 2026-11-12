@@ -213,6 +213,7 @@
       <span class="hero-pill green">✓ Free to try</span>
       <span class="hero-pill">No API Keys</span>
       <span class="hero-pill">No Credit Card</span>
+      <a class="hero-pill" href="/docs/how-to-use-the-free-tools/" style="text-decoration:none; color:var(--accent);">How to use these tools</a>
     </div>
   </div>
 
@@ -464,7 +465,7 @@
   </div><!-- /tools-grid -->
 
   <footer class="page-footer">
-    © 2026 AMK Digital Agency — Free tools for the digital marketing community. <a href="/privacy/" style="color:var(--accent);">Privacy</a> · <a href="/terms/" style="color:var(--accent);">Terms</a>
+    © 2026 AMK Digital Agency — Free tools for the digital marketing community. <a href="/docs/how-to-use-the-free-tools/" style="color:var(--accent);">How to use these tools</a>
   </footer>
 
   <script>
@@ -557,10 +558,7 @@
       const btn = mk('button', 'Send confirmation link', 'width:auto;');
       btn.type = 'submit'; btn.className = 'tool-run-btn';
       const note = mk('p', '', 'margin-top:10px; font-size:13px; color:var(--muted);');
-      const priv = mk('p', 'We use your email to send the confirmation link and to count your free runs. ', 'margin-top:10px; font-size:13px; color:var(--muted);');
-      const privLink = mk('a', 'Privacy');
-      privLink.href = '/privacy/'; privLink.style.color = 'var(--accent)';
-      priv.appendChild(privLink);
+      const priv = mk('p', 'We use your email to send the confirmation link and to count your free runs.', 'margin-top:10px; font-size:13px; color:var(--muted);');
       form.append(input, btn);
       panel.append(form, priv, note);
       form.addEventListener('submit', async event => {

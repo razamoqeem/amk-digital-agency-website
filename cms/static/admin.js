@@ -64,6 +64,7 @@
         else if (p.warnings) btn.appendChild(el('span', { class: 'badge warn' }, p.warnings + ' warning' + (p.warnings > 1 ? 's' : '')));
         else btn.appendChild(el('span', { class: 'badge ok' }, 'OK'));
         if (p.noindex) btn.appendChild(el('span', { class: 'badge warn' }, 'noindex'));
+        if (p.draft) btn.appendChild(el('span', { class: 'badge warn' }, 'draft'));
         btn.addEventListener('click', function () { openPage(p.slug); });
         li.appendChild(btn);
         list.appendChild(li);
@@ -82,7 +83,7 @@
 
   function newPage() {
     page = {
-      slug: '', title: '', description: '', canonical: '', noindex: false,
+      slug: '', title: '', description: '', canonical: '', noindex: false, draft: false,
       og: { title: '', description: '', image: '' }, schema: [],
       blocks: [{ type: 'heading', level: 1, text: '', size: 'xl', color: 'ink', opacity: 100 }]
     };
@@ -100,6 +101,7 @@
     $('f-slug').value = page.slug || '';
     $('f-canonical').value = page.canonical || '';
     $('f-noindex').checked = !!page.noindex;
+    $('f-draft').checked = !!page.draft;
     $('f-og-title').value = (page.og || {}).title || '';
     $('f-og-desc').value = (page.og || {}).description || '';
     $('f-og-image').value = (page.og || {}).image || '';
@@ -296,6 +298,7 @@
     page.slug = $('f-slug').value.trim();
     page.canonical = $('f-canonical').value.trim();
     page.noindex = $('f-noindex').checked;
+    page.draft = $('f-draft').checked;
     page.og = { title: $('f-og-title').value, description: $('f-og-desc').value, image: $('f-og-image').value };
     return page;
   }
@@ -373,6 +376,7 @@
     $(id).addEventListener('input', changed);
   });
   $('f-noindex').addEventListener('change', changed);
+  $('f-draft').addEventListener('change', changed);
   $('btn-add').addEventListener('click', addBlock);
   $('btn-save').addEventListener('click', save);
   $('btn-build').addEventListener('click', build);

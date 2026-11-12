@@ -179,10 +179,16 @@ def schema_tags(page, settings, base, url) -> list:
     return tags
 
 
-def render_document(template, settings, title, description, head_lines, body_html) -> str:
+def render_document(template, settings, title, description, head_lines, body_html, live_paths=()) -> str:
     nav = "\n".join('          <li><a href="%s">%s</a></li>' % (esc(safe_href(i.get("href", ""))), esc(i.get("label", "")))
                     for i in settings.get("nav", []))
+    # A footer link to a page of ours is shown only while that page is published.
+    links = [i for i in settings.get("footer_links", [])
+             if not i.get("page") or page_url_path(i["page"]) in live_paths]
+    footer_links = " &middot; ".join('<a href="%s">%s</a>' % (esc(safe_href(i.get("href", ""))), esc(i.get("label", "")))
+                                    for i in links)
     return template.substitute(
+        footer_links=footer_links,
         lang=esc(settings.get("language", "en")),
         title=esc(title), description=esc(description),
         head_extra="\n".join(head_lines),
@@ -194,7 +200,7 @@ def render_document(template, settings, title, description, head_lines, body_htm
     )
 
 
-def render_page(page, settings, template, base) -> str:
+def render_page(page, settings, template, base, live_paths=()) -> str:
     path = page_url_path(page["slug"])
     url = (page.get("canonical") or "").strip() or (base + path if base else "")
     og = page.get("og") or {}
@@ -214,7 +220,7 @@ def render_page(page, settings, template, base) -> str:
     head.append('  <meta name="twitter:card" content="summary" />')
     head.extend(schema_tags(page, settings, base, url))
     body = "\n".join(render_block(b) for b in page.get("blocks", []))
-    return render_document(template, settings, page.get("title", ""), page.get("description", ""), head, body)
+    return render_document(template, settings, page.get("title", ""), page.get("description", ""), head, body, live_paths)
 
 
 def token_css(settings) -> str:
@@ -278,6 +284,11 @@ def build() -> dict:
     if report["errors"]:
         return report
 
+    drafts = [p["slug"] for p in pages if p.get("draft")]
+    pages = [p for p in pages if not p.get("draft")]     # drafts stay in the admin only
+    report["drafts"] = drafts
+    live_paths = {page_url_path(p["slug"]) for p in pages}
+
     template = Template(open(os.path.join(TEMPLATES, "page.html"), encoding="utf-8").read())
     staging = PUBLIC + ".building"
     shutil.rmtree(staging, ignore_errors=True)
@@ -305,7 +316,7 @@ def build() -> dict:
     write(os.path.join("assets", "site.css"), css)
 
     for page in pages:
-        write(page_output_rel(page["slug"]), render_page(page, settings, template, base))
+        write(page_output_rel(page["slug"]), render_page(page, settings, template, base, live_paths))
 
     nf = settings.get("not_found", {})
     nf_body = "\n".join([
@@ -315,7 +326,7 @@ def build() -> dict:
                                                                    esc(nf.get("button_label", "Home"))),
     ])
     write("404.html", render_document(template, settings, "%s | %s" % (nf.get("title", "Page not found"),
-          settings.get("site_name", "")), nf.get("text", ""), ['  <meta name="robots" content="noindex" />'], nf_body))
+          settings.get("site_name", "")), nf.get("text", ""), ['  <meta name="robots" content="noindex" />'], nf_body, live_paths))
 
     robots = ["User-agent: *", "Allow: /"]
     if base:
@@ -353,7 +364,10 @@ def main():
             print("ERROR:", e)
         print("\nBuild stopped. public/ was not changed.")
         return 1
-    print("Built %d page(s) into public/ (%d files written by the build)." % (len(report["pages"]), len(report["written"])))
+    drafts = report.get("drafts", [])
+    print("Built %d page(s) into public/ (%d files written by the build)." % (len(report["pages"]) - len(drafts), len(report["written"])))
+    if drafts:
+        print("Drafts kept out of the website: %s" % ", ".join(drafts))
     return 0
 
 

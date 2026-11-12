@@ -81,6 +81,15 @@
       ]
     },
     {
+      "source": "/docs/how-to-use-the-free-tools/",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
       "source": "/docs/js-seo-mobile-rendering/",
       "headers": [
         {
@@ -163,24 +172,6 @@
     },
     {
       "source": "/owner/",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
-        }
-      ]
-    },
-    {
-      "source": "/privacy/",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
-        }
-      ]
-    },
-    {
-      "source": "/terms/",
       "headers": [
         {
           "key": "Content-Security-Policy",

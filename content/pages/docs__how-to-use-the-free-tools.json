@@ -1,0 +1,522 @@
+{
+  "slug": "docs/how-to-use-the-free-tools",
+  "title": "How to use the free SEO tools | AMK Digital Agency",
+  "description": "A beginner guide to each free SEO tool from AMK Digital Agency: what it is for, how to run it, how to read the result and a small test to try.",
+  "canonical": "",
+  "noindex": false,
+  "draft": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "How to use the free SEO tools",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "A short guide for new users. For each tool: what it is for, how to run it, how to read the result, and a small test you can try.",
+      "size": "lg",
+      "color": "muted",
+      "opacity": 100
+    },
+    {
+      "type": "button",
+      "label": "Open the free tools",
+      "href": "/tools/free-tools.html",
+      "color": "accent"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Before you start",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "You do not need an account. Type a website address and press the button.",
+        "Each tool has free runs: 3 with no sign-up, and 10 in total after you confirm your email address.",
+        "Checking the same address again within 24 hours shows the saved result and does not use a run.",
+        "A check that fails, for example because the site did not answer, does not use a run.",
+        "Every result comes from a real check of the page or a public record. Nothing is estimated."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Instant SEO Audit",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>What it is for.</strong> A quick health check of one page. It gives a score, the main facts and the top problems to fix first.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to use it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Enter the full address of the page, for example <code>https://example.com</code>.",
+        "Press <strong>Run Audit</strong> and wait a few seconds."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to read the result",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Score and grade:</strong> worked out from the problems found on the page. Fewer and smaller problems give a higher score.",
+        "<strong>Crawler access:</strong> whether search engines are allowed to read and list the page.",
+        "<strong>Security:</strong> whether the page loads over HTTPS.",
+        "<strong>Top issues:</strong> the problems found, most serious first. Start with <strong>Most important fix</strong>."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Try it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Run it on your home page. Fix the item shown as the most important fix, then run it again the next day and compare the list.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Domain URL Analyser",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>What it is for.</strong> A basic setup check for a whole site: age, security, technology and the files search engines look for.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to use it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Enter the domain or any address on the site.",
+        "Press <strong>Analyse Domain</strong>."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to read the result",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Basic setup checks passed:</strong> four yes or no checks: HTTPS, a valid certificate, a robots.txt file and a sitemap.",
+        "<strong>Domain age:</strong> taken from the public registration record. This check uses one run of the Domain Age tool.",
+        "<strong>Sitemap page count:</strong> how many addresses the sitemap lists.",
+        "<strong>Technology stack:</strong> software that could be recognised from the page."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Try it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Run it on your own site. If robots.txt or the sitemap is missing, the guide <a href=\"/docs/crawling-indexing-basics/\">Crawling and indexing basics</a> explains what they do.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "AIEO Analyser",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>What it is for.</strong> Checks the signals that AI answer engines such as ChatGPT, Gemini and Perplexity can read on your page. It does not measure how often they mention you: no engine publishes that.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to use it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Enter the address of the page.",
+        "Press <strong>Check AI readiness signals</strong>."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to read the result",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Checks passed:</strong> four yes or no checks: an llms.txt file, structured data, organisation or person markup, and social preview tags.",
+        "<strong>Structured data types:</strong> the kinds of structured data found on the page.",
+        "<strong>Words on page:</strong> how much readable text the page has."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Try it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Run it on your home page and on your About page. The About page is the usual place for organisation or person markup.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "SEO Page Analyser",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>What it is for.</strong> A closer look at one page: title, description, headings, text length, image descriptions and structured data. You can add a focus keyword.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to use it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Enter the address of the page.",
+        "Optional: type the main keyword you want the page to be found for.",
+        "Press <strong>Analyse Page SEO</strong>."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to read the result",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Title tag:</strong> its length in characters. About 50 to 60 fits in most search results.",
+        "<strong>Meta description:</strong> its length. About 120 to 160 characters is the usual target.",
+        "<strong>H1 tag:</strong> a page should have exactly one main heading.",
+        "<strong>Image alt coverage:</strong> the share of images that have a text description.",
+        "<strong>Keyword tags:</strong> if you typed a keyword, whether it appears in the title."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Try it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Pick a blog post or service page, type its main keyword, and check whether the keyword is in the title. The <a href=\"/tools/title-generator.html\">title generator</a> can help you write a better one.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Domain Age Checker",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>What it is for.</strong> Shows when a domain was first registered, how old it is, when it expires and who the registrar is.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to use it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Enter the domain, for example <code>example.com</code>.",
+        "Press <strong>Check Domain Age</strong>."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to read the result",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Registration date and age:</strong> from the registry's own public record.",
+        "<strong>Expires:</strong> the date the registration ends unless it is renewed.",
+        "<strong>Source:</strong> which public record answered. Some domain endings do not publish a date; the tool then says so instead of guessing."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Try it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Check your own domain and note the expiry date, so the renewal is never missed.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Domain Rank Checker",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "<strong>What it is for.</strong> Shows a public link-based score from 0 to 10 for a domain, and how many other sites link to it. The data comes from Open PageRank. It is not a Google score. This tool appears on the tools page only when it is switched on.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to use it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": true,
+      "items": [
+        "Enter the domain.",
+        "Press <strong>Check Domain Rank</strong>."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How to read the result",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Domain rank:</strong> 0 to 10. A higher number means more, and stronger, sites link to the domain.",
+        "<strong>Position:</strong> the domain's place among all ranked domains. A smaller number is better.",
+        "<strong>Referring domains:</strong> how many different sites link in.",
+        "<strong>Data date:</strong> when this data was last measured."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Try it",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Compare your domain with one competitor. Look at the difference in referring domains, not only the score.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "When your free runs are used up",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "After 3 runs of a tool you are asked for your email address. Open the confirmation link to unlock the rest of your 10 runs.",
+        "After 10 runs the tools page shows a link to continue in the AMK Digital Agency App."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Want more?",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Paid plans with more features are planned for the AMK Digital Agency App. Plan details and prices: [TO BE CONFIRMED].",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "button",
+      "label": "Open the free tools",
+      "href": "/tools/free-tools.html",
+      "color": "accent"
+    }
+  ]
+}

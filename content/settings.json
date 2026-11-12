@@ -69,5 +69,17 @@
     "text": "This page does not exist or has moved.",
     "button_label": "Go to the home page",
     "button_href": "/"
-  }
+  },
+  "footer_links": [
+    {
+      "label": "Privacy",
+      "href": "/privacy/",
+      "page": "privacy"
+    },
+    {
+      "label": "Terms",
+      "href": "/terms/",
+      "page": "terms"
+    }
+  ]
 }

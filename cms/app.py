@@ -95,6 +95,7 @@ def _clean_page(raw: dict) -> dict:
         "description": str(raw.get("description", "")).strip(),
         "canonical": str(raw.get("canonical", "")).strip(),
         "noindex": bool(raw.get("noindex")),
+        "draft": bool(raw.get("draft")),
         "og": {k: str(og.get(k, "")).strip() for k in ("title", "description", "image")},
         "schema": [s for s in (raw.get("schema") or []) if isinstance(s, str)],
         "blocks": blocks,
@@ -116,7 +117,7 @@ def api_pages():
         errors, warnings = validate_page(page, settings, other_slugs=seen)
         seen.add(page.get("slug"))
         out.append({"slug": page.get("slug"), "title": page.get("title"), "noindex": bool(page.get("noindex")),
-                    "errors": len(errors), "warnings": len(warnings)})
+                    "draft": bool(page.get("draft")), "errors": len(errors), "warnings": len(warnings)})
     return {"pages": out}
 
 
