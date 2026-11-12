@@ -22,8 +22,111 @@
         <button type="button" id="btn-new" class="btn small">New page</button>
       </div>
       <ul id="page-list" class="page-list"></ul>
+      <div class="side-head" style="margin-top: 20px;">
+        <h2>Settings</h2>
+      </div>
+      <ul class="page-list">
+        <li>
+          <button type="button" id="btn-limits" class="settings-nav-btn">Usage limits &amp; allowances</button>
+        </li>
+      </ul>
       <div id="build-report" class="report" role="status" aria-live="polite"></div>
     </aside>
+
+    <main class="editor" id="limits-editor" hidden>
+      <div class="bar">
+        <h1>Usage limits &amp; allowances</h1>
+        <span class="spacer"></span>
+        <span id="limits-save-status" role="status" aria-live="polite"></span>
+        <button type="button" id="btn-save-limits" class="btn primary">Save limits</button>
+      </div>
+
+      <section class="card">
+        <h2>General controls</h2>
+        <label class="check">
+          <input type="checkbox" id="lim-enabled" />
+          <span>Enforce usage limits on tools</span>
+        </label>
+        <p class="hint-text">When unticked, visitors can run tools without limits (for local testing).</p>
+
+        <div class="grid-2">
+          <div>
+            <label for="lim-runs-before-email">Free runs before asking for email</label>
+            <input type="number" id="lim-runs-before-email" min="0" max="100" />
+            <p class="hint-text">Visitors can run this many checks before an email is requested.</p>
+          </div>
+          <div>
+            <label for="lim-warn-percent">Advance warning percentage</label>
+            <input type="number" id="lim-warn-percent" min="10" max="100" />
+            <p class="hint-text">Show a friendly heads-up when used quota reaches this percentage (e.g. 80%).</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Standard visitor allowances</h2>
+        <p class="hint-text">Caps for regular visitors after email confirmation. Set to 0 for no limit.</p>
+        <div class="grid-3">
+          <div>
+            <label for="lim-free-daily">Daily limit (runs/day)</label>
+            <input type="number" id="lim-free-daily" min="0" max="10000" />
+            <p class="hint-text">Resets at midnight UTC.</p>
+          </div>
+          <div>
+            <label for="lim-free-monthly">Monthly limit (runs/month)</label>
+            <input type="number" id="lim-free-monthly" min="0" max="100000" />
+            <p class="hint-text">Resets on the 1st of each month.</p>
+          </div>
+          <div>
+            <label for="lim-free-session">Per-visit limit (runs/visit)</label>
+            <input type="number" id="lim-free-session" min="0" max="10000" />
+            <p class="hint-text">Resets when browser is closed.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Tester allowances (Owner &amp; team)</h2>
+        <label class="check">
+          <input type="checkbox" id="lim-tester-unlimited" />
+          <span>Unlimited runs for testers</span>
+        </label>
+        <p class="hint-text">
+          Testers are recognized by email addresses listed in your private <code>website/.env</code> file (under <code>TESTER_EMAILS</code>).
+          Their addresses are never exposed or stored in public files.
+        </p>
+
+        <div id="tester-caps-row" class="grid-3" style="margin-top: 10px;">
+          <div>
+            <label for="lim-tester-daily">Tester daily limit</label>
+            <input type="number" id="lim-tester-daily" min="0" max="100000" />
+          </div>
+          <div>
+            <label for="lim-tester-monthly">Tester monthly limit</label>
+            <input type="number" id="lim-tester-monthly" min="0" max="500000" />
+          </div>
+          <div>
+            <label for="lim-tester-session">Tester per-visit limit</label>
+            <input type="number" id="lim-tester-session" min="0" max="100000" />
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Individual tool daily caps</h2>
+        <p class="hint-text">
+          Optional daily caps on heavier tools to protect server resources. Set to 0 to use the standard daily visitor limit.
+        </p>
+        <div id="tool-caps-container" class="grid-2"></div>
+      </section>
+
+      <section class="card info-box">
+        <h3>How changes take effect</h3>
+        <p>&bull; Clicking <strong>Save limits</strong> updates <code>content/limits.json</code> immediately.</p>
+        <p>&bull; The website tool service reads this file on every request, so changes work instantly without restarting.</p>
+        <p>&bull; To clear test counters on your local machine, run <code>python -m api.reset_usage</code> in terminal.</p>
+      </section>
+    </main>
 
     <main class="editor" id="editor" hidden>
       <div class="bar">

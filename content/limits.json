@@ -3,10 +3,23 @@
   "enabled": true,
   "warn_percent": 80,
   "runs_before_email": 3,
-  "free": { "daily": 10, "monthly": 100, "session": 10 },
-  "testers": { "unlimited": true, "daily": 500, "monthly": 5000, "session": 500 },
+  "free": {
+    "daily": 10,
+    "monthly": 100,
+    "session": 10
+  },
+  "testers": {
+    "unlimited": true,
+    "daily": 500,
+    "monthly": 5000,
+    "session": 500
+  },
   "tools": {
-    "links": { "daily": 3 },
-    "domain-overview": { "daily": 5 }
+    "links": {
+      "daily": 3
+    },
+    "domain-overview": {
+      "daily": 5
+    }
   }
 }

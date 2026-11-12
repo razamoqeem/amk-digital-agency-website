@@ -102,11 +102,81 @@ def _clean_page(raw: dict) -> dict:
     }
 
 
+LIMITS_PATH = os.path.join(site_build.CONTENT, "limits.json")
+TOOLS_PATH = os.path.join(site_build.CONTENT, "tools.json")
+
+
 @app.get("/api/settings")
 def api_settings():
     s = site_build.load_settings()
     return {"tokens": s.get("tokens", {}), "site_name": s.get("site_name", ""), "site_url": site_build.site_url(),
             "schema_types": ["Organization", "WebSite", "Article", "FAQ", "BreadcrumbList"]}
+
+
+@app.get("/api/limits")
+def api_get_limits():
+    """Read usage limits and available tools list."""
+    limits = site_build.read_json(LIMITS_PATH, default={})
+    tools_cfg = site_build.read_json(TOOLS_PATH, default={})
+    tools = []
+    for t in tools_cfg.get("tools", []):
+        slug = t.get("slug")
+        if slug and slug != "title-generator":
+            tools.append({"slug": slug, "name": t.get("name") or slug})
+    return {"limits": limits, "tools": tools}
+
+
+@app.put("/api/limits")
+async def api_save_limits(request: Request):
+    """Validate and save usage limits to content/limits.json."""
+    raw = await request.json()
+    if not isinstance(raw, dict):
+        raise HTTPException(status_code=400, detail="Invalid data format.")
+
+    def _num(val, default=0, min_val=0, max_val=1000000):
+        try:
+            return max(min_val, min(max_val, int(val)))
+        except (ValueError, TypeError):
+            return default
+
+    enabled = bool(raw.get("enabled", True))
+    warn_percent = _num(raw.get("warn_percent"), default=80, min_val=1, max_val=100)
+    runs_before_email = _num(raw.get("runs_before_email"), default=3, min_val=0)
+
+    free_raw = raw.get("free") if isinstance(raw.get("free"), dict) else {}
+    free = {
+        "daily": _num(free_raw.get("daily"), 10),
+        "monthly": _num(free_raw.get("monthly"), 100),
+        "session": _num(free_raw.get("session"), 10),
+    }
+
+    testers_raw = raw.get("testers") if isinstance(raw.get("testers"), dict) else {}
+    testers = {
+        "unlimited": bool(testers_raw.get("unlimited", True)),
+        "daily": _num(testers_raw.get("daily"), 500),
+        "monthly": _num(testers_raw.get("monthly"), 5000),
+        "session": _num(testers_raw.get("session"), 500),
+    }
+
+    tools_raw = raw.get("tools") if isinstance(raw.get("tools"), dict) else {}
+    tools = {}
+    for slug, conf in tools_raw.items():
+        if isinstance(conf, dict) and "daily" in conf:
+            d = _num(conf.get("daily"), 0)
+            if d > 0:
+                tools[str(slug)] = {"daily": d}
+
+    clean_limits = {
+        "_help": "Free-use limits for the Website tools. Edit the numbers and save: the service reads this file again on the next request, no restart needed. 0 means no limit for that period. Tester email addresses are NOT kept here: put them in .env as TESTER_EMAILS.",
+        "enabled": enabled,
+        "warn_percent": warn_percent,
+        "runs_before_email": runs_before_email,
+        "free": free,
+        "testers": testers,
+        "tools": tools,
+    }
+    site_build.write_json(LIMITS_PATH, clean_limits)
+    return {"saved": True, "limits": clean_limits}
 
 
 @app.get("/api/pages")

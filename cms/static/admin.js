@@ -93,6 +93,11 @@
 
   /* ── Editor ── */
   function showEditor() {
+    $('limits-editor').hidden = true;
+    var layout = document.querySelector('.layout');
+    if (layout) layout.classList.remove('limits-active');
+    var btnLim = $('btn-limits');
+    if (btnLim) btnLim.removeAttribute('aria-current');
     $('editor').hidden = false;
     $('checks-panel').hidden = false;
     $('editor-title').textContent = currentSlug === 'new' ? 'New page' : 'Editing ' + pagePath(currentSlug);
@@ -371,6 +376,126 @@
     });
   }
 
+  /* ── Usage limits editor ── */
+  var availableTools = [];
+
+  function openLimits() {
+    api('GET', '/api/limits').then(function (r) {
+      if (!r.ok) return;
+      var limitsData = r.data.limits || {};
+      availableTools = r.data.tools || [];
+
+      // Hide page editor and checks panel
+      page = null;
+      currentSlug = null;
+      $('editor').hidden = true;
+      $('checks-panel').hidden = true;
+      var layout = document.querySelector('.layout');
+      if (layout) layout.classList.add('limits-active');
+
+      // Clear active states on pages list and mark limits button active
+      var pageBtns = document.querySelectorAll('#page-list button');
+      Array.prototype.forEach.call(pageBtns, function (b) { b.removeAttribute('aria-current'); });
+      var btnLim = $('btn-limits');
+      if (btnLim) btnLim.setAttribute('aria-current', 'true');
+
+      $('limits-editor').hidden = false;
+      $('limits-save-status').textContent = '';
+
+      // Populate form fields
+      $('lim-enabled').checked = limitsData.enabled !== false;
+      $('lim-warn-percent').value = limitsData.warn_percent !== undefined ? limitsData.warn_percent : 80;
+      $('lim-runs-before-email').value = limitsData.runs_before_email !== undefined ? limitsData.runs_before_email : 3;
+
+      var free = limitsData.free || {};
+      $('lim-free-daily').value = free.daily !== undefined ? free.daily : 10;
+      $('lim-free-monthly').value = free.monthly !== undefined ? free.monthly : 100;
+      $('lim-free-session').value = free.session !== undefined ? free.session : 10;
+
+      var testers = limitsData.testers || {};
+      var isUnlimited = testers.unlimited !== false;
+      $('lim-tester-unlimited').checked = isUnlimited;
+      $('lim-tester-daily').value = testers.daily !== undefined ? testers.daily : 500;
+      $('lim-tester-monthly').value = testers.monthly !== undefined ? testers.monthly : 5000;
+      $('lim-tester-session').value = testers.session !== undefined ? testers.session : 500;
+      $('tester-caps-row').style.opacity = isUnlimited ? '0.5' : '1';
+
+      // Render tool caps
+      var cont = $('tool-caps-container');
+      cont.textContent = '';
+      var configuredTools = limitsData.tools || {};
+      availableTools.forEach(function (t) {
+        var card = el('div', { class: 'tool-cap-item' });
+        var lbl = el('label', { for: 'cap-' + t.slug }, t.name + ' ');
+        lbl.appendChild(el('span', { class: 'tool-slug' }, '(' + t.slug + ')'));
+        var val = (configuredTools[t.slug] && configuredTools[t.slug].daily) || 0;
+        var inp = el('input', {
+          type: 'number',
+          id: 'cap-' + t.slug,
+          min: '0',
+          max: '10000',
+          value: String(val)
+        });
+        card.appendChild(lbl);
+        card.appendChild(inp);
+        cont.appendChild(card);
+      });
+    });
+  }
+
+  function saveLimits() {
+    var btn = $('btn-save-limits');
+    btn.disabled = true;
+    $('limits-save-status').textContent = 'Saving…';
+
+    var freeDaily = parseInt($('lim-free-daily').value, 10);
+    var freeMonthly = parseInt($('lim-free-monthly').value, 10);
+    var freeSession = parseInt($('lim-free-session').value, 10);
+    var testerDaily = parseInt($('lim-tester-daily').value, 10);
+    var testerMonthly = parseInt($('lim-tester-monthly').value, 10);
+    var testerSession = parseInt($('lim-tester-session').value, 10);
+    var warnPct = parseInt($('lim-warn-percent').value, 10);
+    var beforeEmail = parseInt($('lim-runs-before-email').value, 10);
+
+    var toolsObj = {};
+    availableTools.forEach(function (t) {
+      var inp = $('cap-' + t.slug);
+      if (inp) {
+        var v = parseInt(inp.value, 10);
+        if (v > 0) {
+          toolsObj[t.slug] = { daily: v };
+        }
+      }
+    });
+
+    var payload = {
+      enabled: $('lim-enabled').checked,
+      warn_percent: isNaN(warnPct) ? 80 : warnPct,
+      runs_before_email: isNaN(beforeEmail) ? 3 : beforeEmail,
+      free: {
+        daily: isNaN(freeDaily) ? 10 : freeDaily,
+        monthly: isNaN(freeMonthly) ? 100 : freeMonthly,
+        session: isNaN(freeSession) ? 10 : freeSession
+      },
+      testers: {
+        unlimited: $('lim-tester-unlimited').checked,
+        daily: isNaN(testerDaily) ? 500 : testerDaily,
+        monthly: isNaN(testerMonthly) ? 5000 : testerMonthly,
+        session: isNaN(testerSession) ? 500 : testerSession
+      },
+      tools: toolsObj
+    };
+
+    api('PUT', '/api/limits', payload).then(function (r) {
+      btn.disabled = false;
+      if (r.ok && r.data.saved) {
+        $('limits-save-status').textContent = 'Saved. Takes effect immediately on next tool run.';
+      } else {
+        $('limits-save-status').textContent = 'Save failed. Check input values.';
+      }
+    });
+  }
+
   /* ── Start ── */
   ['f-title', 'f-desc', 'f-slug', 'f-canonical', 'f-og-title', 'f-og-desc', 'f-og-image'].forEach(function (id) {
     $(id).addEventListener('input', changed);
@@ -381,6 +506,11 @@
   $('btn-save').addEventListener('click', save);
   $('btn-build').addEventListener('click', build);
   $('btn-new').addEventListener('click', newPage);
+  $('btn-limits').addEventListener('click', openLimits);
+  $('btn-save-limits').addEventListener('click', saveLimits);
+  $('lim-tester-unlimited').addEventListener('change', function () {
+    $('tester-caps-row').style.opacity = this.checked ? '0.5' : '1';
+  });
 
   api('GET', '/api/settings').then(function (r) {
     settings = r.data;
