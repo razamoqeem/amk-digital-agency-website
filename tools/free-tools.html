@@ -48,7 +48,7 @@
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: 14px 24px;
-      display: flex; align-items: center; gap: 16px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
     }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; }
     .brand .dot { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg,var(--accent),var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; }
@@ -171,13 +171,6 @@
     .geo-cell .geo-score { font-size: 18px; font-weight: 900; }
     .geo-cell .geo-label { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
-    /* ── AIEO METER ───────────────────────────────────── */
-    .aieo-meter { margin-top: 12px; }
-    .aieo-meter-bar { height: 8px; border-radius: 4px; background: var(--border); margin: 6px 0; overflow: hidden; }
-    .aieo-meter-fill { height: 100%; border-radius: 4px; transition: width 1s ease-out; }
-    .aieo-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; }
-    .aieo-row .key { color: var(--muted); }
-    .aieo-row .pct { font-weight: 700; }
 
     /* ── INSTANT AUDIT FINDINGS ──────────────────────────── */
     .audit-finding { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.04); font-size: 12px; }
@@ -207,7 +200,9 @@
     </div>
     <span class="spacer"></span>
     <a href="#" data-app-path="/login" hidden class="btn-ghost">← Workspace</a>
-    <a href="/" class="btn-primary">🚀 Go Pro</a>
+    <a href="/" class="btn-ghost">Home</a>
+    <a href="/docs/" class="btn-ghost">Docs</a>
+    <a href="/company/" class="btn-ghost">Company</a>
   </nav>
 
   <!-- HERO -->
@@ -215,7 +210,7 @@
     <h1>Free SEO & Digital Analysis Tools</h1>
     <p>Professional-grade mini-analysers. Every result comes from a real check of the page you enter. No estimated or invented numbers.</p>
     <div class="hero-pills">
-      <span class="hero-pill green">✓ 5 Free Tools</span>
+      <span class="hero-pill green">✓ Free to try</span>
       <span class="hero-pill">No API Keys</span>
       <span class="hero-pill">No Credit Card</span>
     </div>
@@ -319,8 +314,8 @@
         <div class="tool-icon" style="background: rgba(167,139,250,.12);">🤖</div>
         <div>
           <h3>AIEO Analyser</h3>
-          <p>AI Engine Optimisation — visibility in ChatGPT, Gemini, Perplexity</p>
-          <span class="data-badge live">● Live crawl signals — score is a disclosed model</span>
+          <p>Page signals that AI answer engines such as ChatGPT, Gemini and Perplexity can read</p>
+          <span class="data-badge live">● Live data: real page crawl</span>
         </div>
         <span class="tool-badge badge-limited">BETA</span>
       </div>
@@ -329,21 +324,22 @@
           <label class="tool-label">Website URL</label>
           <input class="tool-input" id="aieo-url" type="url" placeholder="https://yoursite.com" />
         </div>
-        <button class="tool-run-btn" onclick="runAIEOTool()">🤖 Analyse AI Visibility</button>
-        <div class="tool-loading" id="aieo-loading"><span class="spin"></span> Scanning AI engine signals…</div>
+        <button class="tool-run-btn" onclick="runAIEOTool()">🤖 Check AI readiness signals</button>
+        <div class="tool-loading" id="aieo-loading"><span class="spin"></span> Reading the page…</div>
         <div class="tool-result" id="aieo-result">
           <div class="result-score-row">
             <div class="score-circle" id="aieo-score-el">—</div>
             <div class="score-desc">
-              <h4 id="aieo-grade">AIEO Score</h4>
-              <p id="aieo-summary">AI engine readiness assessment</p>
+              <h4 id="aieo-grade">Checks passed</h4>
+              <p id="aieo-summary"></p>
             </div>
           </div>
-          <div class="aieo-meter" id="aieo-meters"></div>
           <div class="result-metric"><span class="lbl">llms.txt Present</span><span class="val" id="aieo-llms">—</span></div>
           <div class="result-metric"><span class="lbl">Structured Data</span><span class="val" id="aieo-schema">—</span></div>
-          <div class="result-metric"><span class="lbl">E-E-A-T Signals</span><span class="val" id="aieo-eeat">—</span></div>
+          <div class="result-metric"><span class="lbl">Organisation or person markup</span><span class="val" id="aieo-eeat">—</span></div>
           <div class="result-metric"><span class="lbl">Structured Data Types</span><span class="val" id="aieo-types">—</span></div>
+          <div class="result-metric"><span class="lbl">Social preview tags</span><span class="val" id="aieo-og">—</span></div>
+          <div class="result-metric"><span class="lbl">Words on page</span><span class="val" id="aieo-words">—</span></div>
         </div>
         <div class="limit-banner" id="aieo-error" style="background: rgba(255,92,108,.1); border-color: rgba(255,92,108,.3); display:none;"></div>
       </div>
@@ -429,10 +425,46 @@
       </div>
     </div>
 
+    <!-- DOMAIN RANK (shown only when the service has a key) -->
+    <div class="tool-card" id="card-rank" hidden>
+      <div class="tool-card-accent" style="background: linear-gradient(90deg, #6c63ff, #1dd1a1);"></div>
+      <div class="tool-card-header">
+        <div class="tool-icon" style="background: rgba(108,99,255,.15);">📈</div>
+        <div>
+          <h3>Domain Rank Checker</h3>
+          <p>A public link-based score from 0 to 10, with the number of sites linking in</p>
+          <span class="data-badge live">● Live data: Open PageRank</span>
+        </div>
+        <span class="tool-badge badge-free">FREE</span>
+      </div>
+      <div class="tool-card-body">
+        <div class="tool-input-group">
+          <label class="tool-label">Domain or URL</label>
+          <input class="tool-input" id="rank-url" type="url" placeholder="https://example.com" />
+        </div>
+        <button class="tool-run-btn" onclick="runRankTool()">📈 Check Domain Rank</button>
+        <div class="tool-loading" id="rank-loading"><span class="spin"></span> Looking up the rank record…</div>
+        <div class="tool-result" id="rank-result">
+          <div class="result-score-row">
+            <div class="score-circle" id="rank-score-el">—</div>
+            <div class="score-desc">
+              <h4>Domain rank (0 to 10)</h4>
+              <p id="rank-summary"></p>
+            </div>
+          </div>
+          <div class="result-metric"><span class="lbl">Position among all ranked domains</span><span class="val" id="rank-position">—</span></div>
+          <div class="result-metric"><span class="lbl">Referring domains</span><span class="val" id="rank-refs">—</span></div>
+          <div class="result-metric"><span class="lbl">Data date</span><span class="val" id="rank-date">—</span></div>
+          <div class="result-tags"><span class="tag tag-info">Source: Open PageRank. This is not a Google score.</span></div>
+        </div>
+        <div class="limit-banner" id="rank-error" style="background: rgba(255,92,108,.1); border-color: rgba(255,92,108,.3); display:none;"></div>
+      </div>
+    </div>
+
   </div><!-- /tools-grid -->
 
   <footer class="page-footer">
-    © 2026 AMK Digital Agency — Free tools for the digital marketing community. <a href="/" style="color:var(--accent);">Explore Full Suite →</a>
+    © 2026 AMK Digital Agency — Free tools for the digital marketing community. <a href="/privacy/" style="color:var(--accent);">Privacy</a> · <a href="/terms/" style="color:var(--accent);">Terms</a>
   </footer>
 
   <script>
@@ -480,7 +512,7 @@
   }
 
   // ── Tools service ────────────────────────────────────────
-  const TOOL_NAMES = { 'seo-audit': 'SEO audit', 'site-scan': 'Page and site scan', 'domain-age': 'Domain age' };
+  const TOOL_NAMES = { 'seo-audit': 'SEO audit', 'site-scan': 'Page and site scan', 'domain-age': 'Domain age', 'domain-rank': 'Domain rank' };
 
   function showRuns(all) {
     const line = document.getElementById('runs-line');
@@ -494,7 +526,10 @@
     try {
       const res = await fetch(TOOLS_API + '/v1/usage', { credentials: 'include' });
       const json = await res.json();
-      if (json.ok) { Object.assign(RUNS, json.runs); showRuns(RUNS); }
+      if (json.ok) {
+        Object.assign(RUNS, json.runs); showRuns(RUNS);
+        if (json.runs['domain-rank']) document.getElementById('card-rank').hidden = false;
+      }
     } catch (e) { /* the status line simply stays hidden */ }
   }
 
@@ -522,8 +557,12 @@
       const btn = mk('button', 'Send confirmation link', 'width:auto;');
       btn.type = 'submit'; btn.className = 'tool-run-btn';
       const note = mk('p', '', 'margin-top:10px; font-size:13px; color:var(--muted);');
+      const priv = mk('p', 'We use your email to send the confirmation link and to count your free runs. ', 'margin-top:10px; font-size:13px; color:var(--muted);');
+      const privLink = mk('a', 'Privacy');
+      privLink.href = '/privacy/'; privLink.style.color = 'var(--accent)';
+      priv.appendChild(privLink);
       form.append(input, btn);
-      panel.append(form, note);
+      panel.append(form, priv, note);
       form.addEventListener('submit', async event => {
         event.preventDefault();
         btn.disabled = true;
@@ -714,7 +753,7 @@
     }
   }
 
-  // ── 4. GEO ANALYSER ─────────────────────────────────────
+  // ── AI readiness checks ─────────────────────────────────────
   async function runAIEOTool() {
     const raw = document.getElementById('aieo-url').value.trim();
     if (!raw) { document.getElementById('aieo-url').focus(); return; }
@@ -738,36 +777,23 @@
       const types = sd.types || [];
       const og = social.open_graph || {};
 
-      // Every input below is a real crawl fact; the 0-100 readouts are a disclosed
-      // model built on top of them (like the dashboard's Authority Score), not
-      // literal per-engine visibility metrics — no AI engine publishes those.
-      const entityClarity = types.some(t => ['Organization', 'Person', 'LocalBusiness'].includes(t)) ? 82 : (types.length ? 50 : 18);
-      const contentAuthority = onPage.word_count >= 1200 ? 80 : onPage.word_count >= 600 ? 55 : 28;
-      const structuredDataPct = Math.min(100, (sd.blocks || 0) * 25);
-      const citationSignals = Math.min(100, Object.keys(og).length * 25 + (social.twitter && social.twitter.card ? 15 : 0));
-      const signals = [
-        { name: 'Entity Clarity',    val: entityClarity,      color: '#6c63ff' },
-        { name: 'Content Authority', val: contentAuthority,   color: '#00e5c0' },
-        { name: 'Structured Data',   val: structuredDataPct,  color: '#ffb020' },
-        { name: 'Citation Signals',  val: citationSignals,    color: '#1dd1a1' },
-      ];
-      const score = Math.round(signals.reduce((a, s) => a + s.val, 0) / signals.length);
-
+      // Plain yes / no checks from the crawl. No score is modelled on top of them.
+      const hasEntity = types.some(t => ['Organization', 'Person', 'LocalBusiness'].includes(t));
+      const ogCount = Object.keys(og).length;
+      const checks = [!!llms.present, (sd.blocks || 0) > 0, hasEntity, ogCount > 0];
+      const passed = checks.filter(Boolean).length;
       const el = document.getElementById('aieo-score-el');
-      el.textContent = score;
-      el.className = 'score-circle ' + scoreClass(score);
-      document.getElementById('aieo-grade').textContent = score >= 65 ? 'AI-Optimised' : score >= 40 ? 'Partially Visible' : 'Low AI Visibility';
-      document.getElementById('aieo-summary').textContent = `${scan.domain || domain} · AI Engine Readiness (modeled from real crawl signals)`;
-
-      document.getElementById('aieo-meters').innerHTML = signals.map(s => `
-        <div class="aieo-row"><span class="key">${s.name}</span><span class="pct" style="color:${s.color}">${s.val}%</span></div>
-        <div class="aieo-meter-bar"><div class="aieo-meter-fill" style="width:${s.val}%;background:${s.color}"></div></div>
-      `).join('');
+      el.textContent = passed + '/' + checks.length;
+      el.className = 'score-circle ' + (passed === checks.length ? 'score-good' : passed >= 2 ? 'score-warn' : 'score-bad');
+      document.getElementById('aieo-grade').textContent = 'Checks passed';
+      document.getElementById('aieo-summary').textContent = (scan.domain || domain) + ': llms.txt, structured data, organisation or person markup, social preview tags';
 
       document.getElementById('aieo-llms').innerHTML = llms.present ? '<span class="val good">✓ Present</span>' : '<span class="val bad">✗ Missing — add /llms.txt</span>';
       document.getElementById('aieo-schema').textContent = (sd.blocks || 0) + ' block' + (sd.blocks === 1 ? '' : 's') + ', ' + types.length + ' type' + (types.length === 1 ? '' : 's');
-      document.getElementById('aieo-eeat').innerHTML = entityClarity >= 60 ? '<span class="val good">Strong Signals</span>' : '<span class="val warn">Needs Improvement</span>';
+      document.getElementById('aieo-eeat').innerHTML = hasEntity ? '<span class="val good">✓ Found</span>' : '<span class="val warn">Not found</span>';
       document.getElementById('aieo-types').textContent = types.length ? types.join(', ') : 'None found';
+      document.getElementById('aieo-og').textContent = ogCount ? ogCount + ' Open Graph tag' + (ogCount === 1 ? '' : 's') : 'None found';
+      document.getElementById('aieo-words').textContent = onPage.word_count != null ? onPage.word_count.toLocaleString() + ' words' : '—';
 
       showResult('aieo');
     } catch (err) {
@@ -777,11 +803,7 @@
     }
   }
 
-  // ── 6. SERP ANALYSIS ─────────────────────────────────────
-  // No free, ToS-compliant way to pull live Google rankings — this renders an
-  // illustrative example only. Domains use the IANA-reserved .example TLD
-  // (RFC 2606, guaranteed never to resolve to a real site) so nothing here
-  // can be mistaken for a real business's actual ranking position.
+  // ── Page SEO check ───────────────────────────────────────
   async function runSEOTool() {
     const raw = document.getElementById('seo-url').value.trim();
     const kw = document.getElementById('seo-kw').value.trim();
@@ -846,7 +868,7 @@
     }
   }
 
-  // ── 8. DOMAIN AUTHORITY CHECKER ──────────────────────────
+  // ── Domain age ──────────────────────────
   async function runAgeTool() {
     const raw = document.getElementById('age-url').value.trim();
     if (!raw) { document.getElementById('age-url').focus(); return; }
@@ -891,7 +913,33 @@
     }
   }
 
-  // ── 10. SPAM SCORE CHECKER ───────────────────────────────
+  // ── Domain rank ──────────────────────────────────────────
+  async function runRankTool() {
+    const raw = document.getElementById('rank-url').value.trim();
+    if (!raw) { document.getElementById('rank-url').focus(); return; }
+    const domain = normUrl(raw);
+    const errEl = document.getElementById('rank-error');
+    errEl.style.display = 'none';
+    document.getElementById('rank-loading').classList.add('active');
+    document.getElementById('rank-result').classList.remove('active');
+    try {
+      const data = await callTool('domain-rank', { domain });
+      document.getElementById('rank-loading').classList.remove('active');
+      const score = Number(data.rank_score);
+      const el = document.getElementById('rank-score-el');
+      el.textContent = score;
+      el.className = 'score-circle ' + (score >= 6 ? 'score-good' : score >= 3 ? 'score-warn' : 'score-bad');
+      document.getElementById('rank-summary').textContent = data.domain;
+      document.getElementById('rank-position').textContent = data.global_position != null ? '#' + Number(data.global_position).toLocaleString() : 'Not published';
+      document.getElementById('rank-refs').textContent = data.referring_domains != null ? Number(data.referring_domains).toLocaleString() : 'Not published';
+      document.getElementById('rank-date').textContent = data.data_date || 'Not published';
+      showResult('rank');
+    } catch (err) {
+      document.getElementById('rank-loading').classList.remove('active');
+      errEl.style.display = 'block';
+      errEl.innerHTML = esc(err.message);
+    }
+  }
   </script>
 </body>
 </html>

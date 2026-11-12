@@ -1,7 +1,8 @@
 """
 AMK Digital Agency Website: tools service.
 
-Three real tools (SEO audit, site scan, domain age) behind a free-use limit:
+Real tools (SEO audit, site scan, domain age, and domain rank when a key is set)
+behind a free-use limit:
 3 runs per tool with no sign-up, 7 more after confirming an email address, then
 the visitor is sent to the App. Also serves the built Website (public/) so the
 whole site can be viewed and tested on one local address.
@@ -26,6 +27,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 
+from .domain_rank import DomainRankError, get_domain_rank
 from .domain_age import DomainAgeError, clean_domain, fetch_iana_list, get_domain_age
 from .engine.deep_audit import CLIENT_ERROR_KINDS, run_deep_audit
 from .engine.url_safety import UnsafeURLError, validate_public_url
@@ -71,9 +73,13 @@ RATE_PER_MINUTE = _int_setting("TOOLS_RATE_PER_MINUTE", 20)
 CACHE_SECONDS = _int_setting("TOOLS_CACHE_HOURS", 24) * 3600
 # Self-chosen daily ceilings that protect the machine this runs on. Not provider quotas.
 DAILY_LIMITS = {"crawl": _int_setting("TOOLS_CRAWL_DAILY_LIMIT", 500),
-                "registry": _int_setting("TOOLS_REGISTRY_DAILY_LIMIT", 500)}
+                "registry": _int_setting("TOOLS_REGISTRY_DAILY_LIMIT", 500),
+                "rank": _int_setting("TOOLS_RANK_DAILY_LIMIT", 500)}
 TURNSTILE_SECRET = os.getenv("TURNSTILE_SECRET", "").strip()
+OPEN_PAGERANK_KEY = os.getenv("OPEN_PAGERANK_KEY", "").strip()
 TOOLS = {"seo-audit": "crawl", "site-scan": "crawl", "domain-age": "registry"}
+if OPEN_PAGERANK_KEY:                      # domain rank is switched on only when a key is set
+    TOOLS["domain-rank"] = "rank"
 
 DATA_DIR = Path(os.getenv("TOOLS_DATA_DIR", "") or (ROOT / "api" / "data"))
 store = Store(DATA_DIR / "tools.db")
@@ -386,6 +392,33 @@ async def domain_age(request: Request):
 
     return await run_in_threadpool(_run_tool, request, "domain-age", "age:" + domain,
                                    str(body.get("turnstile_token") or ""), work, shape)
+
+
+# ── Domain rank ────────────────────────────────────────────────────────────
+_RANK_STATUS = {"not_found": 404, "busy": 503, "lookup_failed": 422}
+
+
+@app.post("/v1/tools/domain-rank")
+async def domain_rank(request: Request):
+    from starlette.concurrency import run_in_threadpool
+    body = await _body(request)
+    vid, is_new = _visitor(request)
+    if "domain-rank" not in TOOLS:
+        return _fail(request, vid, is_new, "domain-rank", 404, "not_available",
+                     "This tool is not switched on yet.")
+    try:
+        domain = clean_domain(str(body.get("domain") or ""))
+    except DomainAgeError as exc:
+        return _fail(request, vid, is_new, "domain-rank", 400, exc.code, exc.message)
+
+    def work():
+        try:
+            return get_domain_rank(domain, OPEN_PAGERANK_KEY)
+        except DomainRankError as exc:
+            raise ToolFailure(_RANK_STATUS.get(exc.code, 422), exc.code, exc.message)
+
+    return await run_in_threadpool(_run_tool, request, "domain-rank", "rank:" + domain,
+                                   str(body.get("turnstile_token") or ""), work, lambda data: data)
 
 
 # ── Usage, leads, health ───────────────────────────────────────────────────

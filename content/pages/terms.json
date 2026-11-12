@@ -1,0 +1,91 @@
+{
+  "slug": "terms",
+  "title": "Terms of use | AMK Digital Agency",
+  "description": "Terms for using the AMK Digital Agency website and its free SEO tools. This is a draft awaiting the owner's review and is not final legal text.",
+  "canonical": "",
+  "noindex": true,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Terms of use",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Draft. These terms are awaiting the owner's review and are not final legal text.",
+      "size": "md",
+      "color": "muted",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The free tools",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Each tool has a limited number of free runs. The current numbers are shown on the tools page.",
+        "Results come from automated checks of public pages and public records. They are information, not a guarantee of search rankings or business results.",
+        "A tool can be paused, changed or removed at any time."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Fair use",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Use the tools to check websites in the normal way, one request at a time.",
+        "Do not use scripts or other automated means to run the tools.",
+        "Do not try to make the tools reach private or internal systems."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Still to be confirmed",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "The legal name and address of the business: [TO BE CONFIRMED]",
+        "Liability, governing law and how disputes are handled: [TO BE CONFIRMED]",
+        "Paid plans, prices and refunds: [TO BE CONFIRMED]",
+        "Contact address: [TO BE CONFIRMED]"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}
