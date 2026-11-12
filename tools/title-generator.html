@@ -5,170 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Free Title Generator for SEO | AMK Digital Agency</title>
   <meta name="description" content="Free title generator: enter a keyword and get ready-made title patterns for blog posts and landing pages, with a character count for each. Runs in your browser." />
-  <link rel="stylesheet" href="/css/base.css?v=2026.06.14" />
-  <link rel="stylesheet" href="/tools/tools.css?v=2026.06.14" />
-  <script src="/js/theme-engine.js?v=2026.06.14"></script>
+  <script src="/js/theme-engine.js"></script>
+  <link rel="icon" href="/assets/logo.png" />
+  <link rel="stylesheet" href="/tools/overview.css" />
+  <script src="/js/config.js"></script>
+  <script src="/js/title-generator.js" defer></script>
 </head>
 <body>
-  <div class="tool-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="top">
+    <a class="brand" href="/"><img src="/assets/logo.png" alt="" width="28" height="28" /> AMK Digital Agency</a>
+    <nav aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/tools/">Free Tools &amp; AI Tools</a>
+      <a href="/docs/">Docs</a>
+      <a href="/docs/how-to-use-the-free-tools/">How to use</a>
+      <button type="button" class="theme-toggle-btn" aria-label="Toggle light or dark theme">🌙 Theme</button>
+    </nav>
+  </header>
 
-    <!-- ═══ HEADER ═══ -->
-    <header class="tool-header">
-      <div class="container">
-        <a href="/" class="tool-header-brand">
-          <img src="/assets/logo.png" alt="AMK" />
-          <span>AMK <span class="sub">Digital Agency</span></span>
-        </a>
-        <nav class="tool-header-nav">
-          <a href="/tools/free-tools.html#seo-audit">SEO Audit</a>
-          <a href="/tools/title-generator.html" class="active-tool">Title Generator</a>
-          <a href="/tools/keyword-generator.html">Keywords</a>
-          <a href="/tools/article-writer.html">Article Writer</a>
-        </nav>
+  <main id="main" class="wrap">
+    <section class="hero">
+      <h1>Title Generator</h1>
+      <p>Enter a focus keyword to generate high-converting title variations for articles, case studies, and landing pages with live character counts. Runs locally in your browser with zero limits.</p>
+      <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom: 24px;">
+        <span class="tag LOW">✦ Free to Use</span>
+        <span class="tag">🎯 Character Counts</span>
+        <span class="tag good">🔄 Unlimited Browser Tool</span>
       </div>
-    </header>
 
-    <!-- ═══ HERO ═══ -->
-    <section class="tool-hero">
-      <div class="container">
-        <div class="tool-hero-icon">✦</div>
-        <h1>Title Generator</h1>
-        <p>Enter a keyword and get ready-made title patterns for blog posts and landing pages, each with a character count. It runs in your browser, with no sign-up and no limit.</p>
-        <div class="tool-hero-badges">
-          <span class="tool-badge accent">✦ Free to Use</span>
-          <span class="tool-badge">🎯 Character counts</span>
-          <span class="tool-badge">🔄 No limit</span>
+      <div class="panel" style="max-width: 680px; margin: 0 auto; text-align: left; padding: 24px;">
+        <div style="margin-bottom: 16px;">
+          <label for="focusKeyword" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Focus Keyword</label>
+          <input type="text" id="focusKeyword" class="tool-input" style="width:100%;" placeholder="e.g. cloud automation suite, AI marketing tools" />
         </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; margin-bottom:16px;">
+          <div>
+            <label for="contentType" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Content Intent Profile</label>
+            <select id="contentType" class="tool-input" style="width:100%;">
+              <option value="blog post">In-Depth Blog Blueprint</option>
+              <option value="case study">Data-Driven Case Study</option>
+              <option value="landing page">High-Conversion Landing Page</option>
+            </select>
+          </div>
+          <div>
+            <label for="tone" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Tone Alignment</label>
+            <select id="tone" class="tool-input" style="width:100%;">
+              <option value="authoritative">Authoritative &amp; Strategic</option>
+              <option value="educational">Data-Backed Educational</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Optional Parameters -->
+        <details style="margin-bottom: 20px;">
+          <summary style="cursor:pointer; font-size:var(--fs-sm); font-weight:600; color:var(--accent);">Optional Creative Parameters (Audience &amp; Secondary Keywords)</summary>
+          <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);">
+            <div style="margin-bottom: 14px;">
+              <label for="secondaryKeywords" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Secondary Keywords (comma separated)</label>
+              <input type="text" id="secondaryKeywords" class="tool-input" style="width:100%;" placeholder="e.g. best tools, pricing, review" />
+            </div>
+            <div>
+              <label for="audience" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Target Audience</label>
+              <input type="text" id="audience" class="tool-input" style="width:100%;" placeholder="e.g. enterprise managers, solo founders" />
+            </div>
+          </div>
+        </details>
+
+        <button type="button" class="btn" id="generate-btn" style="width:100%;" onclick="runTitleGenerator()">
+          ✦ Generate Title Variations
+        </button>
       </div>
     </section>
 
-    <!-- ═══ WORKSPACE ═══ -->
-    <main class="tool-workspace">
-      <div class="container">
+    <!-- Results Section -->
+    <section id="title-results-container" style="max-width: 680px; margin: 32px auto 0; display:none;">
+      <h2>Generated Title Patterns</h2>
+      <p class="meta">Target search snippet length is 50–60 characters. Titles exceeding 60 characters are flagged in amber.</p>
+      <div id="title-results"></div>
+    </section>
+  </main>
 
-        <div class="tool-form-card">
-          <!-- Main Fields -->
-          <div class="tool-form-group">
-            <label class="tool-form-label">Focus Keyword</label>
-            <input type="text" id="focusKeyword" class="tool-form-input" placeholder="e.g. cloud automation suite, AI marketing tools" />
-          </div>
-
-          <div class="tool-form-row" style="margin-bottom:20px;">
-            <div class="tool-form-group" style="margin-bottom:0;">
-              <label class="tool-form-label">Content Intent Profile</label>
-              <select id="contentType" class="tool-form-select">
-                <option value="blog post">In-Depth Blog Blueprint</option>
-                <option value="case study">Data-Driven Case Study</option>
-                <option value="landing page">High-Conversion Landing Page</option>
-              </select>
-            </div>
-            <div class="tool-form-group" style="margin-bottom:0;">
-              <label class="tool-form-label">Tone Alignment</label>
-              <select id="tone" class="tool-form-select">
-                <option value="authoritative">Authoritative & Strategic</option>
-                <option value="educational">Data-Backed Educational</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Advanced (collapsed) -->
-          <div style="margin-bottom:20px; border-top:1px solid var(--border); padding-top:16px;">
-            <button type="button" class="tool-advanced-toggle" onclick="toggleAdvanced()">
-              <span id="adv-icon">▶</span> Advanced Creative Parameters (Optional)
-            </button>
-            <div id="advanced-fields" style="display:none; margin-top:16px;">
-              <div class="tool-form-row" style="margin-bottom:16px;">
-                <div class="tool-form-group" style="margin-bottom:0;">
-                  <label class="tool-form-label">Secondary Keywords</label>
-                  <input type="text" id="secondaryKeywords" class="tool-form-input" placeholder="e.g. best tools, pricing, review" />
-                </div>
-                <div class="tool-form-group" style="margin-bottom:0;">
-                  <label class="tool-form-label">Target Audience</label>
-                  <input type="text" id="audience" class="tool-form-input" placeholder="e.g. enterprise managers" />
-                </div>
-              </div>
-              <div class="tool-form-group" style="margin-bottom:0;">
-                <label class="tool-form-label">Additional Context / Core Topic Brief</label>
-                <textarea id="context" class="tool-form-textarea" rows="2" placeholder="Describe the specific angle or key elements you want to emphasize..."></textarea>
-              </div>
-            </div>
-          </div>
-
-          <button class="tool-cta-btn" id="generate-btn" onclick="generateTitles()">
-            ✦ Generate Title Variations
-          </button>
-        </div>
-
-        <!-- Results -->
-        <div id="title-results" style="display:none;"></div>
-
-      </div>
-    </main>
-
-    <!-- ═══ FOOTER ═══ -->
-    <footer class="tool-footer">
-      <div class="container">
-        <div class="tool-footer-links">
-          <a href="/">← Back to Home</a>
-          <a href="/tools/free-tools.html#seo-audit">SEO Audit</a>
-          <a href="/tools/keyword-generator.html">Keyword Generator</a>
-          <a href="/tools/article-writer.html">Article Writer</a>
-        </div>
-        <div class="tool-footer-copy">© 2026 AMK Digital Agency. All rights reserved.</div>
-      </div>
-    </footer>
-  </div>
+  <footer class="foot">&copy; 2026 AMK Digital Agency &middot; <span>Beta / Preview</span></footer>
 
   <script>
-    const API_BASE = `${window.location.protocol}//${window.location.host}`;
-    const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
-
-    function toggleAdvanced() {
-      const el = document.getElementById('advanced-fields');
-      const icon = document.getElementById('adv-icon');
-      if (el.style.display === 'none') {
-        el.style.display = 'block';
-        icon.innerText = '▼';
-      } else {
-        el.style.display = 'none';
-        icon.innerText = '▶';
-      }
-    }
-
-    // Runs in the browser. No server, no AI, no limit.
-    function generateTitles() {
-      const kw = document.getElementById('focusKeyword').value.trim();
-      const resultsDiv = document.getElementById('title-results');
-      resultsDiv.style.display = 'block';
+    function runTitleGenerator() {
+      var kw = document.getElementById('focusKeyword').value.trim();
+      var container = document.getElementById('title-results-container');
+      var resultsDiv = document.getElementById('title-results');
       if (!kw) {
-        resultsDiv.textContent = 'Please enter a focus keyword.';
+        alert('Please enter a focus keyword first.');
         return;
       }
-      const secondaryVal = document.getElementById('secondaryKeywords').value.trim();
-      const results = window.AMKTitleGenerator.generateTitles({
+      container.style.display = 'block';
+      var secondaryVal = document.getElementById('secondaryKeywords').value.trim();
+      var results = window.AMKTitleGenerator.generateTitles({
         keyword: kw,
         audience: document.getElementById('audience').value,
         contentType: document.getElementById('contentType').value,
-        secondary: secondaryVal ? secondaryVal.split(',').map(s => s.trim()).filter(Boolean) : []
+        secondary: secondaryVal ? secondaryVal.split(',').map(function (s) { return s.trim(); }).filter(Boolean) : []
       });
       window.AMKTitleGenerator.renderTitles(resultsDiv, results);
-    }
-
-    function copyText(btn, text) {
-      navigator.clipboard.writeText(text).then(() => {
-        const original = btn.innerHTML;
-        btn.innerHTML = '✅ Copied!';
-        btn.style.borderColor = 'var(--accent-success)';
-        btn.style.color = 'var(--accent-success)';
-        setTimeout(() => {
-          btn.innerHTML = original;
-          btn.style.borderColor = '';
-          btn.style.color = '';
-        }, 1500);
-      });
+      container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   </script>
-  <script src="/js/config.js"></script>
-  <script src="/js/title-generator.js"></script>
 </body>
 </html>

@@ -283,13 +283,13 @@ def tool_pages(settings, base):
             esc(href(tools[s])), esc(tools[s]["name"]), esc(tools[s]["summary"])) for s in group["tools"] if s in tools)
         groups.append('    <section><h2>%s</h2><div class="cards">%s</div></section>' % (esc(group["name"]), cards))
     body = "\n".join([
-        '    <section class="hero">', "      <h1>Free SEO tools</h1>",
-        "      <p>Each tool does one job and shows only what it really finds. No sign-up is needed for the first runs.</p>",
+        '    <section class="hero">', "      <h1>Free Tools &amp; AI Tools</h1>",
+        "      <p>Professional diagnostic analysers and AI content generators. Every check uses real data with zero invented metrics.</p>",
         '      <p><a class="btn ghost" href="/docs/how-to-use-the-free-tools/">How to use the tools</a></p>', "    </section>"] + groups)
     head = ['  <link rel="canonical" href="%s/tools/" />' % esc(base)] if base else []
     out[os.path.join("tools", "index.html")] = template.substitute(
-        title="Free SEO Tools | AMK Digital Agency",
-        description="Free SEO tools from AMK Digital Agency: domain overview, meta tags, headings, images, links, redirects, robots.txt, SSL, schema, keyword density and more.",
+        title="Free Tools & AI Tools | AMK Digital Agency",
+        description="Free SEO tools and AI utilities from AMK Digital Agency: domain overview, title generator, meta tags, headings, SSL, schema, links and more.",
         head_extra="\n".join(head), scripts="", body=body, **common)
     return out, ["/tools/"] + [href(t) for t in data["tools"] if not t.get("page")]
 

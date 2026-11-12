@@ -1,7 +1,8 @@
 {
   "groups": [
-    { "name": "Whole website", "tools": ["domain-overview", "free-tools", "technology", "ssl-check", "robots-sitemap"] },
-    { "name": "One page", "tools": ["meta-tags", "headings", "images", "links", "redirects", "schema-social", "keyword-density", "title-generator"] }
+    { "name": "Whole Website & Domain Audits", "tools": ["domain-overview", "technology", "ssl-check", "robots-sitemap"] },
+    { "name": "Single-Page SEO Analyzers", "tools": ["meta-tags", "headings", "images", "links", "redirects", "schema-social", "keyword-density"] },
+    { "name": "AI & Content Tools", "tools": ["title-generator"] }
   ],
   "tools": [
     { "slug": "domain-overview", "page": "/tools/domain-overview.html", "name": "Domain Overview", "summary": "One report for a whole website: SEO health, domain rank, technical status, registration and security." },
