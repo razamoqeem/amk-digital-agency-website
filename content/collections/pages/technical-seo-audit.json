@@ -1,0 +1,29 @@
+{
+  "id": "technical-seo-audit",
+  "collection": "pages",
+  "folderId": "services-seo",
+  "slug": "technical-seo-audit",
+  "title": "Technical SEO Architecture & Audit",
+  "draft": false,
+  "fields": {
+    "subtitle": "Enterprise search infrastructure and crawl optimization.",
+    "heroImage": "/assets/tech-seo.png",
+    "content": "<p>Complete crawlability and indexation review.</p>",
+    "ctaLabel": "Book Technical Review",
+    "ctaUrl": "/tools/free-tools.html"
+  },
+  "seo": {
+    "metaTitle": "Technical SEO Architecture & Audit | AMK Digital Agency",
+    "metaDesc": "In-depth technical SEO audit covering crawl budgets, Core Web Vitals, and architecture.",
+    "canonical": "",
+    "noindex": false,
+    "ogImage": ""
+  },
+  "jsonLd": {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Technical SEO Architecture"
+  },
+  "createdAt": "2026-11-12T20:17:37Z",
+  "updatedAt": "2026-11-12T20:17:37Z"
+}

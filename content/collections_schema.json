@@ -1,0 +1,65 @@
+{
+  "_help": "Dynamic Collection Schema Builder. Defines custom-fillable fields for each collection type.",
+  "collections": [
+    {
+      "id": "blogs",
+      "name": "Blogs",
+      "slug": "blog",
+      "description": "Educational articles, industry guides, and search insights.",
+      "templateKey": "blog",
+      "fields": [
+        { "key": "author", "label": "Author Name", "type": "text", "required": true, "default": "AMK Digital Agency" },
+        { "key": "authorRole", "label": "Author Role", "type": "text", "required": false, "default": "SEO Strategist" },
+        { "key": "coverImage", "label": "Cover Image URL", "type": "image", "required": false, "default": "" },
+        { "key": "excerpt", "label": "Article Summary / Excerpt", "type": "textarea", "required": true, "default": "" },
+        { "key": "content", "label": "Article Body (Rich Text)", "type": "richtext", "required": true, "default": "" },
+        { "key": "readingTimeMinutes", "label": "Reading Time (Minutes)", "type": "number", "required": false, "default": 5 },
+        { "key": "tags", "label": "Tags (comma separated)", "type": "text", "required": false, "default": "" },
+        { "key": "jsonLdType", "label": "Structured Data Type", "type": "select", "options": ["BlogPosting", "Article", "TechArticle"], "default": "BlogPosting" }
+      ]
+    },
+    {
+      "id": "pages",
+      "name": "General Pages",
+      "slug": "pages",
+      "description": "Standard service pages, company profiles, and landing pages.",
+      "templateKey": "page",
+      "fields": [
+        { "key": "subtitle", "label": "Hero Subtitle", "type": "text", "required": false, "default": "" },
+        { "key": "heroImage", "label": "Hero Image URL", "type": "image", "required": false, "default": "" },
+        { "key": "content", "label": "Page Body (Rich Text)", "type": "richtext", "required": true, "default": "" },
+        { "key": "ctaLabel", "label": "Call To Action Button Label", "type": "text", "required": false, "default": "" },
+        { "key": "ctaUrl", "label": "Call To Action Button Link", "type": "text", "required": false, "default": "" }
+      ]
+    },
+    {
+      "id": "legal",
+      "name": "Privacy & Legal Policies",
+      "slug": "legal",
+      "description": "Terms of Service, Privacy Policies, Disclaimers, and Data Guidelines.",
+      "templateKey": "legal",
+      "fields": [
+        { "key": "effectiveDate", "label": "Effective Date", "type": "date", "required": true, "default": "2026-11-12" },
+        { "key": "lastReviewed", "label": "Last Reviewed Date", "type": "date", "required": true, "default": "2026-11-12" },
+        { "key": "jurisdiction", "label": "Governing Jurisdiction", "type": "text", "required": false, "default": "[TO BE CONFIRMED]" },
+        { "key": "summary", "label": "Plain English Summary", "type": "textarea", "required": false, "default": "" },
+        { "key": "content", "label": "Full Legal Text (Rich Text)", "type": "richtext", "required": true, "default": "" }
+      ]
+    },
+    {
+      "id": "social",
+      "name": "Social Media Assets/Links",
+      "slug": "social",
+      "description": "Official social profiles, verification links, and link-in-bio hub.",
+      "templateKey": "social",
+      "fields": [
+        { "key": "platform", "label": "Platform Name (e.g. LinkedIn, GitHub, YouTube)", "type": "text", "required": true, "default": "" },
+        { "key": "handle", "label": "Account Handle / Username", "type": "text", "required": false, "default": "" },
+        { "key": "profileUrl", "label": "Direct Profile Link", "type": "text", "required": true, "default": "" },
+        { "key": "iconName", "label": "Icon Identifier", "type": "text", "required": false, "default": "" },
+        { "key": "description", "label": "Short Channel Description", "type": "textarea", "required": false, "default": "" },
+        { "key": "isPublic", "label": "Show on Public Site", "type": "boolean", "required": true, "default": true }
+      ]
+    }
+  ]
+}

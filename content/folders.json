@@ -1,0 +1,37 @@
+{
+  "_help": "Hierarchical folder structure for Parent/Child routing. Child folders specify parentId.",
+  "folders": [
+    {
+      "id": "services",
+      "name": "Services",
+      "slug": "services",
+      "parentId": null,
+      "fullPath": "services",
+      "description": "Client services and SEO offerings"
+    },
+    {
+      "id": "services-seo",
+      "name": "Technical SEO",
+      "slug": "seo",
+      "parentId": "services",
+      "fullPath": "services/seo",
+      "description": "Technical search architecture and audit services"
+    },
+    {
+      "id": "blog",
+      "name": "Blog & Articles",
+      "slug": "blog",
+      "parentId": null,
+      "fullPath": "blog",
+      "description": "Educational search and AIEO publications"
+    },
+    {
+      "id": "legal",
+      "name": "Legal Policies",
+      "slug": "legal",
+      "parentId": null,
+      "fullPath": "legal",
+      "description": "Compliance, terms, and privacy documentation"
+    }
+  ]
+}

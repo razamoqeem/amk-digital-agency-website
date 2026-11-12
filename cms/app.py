@@ -20,6 +20,7 @@ from fastapi.responses import FileResponse, JSONResponse  # noqa: E402
 from fastapi.staticfiles import StaticFiles  # noqa: E402
 
 import build as site_build  # noqa: E402
+import collections_engine  # noqa: E402
 from sanitize import clean_rich_text  # noqa: E402
 from validate import SLUG_RE, heading_outline, validate_page, page_url_path  # noqa: E402
 
@@ -177,6 +178,52 @@ async def api_save_limits(request: Request):
     }
     site_build.write_json(LIMITS_PATH, clean_limits)
     return {"saved": True, "limits": clean_limits}
+
+
+# ── Webflow-style Collections & Folders ────────────────────────────────────
+@app.get("/api/collections")
+def api_get_collections():
+    """List collection schemas, hierarchical folders, and all collection items."""
+    return {
+        "schemas": collections_engine.load_schemas().get("collections", []),
+        "folders": collections_engine.load_folders(),
+        "items": collections_engine.list_items()
+    }
+
+
+@app.get("/api/collections/{collection_id}/items")
+def api_get_collection_items(collection_id: str):
+    schema = collections_engine.get_schema(collection_id)
+    if not schema:
+        raise HTTPException(status_code=404, detail="Collection not found.")
+    items = collections_engine.list_items(collection_id)
+    return {"collection": schema, "items": items}
+
+
+@app.get("/api/collections/{collection_id}/items/{slug}")
+def api_get_collection_item(collection_id: str, slug: str):
+    item = collections_engine.get_item(collection_id, slug)
+    if not item:
+        raise HTTPException(status_code=404, detail="Item not found.")
+    schema = collections_engine.get_schema(collection_id)
+    return {"item": item, "schema": schema, "folders": collections_engine.load_folders()}
+
+
+@app.put("/api/collections/{collection_id}/items/{slug}")
+async def api_save_collection_item(collection_id: str, slug: str, request: Request):
+    raw = await request.json()
+    if not isinstance(raw, dict):
+        raise HTTPException(status_code=400, detail="Invalid data format.")
+    try:
+        saved = collections_engine.save_item(collection_id, raw)
+        return {"saved": True, "item": saved}
+    except ValueError as e:
+        return JSONResponse(status_code=422, content={"saved": False, "error": str(e)})
+
+
+@app.get("/api/folders")
+def api_get_folders():
+    return {"folders": collections_engine.load_folders()}
 
 
 @app.get("/api/pages")
