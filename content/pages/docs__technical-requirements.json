@@ -1,0 +1,86 @@
+{
+  "slug": "docs/technical-requirements",
+  "title": "Google Search Technical Requirements | AMK Digital Agency",
+  "description": "No Blocks: Robots.txt must not block Googlebot from the target URLs. Public Accessibility: No login/password protection on content intended for search.…",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Google Search Technical Requirements",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. Googlebot Access",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>No Blocks</strong>: Robots.txt must not block Googlebot from the target URLs.",
+        "<strong>Public Accessibility</strong>: No login/password protection on content intended for search.",
+        "<strong>Verification</strong>: Use the <strong>URL Inspection Tool</strong> to verify absolute access."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. Server Performance",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>HTTP 200 (Success)</strong>: Google only indexes pages that return a <code>200 OK</code> status.",
+        "<strong>Client/Server Errors</strong>: 4xx and 5xx errors prevent indexing.",
+        "<strong>Soft 404s</strong>: Pages that look like errors but return a 200 code are considered \"Soft 404s\" and may be deindexed."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. Indexable Content",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Supported File Types</strong>: Textual content must be in a supported format (HTML, PDF, etc.).",
+        "<strong>Spam Compliance</strong>: Content must not violate any <strong>Google Search Spam Policies</strong>.",
+        "<strong>Visibility</strong>: Content must be textually visible; content requiring plugins (Java/Silverlight) or rendered solely in Canvas is not indexable."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

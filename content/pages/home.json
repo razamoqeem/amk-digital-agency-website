@@ -1,0 +1,251 @@
+{
+  "slug": "home",
+  "title": "AMK Digital Agency | AI-Powered SEO and Digital Marketing",
+  "description": "AMK Digital Agency offers AI-powered SEO audits, E-E-A-T analysis and AI-search readiness checks, plus free SEO tools you can try in your browser.",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Organization",
+    "WebSite"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "AI-powered SEO and digital marketing",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "AMK Digital Agency combines 8-pillar SEO audits, E-E-A-T analysis and AI-search readiness checks, built to turn traffic into trust and trust into revenue.",
+      "size": "lg",
+      "color": "muted",
+      "opacity": 100
+    },
+    {
+      "type": "button",
+      "label": "Try the free SEO tools",
+      "href": "/tools/free-tools.html",
+      "color": "accent"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Who we are",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "We are an AI-based digital marketing and search engine optimization agency. We build SEO systems that work with generative search engines, large language model crawlers and traditional search indexes.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Read more about <a href=\"/company/\">our vision, purpose and goals</a>.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Our approach",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "The gap between organic traffic and real enquiries is often a credibility problem, not only a marketing problem. We map pages to the E-E-A-T framework, align content with search intent and add clear trust signals for both people and AI search systems.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Technical crawl and Core Web Vitals audit",
+        "E-E-A-T signal structure",
+        "AI-search (GEO) optimization",
+        "Topical authority and content clusters",
+        "Regular performance reporting"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What we do",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "SEO",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Technical, on-page and off-page SEO, analytics and URL inspection.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "AI SEO and GEO",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Generative engine optimization and trust signals for AI-first search.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Social and paid ads",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Ad copy, creative ideas and performance analysis across Google and Meta platforms.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Email marketing",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Campaign design, sequences and outreach built for deliverability and conversion.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Lead generation",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Prospect identification and conversion funnel planning.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Strategy and research",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Competitor benchmarking, market analysis and reporting.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Free SEO tools",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<a href=\"/tools/title-generator.html\">Title generator</a>: works now, right in your browser.",
+        "<a href=\"/tools/free-tools.html\">Instant SEO audit, page analyser, domain analyser, AI search readiness and domain age</a>: being rebuilt and temporarily unavailable."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Guides: <a href=\"/docs/\">search and SEO documentation</a>.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Plans",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Plans and prices: [TO BE CONFIRMED]. They will be published here once they are final.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Contact",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Contact details: [TO BE CONFIRMED].",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Founder profile: <a href=\"/owner/\">Ahmad Raza</a>.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

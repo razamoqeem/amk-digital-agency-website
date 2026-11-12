@@ -1,0 +1,109 @@
+{
+  "slug": "docs/redirects-migrations-testing",
+  "title": "Redirects, Migrations, and A/B Testing | AMK Digital Agency",
+  "description": "Permanent (301/308): Signal to Google that the target is the new canonical. Temporary (302/303/307): Signal that the source should remain the…",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Redirects, Migrations, and A/B Testing",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. Redirect Types",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Permanent (301/308)</strong>: Signal to Google that the target is the new canonical.",
+        "<strong>Temporary (302/303/307)</strong>: Signal that the source should remain the canonical.",
+        "<strong>Meta Refresh</strong>: Instant (0s) is treated as Permanent; Delayed (&gt;0s) is treated as Temporary.",
+        "<strong>JS Redirects</strong>: Interpreted by Web Rendering Service (WRS), but risky if rendering fails.",
+        "<strong>Crypto Redirects</strong>: Adding a link (\"We've moved!\") as a fallback."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. Site Moves & Migrations",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Visible URL Changes</strong>: Require 301 redirects for every page.",
+        "<strong>No URL Change (Hosting Change)</strong>: Monitor TTL values, update DNS, and verify Googlebot access via URL Inspection Tool.",
+        "<strong>Crawl Rate</strong>: Expect a temporary drop in crawl rate during moves, followed by an increase.",
+        "<strong>Soft 404 Prevention</strong>: Don't redirect all old URLs to the homepage; redirect to the most relevant equivalent page."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. A/B Testing Best Practices",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>No Cloaking</strong>: Show the same variations to Googlebot as to users (or show the default).",
+        "<strong>rel=\"canonical\"</strong>: Use on all variants pointing back to the original URL.",
+        "<strong>302 Redirects</strong>: Use temporary redirects for experiments.",
+        "<strong>Duration</strong>: Run experiments only as long as necessary."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4. Redirect Chains",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Googlebot follows up to 10 hops.",
+        "Recommended limit: &lt; 3 hops for performance and reliability."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

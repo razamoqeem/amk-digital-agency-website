@@ -1,0 +1,73 @@
+{
+  "site_name": "AMK Digital Agency",
+  "language": "en",
+  "preview_label": "Beta / Preview",
+  "nav": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Free tools",
+      "href": "/tools/free-tools.html"
+    },
+    {
+      "label": "Docs",
+      "href": "/docs/"
+    },
+    {
+      "label": "Company",
+      "href": "/company/"
+    },
+    {
+      "label": "Founder",
+      "href": "/owner/"
+    }
+  ],
+  "footer_text": "AMK Digital Agency",
+  "tokens": {
+    "sizes": [
+      "sm",
+      "md",
+      "lg",
+      "xl"
+    ],
+    "colors": {
+      "ink": "#10131f",
+      "muted": "#5b627a",
+      "accent": "#4b43d6",
+      "accent-strong": "#2f2a9e",
+      "success": "#0f7a5c",
+      "surface": "#ffffff",
+      "background": "#f7f8fc"
+    },
+    "opacities": [
+      100,
+      80,
+      60,
+      40
+    ],
+    "page_background": "background"
+  },
+  "legacy_passthrough": [
+    "resources.html",
+    "tools",
+    "css",
+    "assets",
+    "js/config.js",
+    "js/site.js",
+    "js/title-generator.js",
+    "js/nav.js",
+    "js/theme-engine.js"
+  ],
+  "legacy_sitemap_paths": [
+    "/tools/free-tools.html",
+    "/tools/title-generator.html"
+  ],
+  "not_found": {
+    "title": "Page not found",
+    "text": "This page does not exist or has moved.",
+    "button_label": "Go to the home page",
+    "button_href": "/"
+  }
+}

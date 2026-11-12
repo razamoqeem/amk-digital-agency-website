@@ -1,0 +1,109 @@
+{
+  "slug": "docs/compliance-index",
+  "title": "Ahmad SEO Suite: Google Search Central Compliance Index | AMK Digital Agency",
+  "description": "This document maps official Google Search Central regulations to the automated forensics implemented in the Ahmad SEO Suite. Regulation …",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Ahmad SEO Suite: Google Search Central Compliance Index",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "This document maps official Google Search Central regulations to the automated forensics implemented in the Ahmad SEO Suite.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Forensics Compliance Matrix",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Regulation — Implementation in Suite — Module",
+        "<strong>Robots Meta Directives</strong> — <code>noindex</code>, <code>nofollow</code>, <code>nosnippet</code> detection — <code>on_page_seo.py</code>",
+        "<strong>Snippet Control</strong> — Scans for <code>max-snippet</code>, <code>max-image-preview</code>, and <code>data-nosnippet</code> attributes. — <code>on_page_seo.py</code>",
+        "<strong>Link Qualification</strong> — Audits <code>rel=\"sponsored\"</code>, <code>rel=\"ugc\"</code>, and <code>rel=\"nofollow\"</code>. — <code>on_page_seo.py</code>",
+        "<strong>Redirect Logic</strong> — Detects 301/302/307/308, Instant vs Delayed Meta Refresh, and JS Redirects. — <code>on_page_seo.py</code>",
+        "<strong>A/B Testing</strong> — Verifies <code>rel=\"canonical\"</code> on experiment variants and uses 302 detection. — <code>on_page_seo.py</code>",
+        "<strong>Privacy &amp; PII</strong> — Scans URLs for email/PII patterns and identifies unflattened PDF/SVG risks. — <code>on_page_seo.py</code>",
+        "<strong>JS Rendering</strong> — SPA detection, Hash-route risk mapping, and Shadow DOM discovery. — <code>technical_seo.py</code>",
+        "<strong>Mobile-First Parity</strong> — Audits Heading/Meta parity and Responsive Viewport status. — <code>on_page_seo.py</code>",
+        "<strong>AMP Discovery</strong> — Validates bidirectional linkage and HTML-level AMP detection. — <code>on_page_seo.py</code>",
+        "<strong>Availability (503)</strong> — Monitors for 503 status codes and <code>Retry-After</code> header requirements. — <code>audit_orchestrator.py</code>",
+        "<strong>Traffic Drop Debug</strong> — Pattern analysis for algorithmic vs technical vs seasonality drops. — <code>performance_engine.py</code>",
+        "<strong>Security &amp; Spam</strong> — User-generated spam detection and Safe Browsing/Malware heuristics. — <code>technical_seo.py</code>",
+        "<strong>Operator Forensics</strong> — Support for <code>site:</code>, <code>src:</code>, and <code>filetype:</code> simulation for deep debugging. — <code>audit_orchestrator.py</code>",
+        "<strong>Spam Heuristics</strong> — Detection for Cloaking, Sneaky Redirects, and Hidden Links. — <code>technical_seo.py</code>",
+        "<strong>Canonical Health</strong> — Verification of <code>rel=\"canonical\"</code> and directory-level topical grouping. — <code>on_page_seo.py</code>",
+        "<strong>Status Monitoring</strong> — Real-time monitoring for <code>200 OK</code> vs <code>404/500/Soft 404</code>. — <code>audit_orchestrator.py</code>"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Usage for Auditing",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "When performing a forensic audit, refer to the <strong>🛰️ Indexing &amp; Links</strong>, <strong>🔐 Privacy &amp; Security</strong>, and <strong>📦 Migration &amp; Redirects</strong> tabs in the dashboard. These tabs are built specifically to flag violations of the rules documented in the <code>knowledge_base/</code>.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Reference Documentation",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Crawling &amp; Indexing Basics",
+        "Content Control &amp; Privacy",
+        "Redirects &amp; Migrations",
+        "JS SEO &amp; Rendering",
+        "Traffic &amp; Analytics Debug",
+        "Search Operators Forensics",
+        "Security &amp; Abuse Prevention",
+        "SEO Starter Guide (Basics)",
+        "Spam Policies Dictionary",
+        "Technical Requirements"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "slug": "docs/crawling-indexing-basics",
+  "title": "Google Crawling & Indexing Fundamentals | AMK Digital Agency",
+  "description": "Googlebot must be able to find and parse your content. Key files include: Indexable File Types: Google can index most text-based files (HTML, PDF…",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Google Crawling & Indexing Fundamentals",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. Overview of Crawling and Indexing",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Googlebot must be able to find and parse your content. Key files include:",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Indexable File Types</strong>: Google can index most text-based files (HTML, PDF, Office, etc.).",
+        "<strong>User-Triggered Fetchers</strong>: Tools like Site Verifier or RSS readers that ignore robots.txt because they are user-initiated."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. URL Canonicalization",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "The process of selecting the representative URL for a piece of content.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Duplicates</strong>: Caused by regional variants, device variants (mobile/desktop), or protocol variants (HTTP/HTTPS).",
+        "<strong>Consolidation</strong>: Use <code>rel=\"canonical\"</code> or 301 redirects to tell Google which version to index."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. AMP on Google Search",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "AMP pages must follow the AMP HTML spec.",
+        "Content parity is required between AMP and canonical pages.",
+        "Bidirectional linkage: Canonical links to AMP, and AMP links back to Canonical."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4. Troubleshooting Crawling Errors",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Availability Issues</strong>: Check server capacity and firewall blocks.",
+        "<strong>Crawl Efficiency</strong>: Use sitemaps and clean URL structures to help Googlebot focus on high-value pages.",
+        "<strong>Overcrawling</strong>: Use <code>crawl-delay</code> (for some bots) or adjust crawl rate in Search Console if the server is struggling."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5. Pausing or Disabling a Site",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Recommended</strong>: Limit functionality (disable cart, show banner) instead of taking the site down.",
+        "<strong>Temporary Shutdown</strong>: Use <code>503 Service Unavailable</code> with a <code>Retry-After</code> header.",
+        "<strong>Avoid</strong>: Returning <code>404</code> or <code>noindex</code> for temporary issues, as it removes the URL from the index."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Marketing Academy | AMK Digital Agency</title>
+  <meta name="description" content="Learn SEO, GEO, AEO, AI content, paid ads, analytics & CRO. An AI-powered Digital Marketing Academy with RAG-powered Ask-AI search." />
+  <script src="/js/theme-engine.js?v=2026.08.27"></script>
+  <style>
+    :root{
+      --bg:#f7f8fc; --surface:#ffffff; --ink:#10131f; --muted:#5b627a; --faint:#9098b0;
+      --border:#e7e9f2; --accent:#6c63ff; --accent-2:#1dd1a1; --accent-soft:#eeecff;
+      --warn:#ff8a3d; --radius:16px; --shadow:0 8px 30px rgba(20,24,50,.06);
+    }
+    [data-theme="dark"]{
+      --bg:#000000; --surface:#111319; --ink:#f4f5fb; --muted:#a8adc4; --faint:#6b7086;
+      --border:rgba(255,255,255,.1); --accent:#818cf8; --accent-2:#2dd4bf; --accent-soft:rgba(129,140,248,.16);
+      --warn:#ffb020; --shadow:0 8px 30px rgba(0,0,0,.5);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);}
+    a{color:inherit;text-decoration:none}
+    .top{position:sticky;top:0;z-index:40;background:var(--surface);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+    .top .inner{max-width:1240px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:18px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+    .brand .dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center}
+    .navlinks{display:flex;gap:18px;font-size:14px;font-weight:600;color:var(--muted)}
+    .navlinks a:hover{color:var(--accent)}
+    .spacer{flex:1}
+    .btn{border:1px solid var(--border);background:var(--surface);color:var(--ink);padding:9px 16px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;transition:.15s}
+    .btn:hover{border-color:var(--accent)}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#8b7bff);color:#fff;border:none}
+    .hero{max-width:1240px;margin:0 auto;padding:46px 24px 14px;text-align:center}
+    .hero h1{font-size:clamp(28px,4vw,44px);font-weight:800;margin:0 0 10px;letter-spacing:-.02em}
+    .hero p{color:var(--muted);font-size:16px;max-width:640px;margin:0 auto 22px}
+    .searchwrap{max-width:680px;margin:0 auto;display:flex;gap:10px}
+    .searchwrap input{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:15px 18px;font-size:15px;box-shadow:var(--shadow)}
+    .layout{max-width:1240px;margin:0 auto;padding:24px;display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+    @media(max-width:860px){.layout{grid-template-columns:1fr}}
+    .side{position:sticky;top:80px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    @media(max-width:860px){.side{position:static}}
+    .side h4{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);margin:16px 0 8px}
+    .side h4:first-child{margin-top:0}
+    .pill-link{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);transition:.12s}
+    .pill-link:hover{background:var(--bg)}
+    .pill-link.active{background:var(--accent-soft);color:var(--accent)}
+    .chips{display:flex;flex-wrap:wrap;gap:6px}
+    .chip{padding:5px 11px;border:1px solid var(--border);border-radius:20px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer}
+    .chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,border-color .15s;display:flex;flex-direction:column;gap:10px}
+    .card:hover{transform:translateY(-3px);border-color:var(--accent)}
+    .card .row{display:flex;align-items:center;gap:8px}
+    .tag{font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px;text-transform:uppercase;letter-spacing:.03em}
+    .tag.type{background:var(--accent-soft);color:var(--accent)}
+    .tag.diff-Beginner{background:#e6faf2;color:#0fa371}
+    .tag.diff-Intermediate{background:#fff3e0;color:#d9772a}
+    .tag.diff-Advanced{background:#fdeaf0;color:#d6336c}
+    .card h3{margin:0;font-size:17px;font-weight:700;line-height:1.3}
+    .card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.55}
+    .card .meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--faint);margin-top:auto}
+    .card .pillartag{font-size:12px;color:var(--accent);font-weight:700}
+    .featured-badge{position:absolute;top:14px;right:14px;font-size:10px;font-weight:800;color:var(--warn)}
+    .lpaths-title{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:800;margin:4px 0 12px}
+    .lpaths{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+    @media(max-width:640px){.lpaths{grid-template-columns:1fr}}
+    .lpath{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,border-color .15s;display:flex;align-items:center;gap:14px}
+    .lpath:hover{transform:translateY(-3px);border-color:var(--accent)}
+    .lpath .lvl{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;flex-shrink:0}
+    .lpath .b h4{margin:0;font-size:15px} .lpath .b p{margin:3px 0 0;font-size:12px;color:var(--muted);line-height:1.4}
+    .secrow{display:flex;align-items:center;justify-content:space-between;margin:6px 0 14px}
+    .secrow h2{font-size:20px;margin:0}
+    .count{font-size:13px;color:var(--faint)}
+    .empty{padding:60px;text-align:center;color:var(--faint);grid-column:1/-1}
+    /* Ask AI panel */
+    .askwrap{background:linear-gradient(135deg,#1a1c2e,#23264a);border-radius:var(--radius);padding:24px;color:#fff;margin-bottom:22px;box-shadow:var(--shadow)}
+    .askwrap h3{margin:0 0 4px;font-size:18px}
+    .askwrap p{margin:0 0 14px;font-size:13px;color:#b7bcd8}
+    .askbar{display:flex;gap:10px}
+    .askbar input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:10px;padding:12px 14px;font-size:14px}
+    .askbar input::placeholder{color:#9aa0c0}
+    .answer{margin-top:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;font-size:14px;line-height:1.6;display:none}
+    .answer.show{display:block}
+    .cites{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .cite{background:rgba(108,99,255,.2);border:1px solid rgba(108,99,255,.4);color:#cfcbff;padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+    /* modal */
+    .overlay{position:fixed;inset:0;background:rgba(16,19,31,.55);backdrop-filter:blur(6px);display:none;align-items:flex-start;justify-content:center;z-index:100;padding:40px 20px;overflow:auto}
+    .overlay.open{display:flex}
+    .modal{background:var(--surface);border-radius:18px;max-width:760px;width:100%;padding:34px;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+    .modal .close{float:right;border:none;background:none;font-size:24px;cursor:pointer;color:var(--faint)}
+    .modal h1{font-size:26px;margin:0 0 6px}
+    .modal .sub{color:var(--muted);font-size:13px;margin-bottom:18px}
+    .article{font-size:15px;line-height:1.75;color:#2a2f45}
+    .article h2,.article h3{margin:22px 0 8px;font-size:18px}
+    .article ul{padding-left:20px} .article li{margin:4px 0}
+    .article strong{color:var(--ink)}
+    .spin{width:34px;height:34px;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:sp 1s linear infinite}
+    @keyframes sp{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="inner">
+      <a href="/" class="brand"><span class="dot">📚</span> AMK Digital Agency Academy</a>
+      <div class="navlinks" style="margin-left:18px">
+        <a href="/">Home</a>
+        <a href="/resources.html" style="color:var(--accent)">Academy</a>
+        <a href="/docs/">Docs</a>
+        <a href="#" data-app-path="/login" hidden>App sign in</a>
+      </div>
+      <div class="spacer"></div>
+      <button type="button" class="btn theme-toggle-btn" onclick="window.AMKTheme && window.AMKTheme.toggle()" title="Toggle theme" style="width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:10px;border:1px solid var(--border);background:var(--surface);cursor:pointer;margin-right:10px;">
+        <svg xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;color:var(--muted)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </button>
+      <button type="button" class="btn primary" onclick="document.getElementById('askInput').focus()">🤖 Ask AI</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Digital Marketing Academy</h1>
+    <p>Learn SEO, GEO, AEO, AI content, paid ads, analytics & CRO — an AI-powered knowledge hub with RAG-grounded answers. Free, no login required.</p>
+    <div class="searchwrap">
+      <input id="searchInput" type="text" placeholder="🔍 Search guides, SOPs, templates… (e.g. technical SEO, GA4, llms.txt)" />
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside class="side">
+      <h4>Pillars</h4>
+      <div id="pillarList"></div>
+      <h4>Difficulty</h4>
+      <div class="chips" id="diffChips"></div>
+      <h4>Type</h4>
+      <div class="chips" id="typeChips"></div>
+    </aside>
+
+    <main>
+      <div class="askwrap">
+        <h3>🤖 Ask the Academy AI</h3>
+        <p>Get answers grounded in our resources — with citations. e.g. "How can I improve brand visibility in ChatGPT?"</p>
+        <div class="askbar">
+          <input id="askInput" type="text" placeholder="Ask anything about digital marketing…" />
+          <button class="btn primary" id="askBtn">Ask →</button>
+        </div>
+        <div class="answer" id="answer"></div>
+      </div>
+
+      <div id="learningPaths"></div>
+
+      <div class="secrow">
+        <h2 id="gridTitle">All Resources</h2>
+        <span class="count" id="gridCount"></span>
+      </div>
+      <div class="grid" id="grid"><div class="empty">Loading the academy…</div></div>
+    </main>
+  </div>
+
+  <div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+  <script src="/js/config.js"></script>
+  <script src="/js/site.js"></script>
+  <script>
+  (function(){
+    const $ = s => document.querySelector(s);
+    const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    let CATALOG = {pillars:[], resources:[]};
+    let filters = {pillar:null, difficulty:null, type:null, q:''};
+    let _timer = null;
+
+    // Used ONLY for live Ask-AI answers (ephemeral LLM text) — resource bodies
+    // now render real, cached body_html straight from the CMS below.
+    function md(text){
+      return esc(text)
+        .replace(/^### (.*)$/gm,'<h3>$1</h3>')
+        .replace(/^## (.*)$/gm,'<h2>$1</h2>')
+        .replace(/^# (.*)$/gm,'<h2>$1</h2>')
+        .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+        .replace(/^- (.*)$/gm,'<li>$1</li>')
+        .replace(/(<li>[\s\S]*?<\/li>)/g, m=>'<ul>'+m+'</ul>')
+        .replace(/\n{2,}/g,'</p><p>')
+        .replace(/\n/g,'<br/>');
+    }
+
+    async function init(){
+      try{
+        const res = await fetch('/api/v1/academy/catalog');
+        CATALOG = await res.json();
+      }catch(e){ $('#grid').innerHTML = '<div class="empty">⚠️ Could not load the academy. Is the server running?</div>'; return; }
+      renderSidebar();
+      renderPaths();
+      renderGrid(CATALOG.resources);
+    }
+
+    function renderPaths(){
+      const paths = CATALOG.learning_paths || [];
+      if(!paths.length) return;
+      const colors = {Beginner:'#0fa371', Intermediate:'#d9772a', Advanced:'#d6336c'};
+      const icons = {Beginner:'🌱', Intermediate:'🚀', Advanced:'🏆'};
+      $('#learningPaths').innerHTML = '<div class="lpaths-title">🧭 Featured Learning Paths</div><div class="lpaths">' +
+        paths.map(p=>`<div class="lpath" data-diff="${p.id}"><div class="lvl" style="background:${colors[p.id]||'#6c63ff'}">${icons[p.id]||'📘'}</div><div class="b"><h4>${esc(p.name)}</h4><p>${esc(p.blurb)}</p></div></div>`).join('') + '</div>';
+      $('#learningPaths').querySelectorAll('.lpath').forEach(el=>el.onclick=()=>{
+        const diff = el.dataset.diff;
+        document.querySelectorAll('#diffChips .chip').forEach(c=>c.classList.toggle('active', c.dataset.diff===diff));
+        filters.difficulty = diff;
+        run();
+        const sr=document.querySelector('.secrow'); if(sr) sr.scrollIntoView({behavior:'smooth'});
+      });
+    }
+
+    function renderSidebar(){
+      $('#pillarList').innerHTML = `<div class="pill-link active" data-pillar="">📋 All Pillars</div>` +
+        CATALOG.pillars.map(p=>`<div class="pill-link" data-pillar="${p.id}">${p.icon} ${esc(p.name)}</div>`).join('');
+      $('#pillarList').querySelectorAll('.pill-link').forEach(el=>el.onclick=()=>{
+        $('#pillarList').querySelectorAll('.pill-link').forEach(x=>x.classList.remove('active'));
+        el.classList.add('active'); filters.pillar = el.dataset.pillar || null; run();
+      });
+      const diffs = ['Beginner','Intermediate','Advanced'];
+      $('#diffChips').innerHTML = diffs.map(d=>`<span class="chip" data-diff="${d}">${d}</span>`).join('');
+      const types = [...new Set(CATALOG.resources.map(r=>r.type))];
+      $('#typeChips').innerHTML = types.map(t=>`<span class="chip" data-type="${t}">${t}</span>`).join('');
+      $('#diffChips').querySelectorAll('.chip').forEach(c=>c.onclick=()=>toggleChip(c,'difficulty','diff'));
+      $('#typeChips').querySelectorAll('.chip').forEach(c=>c.onclick=()=>toggleChip(c,'type','type'));
+    }
+    function toggleChip(c, key, attr){
+      const val = c.dataset[attr];
+      const on = filters[key] === val;
+      c.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+      filters[key] = on ? null : val;
+      if (!on) c.classList.add('active');
+      run();
+    }
+
+    async function run(){
+      const params = new URLSearchParams();
+      if (filters.q) params.set('q', filters.q);
+      if (filters.pillar) params.set('pillar', filters.pillar);
+      if (filters.difficulty) params.set('difficulty', filters.difficulty);
+      if (filters.type) params.set('type', filters.type);
+      try{
+        const res = await fetch('/api/v1/academy/search?' + params.toString());
+        const data = await res.json();
+        renderGrid(data.results || []);
+      }catch(e){}
+    }
+
+    function renderGrid(items){
+      const pillarName = filters.pillar ? (CATALOG.pillars.find(p=>p.id===filters.pillar)||{}).name : null;
+      $('#gridTitle').textContent = filters.q ? `Results for “${filters.q}”` : (pillarName || 'All Resources');
+      $('#gridCount').textContent = `${items.length} resource${items.length!==1?'s':''}`;
+      if (!items.length){ $('#grid').innerHTML = '<div class="empty">No resources match your filters yet.</div>'; return; }
+      $('#grid').innerHTML = items.map(r=>`
+        <div class="card" data-slug="${esc(r.slug)}" style="position:relative">
+          ${r.featured?'<span class="featured-badge">★ Featured</span>':''}
+          <div class="row">
+            <span class="tag type">${esc(r.type)}</span>
+            <span class="tag diff-${esc(r.difficulty)}">${esc(r.difficulty)}</span>
+          </div>
+          <h3>${esc(r.title)}</h3>
+          <p>${esc(r.description)}</p>
+          <div class="meta">
+            <span class="pillartag">${esc(r.pillar_name)}</span>
+            <span>•</span><span>${esc(r.module)}</span>
+            <span>•</span><span>⏱ ${esc(r.estimated_read_time)}</span>
+          </div>
+        </div>`).join('');
+      $('#grid').querySelectorAll('.card').forEach(c=>c.onclick=()=>openResource(c.dataset.slug));
+    }
+
+    async function openResource(slug){
+      try{
+        const res = await fetch('/api/v1/academy/resource/' + encodeURIComponent(slug));
+        const r = await res.json();
+        $('#modal').innerHTML = `
+          <button class="close" onclick="document.getElementById('overlay').classList.remove('open')">✕</button>
+          <div class="row" style="display:flex;gap:8px;margin-bottom:10px">
+            <span class="tag type">${esc(r.type)}</span>
+            <span class="tag diff-${esc(r.difficulty)}">${esc(r.difficulty)}</span>
+          </div>
+          <h1>${esc(r.title)}</h1>
+          <div class="sub">${esc(r.pillar_name)} › ${esc(r.module)} · ⏱ ${esc(r.estimated_read_time)} · ${esc(r.author)} · Updated ${esc(r.updated_at)}</div>
+          <div class="article">${r.body_html || ''}</div>`;
+        document.getElementById('overlay').classList.add('open');
+        document.getElementById('overlay').scrollTop = 0;
+      }catch(e){}
+    }
+    document.getElementById('overlay').onclick = e=>{ if(e.target.id==='overlay') e.currentTarget.classList.remove('open'); };
+
+    // Search (debounced)
+    $('#searchInput').addEventListener('input', e=>{
+      filters.q = e.target.value.trim();
+      clearTimeout(_timer); _timer = setTimeout(run, 250);
+    });
+
+    // Ask AI (RAG)
+    async function ask(){
+      const q = $('#askInput').value.trim();
+      if(!q) return;
+      const a = $('#answer');
+      a.className = 'answer show';
+      a.innerHTML = '<div class="spin"></div>';
+      try{
+        let token=null; try{ token=(JSON.parse(localStorage.getItem('amk_user')||'null')||{}).token; }catch(_){}
+        const res = await fetch('/api/v1/academy/ask', {
+          method:'POST', headers:{'Content-Type':'application/json', ...(token?{'Authorization':'Bearer '+token}:{})},
+          body: JSON.stringify({query:q})
+        });
+        const d = await res.json();
+        const cites = (d.citations||[]).map(c=>`<span class="cite" data-slug="${esc(c.slug)}">📄 ${esc(c.title)}</span>`).join('');
+        a.innerHTML = `<div>${md(d.answer||'No answer.')}</div>${cites?`<div class="cites">${cites}</div>`:''}`;
+        a.querySelectorAll('.cite').forEach(el=>el.onclick=()=>openResource(el.dataset.slug));
+      }catch(e){ a.innerHTML = '⚠️ Could not reach the AI tutor.'; }
+    }
+    $('#askBtn').onclick = ask;
+    $('#askInput').addEventListener('keydown', e=>{ if(e.key==='Enter') ask(); });
+
+    init();
+  })();
+  </script>
+  <script>
+    /* The academy content is being moved into static pages on this website.
+       Until then the live content service is not available. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var cfg = window.AMK_SITE || {};
+      if (/^https?:\/\//.test(cfg.apiUrl || '')) return;
+      var main = document.querySelector('main') || document.body;
+      var note = document.createElement('p');
+      note.setAttribute('role', 'status');
+      note.style.cssText = 'max-width:760px;margin:16px auto;padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:15px;line-height:1.5;';
+      note.textContent = 'This section is being rebuilt. The articles will be back soon.';
+      main.parentNode.insertBefore(note, main);
+    });
+  </script>
+</body>
+</html>

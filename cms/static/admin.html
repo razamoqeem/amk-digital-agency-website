@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Website CMS | AMK Digital Agency</title>
+  <link rel="stylesheet" href="/static/admin.css" />
+</head>
+<body>
+  <header class="top">
+    <strong>AMK Digital Agency — Website CMS</strong>
+    <span class="local-note">Runs on this computer only</span>
+    <span class="spacer"></span>
+    <button type="button" id="btn-build" class="btn">Build site</button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="Pages">
+      <div class="side-head">
+        <h2>Pages</h2>
+        <button type="button" id="btn-new" class="btn small">New page</button>
+      </div>
+      <ul id="page-list" class="page-list"></ul>
+      <div id="build-report" class="report" role="status" aria-live="polite"></div>
+    </aside>
+
+    <main class="editor" id="editor" hidden>
+      <div class="bar">
+        <h1 id="editor-title">Page</h1>
+        <span class="spacer"></span>
+        <span id="save-status" role="status" aria-live="polite"></span>
+        <button type="button" id="btn-save" class="btn primary">Save page</button>
+      </div>
+
+      <section class="card" aria-labelledby="h-seo">
+        <h2 id="h-seo">Search settings</h2>
+        <label for="f-title">Title <span class="count" id="c-title"></span></label>
+        <input id="f-title" type="text" autocomplete="off" />
+        <label for="f-desc">Meta description <span class="count" id="c-desc"></span></label>
+        <textarea id="f-desc" rows="3"></textarea>
+        <label for="f-slug">Slug (page address)</label>
+        <input id="f-slug" type="text" autocomplete="off" spellcheck="false" />
+        <p class="hint" id="slug-hint"></p>
+
+        <div class="serp" aria-label="Search result preview">
+          <div class="serp-url" id="serp-url"></div>
+          <div class="serp-title" id="serp-title"></div>
+          <div class="serp-desc" id="serp-desc"></div>
+        </div>
+
+        <label for="f-canonical">Canonical address (leave empty to use the page's own address)</label>
+        <input id="f-canonical" type="text" autocomplete="off" spellcheck="false" />
+        <label class="check"><input id="f-noindex" type="checkbox" /> Hide this page from search engines (noindex)</label>
+
+        <h3>Sharing (Open Graph)</h3>
+        <label for="f-og-title">Share title (empty = page title)</label>
+        <input id="f-og-title" type="text" autocomplete="off" />
+        <label for="f-og-desc">Share description (empty = meta description)</label>
+        <input id="f-og-desc" type="text" autocomplete="off" />
+        <label for="f-og-image">Share image (path or web address)</label>
+        <input id="f-og-image" type="text" autocomplete="off" spellcheck="false" />
+
+        <h3>Structured data</h3>
+        <div id="schema-box" class="checks"></div>
+      </section>
+
+      <section class="card" aria-labelledby="h-blocks">
+        <h2 id="h-blocks">Content blocks</h2>
+        <div id="blocks"></div>
+        <div class="add-row">
+          <label for="add-type">Add a block</label>
+          <select id="add-type">
+            <option value="heading">Heading</option>
+            <option value="paragraph">Paragraph</option>
+            <option value="list">List</option>
+            <option value="image">Image</option>
+            <option value="button">Button</option>
+            <option value="faq">Question and answer</option>
+          </select>
+          <button type="button" id="btn-add" class="btn small">Add</button>
+        </div>
+      </section>
+    </main>
+
+    <aside class="checks-panel" id="checks-panel" hidden aria-label="Checks">
+      <h2>Heading outline</h2>
+      <ol id="outline" class="outline"></ol>
+      <h2>Problems (block saving)</h2>
+      <ul id="errors" class="msgs errors"></ul>
+      <h2>Warnings</h2>
+      <ul id="warnings" class="msgs warnings"></ul>
+    </aside>
+  </div>
+
+  <script src="/static/admin.js"></script>
+</body>
+</html>

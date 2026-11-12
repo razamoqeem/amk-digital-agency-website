@@ -1,0 +1,53 @@
+# Secrets and local config
+.env
+.env.*
+!.env.example
+Private/
+*.pem
+*.key
+api_keys.env
+
+# Databases and user data
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sqlite-*
+/data/
+assets/data/
+users.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Logs, caches, generated output
+*.log
+/logs/
+.cache/
+/cache/
+/uploads/
+/exports/
+/reports/
+*.xlsx
+*.pdf
+*.docx
+*.zip
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.bak
+
+# Build working folders
+public.building/
+public.old/

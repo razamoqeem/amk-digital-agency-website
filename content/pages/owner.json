@@ -1,0 +1,226 @@
+{
+  "slug": "owner",
+  "title": "Ahmad Raza | SEO Team Lead and Digital Marketing Strategist",
+  "description": "Profile of Ahmad Raza, SEO team lead and digital marketing strategist: expertise, education and professional experience.",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Ahmad Raza",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "MS Marketing candidate and SEO team lead",
+      "size": "lg",
+      "color": "muted",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "SEO and digital marketing strategist with experience leading end-to-end SEO work, managing teams and building organic growth for B2B, SaaS, AI-driven and service businesses.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "<a href=\"https://www.linkedin.com/in/ahmad-raza-5000341ab\">LinkedIn profile</a>",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Core expertise",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Enterprise and scalable SEO strategy",
+        "Technical SEO audits, site architecture and crawl optimization",
+        "Content ecosystems, topical authority and information architecture",
+        "SEO performance management, KPI tracking and reporting",
+        "Team leadership, mentorship and delivery management",
+        "Cross-functional collaboration with development, content and product teams",
+        "Market research, SERP analysis and competitor intelligence",
+        "Data-driven decision making and growth optimization"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Tools and platforms",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Google Search Console",
+        "Google Analytics",
+        "WordPress",
+        "SEO reporting",
+        "Audit frameworks"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Education",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "MS Marketing (Digital Marketing), University of Management &amp; Technology (UMT), Lahore, 2023 to present. Research focus: digital trust, content effectiveness and AI-influenced consumer behavior.",
+        "Bachelor of Business Administration (BBA), National University of Modern Languages (NUML), 2019 to 2023. Supply chain and logistics specialization.",
+        "Business Administration short course, Aptech Pakistan, June to September 2017.",
+        "Short course in MS Office and web design, Aptech Pakistan (distinction)."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Professional experience",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Search Engine Optimization Team Lead, multi-brand company",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Full-time, October 2024 to January 2026, Lahore, Pakistan.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Owned and led organization-wide SEO strategy across multiple client and in-house brands",
+        "Designed scalable SEO frameworks covering on-page, off-page, technical SEO and content operations",
+        "Led, mentored and performance-managed a growing SEO team",
+        "Ran advanced technical SEO audits covering crawlability, indexation, performance and structure",
+        "Translated business objectives into SEO roadmaps, KPIs and growth forecasts",
+        "Worked across SEO, development, content and leadership teams"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 4,
+      "text": "Key projects",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "B2B platform (B2B platform): full SEO strategy covering technical, on-page, off-page and content layout.",
+        "AI SaaS product (AI SaaS, freelancing-platform extension): technical SEO architecture and publishing workflows.",
+        "Vacation rentals brand: technical audit, metadata overhaul and keyword-to-page mapping.",
+        "Multi-brand portfolio: an AI product, a review platform, a community platform, an AI product and an analytics product."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Search Engine Optimization Specialist, digital marketing internship",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Internship, October 2023 to March 2024, Lahore, Pakistan.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "On-page and off-page SEO for local and international websites",
+        "Supported backlink campaigns, metadata configuration and structural fixes",
+        "Projects: a local website, a retail website, a gaming website, a lending website"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Insurance Agent, insurance company",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Internship, August to September 2022, Punjab, Pakistan.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Supported insurance marketing and client onboarding",
+        "Gained exposure to compliance systems, sales funnels and customer relations"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

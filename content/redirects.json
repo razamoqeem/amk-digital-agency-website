@@ -1,0 +1,22 @@
+[
+  {
+    "from": "/company.html",
+    "to": "/company/",
+    "status": 301
+  },
+  {
+    "from": "/index.html",
+    "to": "/",
+    "status": 301
+  },
+  {
+    "from": "/owner.html",
+    "to": "/owner/",
+    "status": 301
+  },
+  {
+    "from": "/docs.html",
+    "to": "/docs/",
+    "status": 301
+  }
+]

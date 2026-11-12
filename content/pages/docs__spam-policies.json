@@ -1,0 +1,126 @@
+{
+  "slug": "docs/spam-policies",
+  "title": "Google Search Spam Policies: Forensic Dictionary | AMK Digital Agency",
+  "description": "Cloaking: Presenting different content to users vs. search engines (e.g., travel for bots, drugs for humans). Sneaky Redirects: Redirecting users to…",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Google Search Spam Policies: Forensic Dictionary",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. Deceptive Content & Access",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Cloaking</strong>: Presenting different content to users vs. search engines (e.g., travel for bots, drugs for humans).",
+        "<strong>Sneaky Redirects</strong>: Redirecting users to unexpected content (often device-specific, e.g., mobile-only spam redirects).",
+        "<strong>Hidden Text &amp; Links</strong>: White text on white backgrounds, 0-opacity text, or links on hyphens/invisible characters."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. Content Quality & Authenticity",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Scaled Content Abuse</strong>: Mass-generating pages (often via AI or scraping) with little-to-no added value.",
+        "<strong>Scraping</strong>: Republishing content from other sites without original value or citing sources.",
+        "<strong>Misleading Functionality</strong>: Fake \"Credit Generators\" or tools that only lead to deceptive ads.",
+        "<strong>Machine-Generated Traffic</strong>: Automated queries/scraping for rank checking without permission."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. Site Structure & Reputation",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Doorway Abuse</strong>: Creating multiple pages/domains to rank for specific terms that all funnel to the same destination.",
+        "<strong>Expired Domain Abuse</strong>: Buying expired domains (e.g., old gov/charity sites) to host unrelated casino/affiliate content.",
+        "<strong>Site Reputation Abuse</strong>: Hosting third-party content (payday loan reviews on an edu site) purely to hijack the host's authority."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4. Manipulative Linking & Keywords",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Link Spam</strong>: Buying/selling links, excessive exchanges, or automated link creation. Outbound links must be qualified with <code>rel=\"nofollow\"</code> or <code>rel=\"sponsored\"</code>.",
+        "<strong>Keyword Stuffing</strong>: Unnatural repetition of keywords or lists of cities/regions without value."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5. Security & Malicious Acts",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Hacked Content</strong>: Code/page/content injection or malicious redirects resulting from security vulnerabilities.",
+        "<strong>Malicious Practices</strong>: Back-button hijacking (preventing users from leaving the site).",
+        "<strong>Malware &amp; Unwanted Software</strong>: Downloadable binaries that harm users or deceptively change system settings."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "slug": "docs/traffic-debug-analytics",
+  "title": "Debugging Search Traffic Drops & Analytics | AMK Digital Agency",
+  "description": "Algorithmic Update: Core or smaller updates changing assessment of helpful content. Small Drop: Position 2 -> 4 (Normal fluctuation). Large Drop…",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Debugging Search Traffic Drops & Analytics",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. Main Causes for Traffic Drops",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Algorithmic Update</strong>: Core or smaller updates changing assessment of helpful content.",
+        "<em>Small Drop</em>: Position 2 -&gt; 4 (Normal fluctuation).",
+        "<em>Large Drop</em>: Position 4 -&gt; 29 (Requires site-wide assessment of \"Helpful, Reliable, People-first\" content).",
+        "<strong>Technical Issues</strong>: Server availability, robots.txt blocks, or accidental <code>noindex</code>.",
+        "<strong>Security &amp; Spam</strong>: Malware, phishing warnings, or Manual Actions for spam policy violations.",
+        "<strong>Seasonality</strong>: External influence (holidays, trends). Use Google Trends to verify.",
+        "<strong>Migrations</strong>: Ranking fluctuations while Google recrawls new URLs."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. Using GSC and GA4 Together",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Search Console</strong>: Pre-arrival data (Impressions, Clicks, Queries).",
+        "<strong>Google Analytics</strong>: Post-arrival data (Sessions, Engagement, Conversions).",
+        "<strong>Discrepancies</strong>: Normal due to implementation, cookies, timezones, and bot filtering (GA excludes bots; GSC may include them)."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. Advanced Analysis: Bubble Charts",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>X-axis</strong>: CTR (Quality).",
+        "<strong>Y-axis</strong>: Avg Position (Ranking).",
+        "<strong>Bubble Size</strong>: Clicks (Volume).",
+        "<strong>Color</strong>: Device (Mobile vs Desktop).",
+        "<strong>Quadrants</strong>:",
+        "<em>Top Pos / High CTR</em>: Excellent.",
+        "<em>Low Pos / High CTR</em>: High Potential (Optimize SEO).",
+        "<em>Low Pos / Low CTR</em>: Low Priority or Unrelated.",
+        "<em>Top Pos / Low CTR</em>: Snippet Optimization needed (check Rich Results/Competitors)."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4. Google Trends Strategic Usage",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Monitoring Trends</strong>: Use the <strong>Explore tool</strong> (custom terms) and <strong>Trending Now tool</strong> (real-time spikes).",
+        "<strong>Keyword Research</strong>: Identify rising terms with low competition. Use \"Topics\" instead of \"Terms\" to aggregate misspellings and variations.",
+        "<strong>Content Calendars</strong>: Use 5-year historical data to identify seasonality (e.g., Brie cheese spikes in Nov in US vs Dec in UK). Publish content <em>before</em> the spike.",
+        "<strong>Benchmarking</strong>: Compare your brand search volume against competitors to gauge market share and industry-wide trends vs. site-specific issues.",
+        "<strong>Brand Sentiment</strong>: Monitor rising queries associated with your brand to address customer concerns or capitalize on new interests (e.g., brand name + \"coupon\" or brand name + \"issue\")."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

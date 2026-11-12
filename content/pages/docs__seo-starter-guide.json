@@ -1,0 +1,128 @@
+{
+  "slug": "docs/seo-starter-guide",
+  "title": "SEO Starter Guide: Foundational Best Practices | AMK Digital Agency",
+  "description": "site: operator: Use to check indexing status. Sitemaps: Help Google discover important URLs and metadata (update frequency). Crawlable Links: Use <a>…",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "SEO Starter Guide: Foundational Best Practices",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. Help Google Find Your Content",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong><code>site:</code> operator</strong>: Use to check indexing status.",
+        "<strong>Sitemaps</strong>: Help Google discover important URLs and metadata (update frequency).",
+        "<strong>Crawlable Links</strong>: Use <code>&lt;a&gt;</code> tags with <code>href</code> attributes. Google cannot follow <code>onclick</code> or <code>button</code> navigation."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. Organization & Structure",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Descriptive URLs</strong>: Use breadcrumb-like structures (e.g., <code>/pets/cats.html</code> vs <code>/id/67727</code>).",
+        "<strong>Topical Grouping</strong>: Group similar pages in directories to help Google learn crawl frequency patterns.",
+        "<strong>Canonicalization</strong>: Use <code>rel=\"canonical\"</code> to specify the preferred version of duplicate content."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. Content Optimization",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Helpful &amp; Reliable</strong>: Focus on unique, easy-to-read, and expert-level content (E-E-A-T).",
+        "<strong>Link Text (Anchor Text)</strong>: Use descriptive text that explains the destination (avoid \"click here\").",
+        "<strong>Images</strong>:",
+        "High-quality images near relevant text.",
+        "Descriptive <code>alt</code> text for accessibility and search context.",
+        "<strong>Videos</strong>: Standalone pages with descriptive titles/descriptions and high-quality embedding."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4. Search Appearance",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Title Links</strong>: Unique, clear, and concise titles (using <code>&lt;title&gt;</code> and <code>&lt;h1&gt;</code>).",
+        "<strong>Snippets</strong>: Controlled via Meta Descriptions or sourced from high-quality page content."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5. Technical Essentials",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>HTTPS</strong>: Secure connections are a ranking factor and user trust signal.",
+        "<strong>Mobile-Friendliness</strong>: Google uses mobile-first indexing; ensure responsive design.",
+        "<strong>Page Experience</strong>: Fast loading (Core Web Vitals) and avoiding intrusive interstitials."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

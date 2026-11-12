@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge Hub: Digital Marketing &amp; SEO Docs | AMK Digital Agency</title>
+  <meta name="description" content="Interactive knowledge panels for Digital Marketing & SEO — including the 2026 AI search stack: SEO, AEO, GEO and AEIO. Built for students, freelancers and agencies." />
+  <script src="/js/theme-engine.js?v=2026.08.27"></script>
+  <style>
+    :root{
+      --bg:#f6f7fb; --surface:#ffffff; --ink:#10131f; --muted:#5b627a; --faint:#9098b0;
+      --border:#e7e9f2; --accent:#6c63ff; --accent-2:#1dd1a1; --soft:#eeecff;
+      --code:#f3f4fb; --radius:14px; --shadow:0 6px 26px rgba(20,24,50,.06);
+    }
+    [data-theme="dark"]{
+      --bg:#000000; --surface:#111319; --ink:#f4f5fb; --muted:#a8adc4; --faint:#6b7086;
+      --border:rgba(255,255,255,.1); --accent:#818cf8; --accent-2:#2dd4bf; --soft:rgba(129,140,248,.16);
+      --code:#1a1b24; --shadow:0 6px 26px rgba(0,0,0,.5);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);}
+    a{color:inherit;text-decoration:none}
+    .top{position:sticky;top:0;z-index:40;background:var(--surface);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .top .inner{max-width:1320px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+    .brand .dot{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center}
+    .navlinks{display:flex;gap:16px;font-size:14px;font-weight:600;color:var(--muted)}
+    .navlinks a:hover{color:var(--accent)}
+    .spacer{flex:1}
+    .search{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px 12px;min-width:220px}
+    .search input{border:none;background:none;outline:none;font-size:14px;width:100%}
+    .shell{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;gap:0}
+    @media(max-width:900px){.shell{grid-template-columns:1fr}}
+    .side{border-right:1px solid var(--border);padding:22px 16px;height:calc(100vh - 56px);overflow:auto;position:sticky;top:56px}
+    @media(max-width:900px){.side{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border)}}
+    .cat{margin-bottom:18px}
+    .cat .h{display:flex;align-items:center;gap:8px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);font-weight:800;margin-bottom:8px}
+    .doclink{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:9px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--muted);transition:.12s}
+    .doclink:hover{background:var(--surface)}
+    .doclink.active{background:var(--soft);color:var(--accent)}
+    .main{padding:30px 40px;min-height:calc(100vh - 56px)}
+    @media(max-width:640px){.main{padding:22px}}
+    /* landing */
+    .hero h1{font-size:clamp(26px,3.4vw,38px);font-weight:800;margin:0 0 8px;letter-spacing:-.02em}
+    .hero p{color:var(--muted);font-size:16px;max-width:680px;margin:0 0 26px}
+    .pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:32px}
+    @media(max-width:820px){.pillars{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:460px){.pillars{grid-template-columns:1fr}}
+    .pcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,border-color .15s}
+    .pcard:hover{transform:translateY(-3px);border-color:var(--accent)}
+    .pcard .ab{font-size:22px;font-weight:900;letter-spacing:-.02em;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .pcard h4{margin:8px 0 6px;font-size:15px}
+    .pcard p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+    .catgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    @media(max-width:760px){.catgrid{grid-template-columns:1fr}}
+    .ccard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .ccard .h{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;margin-bottom:4px}
+    .ccard .b{font-size:13px;color:var(--muted);margin-bottom:12px}
+    .ccard .item{font-size:13.5px;color:var(--accent);font-weight:600;padding:5px 0;cursor:pointer;border-top:1px solid var(--border)}
+    .ccard .item:hover{padding-left:6px;transition:.12s}
+    /* doc view */
+    .docview{display:grid;grid-template-columns:1fr 220px;gap:34px}
+    @media(max-width:1040px){.docview{grid-template-columns:1fr}}
+    .crumbs{font-size:12px;color:var(--faint);margin-bottom:10px}
+    .crumbs b{color:var(--accent)}
+    .docview h1.title{font-size:30px;margin:0 0 8px;letter-spacing:-.02em}
+    .summary{color:var(--muted);font-size:15px;margin-bottom:18px}
+    .diff{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;background:var(--soft);color:var(--accent);margin-bottom:16px}
+    .toc{position:sticky;top:78px;align-self:start;font-size:13px}
+    .toc .t{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);font-weight:800;margin-bottom:10px}
+    .toc a{display:block;padding:4px 0;color:var(--muted);cursor:pointer;line-height:1.4}
+    .toc a:hover{color:var(--accent)}
+    .toc a.lvl3{padding-left:12px;font-size:12px}
+    /* rendered markdown */
+    .doc{font-size:15.5px;line-height:1.75;color:#23283c}
+    .doc h1{font-size:26px;margin:30px 0 10px}
+    .doc h2{font-size:21px;margin:34px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);scroll-margin-top:70px}
+    .doc h3{font-size:17px;margin:22px 0 8px;scroll-margin-top:70px}
+    .doc p{margin:12px 0}
+    .doc ul,.doc ol{padding-left:22px} .doc li{margin:5px 0}
+    .doc strong{color:var(--ink)}
+    .doc code{background:var(--code);padding:2px 7px;border-radius:5px;font-size:13px;font-family:ui-monospace,Menlo,monospace;color:#6a37c9}
+    .doc hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+    .doc table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;box-shadow:var(--shadow);border-radius:10px;overflow:hidden}
+    .doc th{background:#13162a;color:#fff;text-align:left;padding:11px 13px;font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+    .doc td{padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+    .doc tr:nth-child(even) td{background:#fafbff}
+    .doc tbody tr:hover td{background:var(--soft)}
+    .empty{padding:50px;text-align:center;color:var(--faint)}
+    .spin{width:34px;height:34px;border:4px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:sp 1s linear infinite;margin:40px auto}
+    @keyframes sp{to{transform:rotate(360deg)}}
+    
+    /* Ask AI panel */
+    .askwrap{background:linear-gradient(135deg,#1a1c2e,#23264a);border-radius:var(--radius);padding:24px;color:#fff;margin-bottom:22px;box-shadow:var(--shadow);text-align:left}
+    .askwrap h3{margin:0 0 4px;font-size:18px;color:#fff}
+    .askwrap p{margin:0 0 14px;font-size:13px;color:#b7bcd8}
+    .askbar{display:flex;gap:10px}
+    .askbar input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:10px;padding:12px 14px;font-size:14px}
+    .askbar input::placeholder{color:#9aa0c0}
+    .answer{margin-top:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:16px;font-size:14px;line-height:1.6;display:none}
+    .answer.show{display:block}
+    .cites{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .cite{background:rgba(108,99,255,.2);border:1px solid rgba(108,99,255,.4);color:#cfcbff;padding:5px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer}
+    .askwrap .spin{width:34px;height:34px;border:4px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:sp 1s linear infinite;margin:20px auto}
+    .btn{border:1px solid var(--border);background:var(--surface);color:var(--ink);padding:9px 16px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;justify-content:center}
+    .btn:hover{border-color:var(--accent)}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#8b7bff);color:#fff;border:none}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="inner">
+      <a href="/index.html" class="brand"><span class="dot">📖</span> AMK Digital Agency Docs</a>
+      <div class="navlinks" style="margin-left:14px">
+        <a href="/index.html">Home</a>
+        <a href="/resources.html">Academy</a>
+        <a href="/docs.html" style="color:var(--accent)">Docs</a>
+        <a href="#" data-app-path="/login" hidden>App sign in</a>
+      </div>
+      <div class="spacer"></div>
+      <button type="button" class="btn theme-toggle-btn" onclick="window.AMKTheme && window.AMKTheme.toggle()" title="Toggle theme" style="width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:10px;border:1px solid var(--border);background:var(--surface);cursor:pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;color:var(--muted)" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </button>
+      <button type="button" class="btn primary" onclick="showAskAI()" style="margin:0 12px; display:inline-flex; align-items:center; gap:6px; background:linear-gradient(135deg,var(--accent),#8b7bff); color:#fff; border:none; padding:9px 16px; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer;">🤖 Ask AI</button>
+      <div class="search"><span>🔍</span><input id="searchInput" placeholder="Search the knowledge base…" /></div>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="side" id="sidebar"><div class="spin"></div></aside>
+    <main class="main" id="main"><div class="spin"></div></main>
+  </div>
+  <script src="/js/config.js"></script>
+  <script src="/js/site.js"></script>
+  <script>
+  (function(){
+    const $ = s => document.querySelector(s);
+    const esc = s => String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    let CAT = {categories:[], docs:[]};
+    let _timer = null;
+    let pendingAnchor = null;
+
+    // ── Markdown → HTML, used ONLY for live Ask-AI answers (ephemeral LLM
+    // text, not CMS content — doc bodies now render real, cached body_html
+    // straight from the CMS, no client-side parsing needed). ──
+    function mdToHtml(md){
+      const lines = (md||'').replace(/\r/g,'').split('\n');
+      let html = '', i = 0;
+      const inline = t => esc(t)
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .replace(/`([^`]+)`/g,'<code>$1</code>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+      const anchor = t => t.toLowerCase().replace(/[^\w\s-]/g,'').replace(/[\s_]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);
+      while(i < lines.length){
+        let ln = lines[i];
+        // table: header row + separator row
+        if(/^\s*\|.*\|\s*$/.test(ln) && i+1<lines.length && /^\s*\|?[\s:|-]+\|?\s*$/.test(lines[i+1]) && lines[i+1].includes('-')){
+          const cells = r => r.trim().replace(/^\||\|$/g,'').split('|').map(c=>c.trim());
+          const head = cells(ln); i += 2;
+          let body = '';
+          while(i<lines.length && /^\s*\|.*\|\s*$/.test(lines[i])){ const c=cells(lines[i]); body+='<tr>'+c.map(x=>'<td>'+inline(x)+'</td>').join('')+'</tr>'; i++; }
+          html += '<div style="overflow-x:auto"><table><thead><tr>'+head.map(h=>'<th>'+inline(h)+'</th>').join('')+'</tr></thead><tbody>'+body+'</tbody></table></div>';
+          continue;
+        }
+        let m;
+        if((m=ln.match(/^###\s+(.*)/))){ const t=m[1].trim(); html+=`<h3 id="${anchor(t)}">${inline(t)}</h3>`; i++; continue; }
+        if((m=ln.match(/^##\s+(.*)/))){ const t=m[1].trim(); html+=`<h2 id="${anchor(t)}">${inline(t)}</h2>`; i++; continue; }
+        if((m=ln.match(/^#\s+(.*)/))){ html+=`<h1>${inline(m[1].trim())}</h1>`; i++; continue; }
+        if(/^\s*---+\s*$/.test(ln)){ html+='<hr/>'; i++; continue; }
+        if(/^\s*[-*]\s+/.test(ln)){ let items=''; while(i<lines.length && /^\s*[-*]\s+/.test(lines[i])){ items+='<li>'+inline(lines[i].replace(/^\s*[-*]\s+/,''))+'</li>'; i++; } html+='<ul>'+items+'</ul>'; continue; }
+        if(/^\s*\d+\.\s+/.test(ln)){ let items=''; while(i<lines.length && /^\s*\d+\.\s+/.test(lines[i])){ items+='<li>'+inline(lines[i].replace(/^\s*\d+\.\s+/,''))+'</li>'; i++; } html+='<ol>'+items+'</ol>'; continue; }
+        if(ln.trim()===''){ i++; continue; }
+        // paragraph (gather until blank)
+        let para=ln; i++;
+        while(i<lines.length && lines[i].trim()!=='' && !/^\s*[#|>-]/.test(lines[i]) && !/^\s*\d+\.\s/.test(lines[i])){ para+=' '+lines[i]; i++; }
+        html += '<p>'+inline(para)+'</p>';
+      }
+      return html;
+    }
+
+    async function init(){
+      try{ CAT = await (await fetch('/api/v1/docs/catalog')).json(); }
+      catch(e){ $('#main').innerHTML='<div class="empty">⚠️ Could not load the knowledge base.</div>'; return; }
+      renderSidebar(CAT.docs);
+      handleRoute();
+    }
+
+    function handleRoute(){
+      const id = (location.hash||'').replace('#','');
+      if(id && CAT.docs.find(d=>d.id===id)){
+        openDoc(id);
+      } else {
+        renderLanding();
+      }
+    }
+
+    function renderSidebar(docs){
+      let html='';
+      for(const cat of CAT.categories){
+        const items = docs.filter(d=>d.category===cat.id);
+        if(!items.length) continue;
+        html += `<div class="cat"><div class="h">${cat.icon} ${esc(cat.name)}</div>` +
+          items.map(d=>`<div class="doclink" data-id="${d.id}">${d.icon} ${esc(d.title)}</div>`).join('') + `</div>`;
+      }
+      $('#sidebar').innerHTML = html || '<div class="empty">No docs.</div>';
+      // Clicking a sidebar link updates hash to trigger handleRoute
+      $('#sidebar').querySelectorAll('.doclink').forEach(el=>el.onclick=()=>{ location.hash = el.dataset.id; });
+    }
+
+    const PILLARS = [
+      {ab:'SEO', t:'Search Engine Optimization', d:'Rank in organic Google & Bing results.', anchor:'seo-components'},
+      {ab:'AEO', t:'Answer Engine Optimization', d:'Win featured snippets, PAA & voice answers.', anchor:'aeo-components'},
+      {ab:'GEO', t:'Generative Engine Optimization', d:'Get cited by ChatGPT, Gemini & Perplexity.', anchor:'geo-components'},
+      {ab:'AEIO',t:'AI Engine Intelligence Opt.', d:'Make content machine-readable for AI systems.', anchor:'aeio-components'},
+    ];
+
+    // Ask AI (RAG)
+    async function ask(){
+      const askInput = $('#askInput');
+      if (!askInput) return;
+      const q = askInput.value.trim();
+      if(!q) return;
+      const a = $('#answer');
+      if (!a) return;
+      a.className = 'answer show';
+      a.innerHTML = '<div class="spin"></div>';
+      try{
+        let token=null; try{ token=(JSON.parse(localStorage.getItem('amk_user')||'null')||{}).token; }catch(_){}
+        const res = await fetch('/api/v1/academy/ask', {
+          method:'POST', headers:{'Content-Type':'application/json', ...(token?{'Authorization':'Bearer '+token}:{})},
+          body: JSON.stringify({query:q})
+        });
+        const d = await res.json();
+        const cites = (d.citations||[]).map(c=>`<span class="cite" data-slug="${esc(c.slug)}">📄 ${esc(c.title)}</span>`).join('');
+        a.innerHTML = `<div>${mdToHtml(d.answer||'No answer.')}</div>${cites?`<div class="cites">${cites}</div>`:''}`;
+        a.querySelectorAll('.cite').forEach(el=>el.onclick=()=>{ location.hash = el.dataset.slug; });
+      }catch(e){ a.innerHTML = '⚠️ Could not reach the AI tutor.'; }
+    }
+
+    window.showAskAI = function(){
+      const askInput = document.getElementById('askInput');
+      if (askInput) {
+        askInput.focus();
+        askInput.scrollIntoView({behavior:'smooth', block:'center'});
+      } else {
+        window.shouldFocusAskAI = true;
+        location.hash = '';
+      }
+    };
+
+    function renderLanding(){
+      $('#sidebar').querySelectorAll('.doclink').forEach(x=>x.classList.remove('active'));
+      const catCards = CAT.categories.map(c=>{
+        const items = CAT.docs.filter(d=>d.category===c.id);
+        return `<div class="ccard"><div class="h">${c.icon} ${esc(c.name)}</div><div class="b">${esc(c.blurb||'')}</div>` +
+          items.slice(0,6).map(d=>`<div class="item" data-id="${d.id}">${d.icon} ${esc(d.title)}</div>`).join('') + `</div>`;
+      }).join('');
+      $('#main').innerHTML = `
+        <div class="hero">
+          <div class="askwrap">
+            <h3>🤖 Ask the Academy AI</h3>
+            <p>Get answers grounded in our resources — with citations. e.g. "How can I improve brand visibility in ChatGPT?"</p>
+            <div class="askbar">
+              <input id="askInput" type="text" placeholder="Ask anything about digital marketing…" />
+              <button class="btn primary" id="askBtn">Ask →</button>
+            </div>
+            <div class="answer" id="answer"></div>
+          </div>
+          <h1>📚 Knowledge Hub</h1>
+          <p>Everything you need to master modern digital marketing — built for students, freelancers and agencies. Start with the 2026 AI search stack:</p>
+          <div class="pillars">
+            ${PILLARS.map(p=>`<div class="pcard" data-anchor="${p.anchor}"><div class="ab">${p.ab}</div><h4>${esc(p.t)}</h4><p>${esc(p.d)}</p></div>`).join('')}
+          </div>
+          <div class="catgrid">${catCards}</div>
+        </div>`;
+      
+      $('#main').querySelectorAll('.pcard').forEach(el=>el.onclick=()=>{
+        pendingAnchor = el.dataset.anchor;
+        location.hash = 'ai-search-framework';
+      });
+      
+      $('#main').querySelectorAll('.item').forEach(el=>el.onclick=()=>{
+        location.hash = el.dataset.id;
+      });
+      
+      const askBtn = $('#askBtn');
+      const askInput = $('#askInput');
+      if (askBtn && askInput) {
+        askBtn.onclick = ask;
+        askInput.addEventListener('keydown', e => { if (e.key === 'Enter') ask(); });
+      }
+
+      if (window.shouldFocusAskAI) {
+        window.shouldFocusAskAI = false;
+        setTimeout(() => {
+          const inp = document.getElementById('askInput');
+          if (inp) {
+            inp.focus();
+            inp.scrollIntoView({behavior:'smooth', block:'center'});
+          }
+        }, 80);
+      }
+    }
+
+    async function openDoc(id){
+      $('#main').innerHTML = '<div class="spin"></div>';
+      $('#sidebar').querySelectorAll('.doclink').forEach(x=>x.classList.toggle('active', x.dataset.id===id));
+      try{
+        const doc = await (await fetch('/api/v1/docs/'+encodeURIComponent(id))).json();
+        const toc = (doc.toc||[]).map(t=>`<a class="lvl${t.level}" data-anchor="${t.anchor}">${esc(t.text)}</a>`).join('');
+        $('#main').innerHTML = `
+          <div class="docview">
+            <article>
+              <div class="crumbs"><b onclick="location.hash='';" style="cursor:pointer">Knowledge Hub</b> › ${esc(doc.category_name)}</div>
+              <h1 class="title">${doc.icon} ${esc(doc.title)}</h1>
+              <span class="diff">${esc(doc.difficulty)}</span>
+              <div class="summary">${esc(doc.summary)}</div>
+              <div class="doc" id="docBody">${doc.html || ''}</div>
+              
+              <!-- Ask AI Panel on Doc Page -->
+              <div class="askwrap" style="margin-top: 40px;">
+                <h3>🤖 Ask the Academy AI</h3>
+                <p>Have questions about this guide or related topics? Ask our AI tutor below:</p>
+                <div class="askbar">
+                  <input id="askInput" type="text" placeholder="Ask a question about this guide…" />
+                  <button class="btn primary" id="askBtn">Ask →</button>
+                </div>
+                <div class="answer" id="answer"></div>
+              </div>
+            </article>
+            <nav class="toc">${toc?`<div class="t">On this page</div>${toc}`:''}</nav>
+          </div>`;
+
+        const askBtn = $('#askBtn');
+        const askInput = $('#askInput');
+        if (askBtn && askInput) {
+          askBtn.onclick = ask;
+          askInput.addEventListener('keydown', e => { if (e.key === 'Enter') ask(); });
+        }
+
+        $('#main').querySelectorAll('.toc a').forEach(a=>a.onclick=()=>{
+          const el=document.getElementById(a.dataset.anchor); if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+        });
+        window.scrollTo({top:0});
+        
+        const scrollAnchor = pendingAnchor;
+        pendingAnchor = null;
+        if(scrollAnchor){
+          const el=document.getElementById(scrollAnchor);
+          if(el) setTimeout(()=>el.scrollIntoView({behavior:'smooth', block:'center'}), 120);
+        }
+
+        if (window.shouldFocusAskAI) {
+          window.shouldFocusAskAI = false;
+          setTimeout(() => {
+            const inp = document.getElementById('askInput');
+            if (inp) {
+              inp.focus();
+              inp.scrollIntoView({behavior:'smooth', block:'center'});
+            }
+          }, 80);
+        }
+      }catch(e){ $('#main').innerHTML='<div class="empty">⚠️ Could not load this document.</div>'; }
+    }
+
+    async function doSearch(q){
+      if(!q || !q.trim()){ renderSidebar(CAT.docs); return; }
+      try{
+        const data = await (await fetch('/api/v1/docs/search?q='+encodeURIComponent(q))).json();
+        const docs = (data.results||[]).map(r=>({...r}));
+        $('#sidebar').innerHTML = `<div class="cat"><div class="h">🔍 ${docs.length} result${docs.length!==1?'s':''}</div>` +
+          docs.map(d=>`<div class="doclink" data-id="${d.id}">${d.icon} ${esc(d.title)}</div>`).join('') + `</div>`;
+        $('#sidebar').querySelectorAll('.doclink').forEach(el=>el.onclick=()=>{ location.hash = el.dataset.id; });
+      }catch(e){}
+    }
+    $('#searchInput').addEventListener('input', e=>{ clearTimeout(_timer); const v=e.target.value; _timer=setTimeout(()=>doSearch(v),250); });
+
+    window.addEventListener('hashchange', handleRoute);
+    init();
+  })();
+  </script>
+  <script>
+    /* The knowledge hub content is being moved into static pages on this website.
+       Until then the live content service is not available. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var cfg = window.AMK_SITE || {};
+      if (/^https?:\/\//.test(cfg.apiUrl || '')) return;
+      var main = document.querySelector('main') || document.body;
+      var note = document.createElement('p');
+      note.setAttribute('role', 'status');
+      note.style.cssText = 'max-width:760px;margin:16px auto;padding:12px 16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-size:15px;line-height:1.5;';
+      note.textContent = 'This section is being rebuilt. The articles will be back soon.';
+      main.parentNode.insertBefore(note, main);
+    });
+  </script>
+</body>
+</html>

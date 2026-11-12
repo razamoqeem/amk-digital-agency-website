@@ -1,0 +1,106 @@
+{
+  "slug": "docs/security-abuse-prevention",
+  "title": "1. Preventing User-Generated Spam | AMK Digital Agency",
+  "description": "Spammers exploit open forms, comments, and guestbooks. Remedy: Use CAPTCHAs, moderation, and rel=\"nofollow ugc\" for user links. Malware: Harmful…",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "1. Preventing User-Generated Spam",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Spammers exploit open forms, comments, and guestbooks.",
+        "<strong>Remedy</strong>: Use CAPTCHAs, moderation, and <code>rel=\"nofollow ugc\"</code> for user links."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. Malware & Unwanted Software",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Malware</strong>: Harmful software (viruses, etc.) installed without consent.",
+        "<strong>Unwanted Software</strong>: Deceptive apps that leak PII, change browser settings (Home page, New tab), or inject ads.",
+        "<strong>Guidelines</strong>:",
+        "Accurately inform users of purpose/intent (no \"Download\" ads without context).",
+        "Use the <strong>Chrome Settings API</strong> for browser changes.",
+        "Don't degrade <strong>TLS/SSL</strong> security (no root CA installs).",
+        "Uninstallation must be simple, findable, and non-threatening.",
+        "<strong>Google Safe Browsing</strong>: Warns users of dangerous sites. <strong>Repeat Offenders</strong> (switching between compliant/noncompliant) face 30-day review blocks."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. Social Engineering (Phishing)",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Phishing</strong>: Trickery to reveal personal info (passwords, phone numbers).",
+        "<strong>Deceptive Content</strong>: Fake \"Update Browser\" popups or \"System Infected\" scareware.",
+        "<strong>Third-Party Services</strong>: Sites operating on behalf of others must be clearly labeled (e.g., \"Hosted by X on behalf of Y\").",
+        "<strong>Embedded Risks</strong>: Deceptive ads masquerading as page action buttons (e.g., fake \"Play\" buttons)."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4. Site Health & Prevention Checklist",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Monitoring</strong>: Periodically use <code>site:[domain]</code> to check for unknown pages (hacked content).",
+        "<strong>Passwords</strong>: Use unique, strong passwords for all admin accounts.",
+        "<strong>Software Updates</strong>: Maintain a registry of all plugins/CMS versions. Outdated software is the #1 vector for malware.",
+        "<strong>Secure Protocols</strong>: Exclusively use <strong>SSH/SFTP</strong> for data transfer; disable plain text Telnet/FTP.",
+        "<strong>Log Monitoring</strong>: Watch for unfamiliar URL parameters (<code>=http:</code>) or spikes in redirect traffic (indicates Open Redirect exploits).",
+        "<strong>Manual Actions</strong>: Review the <strong>Manual Actions report</strong> in Search Console for policy violations."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

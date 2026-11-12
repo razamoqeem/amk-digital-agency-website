@@ -1,0 +1,120 @@
+{
+  "slug": "docs/js-seo-mobile-rendering",
+  "title": "JavaScript SEO & Modern Rendering | AMK Digital Agency",
+  "description": "Google uses an evergreen Chromium to render pages. Rendering Workflow: Crawl -> Render Queue -> Render -> Index. Lazy-loading: Google supports native…",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "Article",
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "JavaScript SEO & Modern Rendering",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. JS SEO Basics",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Google uses an <strong>evergreen Chromium</strong> to render pages.",
+        "<strong>Rendering Workflow</strong>: Crawl -&gt; Render Queue -&gt; Render -&gt; Index.",
+        "<strong>Lazy-loading</strong>: Google supports native lazy-loading (<code>loading=\"lazy\"</code>). Ensure content is in the viewport when rendered."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. Dynamic Rendering",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Status</strong>: Workaround, not a long-term solution.",
+        "<strong>Recommendation</strong>: Use Server-Side Rendering (SSR), Static Rendering, or Hydration."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. SPA & Routing",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Avoid hash-based routing (<code>#/</code>) for critical content as Google may not crawl fragments.",
+        "Use the <strong>History API</strong> (Clean URLs) for Single Page Applications."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4. Web Components & Shadow DOM",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Google can index content in the Shadow DOM, but it's best to use Light DOM for critical SEO content to ensure maximum compatibility."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5. App Shell Architecture",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Avoid serving a generic App Shell for every URL if it delays content discovery. Ensure the meaningful content is available quickly."
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}

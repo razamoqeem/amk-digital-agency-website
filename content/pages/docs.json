@@ -1,0 +1,66 @@
+{
+  "slug": "docs",
+  "title": "SEO and Search Documentation | AMK Digital Agency",
+  "description": "Short reference guides on how search works: crawling and indexing, technical requirements, JavaScript SEO, redirects, spam policies and debugging.",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "SEO and search documentation",
+      "size": "xl",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "Short reference guides based on Google Search Central's public guidance.",
+      "size": "lg",
+      "color": "muted",
+      "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Guides",
+      "size": "lg",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<a href=\"/docs/compliance-index/\">Ahmad SEO Suite: Google Search Central Compliance Index</a>",
+        "<a href=\"/docs/crawling-indexing-basics/\">Google Crawling &amp; Indexing Fundamentals</a>",
+        "<a href=\"/docs/js-seo-mobile-rendering/\">JavaScript SEO &amp; Modern Rendering</a>",
+        "<a href=\"/docs/redirects-migrations-testing/\">Redirects, Migrations, and A/B Testing</a>",
+        "<a href=\"/docs/search-operators-debug/\">Google Search Operators for Forensic Debugging</a>",
+        "<a href=\"/docs/security-abuse-prevention/\">1. Preventing User-Generated Spam</a>",
+        "<a href=\"/docs/seo-starter-guide/\">SEO Starter Guide: Foundational Best Practices</a>",
+        "<a href=\"/docs/spam-policies/\">Google Search Spam Policies: Forensic Dictionary</a>",
+        "<a href=\"/docs/technical-requirements/\">Google Search Technical Requirements</a>",
+        "<a href=\"/docs/traffic-debug-analytics/\">Debugging Search Traffic Drops &amp; Analytics</a>"
+      ],
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    },
+    {
+      "type": "paragraph",
+      "html": "More guides and the academy section are being rebuilt and will be added here.",
+      "size": "md",
+      "color": "ink",
+      "opacity": 100
+    }
+  ]
+}
