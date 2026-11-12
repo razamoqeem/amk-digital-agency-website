@@ -30,6 +30,7 @@ from fastapi.staticfiles import StaticFiles
 from .domain_rank import DomainRankError, get_domain_rank
 from .domain_age import DomainAgeError, clean_domain, fetch_iana_list, get_domain_age
 from .engine.deep_audit import CLIENT_ERROR_KINDS, run_deep_audit
+from .engine.page_details import PageError, check_links, page_details, redirect_chain, robots_details, ssl_details
 from .engine.url_safety import UnsafeURLError, _resolve, validate_public_url
 from .store import Store
 
@@ -78,6 +79,25 @@ DAILY_LIMITS = {"crawl": _int_setting("TOOLS_CRAWL_DAILY_LIMIT", 500),
 TURNSTILE_SECRET = os.getenv("TURNSTILE_SECRET", "").strip()
 OPEN_PAGERANK_KEY = os.getenv("OPEN_PAGERANK_KEY", "").strip()
 TOOLS = {"seo-audit": "crawl", "site-scan": "crawl", "domain-age": "registry", "domain-overview": "crawl"}
+# Single-purpose tools: name -> (budget group, saved-result prefix, work, what to show).
+PAGE_TOOLS = {
+    "meta-tags":       ("crawl", "page", page_details, lambda d: {"final_url": d["final_url"], "meta": d["meta"]}),
+    "headings":        ("crawl", "page", page_details, lambda d: {"final_url": d["final_url"], "headings": d["headings"]}),
+    "images":          ("crawl", "page", page_details, lambda d: {"final_url": d["final_url"], "images": d["images"]}),
+    "keyword-density": ("crawl", "page", page_details, lambda d: {"final_url": d["final_url"], "text": d["text"],
+                                                                  "language": d["meta"]["language"]}),
+    "links":           ("crawl", "links", check_links, lambda d: d),
+    "redirects":       ("crawl", "hops", redirect_chain, lambda d: d),
+    "robots-sitemap":  ("crawl", "robots", robots_details, lambda d: d),
+    "ssl-check":       ("crawl", "ssl", ssl_details, lambda d: d),
+    "schema-social":   ("crawl", "crawl", None, lambda r: {
+        "final_url": r.get("final_url"), "structured_data": r.get("sections", {}).get("structured_data", {}),
+        "social": r.get("sections", {}).get("social", {})}),
+    "technology":      ("crawl", "crawl", None, lambda r: {
+        "final_url": r.get("final_url"), "tech_stack": r.get("sections", {}).get("tech_stack", {}),
+        "security": r.get("sections", {}).get("security", {})}),
+}
+TOOLS.update({name: spec[0] for name, spec in PAGE_TOOLS.items()})
 if OPEN_PAGERANK_KEY:                      # domain rank is switched on only when a key is set
     TOOLS["domain-rank"] = "rank"
 
@@ -508,6 +528,38 @@ async def domain_overview(request: Request):
         return _fail(request, vid, is_new, "domain-overview", 400, exc.code, exc.message)
     return await run_in_threadpool(_run_tool, request, "domain-overview", "overview:" + domain,
                                    str(body.get("turnstile_token") or ""), lambda: _overview(domain), _overview_shape)
+
+
+# ── Single-purpose tools ───────────────────────────────────────────────────
+_PAGE_STATUS = {"invalid_url": 400, "site_unreachable": 422}
+
+
+@app.post("/v1/tools/{tool}")
+async def page_tool(tool: str, request: Request):
+    from starlette.concurrency import run_in_threadpool
+    body = await _body(request)
+    vid, is_new = _visitor(request)
+    if tool not in PAGE_TOOLS:
+        return _fail(request, vid, is_new, tool[:40], 404, "not_found", "There is no tool with that name.")
+    _, prefix, run, shape = PAGE_TOOLS[tool]
+    try:
+        url = _checked_url(body.get("url"))
+    except ToolFailure as failure:
+        return _fail(request, vid, is_new, tool, failure.status, failure.code, failure.message)
+    if prefix in ("robots", "ssl"):                    # one saved result per site, not per page
+        parts = urlparse(url)
+        url = f"{parts.scheme}://{parts.netloc}/"
+
+    def work():
+        if run is None:
+            return _crawl(url)
+        try:
+            return run(url)
+        except PageError as exc:
+            raise ToolFailure(_PAGE_STATUS.get(exc.code, 422), exc.code, exc.message)
+
+    key = prefix + ":" + hashlib.sha256(url.encode()).hexdigest()
+    return await run_in_threadpool(_run_tool, request, tool, key, str(body.get("turnstile_token") or ""), work, shape)
 
 
 # ── Usage, leads, health ───────────────────────────────────────────────────

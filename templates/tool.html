@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>$title</title>
+  <meta name="description" content="$description" />
+$head_extra
+  <link rel="icon" href="/assets/logo.png" />
+  <link rel="stylesheet" href="/tools/overview.css" />
+  <script src="/js/config.js"></script>
+  <script src="/js/site.js" defer></script>
+$scripts
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="top">
+    <a class="brand" href="/"><img src="/assets/logo.png" alt="" width="28" height="28" /> AMK Digital Agency</a>
+    <nav aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/tools/">All free tools</a>
+      <a href="/docs/">Docs</a>
+      <a href="/docs/how-to-use-the-free-tools/">How to use</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+$body
+  </main>
+
+  <footer class="foot">&copy; $year AMK Digital Agency &middot; <span>$preview_label</span></footer>
+</body>
+</html>

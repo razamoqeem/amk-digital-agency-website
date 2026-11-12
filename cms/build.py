@@ -236,6 +236,64 @@ def token_css(settings) -> str:
     return "\n".join(lines) + "\n"
 
 
+# ── Tool pages ─────────────────────────────────────────────────────────────
+def tool_pages(settings, base):
+    """One page per tool in content/tools.json, plus the list of all tools. Returns {path: html}."""
+    data = read_json(os.path.join(CONTENT, "tools.json"), {"tools": [], "groups": []})
+    template = Template(open(os.path.join(TEMPLATES, "tool.html"), encoding="utf-8").read())
+    tools = {t["slug"]: t for t in data["tools"]}
+    href = lambda t: t.get("page") or "/tools/%s.html" % t["slug"]
+    common = dict(year=datetime.date.today().year, preview_label=esc(settings.get("preview_label", "")))
+    scripts = '  <script src="/js/tools-client.js" defer></script>\n  <script src="/js/page-tools.js" defer></script>'
+    out = {}
+
+    for tool in data["tools"]:
+        if tool.get("page"):
+            continue
+        others = "".join('<a class="card link" href="%s"><h3>%s</h3><p>%s</p></a>' % (esc(href(t)), esc(t["name"]), esc(t["summary"]))
+                         for t in data["tools"] if t["slug"] != tool["slug"])
+        body = "\n".join([
+            '    <section class="hero">',
+            "      <h1>%s</h1>" % esc(tool["name"]),
+            "      <p>%s</p>" % esc(tool["intro"]),
+            '      <form id="tool-form" class="search" data-tool="%s">' % esc(tool["slug"]),
+            '        <label class="sr-only" for="tool-url">Website address</label>',
+            '        <input id="tool-url" class="tool-input" type="text" inputmode="url" autocomplete="off" placeholder="%s" required />' % esc(tool["placeholder"]),
+            '        <button id="tool-run" class="tool-run-btn" type="submit">%s</button>' % esc(tool["button"]),
+            "      </form>",
+            '      <p id="runs-line" class="runs-line" role="status" data-tool="%s" hidden></p>' % esc(tool["slug"]),
+            '      <p id="tools-unavailable" class="notice" role="status" hidden>This tool is temporarily unavailable. Please try again soon.</p>',
+            "    </section>",
+            '    <div id="gate-panel" class="gate-panel" hidden></div>',
+            '    <p id="tool-loading" class="notice" role="status" hidden>Checking. This can take a few seconds.</p>',
+            '    <p id="tool-error" class="notice bad" role="alert" hidden></p>',
+            '    <div id="tool-result" hidden></div>',
+            '    <section><h2>What this tool checks</h2><div class="panel"><ul class="plain">%s</ul></div></section>'
+            % "".join("<li>%s</li>" % esc(i) for i in tool["what"]),
+            '    <section><h2>More free tools</h2><div class="cards">%s</div></section>' % others,
+        ])
+        head = ['  <link rel="canonical" href="%s%s" />' % (esc(base), esc(href(tool)))] if base else []
+        out[os.path.join("tools", tool["slug"] + ".html")] = template.substitute(
+            title=esc(tool["title"]), description=esc(tool["description"]), head_extra="\n".join(head),
+            scripts=scripts, body=body, **common)
+
+    groups = []
+    for group in data["groups"]:
+        cards = "".join('<a class="card link" href="%s"><h3>%s</h3><p>%s</p></a>' % (
+            esc(href(tools[s])), esc(tools[s]["name"]), esc(tools[s]["summary"])) for s in group["tools"] if s in tools)
+        groups.append('    <section><h2>%s</h2><div class="cards">%s</div></section>' % (esc(group["name"]), cards))
+    body = "\n".join([
+        '    <section class="hero">', "      <h1>Free SEO tools</h1>",
+        "      <p>Each tool does one job and shows only what it really finds. No sign-up is needed for the first runs.</p>",
+        '      <p><a class="btn ghost" href="/docs/how-to-use-the-free-tools/">How to use the tools</a></p>', "    </section>"] + groups)
+    head = ['  <link rel="canonical" href="%s/tools/" />' % esc(base)] if base else []
+    out[os.path.join("tools", "index.html")] = template.substitute(
+        title="Free SEO Tools | AMK Digital Agency",
+        description="Free SEO tools from AMK Digital Agency: domain overview, meta tags, headings, images, links, redirects, robots.txt, SSL, schema, keyword density and more.",
+        head_extra="\n".join(head), scripts="", body=body, **common)
+    return out, ["/tools/"] + [href(t) for t in data["tools"] if not t.get("page")]
+
+
 # ── Host files ─────────────────────────────────────────────────────────────
 def host_files(pages, redirects):
     cms_paths = [page_url_path(p["slug"]) for p in pages] + ["/404.html"]
@@ -315,6 +373,10 @@ def build() -> dict:
     css = open(os.path.join(TEMPLATES, "site.css"), encoding="utf-8").read() + token_css(settings)
     write(os.path.join("assets", "site.css"), css)
 
+    tool_files, tool_paths = tool_pages(settings, base)
+    for rel, text in tool_files.items():
+        write(rel, text)
+
     for page in pages:
         write(page_output_rel(page["slug"]), render_page(page, settings, template, base, live_paths))
 
@@ -330,7 +392,7 @@ def build() -> dict:
 
     robots = ["User-agent: *", "Allow: /"]
     if base:
-        paths = list(settings.get("legacy_sitemap_paths", [])) + [page_url_path(p["slug"]) for p in pages if not p.get("noindex")]
+        paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex")]
         today = datetime.date.today().isoformat()
         urls = "\n".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>" % (esc(base + p), today) for p in paths)
         write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'

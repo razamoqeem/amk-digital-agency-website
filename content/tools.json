@@ -1,0 +1,91 @@
+{
+  "groups": [
+    { "name": "Whole website", "tools": ["domain-overview", "free-tools", "technology", "ssl-check", "robots-sitemap"] },
+    { "name": "One page", "tools": ["meta-tags", "headings", "images", "links", "redirects", "schema-social", "keyword-density", "title-generator"] }
+  ],
+  "tools": [
+    { "slug": "domain-overview", "page": "/tools/domain-overview.html", "name": "Domain Overview", "summary": "One report for a whole website: SEO health, domain rank, technical status, registration and security." },
+    { "slug": "free-tools", "page": "/tools/free-tools.html", "name": "SEO Audit, Page Analyser, AI readiness, Domain Age and Domain Rank", "summary": "Five quick checks on one page." },
+    { "slug": "title-generator", "page": "/tools/title-generator.html", "name": "Title Generator", "summary": "Write page titles of the right length. Runs in your browser." },
+    {
+      "slug": "meta-tags", "name": "Meta Tag Analyser", "button": "Check meta tags", "placeholder": "https://example.com/page",
+      "title": "Meta Tag Analyser: Title, Description and Social Tags | AMK Digital Agency",
+      "description": "Free meta tag checker. See a page's title, meta description, canonical, robots and social preview tags, with lengths and a search result preview.",
+      "summary": "Title, description, canonical, robots and social tags, with a search result preview.",
+      "intro": "Enter a page address to see the tags that search engines and social networks read, and whether their lengths fit.",
+      "what": ["Title and meta description with their lengths", "Canonical address, robots instructions, language and mobile viewport", "Open Graph and Twitter preview tags", "A preview of how the page can look in search results"]
+    },
+    {
+      "slug": "headings", "name": "Heading Checker", "button": "Check headings", "placeholder": "https://example.com/page",
+      "title": "Heading Checker: H1 to H6 Outline of Any Page | AMK Digital Agency",
+      "description": "Free heading checker. See the full H1 to H6 outline of a page, how many of each level it has, and whether a level is skipped or the H1 is missing.",
+      "summary": "The full H1 to H6 outline of a page and any structure problems.",
+      "intro": "Enter a page address to see its headings in order, the way a search engine or screen reader meets them.",
+      "what": ["Every heading from H1 to H6, in page order", "How many headings of each level", "Missing H1, more than one H1, and skipped levels"]
+    },
+    {
+      "slug": "images", "name": "Image and Alt Text Checker", "button": "Check images", "placeholder": "https://example.com/page",
+      "title": "Image Alt Text Checker: Find Images With No Description | AMK Digital Agency",
+      "description": "Free image SEO checker. List the images on a page that have no alt text, an empty alt text or no width and height set.",
+      "summary": "Which images have no text description or no size set.",
+      "intro": "Enter a page address to list its images and find the ones search engines and screen readers cannot understand.",
+      "what": ["Images with no alt text at all", "Images with an empty alt text", "Images with no width and height, which can make the page jump while loading"]
+    },
+    {
+      "slug": "links", "name": "Link Checker", "button": "Check links", "placeholder": "https://example.com/page",
+      "title": "Broken Link Checker for One Page: Internal and External | AMK Digital Agency",
+      "description": "Free link checker. Count the internal and external links on a page and test up to 40 of them to find broken ones.",
+      "summary": "Internal and external links on a page, with a broken-link test.",
+      "intro": "Enter a page address. We count its links and test up to 40 of them, internal links first. This can take up to 30 seconds.",
+      "what": ["Number of internal, external and nofollow links", "Links that answer with an error (broken)", "Links that refuse automated checks, shown separately so they are not mistaken for broken"]
+    },
+    {
+      "slug": "redirects", "name": "Redirect and Status Checker", "button": "Check address", "placeholder": "http://example.com",
+      "title": "Redirect Checker and HTTP Status Code Checker | AMK Digital Agency",
+      "description": "Free redirect checker. Follow an address hop by hop and see every status code until the final page, including the move from http to https.",
+      "summary": "Every redirect hop and status code from the typed address to the final page.",
+      "intro": "Enter any address, with http or https, to follow it step by step to the final page.",
+      "what": ["Each hop with its status code", "The final address and its status code", "Whether http moves to https, and whether the site name changes on the way"]
+    },
+    {
+      "slug": "robots-sitemap", "name": "Robots.txt and Sitemap Checker", "button": "Check site", "placeholder": "https://example.com",
+      "title": "Robots.txt Checker and XML Sitemap Checker | AMK Digital Agency",
+      "description": "Free robots.txt and sitemap checker. See the crawl rules a site gives to search engines, the sitemaps it lists and how many addresses they hold.",
+      "summary": "The crawl rules a site gives search engines, and its XML sitemaps.",
+      "intro": "Enter a website address to read its robots.txt file and its XML sitemaps.",
+      "what": ["Whether robots.txt exists and whether it blocks all search engines", "The rules, grouped by crawler", "Sitemaps found, their type and how many addresses they list"]
+    },
+    {
+      "slug": "ssl-check", "name": "SSL Checker", "button": "Check certificate", "placeholder": "https://example.com",
+      "title": "SSL Checker: Certificate Validity and Expiry Date | AMK Digital Agency",
+      "description": "Free SSL checker. See whether a site's security certificate is valid, who issued it, which names it covers and how many days are left.",
+      "summary": "Whether the security certificate is valid, who issued it and when it ends.",
+      "intro": "Enter a website address to check the certificate that makes its https connection secure.",
+      "what": ["Valid or not, with the reason when it is not", "Issuer, start date, end date and days left", "The site names the certificate covers", "The connection version in use"]
+    },
+    {
+      "slug": "schema-social", "name": "Schema and Open Graph Checker", "button": "Check page", "placeholder": "https://example.com/page",
+      "title": "Schema Markup Checker and Open Graph Checker | AMK Digital Agency",
+      "description": "Free structured data and Open Graph checker. See which schema types a page declares, any errors in them, and its social preview tags.",
+      "summary": "Structured data types on a page, errors in them, and social preview tags.",
+      "intro": "Enter a page address to see the structured data and social preview tags it declares.",
+      "what": ["Structured data blocks and their types", "Blocks that could not be read, and types with missing recommended fields", "Open Graph and Twitter preview tags"]
+    },
+    {
+      "slug": "keyword-density", "name": "Keyword Density and Readability Checker", "button": "Check text", "placeholder": "https://example.com/page",
+      "title": "Keyword Density Checker and Readability Checker | AMK Digital Agency",
+      "description": "Free keyword density checker. See the most used words and two-word phrases on a page, the word count and a reading ease score for English text.",
+      "summary": "Most used words and phrases on a page, word count and reading ease.",
+      "intro": "Enter a page address to count its words and see which words and phrases it uses most.",
+      "what": ["Word count", "The 20 most used words with their share of the text (common words such as \"the\" are left out)", "Repeated two-word phrases", "Flesch reading ease for English pages. It uses a standard formula and counts syllables by rule, so treat it as a guide"]
+    },
+    {
+      "slug": "technology", "name": "Website Technology Checker", "button": "Check technology", "placeholder": "https://example.com",
+      "title": "Website Technology Checker: What Is This Site Built With | AMK Digital Agency",
+      "description": "Free website technology checker. See the systems a site can be recognised as using, its server software and which security headers it sets.",
+      "summary": "Systems a site is recognisably built with, its server and security headers.",
+      "intro": "Enter a website address to see what can be recognised about how it is built.",
+      "what": ["Recognised systems (common ones only; others show as not recognised)", "Server software and generator tag, when the site states them", "Security headers that are set or missing"]
+    }
+  ]
+}

@@ -9,7 +9,7 @@
     },
     {
       "label": "Free tools",
-      "href": "/tools/free-tools.html"
+      "href": "/tools/"
     },
     {
       "label": "Docs",
@@ -60,7 +60,8 @@
     "js/nav.js",
     "js/theme-engine.js",
     "js/tools-client.js",
-    "js/domain-overview.js"
+    "js/domain-overview.js",
+    "js/page-tools.js"
   ],
   "legacy_sitemap_paths": [
     "/tools/free-tools.html",

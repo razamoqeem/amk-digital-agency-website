@@ -10,14 +10,19 @@
 
 
   // ── Tools service ────────────────────────────────────────
-  const TOOL_NAMES = { 'seo-audit': 'SEO audit', 'site-scan': 'Page and site scan', 'domain-age': 'Domain age', 'domain-rank': 'Domain rank', 'domain-overview': 'Domain overview' };
+  const TOOL_NAMES = { 'seo-audit': 'SEO audit', 'site-scan': 'Page and site scan', 'domain-age': 'Domain age', 'domain-rank': 'Domain rank', 'domain-overview': 'Domain overview',
+    'meta-tags': 'Meta tags', 'headings': 'Headings', 'images': 'Images', 'links': 'Links', 'redirects': 'Redirects',
+    'robots-sitemap': 'Robots and sitemap', 'ssl-check': 'SSL', 'schema-social': 'Schema and social tags',
+    'keyword-density': 'Keyword density', 'technology': 'Technology' };
 
   function showRuns(all) {
     const line = document.getElementById('runs-line');
     if (!line || !all) return;
     const only = line.dataset.tool;      // a page for one tool shows only that tool
+    // The page with several tools lists only its own tools.
+    const mine = ['seo-audit', 'site-scan', 'domain-age', 'domain-rank'];
     line.textContent = 'Free runs left: ' + Object.keys(TOOL_NAMES)
-      .filter(t => all[t] && (!only || t === only)).map(t => TOOL_NAMES[t] + ' ' + all[t].remaining + ' of ' + all[t].limit).join('  ·  ');
+      .filter(t => all[t] && (only ? t === only : mine.includes(t))).map(t => TOOL_NAMES[t] + ' ' + all[t].remaining + ' of ' + all[t].limit).join('  ·  ');
     line.hidden = false;
   }
   const RUNS = {};
