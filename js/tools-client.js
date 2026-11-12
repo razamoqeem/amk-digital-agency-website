@@ -15,16 +15,58 @@
     'robots-sitemap': 'Robots and sitemap', 'ssl-check': 'SSL', 'schema-social': 'Schema and social tags',
     'keyword-density': 'Keyword density', 'technology': 'Technology' };
 
+  function timeLeft(iso) {
+    const ms = new Date(iso) - new Date();
+    if (!(ms > 0)) return 'a moment';
+    const h = Math.floor(ms / 3600000), m = Math.ceil((ms % 3600000) / 60000);
+    return h >= 48 ? Math.ceil(h / 24) + ' days' : h >= 1 ? h + ' h ' + m + ' min' : m + ' min';
+  }
+
+  // The status line: runs left today and this month, plus a warning when the allowance is nearly used.
   function showRuns(all) {
     const line = document.getElementById('runs-line');
     if (!line || !all) return;
-    const only = line.dataset.tool;      // a page for one tool shows only that tool
-    // The page with several tools lists only its own tools.
-    const mine = ['seo-audit', 'site-scan', 'domain-age', 'domain-rank'];
-    line.textContent = 'Free runs left: ' + Object.keys(TOOL_NAMES)
-      .filter(t => all[t] && (only ? t === only : mine.includes(t))).map(t => TOOL_NAMES[t] + ' ' + all[t].remaining + ' of ' + all[t].limit).join('  ·  ');
+    const only = line.dataset.tool;
+    const first = all[only] || all[Object.keys(all)[0]];
+    const lim = first && first.limits;
+    if (!lim) return;
+    const part = (label, p) => p.limit ? label + ': ' + p.remaining + ' of ' + p.limit : null;
+    let text;
+    if (!lim.enforced) {
+      text = (lim.tier === 'tester' ? 'Tester access: limits are off. ' : 'Limits are off. ') + 'Runs counted today: ' + lim.daily.used;
+    } else {
+      text = 'Free runs left. ' + [part('Today', lim.daily), part('This month', lim.monthly),
+        lim.tool_daily.limit ? part('This tool today', lim.tool_daily) : null].filter(Boolean).join('  ·  ');
+      if (lim.warning) text += '  ·  ' + lim.warning;
+    }
+    line.textContent = text;
     line.hidden = false;
   }
+
+  // Shown when a daily, monthly, per-tool or per-visit limit stops a run.
+  function showLimitGate(message, lim, upgradeUrl) {
+    const which = lim && lim.blocked_by;
+    const resets = which && lim[which] && lim[which].resets_at;
+    if (resets) { try { localStorage.setItem('amk_limit_until', resets); } catch (e) { /* optional */ } }
+    gate(panel => {
+      const names = { daily: 'Daily limit reached', monthly: 'Monthly limit reached', tool_daily: 'Daily limit for this tool reached', session: 'Limit for one visit reached' };
+      panel.appendChild(mk('strong', names[which] || 'Limit reached'));
+      panel.appendChild(mk('p', message, 'margin:8px 0; color:var(--text);'));
+      if (resets) {
+        const wait = mk('p', '', 'margin:8px 0; color:var(--text); font-weight:700;');
+        const tick = () => { wait.textContent = 'Time until your allowance refreshes: ' + timeLeft(resets); };
+        tick(); setInterval(tick, 30000);
+        panel.appendChild(wait);
+      }
+      if (/^https?:\/\//.test(upgradeUrl || '')) {
+        panel.appendChild(mk('p', 'Do not want to wait? Continue in the AMK Digital Agency App.', 'margin:8px 0 12px; color:var(--text);'));
+        const link = mk('a', 'Continue in the App', 'display:inline-block;');
+        link.href = upgradeUrl; link.className = 'btn-primary';
+        panel.appendChild(link);
+      }
+    });
+  }
+
   const RUNS = {};
   async function loadRuns() {
     try {
@@ -117,12 +159,20 @@
     const message = (json.error && json.error.message) || 'That did not work. Please try again.';
     if (json.error && json.error.code === 'email_required') showEmailGate(tool, message);
     if (json.error && json.error.code === 'upgrade_required') showUpgradeGate(message, json.upgrade_url);
+    if (json.error && json.error.code === 'limit_reached') showLimitGate(message, json.runs && json.runs.limits, json.upgrade_url);
     throw new Error(message);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!TOOLS_API) return;
     loadRuns();
+    try {
+      const until = localStorage.getItem('amk_limit_until');
+      if (until && new Date(until) <= new Date()) {
+        localStorage.removeItem('amk_limit_until');
+        gate(panel => panel.appendChild(mk('strong', "Your usage allowance has been refreshed. You're ready to continue!")));
+      }
+    } catch (e) { /* optional */ }
     const confirmed = new URLSearchParams(location.search).get('confirmed');
     if (confirmed === '1') gate(panel => panel.appendChild(mk('strong', 'Email confirmed. Your extra free runs are now active.')));
     if (confirmed === '0') gate(panel => panel.appendChild(mk('strong', 'That confirmation link is no longer valid. Please ask for a new one.')));

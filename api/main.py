@@ -3,8 +3,8 @@ AMK Digital Agency Website: tools service.
 
 Real tools (SEO audit, site scan, domain age, and domain rank when a key is set)
 behind a free-use limit:
-3 runs per tool with no sign-up, 7 more after confirming an email address, then
-the visitor is sent to the App. Also serves the built Website (public/) so the
+a few runs per tool with no sign-up, then an email step, with daily, monthly and
+per-visit allowances set in content/limits.json. Testers (TESTER_EMAILS) can be unlimited. Also serves the built Website (public/) so the
 whole site can be viewed and tested on one local address.
 
 Run from the Website folder:
@@ -17,7 +17,7 @@ import os
 import re
 import secrets
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -159,15 +159,119 @@ def _client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
-def _runs(vid: str, tool: str) -> dict:
+# ── Usage limits (content/limits.json) ─────────────────────────────────────
+LIMITS_FILE = ROOT / "content" / "limits.json"
+_LIMIT_DEFAULTS = {"enabled": True, "warn_percent": 80, "runs_before_email": ANON_RUNS,
+                   "free": {"daily": 10, "monthly": 100, "session": 10},
+                   "testers": {"unlimited": True, "daily": 500, "monthly": 5000, "session": 500}, "tools": {}}
+_limits_cache = {"mtime": None, "data": _LIMIT_DEFAULTS}
+# Tester email addresses come from .env so they are never committed. Stored here only as keyed hashes.
+TESTERS = {keyed_hash("email", e.strip().lower()) for e in os.getenv("TESTER_EMAILS", "").split(",") if e.strip()}
+
+
+def _limits_config() -> dict:
+    """The limits file, read again whenever it changes. A broken file keeps the last good values."""
+    try:
+        mtime = LIMITS_FILE.stat().st_mtime
+        if mtime != _limits_cache["mtime"]:
+            raw = json.loads(LIMITS_FILE.read_text(encoding="utf-8"))
+            data = {**_LIMIT_DEFAULTS, **{k: v for k, v in raw.items() if k in _LIMIT_DEFAULTS}}
+            for tier in ("free", "testers"):
+                data[tier] = {**_LIMIT_DEFAULTS[tier], **(raw.get(tier) or {})}
+            _limits_cache.update(mtime=mtime, data=data)
+    except (OSError, ValueError, TypeError, AttributeError):
+        pass
+    return _limits_cache["data"]
+
+
+def _num(value) -> int:
+    try:
+        return max(0, int(value))
+    except (TypeError, ValueError):
+        return 0
+
+
+def _sid(request: Request) -> str:
+    """Id for one visit: a cookie that lasts until the browser is closed."""
+    if not hasattr(request.state, "sid"):
+        raw = request.cookies.get("amk_sid", "")
+        request.state.sid_new = not re.fullmatch(r"[a-f0-9]{32}", raw)
+        request.state.sid = secrets.token_hex(16) if request.state.sid_new else raw
+    return request.state.sid
+
+
+def _subject(vid: str):
     email_hash = store.visitor_email(vid)
-    if email_hash:
-        used, stage = store.get_usage("email", email_hash, tool), "email"
-    else:
-        used, stage = store.get_usage("visitor", vid, tool), "anonymous"
-    used = min(used, TOTAL_RUNS)
-    return {"used": used, "limit": TOTAL_RUNS, "remaining": TOTAL_RUNS - used, "stage": stage,
-            "free_without_email": ANON_RUNS}
+    return ("email", email_hash) if email_hash else ("visitor", vid)
+
+
+def _limits(request: Request, vid: str, tool: str) -> dict:
+    """Where this visitor stands against the daily, monthly, per-visit and per-tool allowances."""
+    cfg = _limits_config()
+    kind, subject = _subject(vid)
+    tester = kind == "email" and subject in TESTERS
+    tier = cfg["testers"] if tester else cfg["free"]
+    enforced = bool(cfg["enabled"]) and not (tester and tier.get("unlimited"))
+    now = datetime.now(timezone.utc)
+    tomorrow = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+    next_month = (now.replace(day=1, hour=0, minute=0, second=0, microsecond=0) + timedelta(days=32)).replace(day=1)
+    iso = lambda dt: dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    tool_cap = _num((cfg["tools"].get(tool) or {}).get("daily")) if not tester else 0
+
+    def part(used, limit, resets_at):
+        return {"used": used, "limit": limit, "remaining": max(0, limit - used) if limit else None, "resets_at": resets_at}
+
+    out = {
+        "tier": "tester" if tester else "free", "enforced": enforced,
+        "daily": part(store.get_usage(kind, subject, "*", now.strftime("%Y-%m-%d")), _num(tier.get("daily")), iso(tomorrow)),
+        "monthly": part(store.get_usage(kind, subject, "*", now.strftime("%Y-%m")), _num(tier.get("monthly")), iso(next_month)),
+        "session": part(store.get_usage("session", _sid(request), "*", "session"), _num(tier.get("session")), None),
+        "tool_daily": part(store.get_usage(kind, subject, tool, now.strftime("%Y-%m-%d")), tool_cap, iso(tomorrow)),
+        "blocked_by": None, "message": None, "warning": None,
+    }
+    if not enforced:
+        return out
+    messages = {
+        "monthly": "You've reached your monthly usage allowance. Your access will refresh at the beginning of the next month.",
+        "daily": "You've reached your daily free usage limit. Your allowance will refresh tomorrow. You can return then to continue.",
+        "tool_daily": "You've reached today's limit for this tool. It will refresh tomorrow. Other tools may still be available.",
+        "session": "You've used the runs allowed in one visit. Close your browser and come back for a fresh visit.",
+    }
+    for name in ("monthly", "daily", "tool_daily", "session"):
+        if out[name]["limit"] and out[name]["used"] >= out[name]["limit"]:
+            out["blocked_by"], out["message"] = name, messages[name]
+            return out
+    warn = _num(cfg.get("warn_percent")) or 80
+    for name, label in (("monthly", "monthly"), ("daily", "daily")):
+        limit, used = out[name]["limit"], out[name]["used"]
+        if limit and used * 100 >= warn * limit:
+            pct = round(100 * used / limit)
+            out["warning"] = (f"You've used {pct}% of your available {label} allowance. "
+                              f"You have {limit - used} run{'s' if limit - used != 1 else ''} remaining.")
+            break
+    return out
+
+
+def _count_run(request: Request, vid: str, tool: str) -> None:
+    """Count one successful run everywhere. Runs are counted even when limits are switched off."""
+    kind, subject = _subject(vid)
+    now = datetime.now(timezone.utc)
+    store.incr_usage(kind, subject, tool)                              # lifetime, per tool (email step)
+    store.incr_usage(kind, subject, "*", now.strftime("%Y-%m-%d"))
+    store.incr_usage(kind, subject, "*", now.strftime("%Y-%m"))
+    store.incr_usage(kind, subject, tool, now.strftime("%Y-%m-%d"))
+    store.incr_usage("session", _sid(request), "*", "session")
+
+
+def _runs(vid: str, tool: str, request: Request = None) -> dict:
+    kind, subject = _subject(vid)
+    out = {"stage": "email" if kind == "email" else "anonymous", "tool_runs": store.get_usage(kind, subject, tool),
+           "free_without_email": _num(_limits_config().get("runs_before_email"))}
+    if request is not None:
+        limits = _limits(request, vid, tool)
+        daily = limits["daily"]
+        out.update(used=daily["used"], limit=daily["limit"], remaining=daily["remaining"], limits=limits)
+    return out
 
 
 def _reply(request, vid, is_new, status, body, retry_after=None):
@@ -177,14 +281,17 @@ def _reply(request, vid, is_new, status, body, retry_after=None):
     if is_new:
         response.set_cookie(COOKIE, f"{vid}.{keyed_hash('vid', vid)}", max_age=365 * 24 * 3600,
                             httponly=True, samesite="lax", secure=request.url.scheme == "https", path="/")
+    if getattr(request.state, "sid_new", False):
+        response.set_cookie("amk_sid", request.state.sid, httponly=True, samesite="lax",
+                            secure=request.url.scheme == "https", path="/")
     return response
 
 
 def _fail(request, vid, is_new, tool, status, code, message, retry_after=None):
     body = {"ok": False, "tool": tool, "error": {"code": code, "message": message}}
     if tool in TOOLS:
-        body["runs"] = _runs(vid, tool)
-    if code == "upgrade_required":
+        body["runs"] = _runs(vid, tool, request)
+    if code in ("upgrade_required", "limit_reached"):
         body["upgrade_url"] = f"{APP_URL}/signup?ref={tool}" if APP_URL else ""
     return _reply(request, vid, is_new, status, body, retry_after)
 
@@ -222,20 +329,20 @@ def _run_tool(request: Request, tool: str, cache_key: str, token: str, work, sha
     cached = store.cache_get(cache_key)
     if cached is not None:
         return _reply(request, vid, is_new, 200,
-                      {"ok": True, "tool": tool, "cached": True, "runs": _runs(vid, tool), "data": shape(cached)})
+                      {"ok": True, "tool": tool, "cached": True, "runs": _runs(vid, tool, request), "data": shape(cached)})
 
     if not _bot_check_ok(token, request):
         return _fail(request, vid, is_new, tool, 403, "bot_check_failed",
                      "Please complete the check and try again.")
 
-    runs = _runs(vid, tool)
-    if runs["used"] >= TOTAL_RUNS:
-        return _fail(request, vid, is_new, tool, 402, "upgrade_required",
-                     f"You have used all {TOTAL_RUNS} free runs of this tool.")
-    if runs["stage"] == "anonymous" and runs["used"] >= ANON_RUNS:
+    runs = _runs(vid, tool, request)
+    if runs["limits"]["blocked_by"]:
+        return _fail(request, vid, is_new, tool, 429, "limit_reached", runs["limits"]["message"])
+    before_email = runs["free_without_email"]
+    if runs["limits"]["enforced"] and before_email and runs["stage"] == "anonymous" and runs["tool_runs"] >= before_email:
         return _fail(request, vid, is_new, tool, 401, "email_required",
-                     f"You have used your {ANON_RUNS} free runs. Confirm your email address to get "
-                     f"{TOTAL_RUNS - ANON_RUNS} more.")
+                     f"You have used your {before_email} runs of this tool without sign-up. "
+                     "Confirm your email address to keep using your free allowance.")
 
     today = datetime.now(timezone.utc).date().isoformat()
     ip_key = keyed_hash("ip", _client_ip(request))
@@ -256,16 +363,12 @@ def _run_tool(request: Request, tool: str, cache_key: str, token: str, work, sha
         return _fail(request, vid, is_new, tool, 500, "tool_error",
                      "Something went wrong while running this tool. Please try again.")
 
-    email_hash = store.visitor_email(vid)
-    if email_hash:
-        store.incr_usage("email", email_hash, tool)
-    else:
-        store.incr_usage("visitor", vid, tool)
+    _count_run(request, vid, tool)
     store.incr_usage("ip", ip_key, tool, today)
     store.budget_add(upstream, today)
     store.cache_set(cache_key, data, CACHE_SECONDS)
     return _reply(request, vid, is_new, 200,
-                  {"ok": True, "tool": tool, "cached": False, "runs": _runs(vid, tool), "data": shape(data)})
+                  {"ok": True, "tool": tool, "cached": False, "runs": _runs(vid, tool, request), "data": shape(data)})
 
 
 class ToolFailure(Exception):
@@ -567,7 +670,7 @@ async def page_tool(tool: str, request: Request):
 def usage(request: Request):
     vid, is_new = _visitor(request)
     return _reply(request, vid, is_new, 200,
-                  {"ok": True, "runs": {tool: _runs(vid, tool) for tool in TOOLS},
+                  {"ok": True, "runs": {tool: _runs(vid, tool, request) for tool in TOOLS},
                    "upgrade_url": f"{APP_URL}/signup" if APP_URL else ""})
 
 
