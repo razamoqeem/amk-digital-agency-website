@@ -71,7 +71,7 @@
     .tools-grid {
       max-width: 1200px; margin: 0 auto; padding: 0 24px 80px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
       gap: 20px;
     }
 
@@ -227,6 +227,11 @@
     The <a href="/tools/title-generator.html">title generator</a> works now, right in your browser.
   </p>
 
+  <p id="runs-line" role="status" hidden
+     style="max-width:1200px; margin:0 auto 16px; padding:0 24px; color:var(--muted); font-size:13px;"></p>
+  <div id="gate-panel" hidden
+     style="max-width:1152px; margin:0 auto 24px; padding:18px 20px; border:1px solid var(--accent); border-radius:12px; background:var(--panel); font-size:15px; line-height:1.5;"></div>
+
   <!-- TOOLS GRID -->
   <div class="tools-grid">
 
@@ -247,7 +252,7 @@
           <button class="tool-run-btn" id="ia-run-btn" onclick="runInstantAudit()" style="width:auto; padding:12px 24px; white-space:nowrap;">⚡ Run Audit</button>
         </div>
         <div class="tool-loading" id="ia-loading"><span class="spin"></span> Crawling site structure and analysing SEO health vectors…</div>
-        <div class="tool-result" id="ia-result" style="grid-template-columns: 160px 1fr; gap:24px; align-items:start; margin-top:16px;">
+        <div class="tool-result" id="ia-result" style="grid-template-columns: minmax(90px, 160px) 1fr; gap:24px; align-items:start; margin-top:16px;">
           <div style="text-align:center;">
             <div class="score-circle" id="ia-score-el" style="width:90px; height:90px; font-size:26px; margin:0 auto;">—</div>
             <div id="ia-grade" style="font-size:12px; font-weight:800; margin-top:8px; color:var(--muted);"></div>
@@ -256,18 +261,15 @@
             <h4 id="ia-domain" style="font-size:15px; word-break:break-all; margin-bottom:8px;"></h4>
             <div class="result-metric"><span class="lbl">Crawler Access</span><span class="val" id="ia-crawler">—</span></div>
             <div class="result-metric"><span class="lbl">Security (HTTPS)</span><span class="val" id="ia-https">—</span></div>
-            <div class="result-metric"><span class="lbl">Content Freshness</span><span class="val" id="ia-freshness">—</span></div>
+            <div class="result-metric"><span class="lbl">Words on page</span><span class="val" id="ia-freshness">—</span></div>
           </div>
           <div style="grid-column: 1 / -1;">
             <div class="tool-label" style="margin-bottom:6px;">Top Issues Detected</div>
             <div id="ia-findings"></div>
-            <div class="audit-critical" id="ia-critical" style="display:none;"><strong>⚠️ Most Critical Fix</strong><span id="ia-critical-text"></span></div>
+            <div class="audit-critical" id="ia-critical" style="display:none;"><strong>Most important fix</strong><span id="ia-critical-text"></span></div>
           </div>
         </div>
         <div class="limit-banner" id="ia-error" style="background: rgba(255,92,108,.1); border-color: rgba(255,92,108,.3);"></div>
-        <div class="limit-banner" id="ia-limit">
-          🔬 <strong>Need a Deep Audit?</strong> Unlock a full multi-page crawl, 40+ checks, Core Web Vitals, schema validation and PDF reports with a free account. <a href="/" style="color:var(--accent);font-weight:700;">Run Deep Audit Free →</a>
-        </div>
       </div>
     </div>
 
@@ -278,8 +280,8 @@
         <div class="tool-icon" style="background: rgba(255,176,32,.12);">🌐</div>
         <div>
           <h3>Domain URL Analyser</h3>
-          <p>Domain age, trust metrics, technology & indexation</p>
-          <span class="data-badge live">● Live data — real crawl + WHOIS</span>
+          <p>Domain age, security, technology and crawl files</p>
+          <span class="data-badge live">● Live data: real crawl and registration record</span>
         </div>
         <span class="tool-badge badge-free">FREE</span>
       </div>
@@ -294,8 +296,8 @@
           <div class="result-score-row">
             <div class="score-circle" id="dom-trust-el">—</div>
             <div class="score-desc">
-              <h4 id="dom-grade">Trust Score</h4>
-              <p id="dom-summary">Domain credibility assessment</p>
+              <h4 id="dom-grade">Basic setup checks</h4>
+              <p id="dom-summary"></p>
             </div>
           </div>
           <div class="result-metric"><span class="lbl">Domain Age</span><span class="val" id="dom-age">—</span></div>
@@ -307,9 +309,6 @@
           <div class="result-tags" id="dom-tags"></div>
         </div>
         <div class="limit-banner" id="dom-error" style="background: rgba(255,92,108,.1); border-color: rgba(255,92,108,.3); display:none;"></div>
-        <div class="limit-banner" id="dom-limit">
-          🔒 <strong>Full Domain Intelligence Report</strong> includes historical traffic, penalty detection, brand mentions, and competitive domain comparison. <a href="/" style="color:var(--accent);font-weight:700;">Get Full Report →</a>
-        </div>
       </div>
     </div>
 
@@ -347,9 +346,6 @@
           <div class="result-metric"><span class="lbl">Structured Data Types</span><span class="val" id="aieo-types">—</span></div>
         </div>
         <div class="limit-banner" id="aieo-error" style="background: rgba(255,92,108,.1); border-color: rgba(255,92,108,.3); display:none;"></div>
-        <div class="limit-banner" id="aieo-limit">
-          🤖 <strong>Full AIEO Intelligence</strong> — Discover exactly how ChatGPT, Gemini and Perplexity represent your brand. Get your AI Trust Gap report and optimisation roadmap with Pro. <a href="/" style="color:var(--accent);font-weight:700;">Get AIEO Report →</a>
-        </div>
       </div>
     </div>
 
@@ -393,9 +389,6 @@
           <div class="result-tags" id="seo-tags"></div>
         </div>
         <div class="limit-banner" id="seo-error" style="background: rgba(255,92,108,.1); border-color: rgba(255,92,108,.3); display:none;"></div>
-        <div class="limit-banner" id="seo-limit">
-          🚀 <strong>Deep Page Audit</strong> — Get 50+ checks including Core Web Vitals, E-E-A-T compliance, content gap analysis and AI-generated fix recommendations. <a href="#seo-audit" style="color:var(--accent);font-weight:700;">Run Instant Audit Above ↑</a>
-        </div>
       </div>
     </div>
 
@@ -406,8 +399,8 @@
         <div class="tool-icon" style="background: rgba(0,229,192,.12);">📅</div>
         <div>
           <h3>Domain Age Checker</h3>
-          <p>Registration date, age & trust signal from domain history</p>
-          <span class="data-badge live">● Live data — real WHOIS lookup</span>
+          <p>Registration date and age from the public registration record</p>
+          <span class="data-badge live">● Live data: public registration record</span>
         </div>
         <span class="tool-badge badge-free">FREE</span>
       </div>
@@ -429,13 +422,10 @@
           <div class="result-metric"><span class="lbl">Registration Date</span><span class="val" id="age-reg-date">—</span></div>
           <div class="result-metric"><span class="lbl">Age</span><span class="val" id="age-years">—</span></div>
           <div class="result-metric"><span class="lbl">Expires</span><span class="val" id="age-expires">—</span></div>
-          <div class="result-metric"><span class="lbl">Trust Signal</span><span class="val" id="age-trust">—</span></div>
+          <div class="result-metric"><span class="lbl">Registrar</span><span class="val" id="age-registrar">—</span></div>
           <div class="result-tags" id="age-tags"></div>
         </div>
         <div class="limit-banner" id="age-error" style="background: rgba(255,92,108,.1); border-color: rgba(255,92,108,.3); display:none;"></div>
-        <div class="limit-banner" id="age-limit">
-          📅 <strong>Full WHOIS Intelligence</strong> — See registrar history, ownership changes, and expiration tracking with a free account. <a href="/" style="color:var(--accent);font-weight:700;">Get Free Account →</a>
-        </div>
       </div>
     </div>
 
@@ -489,17 +479,113 @@
     return s >= 70 ? 'score-good' : s >= 45 ? 'score-warn' : 'score-bad';
   }
 
-  // Free usage counter (localStorage)
-  const LIMITS = { ia: 3, bl: 3, kw: 5, dom: 5, geo: 3, aieo: 2, serp: 5, seo: 5, da: 5, age: 5, spam: 5 };
-  function checkLimit(tool) {
-    const key = 'amk_free_' + tool;
-    const n = parseInt(localStorage.getItem(key) || '0', 10);
-    localStorage.setItem(key, n + 1);
-    return n >= LIMITS[tool];
+  // ── Tools service ────────────────────────────────────────
+  const TOOL_NAMES = { 'seo-audit': 'SEO audit', 'site-scan': 'Page and site scan', 'domain-age': 'Domain age' };
+
+  function showRuns(all) {
+    const line = document.getElementById('runs-line');
+    if (!line || !all) return;
+    line.textContent = 'Free runs left: ' + Object.keys(TOOL_NAMES)
+      .filter(t => all[t]).map(t => TOOL_NAMES[t] + ' ' + all[t].remaining + ' of ' + all[t].limit).join('  ·  ');
+    line.hidden = false;
   }
-  function showLimit(id) {
-    document.getElementById(id + '-limit').classList.add('visible');
+  const RUNS = {};
+  async function loadRuns() {
+    try {
+      const res = await fetch(TOOLS_API + '/v1/usage', { credentials: 'include' });
+      const json = await res.json();
+      if (json.ok) { Object.assign(RUNS, json.runs); showRuns(RUNS); }
+    } catch (e) { /* the status line simply stays hidden */ }
   }
+
+  function gate(build) {
+    const panel = document.getElementById('gate-panel');
+    panel.textContent = '';
+    build(panel);
+    panel.hidden = false;
+    panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function mk(tag, text, style) {
+    const node = document.createElement(tag);
+    if (text) node.textContent = text;
+    if (style) node.style.cssText = style;
+    return node;
+  }
+
+  function showEmailGate(tool, message) {
+    gate(panel => {
+      panel.appendChild(mk('strong', message));
+      const form = mk('form', '', 'display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;');
+      const input = mk('input', '', 'flex:1; min-width:220px;');
+      input.type = 'email'; input.required = true; input.className = 'tool-input';
+      input.placeholder = 'you@example.com'; input.setAttribute('aria-label', 'Email address');
+      const btn = mk('button', 'Send confirmation link', 'width:auto;');
+      btn.type = 'submit'; btn.className = 'tool-run-btn';
+      const note = mk('p', '', 'margin-top:10px; font-size:13px; color:var(--muted);');
+      form.append(input, btn);
+      panel.append(form, note);
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        btn.disabled = true;
+        try {
+          const res = await fetch(TOOLS_API + '/v1/leads', {
+            method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: input.value, tool })
+          });
+          const json = await res.json();
+          if (!json.ok) throw new Error(json.error.message);
+          note.textContent = json.delivery === 'local_window'
+            ? 'Local test mode: email sending is not connected yet. Open the confirmation link shown in the Website window on this computer.'
+            : 'Check your inbox and open the confirmation link.';
+        } catch (err) {
+          note.textContent = err.message || 'That did not work. Please try again.';
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+
+  function showUpgradeGate(message, upgradeUrl) {
+    gate(panel => {
+      panel.appendChild(mk('strong', message));
+      if (/^https?:\/\//.test(upgradeUrl || '')) {
+        panel.appendChild(mk('p', 'Create an account in the AMK Digital Agency App to keep going.', 'margin:8px 0 12px; color:var(--text);'));
+        const link = mk('a', 'Continue in the App', 'display:inline-block;');
+        link.href = upgradeUrl; link.className = 'btn-primary';
+        panel.appendChild(link);
+      } else {
+        panel.appendChild(mk('p', 'The AMK Digital Agency App is not open yet. Please check back soon.', 'margin-top:8px; color:var(--text);'));
+      }
+    });
+  }
+
+  // Runs one tool. Returns its data, or throws an Error with a plain message.
+  async function callTool(tool, body) {
+    let res, json;
+    try {
+      res = await fetch(TOOLS_API + '/v1/tools/' + tool, {
+        method: 'POST', credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+      });
+      json = await res.json();
+    } catch (e) {
+      throw new Error('The tools are temporarily unavailable. Please try again soon.');
+    }
+    if (json.runs) { RUNS[tool] = json.runs; showRuns(RUNS); }
+    if (json.ok) return json.data;
+    const message = (json.error && json.error.message) || 'That did not work. Please try again.';
+    if (json.error && json.error.code === 'email_required') showEmailGate(tool, message);
+    if (json.error && json.error.code === 'upgrade_required') showUpgradeGate(message, json.upgrade_url);
+    throw new Error(message);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!TOOLS_API) return;
+    loadRuns();
+    const confirmed = new URLSearchParams(location.search).get('confirmed');
+    if (confirmed === '1') gate(panel => panel.appendChild(mk('strong', 'Email confirmed. Your extra free runs are now active.')));
+    if (confirmed === '0') gate(panel => panel.appendChild(mk('strong', 'That confirmation link is no longer valid. Please ask for a new one.')));
+  });
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
@@ -523,13 +609,7 @@
     errEl.classList.remove('visible');
 
     try {
-      const res = await fetch(TOOLS_API + '/api/preview-audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url })
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || 'Audit failed');
+      const data = await callTool('seo-audit', { url });
 
       const score = data.score || 0;
       const el = document.getElementById('ia-score-el');
@@ -539,7 +619,7 @@
       document.getElementById('ia-domain').textContent = data.domain || url;
       document.getElementById('ia-crawler').textContent = data.metrics?.crawler_access || '—';
       document.getElementById('ia-https').textContent = data.metrics?.https || '—';
-      document.getElementById('ia-freshness').textContent = data.metrics?.freshness || '—';
+      document.getElementById('ia-freshness').textContent = data.metrics?.word_count != null ? data.metrics.word_count + ' words' : '—';
 
       const findings = data.top_findings || [];
       document.getElementById('ia-findings').innerHTML = findings.length
@@ -547,21 +627,20 @@
             const sev = (f.severity || 'LOW').toLowerCase();
             return `<div class="audit-finding"><span class="audit-sev ${sev}">${esc(f.severity)}</span><span>${esc(f.title)}</span></div>`;
           }).join('')
-        : '<div class="audit-finding"><span>No major issues detected on the homepage. 🎉</span></div>';
+        : '<div class="audit-finding"><span>No issues found by these checks.</span></div>';
 
       const criticalEl = document.getElementById('ia-critical');
-      if (data.critical_vulnerability) {
-        document.getElementById('ia-critical-text').textContent = data.critical_vulnerability;
+      if (data.most_important_fix) {
+        document.getElementById('ia-critical-text').textContent = data.most_important_fix;
         criticalEl.style.display = 'block';
       } else {
         criticalEl.style.display = 'none';
       }
 
       showResult('ia');
-      if (checkLimit('ia')) showLimit('ia');
     } catch (err) {
       // The server already sends a complete, plain-language sentence.
-      errEl.textContent = '⚠️ ' + String(err.message || 'Audit failed.').replace(/\s+$/, '');
+      errEl.textContent = String(err.message || 'The audit did not finish. Please try again.');
       errEl.classList.add('visible');
     } finally {
       document.getElementById('ia-loading').classList.remove('active');
@@ -593,33 +672,23 @@
     document.getElementById('dom-result').classList.remove('active');
 
     try {
-      const [scanRes, ageRes] = await Promise.all([
-        fetch(TOOLS_API + '/api/site-scan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: raw }) }),
-        fetch(TOOLS_API + '/api/domain-age', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ domain }) })
-      ]);
-      const scan = await scanRes.json();
+      const scan = await callTool('site-scan', { url: raw });
+      let age = null;
+      try { age = await callTool('domain-age', { domain }); } catch (e) { age = null; }
       document.getElementById('dom-loading').classList.remove('active');
-      if (!scanRes.ok) throw new Error(scan.detail || 'Scan failed');
-      const age = ageRes.ok ? await ageRes.json() : null;
 
       const sec = scan.security || {};
       const crawl = scan.crawlability || {};
       const tech = scan.tech_stack || {};
       const ageYears = age ? Math.floor(age.age_days / 365) : null;
 
-      let trust = 10;
-      if (sec.https) trust += 25;
-      if (sec.ssl_valid) trust += 15;
-      if (crawl.robots_txt) trust += 15;
-      if ((crawl.sitemaps || []).length > 0) trust += 15;
-      if (ageYears !== null) trust += Math.min(30, ageYears * 3);
-      trust = Math.max(0, Math.min(100, Math.round(trust)));
-
+      const checks = [sec.https, sec.ssl_valid, crawl.robots_txt, (crawl.sitemaps || []).length > 0];
+      const passed = checks.filter(Boolean).length;
       const trustEl = document.getElementById('dom-trust-el');
-      trustEl.textContent = trust;
-      trustEl.className = 'score-circle ' + scoreClass(trust);
-      document.getElementById('dom-grade').textContent = trust >= 70 ? 'High Trust' : trust >= 45 ? 'Moderate Trust' : 'Low Trust';
-      document.getElementById('dom-summary').textContent = scan.domain || domain;
+      trustEl.textContent = passed + '/' + checks.length;
+      trustEl.className = 'score-circle ' + (passed === checks.length ? 'score-good' : passed >= 2 ? 'score-warn' : 'score-bad');
+      document.getElementById('dom-grade').textContent = 'Basic setup checks passed';
+      document.getElementById('dom-summary').textContent = (scan.domain || domain) + ': HTTPS, valid certificate, robots.txt, sitemap';
       document.getElementById('dom-age').textContent = ageYears !== null ? (ageYears === 0 ? '< 1 year' : ageYears + ' year' + (ageYears > 1 ? 's' : '')) : 'Unavailable';
       document.getElementById('dom-ssl').innerHTML = sec.https
         ? (sec.ssl_valid ? '<span class="val good">✓ Active SSL</span>' : '<span class="val warn">⚠ HTTPS, SSL issue</span>')
@@ -633,17 +702,15 @@
 
       const tagsEl = document.getElementById('dom-tags');
       tagsEl.innerHTML = [
-        trust >= 60 ? '<span class="tag tag-good">Trusted Domain</span>' : '<span class="tag tag-warn">Building Trust</span>',
-        (ageYears !== null && ageYears >= 3) ? '<span class="tag tag-info">Established Domain</span>' : '<span class="tag tag-bad">New / Unknown Age</span>',
+        (ageYears !== null && ageYears >= 3) ? '<span class="tag tag-info">Established Domain</span>' : '<span class="tag tag-warn">Under 3 years or age unknown</span>',
         sec.https ? '<span class="tag tag-info">SSL Active</span>' : '<span class="tag tag-bad">No SSL</span>'
       ].join('');
 
       showResult('dom');
-      if (checkLimit('dom')) showLimit('dom');
     } catch (err) {
       document.getElementById('dom-loading').classList.remove('active');
       errEl.style.display = 'block';
-      errEl.innerHTML = `⚠️ <strong>Scan failed:</strong> ${esc(err.message)}`;
+      errEl.innerHTML = esc(err.message);
     }
   }
 
@@ -659,12 +726,8 @@
     document.getElementById('aieo-result').classList.remove('active');
 
     try {
-      const res = await fetch(TOOLS_API + '/api/site-scan', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: raw })
-      });
-      const scan = await res.json();
+      const scan = await callTool('site-scan', { url: raw });
       document.getElementById('aieo-loading').classList.remove('active');
-      if (!res.ok) throw new Error(scan.detail || 'Scan failed');
 
       const sd = scan.structured_data || {};
       const llms = scan.llms_txt || {};
@@ -707,11 +770,10 @@
       document.getElementById('aieo-types').textContent = types.length ? types.join(', ') : 'None found';
 
       showResult('aieo');
-      if (checkLimit('aieo')) showLimit('aieo');
     } catch (err) {
       document.getElementById('aieo-loading').classList.remove('active');
       errEl.style.display = 'block';
-      errEl.innerHTML = `⚠️ <strong>Scan failed:</strong> ${esc(err.message)}`;
+      errEl.innerHTML = esc(err.message);
     }
   }
 
@@ -732,12 +794,8 @@
     document.getElementById('seo-result').classList.remove('active');
 
     try {
-      const res = await fetch(TOOLS_API + '/api/site-scan', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: raw, keyword: kw })
-      });
-      const scan = await res.json();
+      const scan = await callTool('site-scan', { url: raw, keyword: kw });
       document.getElementById('seo-loading').classList.remove('active');
-      if (!res.ok) throw new Error(scan.detail || 'Scan failed');
 
       const onPage = scan.on_page || {};
       const images = scan.images || {};
@@ -781,11 +839,10 @@
       document.getElementById('seo-tags').innerHTML = issues.join('');
 
       showResult('seo');
-      if (checkLimit('seo')) showLimit('seo');
     } catch (err) {
       document.getElementById('seo-loading').classList.remove('active');
       errEl.style.display = 'block';
-      errEl.innerHTML = `⚠️ <strong>Scan failed:</strong> ${esc(err.message)}`;
+      errEl.innerHTML = esc(err.message);
     }
   }
 
@@ -801,47 +858,36 @@
     document.getElementById('age-result').classList.remove('active');
 
     try {
-      const res = await fetch(TOOLS_API + '/api/domain-age', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ domain })
-      });
-      const data = await res.json();
+      const data = await callTool('domain-age', { domain });
       document.getElementById('age-loading').classList.remove('active');
-      if (!res.ok) throw new Error(data.detail || 'WHOIS lookup failed');
 
-      const regDate = new Date(data.registered);
-      const expDate = data.expires ? new Date(data.expires) : null;
+      const regDate = new Date(data.registered_on);
+      const expDate = data.expires_on ? new Date(data.expires_on) : null;
       const totalDays = data.age_days;
       const years = Math.floor(totalDays / 365);
       const months = Math.floor((totalDays % 365) / 30);
       const ageLabel = years > 0
         ? `${years} year${years > 1 ? 's' : ''}${months > 0 ? `, ${months} mo` : ''}`
         : `${months} month${months !== 1 ? 's' : ''}`;
-      const trustScore = Math.min(96, Math.round((totalDays / (12 * 365)) * 100));
-
       const el = document.getElementById('age-score-el');
-      el.textContent = trustScore;
-      el.className = 'score-circle ' + scoreClass(trustScore);
-      document.getElementById('age-grade').textContent = years >= 5 ? 'Well-Established' : years >= 2 ? 'Established' : 'New Domain';
+      el.textContent = years > 0 ? years + 'y' : months + 'm';
+      el.className = 'score-circle ' + (years >= 5 ? 'score-good' : years >= 2 ? 'score-warn' : 'score-bad');
+      document.getElementById('age-grade').textContent = years >= 5 ? 'Registered 5+ years ago' : years >= 2 ? 'Registered 2+ years ago' : 'Registered recently';
       document.getElementById('age-summary').textContent = domain;
       document.getElementById('age-reg-date').textContent = regDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       document.getElementById('age-years').textContent = ageLabel;
       document.getElementById('age-expires').textContent = expDate ? expDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Not disclosed';
-      document.getElementById('age-trust').textContent = years >= 5 ? 'High' : years >= 2 ? 'Moderate' : 'Building';
-      document.getElementById('age-trust').className = 'val ' + (years >= 5 ? 'good' : years >= 2 ? 'warn' : 'bad');
+      document.getElementById('age-registrar').textContent = data.registrar || 'Not disclosed';
 
       document.getElementById('age-tags').innerHTML = [
-        years >= 5 ? '<span class="tag tag-good">Domain Age Advantage</span>' : '<span class="tag tag-warn">Limited Track Record</span>',
-        '<span class="tag tag-info">Live WHOIS record</span>',
+        '<span class="tag tag-info">Source: ' + (data.source === 'rdap' ? 'registry record (RDAP)' : 'registry record (WHOIS)') + '</span>',
       ].join('');
 
       showResult('age');
-      if (checkLimit('age')) showLimit('age');
     } catch (err) {
       document.getElementById('age-loading').classList.remove('active');
       errEl.style.display = 'block';
-      errEl.innerHTML = `⚠️ <strong>Lookup failed:</strong> ${esc(err.message)}`;
+      errEl.innerHTML = esc(err.message);
     }
   }
 
