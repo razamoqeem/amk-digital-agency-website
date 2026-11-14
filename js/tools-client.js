@@ -22,7 +22,7 @@
     return h >= 48 ? Math.ceil(h / 24) + ' days' : h >= 1 ? h + ' h ' + m + ' min' : m + ' min';
   }
 
-  // The status line: runs left today and this month, plus a warning when the allowance is nearly used.
+  // The status line: runs left today and this month, plus dynamic usage progress bar.
   function showRuns(all) {
     const line = document.getElementById('runs-line');
     if (!line || !all) return;
@@ -30,6 +30,8 @@
     const first = all[only] || all[Object.keys(all)[0]];
     const lim = first && first.limits;
     if (!lim) return;
+
+    line.textContent = '';
     const part = (label, p) => p.limit ? label + ': ' + p.remaining + ' of ' + p.limit : null;
     let text;
     if (!lim.enforced) {
@@ -39,7 +41,30 @@
         lim.tool_daily.limit ? part('This tool today', lim.tool_daily) : null].filter(Boolean).join('  ·  ');
       if (lim.warning) text += '  ·  ' + lim.warning;
     }
-    line.textContent = text;
+
+    const textSpan = document.createElement('span');
+    textSpan.textContent = text;
+    line.appendChild(textSpan);
+
+    if (lim.daily && lim.daily.limit > 0) {
+      const used = lim.daily.used || 0;
+      const limit = lim.daily.limit;
+      const pct = Math.min(100, Math.round((used / limit) * 100));
+      const colorClass = pct < 50 ? 'green' : (pct < 80 ? 'yellow' : 'red');
+
+      const progContainer = document.createElement('div');
+      progContainer.className = 'usage-progress-container';
+      progContainer.innerHTML =
+        '<div class="usage-progress-label">' +
+          '<span>Daily Allowance: <strong>' + used + ' / ' + limit + '</strong></span>' +
+          '<span>' + (lim.daily.remaining || 0) + ' remaining</span>' +
+        '</div>' +
+        '<div class="usage-progress-track">' +
+          '<div class="usage-progress-fill ' + colorClass + '" style="width:' + pct + '%;"></div>' +
+        '</div>';
+      line.appendChild(progContainer);
+    }
+
     line.hidden = false;
   }
 

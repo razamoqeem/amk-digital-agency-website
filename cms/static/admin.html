@@ -12,6 +12,12 @@
     <strong>AMK Digital Agency — Website CMS</strong>
     <span class="local-note">Runs on this computer only</span>
     <span class="spacer"></span>
+    <div class="header-limit-widget" id="cms-header-limits" title="Active Free Trial & Daily API Scrape Usage">
+      <span>Daily Scrapes: <strong id="hdr-usage-text">0 / 50</strong></span>
+      <div class="progress-track" aria-label="Usage progress">
+        <div class="progress-fill green" id="hdr-usage-fill" style="width: 0%;"></div>
+      </div>
+    </div>
     <button type="button" id="btn-build" class="btn">Build site</button>
   </header>
 
@@ -22,6 +28,19 @@
         <button type="button" id="btn-new" class="btn small">New page</button>
       </div>
       <ul id="page-list" class="page-list"></ul>
+
+      <div class="side-head" style="margin-top: 24px;">
+        <h2>Collections (Webflow-Style)</h2>
+        <button type="button" id="btn-new-item" class="btn small">New item</button>
+      </div>
+      <div class="collection-tabs" id="collection-tabs">
+        <button type="button" class="col-tab-btn active" data-col="blogs">Blogs</button>
+        <button type="button" class="col-tab-btn" data-col="pages">Pages</button>
+        <button type="button" class="col-tab-btn" data-col="legal">Legal</button>
+        <button type="button" class="col-tab-btn" data-col="social">Social</button>
+      </div>
+      <ul id="collection-items-list" class="page-list"></ul>
+
       <div class="side-head" style="margin-top: 20px;">
         <h2>Settings</h2>
       </div>
@@ -184,6 +203,52 @@
           </select>
           <button type="button" id="btn-add" class="btn small">Add</button>
         </div>
+      </section>
+    </main>
+
+    <main class="editor col-editor" id="col-editor" hidden>
+      <div class="bar">
+        <h1 id="col-editor-title">Collection Item</h1>
+        <span class="spacer"></span>
+        <span id="col-save-status" role="status" aria-live="polite"></span>
+        <button type="button" id="btn-delete-col-item" class="btn small danger" style="display:none;">Delete</button>
+        <button type="button" id="btn-save-col-item" class="btn primary">Save item</button>
+      </div>
+
+      <section class="card">
+        <h2>Folder hierarchy &amp; URL routing</h2>
+        <p class="hint-text">Select a parent folder for Webflow-style nested routing (e.g., <code>/services/seo/</code>).</p>
+        <div class="folder-slug-row">
+          <div>
+            <label for="col-folder-select">Parent folder</label>
+            <select id="col-folder-select"></select>
+          </div>
+          <div>
+            <label for="col-slug">Slug (URL segment)</label>
+            <input id="col-slug" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. technical-seo" />
+          </div>
+        </div>
+        <div class="serp" style="margin-top: 10px;">
+          <div class="serp-url" id="col-path-preview">https://[TO BE CONFIRMED]/...</div>
+        </div>
+        <label class="check" style="margin-top: 10px;"><input id="col-draft" type="checkbox" /> Draft: keep item private (not published)</label>
+      </section>
+
+      <section class="card">
+        <h2>Custom fillable fields (<span id="col-name-label">Blogs</span>)</h2>
+        <div id="col-custom-fields"></div>
+      </section>
+
+      <section class="card">
+        <h2>Search &amp; Social settings (SEO)</h2>
+        <label for="col-seo-title">SEO Title <span class="count" id="c-col-title"></span></label>
+        <input id="col-seo-title" type="text" autocomplete="off" />
+        <label for="col-seo-desc">Meta description <span class="count" id="c-col-desc"></span></label>
+        <textarea id="col-seo-desc" rows="3"></textarea>
+        <label for="col-seo-image">Share image (URL or /images/...)</label>
+        <input id="col-seo-image" type="text" autocomplete="off" spellcheck="false" />
+        <label for="col-json-ld">Custom JSON-LD schema (Optional raw JSON)</label>
+        <textarea id="col-json-ld" rows="4" spellcheck="false" placeholder='{ "@context": "https://schema.org", "@type": "Service" }'></textarea>
       </section>
     </main>
 

@@ -1,11 +1,12 @@
 {
   "groups": [
-    { "name": "Whole Website & Domain Audits", "tools": ["domain-overview", "technology", "ssl-check", "robots-sitemap"] },
+    { "name": "Whole Website & Domain Audits", "tools": ["domain-overview", "website-comparison", "technology", "ssl-check", "robots-sitemap"] },
     { "name": "Single-Page SEO Analyzers", "tools": ["meta-tags", "headings", "images", "links", "redirects", "schema-social", "keyword-density"] },
     { "name": "AI & Content Tools", "tools": ["title-generator"] }
   ],
   "tools": [
     { "slug": "domain-overview", "page": "/tools/domain-overview.html", "name": "Domain Overview", "summary": "One report for a whole website: SEO health, domain rank, technical status, registration and security." },
+    { "slug": "website-comparison", "page": "/tools/website-comparison.html", "name": "Website Comparison", "summary": "Side-by-side SEO comparison of two websites: authority, health, and security." },
     { "slug": "free-tools", "page": "/tools/free-tools.html", "name": "SEO Audit, Page Analyser, AI readiness, Domain Age and Domain Rank", "summary": "Five quick checks on one page." },
     { "slug": "title-generator", "page": "/tools/title-generator.html", "name": "Title Generator", "summary": "Write page titles of the right length. Runs in your browser." },
     {

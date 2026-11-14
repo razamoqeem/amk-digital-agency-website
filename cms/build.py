@@ -27,6 +27,7 @@ sys.path.insert(0, HERE)
 
 from sanitize import clean_rich_text, plain_text, safe_href  # noqa: E402
 from validate import validate_page, heading_outline, page_url_path, HOME_SLUG  # noqa: E402
+import collections_engine  # noqa: E402
 
 CONTENT = os.path.join(ROOT, "content")
 PAGES_DIR = os.path.join(CONTENT, "pages")
@@ -223,6 +224,70 @@ def render_page(page, settings, template, base, live_paths=()) -> str:
     return render_document(template, settings, page.get("title", ""), page.get("description", ""), head, body, live_paths)
 
 
+def render_collection_item(item, schema, settings, template, base, live_paths=()) -> str:
+    path = item.get("_urlPath", f"/{item['slug']}/")
+    seo = item.get("seo") or {}
+    url = (seo.get("canonical") or "").strip() or (base + path if base else "")
+    title = seo.get("metaTitle") or seo.get("title") or item.get("title", "")
+    description = seo.get("metaDesc") or seo.get("description") or ""
+
+    head = []
+    if url:
+        head.append('  <link rel="canonical" href="%s" />' % esc(url))
+    if seo.get("noindex") or item.get("draft"):
+        head.append('  <meta name="robots" content="noindex, nofollow" />')
+    head.append('  <meta property="og:type" content="article" />')
+    head.append('  <meta property="og:title" content="%s" />' % esc(title))
+    head.append('  <meta property="og:description" content="%s" />' % esc(description))
+    if url:
+        head.append('  <meta property="og:url" content="%s" />' % esc(url))
+    image = safe_href(seo.get("ogImage") or seo.get("image") or "")
+    if image and (image.startswith("http") or base):
+        head.append('  <meta property="og:image" content="%s" />' % esc(image if image.startswith("http") else base + image))
+    head.append('  <meta name="twitter:card" content="summary_large_image" />')
+
+    # Custom JSON-LD schema
+    custom_ld = item.get("jsonLd") or seo.get("jsonLd")
+    if custom_ld and isinstance(custom_ld, dict):
+        head.append(json_ld(custom_ld))
+
+    fields = item.get("fields") or {}
+    body_parts = []
+
+    # Title & Subtitle
+    body_parts.append('    <h1 class="t-size-xl">%s</h1>' % esc(item.get("title", "")))
+    if fields.get("subtitle"):
+        body_parts.append('    <p class="t-size-lg" style="color: var(--c-muted); margin-top: -6px;">%s</p>' % esc(fields["subtitle"]))
+
+    # Date / Author if present
+    meta_info = []
+    if fields.get("date"):
+        meta_info.append('<span>Published: %s</span>' % esc(fields["date"]))
+    if fields.get("author"):
+        meta_info.append('<span>By %s</span>' % esc(fields["author"]))
+    if fields.get("readingTime"):
+        meta_info.append('<span>%s</span>' % esc(fields["readingTime"]))
+    if meta_info:
+        body_parts.append('    <p class="t-size-sm" style="color: var(--c-muted); display: flex; gap: 14px;">%s</p>' % " &bull; ".join(meta_info))
+
+    # Hero / Cover image
+    hero = fields.get("heroImage") or fields.get("coverImage")
+    if hero:
+        body_parts.append('    <img src="%s" alt="%s" style="border-radius: 12px; margin: 18px 0;" loading="lazy" />' % (esc(safe_href(hero)), esc(item.get("title", ""))))
+
+    # Main content / rich text
+    content_html = fields.get("content") or fields.get("body") or ""
+    if content_html:
+        body_parts.append('    <div class="content-body" style="margin: 20px 0;">%s</div>' % clean_rich_text(content_html))
+
+    # CTA Button if present
+    if fields.get("ctaLabel") and fields.get("ctaUrl"):
+        body_parts.append('    <p style="margin-top: 24px;"><a class="btn t-bg-accent" href="%s">%s</a></p>' % (esc(safe_href(fields["ctaUrl"])), esc(fields["ctaLabel"])))
+
+    body_html = "\n".join(body_parts)
+    return render_document(template, settings, title, description, head, body_html, live_paths)
+
+
 def token_css(settings) -> str:
     tokens = settings.get("tokens", {})
     colours = tokens.get("colors", {})
@@ -380,6 +445,22 @@ def build() -> dict:
     for page in pages:
         write(page_output_rel(page["slug"]), render_page(page, settings, template, base, live_paths))
 
+    # Compile Webflow-style Custom CMS Collection Items
+    col_items = collections_engine.list_items()
+    schemas = {c["id"]: c for c in collections_engine.load_schemas().get("collections", [])}
+    col_paths = []
+    for it in col_items:
+        if it.get("draft"):
+            continue
+        cid = it.get("_collectionId") or it.get("collection", "pages")
+        schema = schemas.get(cid, {})
+        url_path = (it.get("_urlPath") or f"/{it['slug']}/").strip("/")
+        rel_out = os.path.join(*url_path.split("/"), "index.html")
+        full_route = "/" + url_path + "/"
+        live_paths.add(full_route)
+        col_paths.append(full_route)
+        write(rel_out, render_collection_item(it, schema, settings, template, base, live_paths))
+
     nf = settings.get("not_found", {})
     nf_body = "\n".join([
         "    <h1 class=\"t-size-xl\">%s</h1>" % esc(nf.get("title", "Page not found")),
@@ -392,7 +473,7 @@ def build() -> dict:
 
     robots = ["User-agent: *", "Allow: /"]
     if base:
-        paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex")]
+        paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex")] + col_paths
         today = datetime.date.today().isoformat()
         urls = "\n".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>" % (esc(base + p), today) for p in paths)
         write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'

@@ -221,6 +221,19 @@ async def api_save_collection_item(collection_id: str, slug: str, request: Reque
         return JSONResponse(status_code=422, content={"saved": False, "error": str(e)})
 
 
+@app.delete("/api/collections/{collection_id}/items/{slug}")
+def api_delete_collection_item(collection_id: str, slug: str):
+    collections_engine.ensure_dirs()
+    item_file = collections_engine.COLLECTIONS_DIR / collection_id / f"{slug}.json"
+    if not item_file.exists():
+        raise HTTPException(status_code=404, detail="Item not found.")
+    try:
+        item_file.unlink()
+        return {"deleted": True, "slug": slug}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/api/folders")
 def api_get_folders():
     return {"folders": collections_engine.load_folders()}

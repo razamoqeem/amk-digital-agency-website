@@ -221,8 +221,18 @@ a.card.link:hover h3 { color: var(--accent); }
 a.card.link p { color: var(--muted); font-size: var(--fs-sm); margin: 0; }
 
 /* Consistent Bullet Points */
-ul.plain { margin: 12px 0; padding-left: 1.25rem; }
-ul.plain li { margin: 8px 0; color: var(--text); }
+ul:not([class]), ol:not([class]), ul.plain, .content-list {
+  margin: 12px 0;
+  padding-left: 1.35rem;
+}
+ul:not([class]), ul.plain { list-style-type: disc; }
+ol:not([class]) { list-style-type: decimal; }
+li {
+  margin: 6px 0;
+  overflow-wrap: anywhere;
+  letter-spacing: var(--letter-spacing-body);
+}
+li::marker { color: var(--accent); }
 .item { padding: 12px 0; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
 .item:last-child { border-bottom: 0; }
 .item .sub { display: block; color: var(--muted); font-size: var(--fs-sm); margin-top: 2px; }
@@ -289,8 +299,91 @@ ul.plain li { margin: 8px 0; color: var(--text); }
   white-space: nowrap;
   transition: all 0.15s ease;
 }
-.tool-copy-btn:hover {
-  background: var(--accent);
-  border-color: var(--accent);
+/* Usage Limitation Progress Bar Widget */
+.usage-progress-container {
+  max-width: 420px;
+  margin: 12px auto 0;
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+}
+.usage-progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--fs-sm);
+  color: var(--text);
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.usage-progress-label strong {
+  font-weight: 700;
+  color: var(--text);
+}
+.usage-progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.usage-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.35s ease, background-color 0.25s ease;
+}
+.usage-progress-fill.green { background: #10b981; }
+.usage-progress-fill.yellow { background: #f59e0b; }
+.usage-progress-fill.red { background: #ef4444; }
+
+/* Side-by-side Domain Comparison Table */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+.compare-col {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.compare-col-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.compare-col-header h3 {
+  margin: 0;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  word-break: break-all;
+}
+.compare-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-sm);
+}
+.compare-stat-row:last-child { border-bottom: none; }
+.compare-stat-key { color: var(--muted); }
+.compare-stat-val { font-weight: 600; color: var(--text); }
+.winner-badge {
+  display: inline-block;
+  background: var(--good);
   color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: var(--letter-spacing-badge);
+  margin-left: 6px;
 }
