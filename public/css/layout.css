@@ -19,12 +19,13 @@
 }
 
 /* ─── CONTAINER ─────────────────────────────────────────── */
+/* Widths and gutter come from spacing.css */
 .container {
-  max-width: 1400px;
+  max-width: var(--container-wide);
   margin: 0 auto;
-  padding: 0 var(--space-lg);
+  padding-inline: var(--gutter);
 }
-.container-wide { max-width: 1600px; margin: 0 auto; padding: 0 var(--space-lg); }
+.container-wide { max-width: 1600px; margin: 0 auto; padding-inline: var(--gutter); }
 
 /* ─── HEADER (Dual State) ───────────────────────────────── */
 #site-header {

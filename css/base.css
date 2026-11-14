@@ -5,48 +5,56 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* ─── DESIGN TOKENS ─────────────────────────────────────── */
+/* Colours, fonts, text sizes, corners and shadows: theme.css (one place).
+   Widths, gutters and spacing steps (--space-*): spacing.css.            */
+@import url("theme.css");
+@import url("spacing.css");
+
+/* ─── NAMES USED BY THESE PAGES → THEME TOKENS ──────────────
+   Do not put colour values here. Change theme.css instead.
+   The glass surfaces are see-through mixes of the theme colours,
+   so they follow the palette and the light/dark switch.        */
 :root {
   /* Backgrounds */
-  --bg:              #F0F2F8;
-  --bg-alt:          #E8EAF2;
-  --bg-dark:         #0D0D1A;
+  --bg:              var(--theme-page);
+  --bg-alt:          var(--theme-page-alt);
+  --bg-dark:         #000000;
 
   /* Glass Surfaces */
-  --surface:         rgba(255, 255, 255, 0.75);
-  --surface-strong:  rgba(255, 255, 255, 0.92);
-  --surface-dark:    rgba(18, 18, 35, 0.82);
-  --surface-hover:   rgba(255, 255, 255, 0.90);
+  --surface:         color-mix(in srgb, var(--theme-surface) 75%, transparent);
+  --surface-strong:  color-mix(in srgb, var(--theme-surface) 92%, transparent);
+  --surface-dark:    color-mix(in srgb, var(--theme-page) 85%, transparent);
+  --surface-hover:   color-mix(in srgb, var(--theme-surface) 90%, transparent);
 
   /* Brand Colors */
-  --accent:          #6C63FF;
-  --accent-light:    rgba(108, 99, 255, 0.12);
-  --accent-glow:     rgba(108, 99, 255, 0.35);
-  --accent-2:        #00E5C0;
-  --accent-2-light:  rgba(0, 229, 192, 0.12);
-  --accent-warn:     #FF9F43;
-  --accent-error:    #FF6B6B;
-  --accent-success:  #1DD1A1;
+  --accent:          var(--theme-brand);
+  --accent-light:    color-mix(in srgb, var(--theme-brand) 12%, transparent);
+  --accent-glow:     color-mix(in srgb, var(--theme-brand) 35%, transparent);
+  --accent-2:        var(--theme-brand-2);
+  --accent-2-light:  color-mix(in srgb, var(--theme-brand-2) 12%, transparent);
+  --accent-warn:     var(--theme-warning);
+  --accent-error:    var(--theme-danger);
+  --accent-success:  var(--theme-success);
 
   /* Text */
-  --text:            #1A1A2E;
-  --text-soft:       #3D3D5C;
-  --text-muted:      #6B7280;
-  --text-faint:      #9CA3AF;
-  --text-on-accent:  #FFFFFF;
+  --text:            var(--theme-text);
+  --text-soft:       var(--theme-text-soft);
+  --text-muted:      var(--theme-text-muted);
+  --text-faint:      var(--theme-text-faint);
+  --text-on-accent:  var(--theme-on-brand);
 
   /* Borders */
-  --border:          rgba(108, 99, 255, 0.10);
-  --border-strong:   rgba(108, 99, 255, 0.22);
-  --border-hover:    rgba(108, 99, 255, 0.35);
-  --border-glass:    rgba(255, 255, 255, 0.45);
+  --border:          var(--theme-border);
+  --border-strong:   var(--theme-border-strong);
+  --border-hover:    color-mix(in srgb, var(--theme-brand) 35%, transparent);
+  --border-glass:    color-mix(in srgb, var(--theme-surface) 45%, transparent);
 
   /* Shadows */
-  --shadow-sm:   0 2px 8px rgba(108, 99, 255, 0.06);
-  --shadow-md:   0 8px 32px rgba(108, 99, 255, 0.10);
-  --shadow-lg:   0 20px 60px rgba(108, 99, 255, 0.14);
-  --shadow-xl:   0 32px 80px rgba(108, 99, 255, 0.18);
-  --shadow-glow: 0 0 30px rgba(108, 99, 255, 0.25);
+  --shadow-sm:   var(--theme-shadow-sm);
+  --shadow-md:   var(--theme-shadow-md);
+  --shadow-lg:   var(--theme-shadow-lg);
+  --shadow-xl:   var(--theme-shadow-lg);
+  --shadow-glow: 0 0 30px color-mix(in srgb, var(--theme-brand) 25%, transparent);
 
   /* Glass */
   --blur:        blur(20px);
@@ -54,28 +62,20 @@
   --blur-lg:     blur(40px);
 
   /* Radius */
-  --radius-sm:   8px;
-  --radius-md:   16px;
-  --radius-lg:   24px;
-  --radius-xl:   32px;
-  --radius-full: 9999px;
-
-  /* Spacing */
-  --space-xs:  4px;
-  --space-sm:  8px;
-  --space-md:  16px;
-  --space-lg:  24px;
-  --space-xl:  40px;
-  --space-2xl: 64px;
-  --space-3xl: 96px;
+  --radius-sm:   var(--theme-radius-sm);
+  --radius-md:   var(--theme-radius-lg);
+  --radius-lg:   var(--theme-radius-xl);
+  --radius-xl:   var(--theme-radius-2xl);
+  --radius-full: var(--theme-radius-full);
 
   /* Typography */
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-heading: 'Poppins', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-
-  /* Legacy mapping */
-  --font-head: var(--font-heading);
+  --font-body:    var(--theme-font-body);
+  --font-heading: var(--theme-font-heading);
+  --font-mono:    var(--theme-font-mono);
+  --font-head:    var(--font-heading);   /* older name */
+  --letter-spacing-heading: var(--theme-tracking-heading);
+  --letter-spacing-body:    var(--theme-tracking-body);
+  --letter-spacing-badge:   var(--theme-tracking-badge);
 
   /* Motion */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
@@ -94,42 +94,6 @@
   --z-overlay: 300;
   --z-modal:   400;
   --z-toast:   500;
-}
-
-/* ─── DARK OLED OVERRIDES (Phase 1) ─────────────────────── */
-[data-theme="dark"], .dark {
-  --bg:              #000000; /* Absolute OLED Black */
-  --bg-alt:          #0A0A0F;
-  --bg-dark:         #000000;
-
-  /* Dark Glass Surfaces */
-  --surface:         rgba(20, 20, 24, 0.65);
-  --surface-strong:  rgba(15, 15, 18, 0.94);
-  --surface-dark:    rgba(0, 0, 0, 0.85);
-  --surface-hover:   rgba(30, 30, 35, 0.85);
-
-  /* Refined Dark Accents */
-  --accent:          #818CF8;
-  --accent-light:    rgba(129, 140, 248, 0.15);
-  --accent-glow:     rgba(129, 140, 248, 0.45);
-  --accent-2:        #2DD4BF;
-
-  /* High Contrast Text */
-  --text:            #F8FAFC;
-  --text-soft:       #A1A1AA;
-  --text-muted:      #71717A;
-  --text-faint:      #3F3F46;
-
-  /* Borders & Shadows */
-  --border:          rgba(255, 255, 255, 0.08);
-  --border-strong:   rgba(255, 255, 255, 0.15);
-  --border-hover:    rgba(255, 255, 255, 0.25);
-  --border-glass:    rgba(255, 255, 255, 0.10);
-
-  --shadow-sm:   0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md:   0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-lg:   0 20px 60px rgba(0, 0, 0, 0.8);
-  --shadow-xl:   0 32px 80px rgba(0, 0, 0, 0.9);
 }
 
 /* ─── CSS RESET ─────────────────────────────────────────── */
@@ -278,7 +242,7 @@ ul, ol { list-style: none; }
 
 @keyframes pulseGlow {
   0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
-  50%       { box-shadow: 0 0 40px rgba(108, 99, 255, 0.55); }
+  50%       { box-shadow: 0 0 40px color-mix(in srgb, var(--theme-brand) 55%, transparent); }
 }
 
 @keyframes spinSlow {
@@ -344,11 +308,11 @@ ul, ol { list-style: none; }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(108, 99, 255, 0.25);
+  background: color-mix(in srgb, var(--theme-brand) 25%, transparent);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(108, 99, 255, 0.45);
+  background: color-mix(in srgb, var(--theme-brand) 45%, transparent);
 }
 
 /* ─── SELECTION ─────────────────────────────────────────── */

@@ -1,61 +1,43 @@
-/* AMK Digital Agency Website: Universal Design Tokens & Typography.
-   Shared across all tool pages, Domain Overview, and the tools hub.
-   Supports both Light and Dark themes via data-theme attribute. */
+@import url("/css/theme.css");
+@import url("/css/spacing.css");
+
+/* AMK Digital Agency Website: tools hub, tool pages, Domain Overview, Website Comparison.
+   Colours, fonts and text sizes come from /css/theme.css (light and dark).
+   Widths, gutters and gaps come from /css/spacing.css.
+   The short names below are the ones this file already uses. */
 :root {
-  /* Light Mode (Default) */
-  --bg: #f8fafc;
-  --panel: #ffffff;
-  --panel-2: #f1f5f9;
-  --border: #e2e8f0;
-  --border-focus: #cbd5e1;
-  --text: #0f172a;
-  --muted: #64748b;
-  --faint: #94a3b8;
-  --accent: #4b43d6;
-  --accent-hover: #3f38b8;
-  --good: #0f7a5c;
-  --warn: #b45309;
-  --bad: #e11d48;
-  --radius: 12px;
-  --radius-sm: 8px;
+  --bg: var(--theme-page);
+  --panel: var(--theme-surface);
+  --panel-2: var(--theme-surface-subtle);
+  --border: var(--theme-border);
+  --border-focus: var(--theme-border-strong);
+  --text: var(--theme-text);
+  --muted: var(--theme-text-muted);
+  --faint: var(--theme-text-faint);
+  --accent: var(--theme-brand);
+  --accent-hover: var(--theme-brand-strong);
+  --on-accent: var(--theme-on-brand);
+  --good: var(--theme-success);
+  --warn: var(--theme-warning);
+  --bad: var(--theme-danger);
+  --radius: var(--theme-radius-md);
+  --radius-sm: var(--theme-radius-sm);
 
-  /* Universal SaaS Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --letter-spacing-heading: -0.025em;
-  --letter-spacing-body: -0.011em;
-  --letter-spacing-badge: 0.04em;
+  --font-sans: var(--theme-font-body);
+  --font-mono: var(--theme-font-mono);
+  --letter-spacing-heading: var(--theme-tracking-heading);
+  --letter-spacing-body: var(--theme-tracking-body);
+  --letter-spacing-badge: var(--theme-tracking-badge);
 
-  /* Fluid Text Scale (Mobile to 4K) */
-  --fs-sm: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
-  --fs-md: clamp(0.875rem, 0.85rem + 0.2vw, 0.9375rem);
-  --fs-lg: clamp(1.0625rem, 1rem + 0.35vw, 1.1875rem);
-  --fs-xl: clamp(1.35rem, 1.2rem + 0.8vw, 1.75rem);
-  --fs-2xl: clamp(1.75rem, 1.45rem + 1.4vw, 2.35rem);
+  --fs-xs: var(--theme-text-xs);
+  --fs-sm: var(--theme-text-sm);
+  --fs-md: var(--theme-text-md);
+  --fs-lg: var(--theme-text-lg);
+  --fs-xl: var(--theme-text-xl);
+  --fs-2xl: var(--theme-text-2xl);
 
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
-}
-
-/* Dark Mode */
-html[data-theme="dark"],
-html.dark,
-:root.dark {
-  --bg: #0b0f19;
-  --panel: #131b2e;
-  --panel-2: #1c253d;
-  --border: #232d45;
-  --border-focus: #334155;
-  --text: #f8fafc;
-  --muted: #94a3b8;
-  --faint: #64748b;
-  --accent: #6366f1;
-  --accent-hover: #4f46e5;
-  --good: #10b981;
-  --warn: #f59e0b;
-  --bad: #f43f5e;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-sm: var(--theme-shadow-sm);
+  --shadow: var(--theme-shadow-md);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -80,7 +62,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
   align-items: center;
   justify-content: space-between;
   gap: 8px 24px;
-  padding: 14px clamp(16px, 3vw, 32px);
+  padding: 14px var(--bleed-pad);
   border-bottom: 1px solid var(--border);
   background: var(--panel);
 }
@@ -109,11 +91,15 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
 .theme-toggle-btn:hover { border-color: var(--accent); }
 .theme-toggle-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-.wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 32px) 64px; }
-.hero { text-align: center; padding: clamp(32px, 5vw, 64px) 0 20px; }
+/* ── Layout (widths and gutters from spacing.css) ── */
+.wrap { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter) var(--space-2xl); }
+.hero { text-align: center; padding: var(--section-gap) 0 var(--space-lg); }
 .hero h1 { font-size: var(--fs-2xl); font-weight: 800; margin: 0 0 12px; letter-spacing: var(--letter-spacing-heading); }
-.hero p { color: var(--muted); max-width: 680px; margin: 0 auto 24px; font-size: var(--fs-md); }
-.search { display: flex; flex-wrap: wrap; gap: 10px; max-width: 680px; margin: 0 auto; }
+.hero p { color: var(--muted); max-width: var(--container-form); margin: 0 auto var(--space-lg); font-size: var(--fs-md); }
+.search { display: flex; flex-wrap: wrap; gap: 10px; max-width: var(--container-form); margin: 0 auto; }
+/* Phones: input and button each take the full width, so the button does
+   not sit alone on the left under a full-width input. */
+@media (max-width: 480px) { .search > * { flex: 1 1 100%; min-width: 0; } }
 .tool-input {
   flex: 1; min-width: 220px;
   background: var(--panel);
@@ -133,7 +119,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
   justify-content: center;
   background: var(--accent);
   border: 0;
-  color: #fff;
+  color: var(--on-accent);
   padding: 12px 22px;
   border-radius: var(--radius-sm);
   font-size: var(--fs-md);
@@ -155,7 +141,7 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
 .gate-panel { background: var(--panel); border: 1px solid var(--accent); border-radius: var(--radius); padding: 20px 24px; margin: 16px 0; box-shadow: var(--shadow); }
 .meta { color: var(--muted); font-size: var(--fs-sm); margin: 4px 0 12px; }
 
-section { margin-top: 36px; }
+section { margin-top: var(--section-gap); }
 h2 { font-size: var(--fs-xl); font-weight: 700; margin: 0 0 14px; letter-spacing: var(--letter-spacing-heading); }
 h3 { font-size: var(--fs-lg); font-weight: 600; margin: 0 0 8px; letter-spacing: var(--letter-spacing-heading); }
 .panel { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 20px; box-shadow: var(--shadow-sm); }
@@ -163,7 +149,7 @@ h3 { font-size: var(--fs-lg); font-weight: 600; margin: 0 0 8px; letter-spacing:
 .panel.upsell .btn { margin: 8px 8px 0 0; }
 
 /* Grid of Cards */
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 16px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: var(--grid-gap); }
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -210,7 +196,7 @@ h3 { font-size: var(--fs-lg); font-weight: 600; margin: 0 0 8px; letter-spacing:
 .issue strong { margin-left: 8px; }
 .issue p { margin: 6px 0 0; color: var(--muted); font-size: var(--fs-sm); }
 
-.foot { text-align: center; padding: 32px 16px; border-top: 1px solid var(--border); color: var(--faint); font-size: var(--fs-sm); }
+.foot { text-align: center; padding: var(--space-xl) var(--gutter); border-top: 1px solid var(--border); color: var(--faint); font-size: var(--fs-sm); }
 .foot span { font-weight: 700; }
 
 /* Interactive Cards on Hub */
@@ -336,16 +322,16 @@ li::marker { color: var(--accent); }
   border-radius: 999px;
   transition: width 0.35s ease, background-color 0.25s ease;
 }
-.usage-progress-fill.green { background: #10b981; }
-.usage-progress-fill.yellow { background: #f59e0b; }
-.usage-progress-fill.red { background: #ef4444; }
+.usage-progress-fill.green { background: var(--good); }
+.usage-progress-fill.yellow { background: var(--warn); }
+.usage-progress-fill.red { background: var(--bad); }
 
 /* Side-by-side Domain Comparison Table */
 .compare-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin: 24px 0;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: var(--grid-gap);
+  margin: var(--space-lg) 0;
 }
 .compare-col {
   background: var(--panel);
@@ -379,10 +365,10 @@ li::marker { color: var(--accent); }
 .winner-badge {
   display: inline-block;
   background: var(--good);
-  color: #fff;
+  color: var(--on-accent);
   padding: 2px 8px;
   border-radius: 4px;
-  font-size: 11px;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: var(--letter-spacing-badge);
   margin-left: 6px;

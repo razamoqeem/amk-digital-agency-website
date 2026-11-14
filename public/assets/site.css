@@ -1,39 +1,30 @@
+@import url("/css/theme.css");
+@import url("/css/spacing.css");
+
 /* AMK Digital Agency Website — styles for pages built by the CMS.
-   Universal Typography, Letter Spacing & Dual-Theme Tokens. */
+   Colours, fonts and sizes come from /css/theme.css.
+   Widths, gutters and gaps come from /css/spacing.css.
+   The names below are the short names these pages already use. */
 
 :root {
-  /* Light Mode (Default) */
-  --c-page: #f8fafc;
-  --c-surface: #ffffff;
-  --c-surface-subtle: #f1f5f9;
-  --c-ink: #0f172a;
-  --c-muted: #64748b;
-  --c-faint: #94a3b8;
-  --c-line: #e2e8f0;
-  --c-accent: #4b43d6;
-  --c-accent-strong: #3f38b8;
-  --c-success: #0f7a5c;
+  --c-page: var(--theme-page);
+  --c-surface: var(--theme-surface);
+  --c-surface-subtle: var(--theme-surface-subtle);
+  --c-ink: var(--theme-text);
+  --c-muted: var(--theme-text-muted);
+  --c-faint: var(--theme-text-faint);
+  --c-line: var(--theme-border);
+  --c-accent: var(--theme-brand);
+  --c-accent-strong: var(--theme-brand-strong);
+  --c-success: var(--theme-success);
+  /* names used by the CMS colour picker (content/settings.json) */
+  --c-background: var(--theme-page);
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --letter-spacing-heading: -0.025em;
-  --letter-spacing-body: -0.011em;
-  --letter-spacing-badge: 0.04em;
-}
-
-html[data-theme="dark"],
-html.dark,
-:root.dark {
-  --c-page: #0b0f19;
-  --c-surface: #131b2e;
-  --c-surface-subtle: #1c253d;
-  --c-ink: #f8fafc;
-  --c-muted: #94a3b8;
-  --c-faint: #64748b;
-  --c-line: #232d45;
-  --c-accent: #6366f1;
-  --c-accent-strong: #818cf8;
-  --c-success: #10b981;
+  --font-sans: var(--theme-font-body);
+  --font-mono: var(--theme-font-mono);
+  --letter-spacing-heading: var(--theme-tracking-heading);
+  --letter-spacing-body: var(--theme-tracking-body);
+  --letter-spacing-badge: var(--theme-tracking-badge);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -51,7 +42,11 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.wrap { width: 100%; max-width: 860px; margin: 0 auto; padding: 0 clamp(16px, 3vw, 32px); }
+/* ── Layout (widths and gutters from spacing.css) ── */
+.wrap { width: 100%; max-width: var(--container-text); margin: 0 auto; padding-inline: var(--gutter); }
+/* Header and footer use the wider container, so the logo sits in the same
+   place as on the tool pages. Reading text stays in the narrower column. */
+.site-header .wrap, .site-footer .wrap { max-width: var(--container); }
 
 .skip-link {
   position: absolute; left: -9999px; top: 0;
@@ -64,10 +59,11 @@ a:hover { color: var(--c-accent); }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
 
 .site-header { background: var(--c-surface); border-bottom: 1px solid var(--c-line); }
-.header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-top: 14px; padding-bottom: 14px; }
+.header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-sm) var(--space-lg); padding-block: 14px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; color: var(--c-ink); text-decoration: none; letter-spacing: var(--letter-spacing-heading); }
 .brand img { border-radius: 6px; }
-.nav-list { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 18px; margin: 0; padding: 0; list-style: none; }
+.nav-list { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-xs) 18px; margin: 0; padding: 0; list-style: none; }
+.nav-list li { margin: 0; }
 .nav-list a { display: inline-block; padding: 6px 0; color: var(--c-ink); text-decoration: none; font-size: 0.9375rem; font-weight: 500; }
 .nav-list a:hover { color: var(--c-accent); text-decoration: none; }
 
@@ -90,8 +86,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--c-accent); outl
 .theme-toggle-btn:hover { border-color: var(--c-accent); }
 .theme-toggle-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-.page-body { padding-top: clamp(28px, 4vw, 48px); padding-bottom: clamp(40px, 6vw, 72px); }
-.page-body > * { margin: 0 0 18px; }
+.page-body { padding-block: clamp(28px, 4vw, 48px) clamp(40px, 6vw, 72px); }
+.page-body > * { margin: 0 0 var(--stack-gap); }
+/* Headings sit closer to the text they introduce than to the text above. */
+.page-body > :is(h2, h3, h4) { margin: clamp(28px, 4vw, 40px) 0 10px; }
+.page-body > :first-child { margin-top: 0; }
+.page-body > :last-child { margin-bottom: 0; }
 h1, h2, h3, h4 {
   line-height: 1.25;
   margin: 36px 0 14px;
@@ -101,7 +101,6 @@ h1, h2, h3, h4 {
 h1 { font-size: clamp(1.85rem, 1.5rem + 1.5vw, 2.65rem); font-weight: 800; }
 h2 { font-size: clamp(1.4rem, 1.25rem + 0.8vw, 1.85rem); font-weight: 700; }
 h3 { font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.35rem); font-weight: 600; }
-.page-body > h1:first-child { margin-top: 0; }
 
 ul, ol { padding-left: 1.35rem; margin: 12px 0; }
 ul { list-style-type: disc; }
@@ -118,17 +117,17 @@ img { max-width: 100%; height: auto; }
   border-radius: 8px;
   font-weight: 600;
   text-decoration: none;
-  color: #ffffff;
+  color: var(--theme-on-brand);
   background: var(--c-accent);
   transition: background 0.15s ease;
 }
-.btn:hover { background: var(--c-accent-strong); color: #ffffff; }
+.btn:hover { background: var(--c-accent-strong); color: var(--theme-on-brand); }
 
-.faq { border: 1px solid var(--c-line); border-radius: 10px; background: var(--c-surface); padding: 14px 18px; margin-bottom: 12px; }
+.faq { border: 1px solid var(--c-line); border-radius: var(--theme-radius-sm); background: var(--c-surface); padding: 14px 18px; margin-bottom: 12px; }
 .faq summary { cursor: pointer; font-weight: 600; color: var(--c-ink); }
 
 .site-footer { border-top: 1px solid var(--c-line); background: var(--c-surface); }
-.footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-top: 24px; padding-bottom: 24px; font-size: 0.875rem; color: var(--c-muted); }
+.footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-sm) var(--space-lg); padding-block: var(--space-lg); font-size: 0.875rem; color: var(--c-muted); }
 .preview-label { font-weight: 600; }
 
 /* Size tokens */
@@ -154,17 +153,7 @@ code {
   overflow-wrap: anywhere;
 }
 
-/* Colour tokens generated from content/settings.json */
-:root {
-  --c-page: #f7f8fc;
-  --c-ink: #10131f;
-  --c-muted: #5b627a;
-  --c-accent: #4b43d6;
-  --c-accent-strong: #2f2a9e;
-  --c-success: #0f7a5c;
-  --c-surface: #ffffff;
-  --c-background: #f7f8fc;
-}
+/* Colour picker classes for the names in content/settings.json */
 .t-color-ink { color: var(--c-ink); }
 .t-bg-ink { background: var(--c-ink); }
 .t-color-muted { color: var(--c-muted); }

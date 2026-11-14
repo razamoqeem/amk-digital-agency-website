@@ -33,13 +33,13 @@
       "xl"
     ],
     "colors": {
-      "ink": "#10131f",
-      "muted": "#5b627a",
+      "ink": "#0f172a",
+      "muted": "#64748b",
       "accent": "#4b43d6",
-      "accent-strong": "#2f2a9e",
+      "accent-strong": "#3f38b8",
       "success": "#0f7a5c",
       "surface": "#ffffff",
-      "background": "#f7f8fc"
+      "background": "#f8fafc"
     },
     "opacities": [
       100,

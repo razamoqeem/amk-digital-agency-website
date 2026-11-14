@@ -289,12 +289,12 @@ def render_collection_item(item, schema, settings, template, base, live_paths=()
 
 
 def token_css(settings) -> str:
+    # The colour values themselves live in css/theme.css (one place for the
+    # palette, with light and dark). settings.json only lists the names an
+    # editor may pick, plus light values used for the contrast warning.
     tokens = settings.get("tokens", {})
     colours = tokens.get("colors", {})
-    page_bg = colours.get(tokens.get("page_background", ""), "#ffffff")
-    lines = ["", "/* Colour tokens generated from content/settings.json */", ":root {", "  --c-page: %s;" % page_bg]
-    lines += ["  --c-%s: %s;" % (name, value) for name, value in colours.items()]
-    lines.append("}")
+    lines = ["", "/* Colour picker classes for the names in content/settings.json */"]
     for name in colours:
         lines.append(".t-color-%s { color: var(--c-%s); }" % (name, name))
         lines.append(".t-bg-%s { background: var(--c-%s); }" % (name, name))
