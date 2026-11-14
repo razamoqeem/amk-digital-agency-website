@@ -4,7 +4,7 @@
    Colours, fonts, text sizes, corner rounding and shadows live here.
    Spacing and page widths do NOT live here: see spacing.css.
 
-   HOW TO SWAP IN A NEW PALETTE (for example from Figma)
+   HOW TO SWAP IN A NEW PALETTE (from your design source)
    1. Change the values in section 1 (light) and section 2 (dark).
       Keep the names. Only the values on the right change.
    2. Fonts: change section 3. A web font must also be loaded by
