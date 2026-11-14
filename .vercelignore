@@ -1,0 +1,13 @@
+# Vercel serves the built pages in public/ only.
+# Keep the Python tools service, the local CMS and source folders out of the
+# upload, so Vercel does not try to run api/*.py as server functions.
+api/
+cms/
+content/
+templates/
+.venv/
+*.md
+!README.md
+*.bat
+.env
+.env.*

@@ -32,8 +32,8 @@ Vercel automatically turns Python files in a top-level `api/` folder into server
 not written for that and would fail or expose half-working addresses
 [UNCERTAIN: confirm in the first deploy log].
 
-- [ ] Ask Claude to add a `.vercelignore` file containing the line `api/` (and `cms/`, `content/`,
-      `templates/`, `.venv/`) before the first deploy. This is a small, separate change that needs your yes.
+- [x] Done (2026-11-14): `.vercelignore` in the repository root leaves out `api/`, `cms/`, `content/`,
+      `templates/`, `.venv/`, notes and `.env` files. Only `public/` and `vercel.json` matter to Vercel.
 
 ## 4. Create the account and connect GitHub
 
