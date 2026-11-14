@@ -118,7 +118,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-
 .progress-fill.yellow { background-color: #f59e0b; }
 .progress-fill.red { background-color: #ef4444; }
 
-/* Webflow-style Collections UI */
+/* Collections UI */
 .collection-tabs {
   display: flex;
   gap: 4px;

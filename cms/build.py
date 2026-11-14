@@ -445,7 +445,7 @@ def build() -> dict:
     for page in pages:
         write(page_output_rel(page["slug"]), render_page(page, settings, template, base, live_paths))
 
-    # Compile Webflow-style Custom CMS Collection Items
+    # Compile custom CMS collection items
     col_items = collections_engine.list_items()
     schemas = {c["id"]: c for c in collections_engine.load_schemas().get("collections", [])}
     col_paths = []

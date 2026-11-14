@@ -61,7 +61,8 @@
     "js/theme-engine.js",
     "js/tools-client.js",
     "js/domain-overview.js",
-    "js/page-tools.js"
+    "js/page-tools.js",
+    "js/website-comparison.js"
   ],
   "legacy_sitemap_paths": [
     "/tools/free-tools.html",

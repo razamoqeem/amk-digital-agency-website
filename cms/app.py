@@ -180,7 +180,7 @@ async def api_save_limits(request: Request):
     return {"saved": True, "limits": clean_limits}
 
 
-# ── Webflow-style Collections & Folders ────────────────────────────────────
+# ── Collections & Folders ────────────────────────────────────
 @app.get("/api/collections")
 def api_get_collections():
     """List collection schemas, hierarchical folders, and all collection items."""

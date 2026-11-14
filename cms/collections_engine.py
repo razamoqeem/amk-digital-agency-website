@@ -1,5 +1,5 @@
 """
-Collections Engine for Webflow-style Custom CMS (Zero-Middleware).
+Collections engine for the custom CMS (no middleware).
 
 Handles:
 - Dynamic collection schemas with custom-fillable fields (Text, Rich Text, Image, JSON-LD, SEO).

@@ -502,7 +502,7 @@
     });
   }
 
-  /* ── Webflow-Style Custom CMS Collections ── */
+  /* ── Custom CMS Collections ── */
   var collectionsList = [];
   var foldersList = [];
   var activeCollectionId = 'blogs';
@@ -784,21 +784,14 @@
     });
   }
 
-  /* ── Header Usage Limitation Bar ── */
+  /* ── Header: the free daily limit now set (a setting, not a usage count) ── */
   function updateUsageWidget() {
     api('GET', '/api/limits').then(function (r) {
       if (!r.ok) return;
       var limits = r.data.limits || {};
-      var dailyLimit = (limits.free && limits.free.daily) ? limits.free.daily : 50;
-      var currentUsage = parseInt(localStorage.getItem('amk_demo_scrapes') || '12', 10);
-      var pct = Math.min(100, Math.round((currentUsage / dailyLimit) * 100));
+      var daily = limits.free && limits.free.daily;
       var textEl = $('hdr-usage-text');
-      var fillEl = $('hdr-usage-fill');
-      if (textEl) textEl.textContent = currentUsage + ' / ' + dailyLimit;
-      if (fillEl) {
-        fillEl.style.width = pct + '%';
-        fillEl.className = 'progress-fill ' + (pct < 50 ? 'green' : (pct < 80 ? 'yellow' : 'red'));
-      }
+      if (textEl) textEl.textContent = limits.enabled === false ? 'limits off' : (daily ? daily + ' runs' : 'no limit');
     });
   }
 
