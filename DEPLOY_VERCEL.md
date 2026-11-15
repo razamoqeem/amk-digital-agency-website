@@ -1,43 +1,47 @@
-# Deploying the Website on Vercel: checklist (2026-11-14)
+# Deploying the Website on Vercel: checklist (updated 2026-11-15)
 
 You click through these steps yourself. Nothing here has been done for you: no account was
-created, no repository was connected, nothing was deployed.
+created, no repository was connected, nothing was deployed. Read `SECURITY_LAYERS.md` first.
 
-## 1. What will and will not work on Vercel
+## 1. What works on Vercel now
 
-| Part of the Website | Works on Vercel? | Why |
+The tools now run as small Node functions in `api/*.js` (no packages to install), so they work on Vercel.
+The older Python service (`api/*.py`) stays for your own machine and is kept out of the upload by `.vercelignore`.
+
+| Part | Works on Vercel? | Notes |
 |---|---|---|
-| Pages built into `public/` (home, company, docs, tools hub, tool pages, 404) | Yes | They are plain files. `vercel.json` already says `"outputDirectory": "public"` and sets the redirects and security headers. |
-| Light/dark switch, layout, theme | Yes | Plain CSS and JS in `public/`. |
-| The free tools actually running a check (Domain Overview, Website Comparison, Meta Tags, and the others) | **No, not as set up today** | They need the tools service in `api/` (Python). It keeps its counters in a SQLite file (`api/data/tools.db`), and Vercel deletes files between requests. Crawls can run longer than Vercel allows a single request [UNCERTAIN: the exact time limit depends on the plan]. |
-| Domain rank tool | **No** | Its free key works from one network address only. Vercel uses many changing addresses. |
-| The CMS editor (`cms/`, port 8090) | No, and it should not be public | It is a local editing tool. Run it on your PC, rebuild, commit `public/`. |
-
-**Short answer:** Vercel can host the Website's pages. The tools will show their forms but will not
-return results until the tools service runs somewhere that keeps files and a fixed address
-(a small always-on server), and `apiUrl` in `js/config.js` points to it.
+| Pages in `public/` (home, company, docs, tools hub, tool pages, 404) | Yes | Plain files. `vercel.json` already has the redirects, rewrites, security headers. |
+| Light/dark switch, spacing, theme | Yes | |
+| Free tools: Domain Overview, Website Comparison, SEO Audit, Page Analyser, AI readiness, Meta, Headings, Images, Links, Redirects, Robots/Sitemap, SSL, Schema, Technology | Yes | Real checks, same results shape as before. Tested against live sites. |
+| Domain Age | Yes | Uses the registries' RDAP service. Some endings (for example `.pk`) have no RDAP, and the tool says so. |
+| Domain Rank | **Probably not** | The free Open PageRank key works from one network address only; Vercel uses many. `[UNCERTAIN]` until tested with your key. |
+| Title Generator | Yes | Runs in the browser |
+| AI chat assistant | Yes, once keys are added | Free models only |
+| Request form (when the chat limit is reached) | Yes, once a destination is set | Webhook or Redis |
+| Daily limits | Reliable only with the Redis store | Without it each server instance counts on its own |
+| Long crawls | Limited | Each function may run up to 30 seconds here `[UNCERTAIN: your plan's maximum may be lower]`. Checks that read many pages are capped (40 links, 10 sitemap parts). |
+| CMS editor (`cms/`) | Not deployed, by design | Local only. Edit, rebuild, commit `public/`. |
+| Vercel plan | Check yourself | The free "Hobby" plan is for personal, non-commercial use. A business site normally needs "Pro". Read Vercel's current terms. Hobby also limits the number of functions (this project uses 8) `[UNCERTAIN: current limit]`. |
 
 ## 2. Before you start
 
 | # | Check | Done |
 |---|---|---|
-| 1 | The pushes to `razamoqeem/amk-digital-agency-website` are done (the latest commit is on GitHub). | [ ] |
-| 2 | `public/` is up to date: run `.venv/Scripts/python.exe cms/build.py`, then commit `public/`. Vercel serves what is committed; it does not run the build. | [ ] |
-| 3 | Decide the plan. Vercel's free "Hobby" plan is for personal, non-commercial use. A business website normally needs the paid "Pro" plan. Read Vercel's current terms yourself. | [ ] |
-| 4 | Decide the domain. Until then, do not type a `*.vercel.app` address into any file. | [ ] |
+| 1 | Latest commit is on `razamoqeem/amk-digital-agency-website`. | [ ] |
+| 2 | `public/` is up to date: run `.venv/Scripts/python.exe cms/build.py`, then commit `public/` and `vercel.json`. Vercel serves what is committed; it does not run the build. | [ ] |
+| 3 | Final domain decided. Until then do not type a `*.vercel.app` address into any file. | [ ] |
+| 4 | Turnstile site, Redis store and webhook prepared (see `SECURITY_LAYERS.md` section 3). The live site refuses tool, chat and form requests until the bot check is configured. | [ ] |
+| 5 | Run `node scripts/test-api.js` on your PC: it must say `0 failed`. | [ ] |
 
-## 3. Stop Vercel treating `api/` as functions
+## 3. Keep the Python service out of Vercel
 
-Vercel automatically turns Python files in a top-level `api/` folder into server functions. Ours are
-not written for that and would fail or expose half-working addresses
-[UNCERTAIN: confirm in the first deploy log].
-
-- [x] Done (2026-11-14): `.vercelignore` in the repository root leaves out `api/`, `cms/`, `content/`,
-      `templates/`, `.venv/`, notes and `.env` files. Only `public/` and `vercel.json` matter to Vercel.
+- [x] `.vercelignore` leaves out `api/*.py`, `api/engine/`, `api/data/` (it holds a key and a database), `cms/`, `content/`, notes, `.env` files.
+      It keeps `api/*.js`, `api/_lib/` and `AGENCY_CONTEXT.md` (the chat reads it).
+- [ ] In the first deploy log, check that only these functions were created: `audit`, `chat`, `domain-age`, `domain-overview`, `domain-rank`, `lead`, `page-tool`, `usage`. No Python function should appear.
 
 ## 4. Create the account and connect GitHub
 
-1. [ ] Open vercel.com and choose **Sign Up** → **Continue with GitHub**. Sign in to GitHub as the
+1. [ ] Open vercel.com and choose **Sign Up** > **Continue with GitHub**. Sign in to GitHub as the
        account that owns `razamoqeem/amk-digital-agency-website`.
 2. [ ] When GitHub asks which repositories Vercel may see, choose **Only select repositories** and pick
        `amk-digital-agency-website` only. Do not choose "All repositories".
@@ -45,35 +49,55 @@ not written for that and would fail or expose half-working addresses
 
 ## 5. Import the project
 
-1. [ ] In Vercel: **Add New…** → **Project** → find `amk-digital-agency-website` → **Import**.
+1. [ ] In Vercel: **Add New...** > **Project** > find `amk-digital-agency-website` > **Import**.
 2. [ ] **Framework Preset:** `Other`.
-3. [ ] **Root Directory:** leave as `./` (the repository root).
-4. [ ] **Build Command:** turn the override on and leave it **empty** (nothing to build; `public/` is committed).
+3. [ ] **Root Directory:** leave as `./`.
+4. [ ] **Build Command:** turn the override on and leave it **empty**.
 5. [ ] **Output Directory:** `public` (already set by `vercel.json`).
-6. [ ] **Environment Variables:** none are needed for the pages alone. Do not paste any key here
-       until the tools service is planned.
-7. [ ] Click **Deploy**.
+6. [ ] **Environment Variables:** add these **before** the first deploy. Mark every secret as **Sensitive**. Never paste a value anywhere else.
+
+| Name | Needed? | What it is |
+|---|---|---|
+| `TOOLS_SECRET` | **Required** | Long random text (24+ characters). Production refuses to run without it. |
+| `TURNSTILE_SECRET` | **Required** | Secret key from your Cloudflare Turnstile site. Without it, tools, chat and forms refuse requests. |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | **Strongly advised** | Makes daily limits reliable (Vercel's own store names `KV_REST_API_URL` and `KV_REST_API_TOKEN` also work). |
+| `GEMINI_SEO_API_KEY` | For chat | Free-tier Gemini key |
+| `OPENROUTER_API_KEY` | For chat | Free-tier OpenRouter key |
+| `LEAD_WEBHOOK_URL` | For the request form | https address that receives the request as JSON |
+| `SITE_URL`, `APP_URL` | When the domain is confirmed | Full addresses with https. Never a `*.vercel.app` address. |
+| `OPEN_PAGERANK_KEY` | Optional | Turns Domain Rank on (see section 1 for the address limit) |
+| `CHAT_DAILY_LIMIT` (6), `CHAT_IP_DAILY_LIMIT` (20), `CHAT_GLOBAL_DAILY_LIMIT` (1000) | Optional | Chat allowances. Defaults in brackets. |
+| `TOOLS_DAILY_LIMIT` (10), `TOOLS_MONTHLY_LIMIT` (100), `TOOLS_IP_DAILY_RUNS` (30), `TOOLS_RATE_PER_MINUTE` (20) | Optional | Tool allowances |
+| `CHAT_MODEL_FAST`, `CHAT_MODEL_STRATEGIST`, `CHAT_MODEL_AUTO`, `CHAT_MODEL_FALLBACK` | Optional | Change an AI model name without touching code |
+
+   **Do not add** `OPENAI_API_KEY`, `ANTHROPIC_API_KEY` or `XAI_API_KEY` to this project. The website never uses them.
+7. [ ] Put the Turnstile **site key** in `js/config.js` (`turnstileSiteKey`), rebuild, commit and push, so the bot check can show.
+8. [ ] Click **Deploy**.
 
 ## 6. Check the deploy
 
 | # | Check | Done |
 |---|---|---|
-| 1 | The deploy log shows no errors and no Python function was created. | [ ] |
-| 2 | Open the preview address Vercel shows. Home, `/tools/`, a tool page, Domain Overview and Website Comparison load. | [ ] |
-| 3 | The light/dark button works. | [ ] |
-| 4 | Try a phone-sized window: no sideways scrolling. | [ ] |
-| 5 | Open `/company.html`: it should move to `/company/` (redirect in `vercel.json`). | [ ] |
-| 6 | A tool shows a clear message rather than a broken page when you run it (expected, see section 1). | [ ] |
+| 1 | The deploy log shows no errors, and only the 8 Node functions from section 3. | [ ] |
+| 2 | Home, `/tools/`, a tool page, Domain Overview and Website Comparison load. | [ ] |
+| 3 | Run Domain Overview on a site you own. It returns real data, and the "free runs" bar counts down. | [ ] |
+| 4 | Open `/api/chat` in a tab: a short JSON answer with `"enabled": true`. | [ ] |
+| 5 | Open the chat bubble, send a message in each of the 3 modes. Counter goes 6, 5, 4 ... | [ ] |
+| 6 | Send until the limit: input is replaced by the request form; submit it; check it reached your webhook. | [ ] |
+| 7 | The light/dark button works; chat follows it. Phone-sized window: no sideways scrolling. | [ ] |
+| 8 | `/robots.txt` shows `Disallow: /api/` and `/v1/`. | [ ] |
+| 9 | Type `localhost` into a tool: it is refused with a plain message. | [ ] |
+| 10 | `/company.html` moves to `/company/` (redirect). | [ ] |
 
 ## 7. Add your domain (when confirmed)
 
-1. [ ] Vercel project → **Settings** → **Domains** → add your domain. Follow the DNS steps it shows
-       at your domain seller.
-2. [ ] Put the final address in `.env` as `SITE_URL` and in `js/config.js` as `siteUrl`, rebuild,
-       commit, push. This turns on canonical links and the sitemap.
+1. [ ] Vercel project > **Settings** > **Domains** > add your domain. Follow the DNS steps shown at your domain seller. Vercel issues the HTTPS certificate by itself.
+2. [ ] Add the domain to your Turnstile site in Cloudflare.
+3. [ ] Put the final address in `SITE_URL` (Vercel) and `siteUrl` in `js/config.js`, rebuild, commit, push. This turns on canonical links and the sitemap.
 
 ## 8. Things that stay true after deploying
 
-- Every push to `main` deploys again. Pushes to other branches create preview addresses.
+- Every push to `main` deploys again. Pushes to other branches create preview addresses (protect them: `SECURITY_LAYERS.md` step 9).
 - Never commit `.env`. Keys go into Vercel's **Environment Variables** screen only.
 - Do not change the GitHub repository to public. See `GOING_PUBLIC.md` first.
+- If a key is ever exposed, replace it at the provider first, then in Vercel, then redeploy.

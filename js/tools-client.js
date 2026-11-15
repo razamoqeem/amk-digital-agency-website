@@ -4,9 +4,9 @@
    A page needs two elements: #runs-line and #gate-panel. */
 'use strict';
 
-  // Address of the tools service, from js/config.js. Empty until that service exists.
+  // Address of the tools service, from js/config.js, or defaults to current origin.
   const TOOLS_API = (window.AMK_SITE && /^https?:\/\//.test(window.AMK_SITE.apiUrl || ''))
-    ? window.AMK_SITE.apiUrl.replace(/\/+$/, '') : '';
+    ? window.AMK_SITE.apiUrl.replace(/\/+$/, '') : (window.location && window.location.origin ? window.location.origin : '');
 
 
   // ── Tools service ────────────────────────────────────────
@@ -170,10 +170,16 @@
   // Runs one tool. Returns its data, or throws an Error with a plain message.
   async function callTool(tool, body) {
     let res, json;
+    // Bot check: a fresh single-use token for each run, when the check is switched on (js/config.js).
+    const payload = Object.assign({}, body);
+    if (window.AMKBot && window.AMKBot.enabled) {
+      try { payload.turnstile_token = await window.AMKBot.token(); }
+      catch (e) { throw new Error('The security check could not finish. Please reload the page and try again.'); }
+    }
     try {
       res = await fetch(TOOLS_API + '/v1/tools/' + tool, {
         method: 'POST', credentials: 'include',
-        headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+        headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
       });
       json = await res.json();
     } catch (e) {

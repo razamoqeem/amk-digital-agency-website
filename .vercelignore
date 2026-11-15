@@ -1,13 +1,34 @@
-# Vercel serves the built pages in public/ only.
-# Keep the Python tools service, the local CMS and source folders out of the
-# upload, so Vercel does not try to run api/*.py as server functions.
-api/
+# Vercel serves public/ (the built pages) and the small Node functions in api/*.js.
+# Everything else stays out of the upload. The Python tools service (api/*.py, api/engine, api/data)
+# is for running on your own machine only: if it were uploaded, Vercel would try to run api/*.py
+# as server functions.
+
+# Python tools service and its data (never upload: the data folder holds a signing key and a database)
+api/*.py
+api/engine/
+api/data/
+api/__pycache__/
+api/requirements*.txt
+
+# Local CMS editor, sources and tooling
 cms/
 content/
 templates/
+scripts/
+tests/
 .venv/
+__pycache__/
+
+# Notes and batch files (the chat reads AGENCY_CONTEXT.md, so it stays in)
 *.md
 !README.md
+!AGENCY_CONTEXT.md
 *.bat
+
+# Secrets and local files
 .env
 .env.*
+*.db
+*.sqlite*
+*.key
+*.log

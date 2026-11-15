@@ -62,7 +62,9 @@
     "js/tools-client.js",
     "js/domain-overview.js",
     "js/page-tools.js",
-    "js/website-comparison.js"
+    "js/website-comparison.js",
+    "js/bot-check.js",
+    "js/chat-widget.js"
   ],
   "legacy_sitemap_paths": [
     "/tools/free-tools.html",

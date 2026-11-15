@@ -34,15 +34,44 @@ PAGES_DIR = os.path.join(CONTENT, "pages")
 TEMPLATES = os.path.join(ROOT, "templates")
 PUBLIC = os.path.join(ROOT, "public")
 
+# Bot-check service (Cloudflare Turnstile) is the only outside script and frame we allow.
+TURNSTILE = "https://challenges.cloudflare.com"
+# Policy for every page. Older hand-written tool pages still use inline scripts and styles,
+# so 'unsafe-inline' stays here until they are moved out (see SECURITY_LAYERS.md).
+GLOBAL_CSP = ("default-src 'self'; script-src 'self' 'unsafe-inline' %s; "
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; "
+              "img-src 'self' data:; connect-src 'self' %s; frame-src %s; object-src 'none'; "
+              "base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests") % (TURNSTILE, TURNSTILE, TURNSTILE)
 BASE_HEADERS = [
     ("X-Content-Type-Options", "nosniff"),
     ("X-Frame-Options", "DENY"),
     ("Referrer-Policy", "strict-origin-when-cross-origin"),
-    ("Permissions-Policy", "camera=(), microphone=(), geolocation=()"),
+    ("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(), usb=()"),
+    ("Strict-Transport-Security", "max-age=31536000; includeSubDomains"),
+    ("Cross-Origin-Opener-Policy", "same-origin"),
+    ("Content-Security-Policy", GLOBAL_CSP),
 ]
-# Strict policy for pages built here: no inline scripts or styles, same-origin only.
-STRICT_CSP = ("default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; "
-              "base-uri 'self'; form-action 'self'; frame-ancestors 'none'")
+# Stricter policy for pages built here: no inline scripts or styles, same-origin only
+# (plus the bot-check service, which the chat widget may need).
+STRICT_CSP = ("default-src 'self'; script-src 'self' %s; style-src 'self'; img-src 'self' data:; "
+              "connect-src 'self' %s; frame-src %s; object-src 'none'; "
+              "base-uri 'self'; form-action 'self'; frame-ancestors 'none'") % (TURNSTILE, TURNSTILE, TURNSTILE)
+
+# The tools run as small serverless functions in api/. The pages call stable /v1 addresses.
+# Order matters: the first match wins, so the specific tools come before the general one.
+REWRITES = [
+    ("/v1/tools/seo-audit", "/api/audit?tool=seo-audit"),
+    ("/v1/tools/site-scan", "/api/audit?tool=site-scan"),
+    ("/v1/tools/domain-overview", "/api/domain-overview"),
+    ("/v1/tools/domain-age", "/api/domain-age"),
+    ("/v1/tools/domain-rank", "/api/domain-rank"),
+    ("/v1/tools/:tool", "/api/page-tool?tool=:tool"),
+    ("/v1/usage", "/api/usage"),
+    ("/v1/leads", "/api/lead"),
+]
+# Added to every page when the site is built: chat widget, bot check, their styles.
+WIDGET_HEAD = '  <link rel="stylesheet" href="/css/chat-widget.css" />\n'
+WIDGET_BODY = '  <script src="/js/bot-check.js" defer></script>\n  <script src="/js/chat-widget.js" defer></script>\n'
 
 
 # ── Loading ────────────────────────────────────────────────────────────────
@@ -375,9 +404,18 @@ def host_files(pages, redirects):
         "outputDirectory": "public",
         "redirects": [{"source": r["from"], "destination": r["to"], "permanent": r.get("status", 301) in (301, 308)}
                       for r in redirects],
+        "rewrites": [{"source": src, "destination": dst} for src, dst in REWRITES],
+        "functions": {
+            "api/*.js": {"maxDuration": 30},
+            "api/chat.js": {"maxDuration": 30, "includeFiles": "AGENCY_CONTEXT.md"},
+        },
         "headers": [{"source": "/(.*)", "headers": [{"key": k, "value": v} for k, v in BASE_HEADERS]}] +
                    [{"source": path, "headers": [{"key": "Content-Security-Policy", "value": STRICT_CSP}]}
-                    for path in cms_paths],
+                    for path in cms_paths] +
+                   [{"source": "/api/(.*)", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"},
+                                                        {"key": "Cache-Control", "value": "no-store"}]},
+                    {"source": "/v1/(.*)", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"},
+                                                       {"key": "Cache-Control", "value": "no-store"}]}],
     }
     return "\n".join(headers_txt) + "\n", "\n".join(redirects_txt) + "\n", vercel
 
@@ -471,7 +509,9 @@ def build() -> dict:
     write("404.html", render_document(template, settings, "%s | %s" % (nf.get("title", "Page not found"),
           settings.get("site_name", "")), nf.get("text", ""), ['  <meta name="robots" content="noindex" />'], nf_body, live_paths))
 
-    robots = ["User-agent: *", "Allow: /"]
+    # Search engines may crawl every page. The tool and chat addresses return no pages, so crawlers
+    # are told to skip them and spend their crawl budget on real content.
+    robots = ["User-agent: *", "Allow: /", "Disallow: /api/", "Disallow: /v1/"]
     if base:
         paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex")] + col_paths
         today = datetime.date.today().isoformat()
@@ -480,6 +520,20 @@ def build() -> dict:
               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % urls)
         robots += ["", "Sitemap: %s/sitemap.xml" % base]
     write("robots.txt", "\n".join(robots) + "\n")
+
+    # chat widget and bot check on every page (hand-written pages are copied as they are, so this runs last)
+    for folder, _dirs, files in os.walk(staging):
+        for name in files:
+            if not name.endswith(".html"):
+                continue
+            path = os.path.join(folder, name)
+            with open(path, encoding="utf-8") as f:
+                html = f.read()
+            if "chat-widget.js" in html or "</body>" not in html or "</head>" not in html:
+                continue
+            html = html.replace("</head>", WIDGET_HEAD + "</head>", 1).replace("</body>", WIDGET_BODY + "</body>", 1)
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                f.write(html)
 
     headers_txt, redirects_txt, vercel = host_files(pages, redirects)
     write("_headers", headers_txt)

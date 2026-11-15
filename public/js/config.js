@@ -7,6 +7,10 @@ window.AMK_SITE = {
   siteUrl: "",
   // Address of the AMK Digital Agency App (sign-in, sign-up), e.g. "https://app.example.com"
   appUrl: "",
-  // Address of the tools service (SEO audit, site scan, domain age). Not built yet.
-  apiUrl: ""
+  // Leave empty to use the same address as the pages (the normal case on Vercel).
+  // Only fill in if the tools run on a different address.
+  apiUrl: "",
+  // Cloudflare Turnstile SITE key (public by design, safe to commit). Empty = bot check off.
+  // The matching SECRET key goes in the host environment variables as TURNSTILE_SECRET, never here.
+  turnstileSiteKey: ""
 };
