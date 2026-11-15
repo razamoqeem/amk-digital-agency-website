@@ -11,16 +11,18 @@ the App through `APP_URL` in config.
 
 | Path | What |
 |---|---|
-| `index.html`, `owner.html` | Older hand-written marketing pages |
+| `index.html`, `company.html` | Older hand-written marketing pages |
 | `content/`, `templates/`, `cms/`, `public/` | CMS content, layout, local admin and build output |
 | `docs.html`, `resources.html` | Knowledge hub and academy pages (still load content from a server; to be made static) |
 | `tools/` | Free tools pages |
 | `css/`, `js/`, `assets/` | Styles, scripts, logo |
 | `content/knowledge/` | Source text for the documentation |
-| `AUDIT_REPORT.md` | Phase 1 audit and proposals |
-| `DECISIONS.md` | Owner decisions |
-| `CHECKPOINT.md` | Where the project stands and how to resume |
-| `GOING_PUBLIC.md` | Checklist before this repository is ever made public |
+| `api/*.js`, `api/_lib/` | Small server functions for the free tools, chat and request form (Vercel) |
+| `DEPLOY_VERCEL.md`, `ENVIRONMENT.md` | Deployment steps and every environment variable |
+| `SHOWCASE.md` | How the results showcase is filled from real data |
+| `AGENCY_CONTEXT.md` | The facts the chat assistant may use |
+
+Internal working notes (audits, decisions, security assessments) are kept privately by the owner and are not part of this repository.
 
 ## How the site is built
 

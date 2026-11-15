@@ -1,7 +1,7 @@
 # Deploying the Website on Vercel: checklist (updated 2026-11-15)
 
 You click through these steps yourself. Nothing here has been done for you: no account was
-created, no repository was connected, nothing was deployed. Read `SECURITY_LAYERS.md` first.
+created, no repository was connected, nothing was deployed. Read `ENVIRONMENT.md` first.
 
 ## 1. What works on Vercel now
 
@@ -30,7 +30,7 @@ The older Python service (`api/*.py`) stays for your own machine and is kept out
 | 1 | Latest commit is on `razamoqeem/amk-digital-agency-website`. | [ ] |
 | 2 | `public/` is up to date: run `.venv/Scripts/python.exe cms/build.py`, then commit `public/` and `vercel.json`. Vercel serves what is committed; it does not run the build. | [ ] |
 | 3 | Final domain decided. Until then do not type a `*.vercel.app` address into any file. | [ ] |
-| 4 | Turnstile site, Redis store and webhook prepared (see `SECURITY_LAYERS.md` section 3). The live site refuses tool, chat and form requests until the bot check is configured. | [ ] |
+| 4 | Turnstile site, Redis store and webhook prepared (see `ENVIRONMENT.md`). The live site refuses tool, chat and form requests until the bot check is configured. | [ ] |
 | 5 | Run `node scripts/test-api.js` on your PC: it must say `0 failed`. | [ ] |
 
 ## 3. Keep the Python service out of Vercel
@@ -64,7 +64,7 @@ The older Python service (`api/*.py`) stays for your own machine and is kept out
 | `GEMINI_SEO_API_KEY` | For chat | Free-tier Gemini key |
 | `OPENROUTER_API_KEY` | For chat | Free-tier OpenRouter key |
 | `LEAD_WEBHOOK_URL` | For the request form | https address that receives the request as JSON |
-| `LEAD_WEBHOOK_SECRET` | Advised | 24+ characters. Signs each delivery so your receiver can verify it (`SECURITY_LAYERS.md` section 3) |
+| `LEAD_WEBHOOK_SECRET` | Advised | 24+ characters. Signs each delivery so your receiver can verify it (see `api/lead.js` for the signature format) |
 | `SITE_URL`, `APP_URL` | When the domain is confirmed | Full addresses with https. Never a `*.vercel.app` address. |
 | `OPEN_PAGERANK_KEY` | Optional | Turns Domain Rank on (see section 1 for the address limit) |
 | `CHAT_DAILY_LIMIT` (6), `CHAT_IP_DAILY_LIMIT` (20), `CHAT_GLOBAL_DAILY_LIMIT` (1000) | Optional | Chat allowances. Defaults in brackets. |
@@ -99,7 +99,7 @@ The older Python service (`api/*.py`) stays for your own machine and is kept out
 
 ## 8. Things that stay true after deploying
 
-- Every push to `main` deploys again. Pushes to other branches create preview addresses (protect them: `SECURITY_LAYERS.md` step 9).
+- Every push to `main` deploys again. Pushes to other branches create preview addresses (protect them with Vercel Deployment Protection).
 - Never commit `.env`. Keys go into Vercel's **Environment Variables** screen only.
-- Do not change the GitHub repository to public. See `GOING_PUBLIC.md` first.
+- Never commit secrets: this repository is meant to be readable by anyone.
 - If a key is ever exposed, replace it at the provider first, then in Vercel, then redeploy.

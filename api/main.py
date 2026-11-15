@@ -317,7 +317,7 @@ def _bot_check_ok(token: str, request: Request) -> bool:
 
 def _run_tool(request: Request, tool: str, cache_key: str, token: str, work, shape):
     """
-    The shared path for every tool (order from AUDIT_REPORT.md section 14.1):
+    The shared path for every tool, in this order:
     rate limit, cache, bot check, run quota, daily budget, then the real work.
     ``work()`` returns data to cache or raises ToolFailure; ``shape(data)`` builds the reply.
     """

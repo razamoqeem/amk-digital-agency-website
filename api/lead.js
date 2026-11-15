@@ -10,7 +10,7 @@
      X-AMK-Timestamp   seconds since 1970
      X-AMK-Signature   sha256=<hex>  =  HMAC-SHA256(secret, timestamp + "." + exact request body)
    The receiver recomputes it, compares in constant time, and rejects timestamps older than 5 minutes.
-   See SECURITY_LAYERS.md for a ready-to-paste check. */
+   A receiver check: recompute the HMAC over timestamp + "." + raw body, compare in constant time. */
 const crypto = require('crypto');
 const store = require('./_lib/store');
 const guard = require('./_lib/guard');

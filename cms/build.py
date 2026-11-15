@@ -38,7 +38,7 @@ PUBLIC = os.path.join(ROOT, "public")
 # Bot-check service (Cloudflare Turnstile) is the only outside script and frame we allow.
 TURNSTILE = "https://challenges.cloudflare.com"
 # Policy for every page. Older hand-written tool pages still use inline scripts and styles,
-# so 'unsafe-inline' stays here until they are moved out (see SECURITY_LAYERS.md).
+# so 'unsafe-inline' stays here until they are moved out.
 GLOBAL_CSP = ("default-src 'self'; script-src 'self' 'unsafe-inline' %s; "
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; "
               "img-src 'self' data:; connect-src 'self' %s; frame-src %s; object-src 'none'; "
@@ -561,6 +561,20 @@ def build() -> dict:
             html = html.replace("</head>", WIDGET_HEAD + "</head>", 1).replace("</body>", WIDGET_BODY + "</body>", 1)
             with open(path, "w", encoding="utf-8", newline="\n") as f:
                 f.write(html)
+
+    # No confidential client, brand or employer name may appear on any page (list: content/confidential_names.txt, not committed).
+    leaked = []
+    for folder, _dirs, files in os.walk(staging):
+        for name in files:
+            if name.endswith((".html", ".json", ".xml", ".txt", ".js")):
+                path = os.path.join(folder, name)
+                with open(path, encoding="utf-8", errors="ignore") as f:
+                    if showcase.check_names(f.read(), CONTENT):
+                        leaked.append(os.path.relpath(path, staging).replace(os.sep, "/"))
+    if leaked:
+        report["errors"].append("confidential names found on %d built file(s): %s. Generalise them in the source." % (len(leaked), ", ".join(leaked[:5])))
+        shutil.rmtree(staging, ignore_errors=True)
+        return report
 
     headers_txt, redirects_txt, vercel = host_files(pages, redirects, ["/showcase/"] if show_live else [])
     write("_headers", headers_txt)
