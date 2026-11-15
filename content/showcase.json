@@ -1,0 +1,57 @@
+{
+  "_help": "Source for the /showcase/ page. Client and brand names must never be written here (the build fails if a name from content/confidential_names.txt appears). Every number on the page is counted from this file or from metrics imported with scripts/import-gsc.py. Add a project only if you can document it; add 'results' lines only for outcomes you can prove. 'services' tags: technical, onpage, offpage, content, keywords. 'count' is how many projects or sites the entry stands for.",
+  "title": "Experience across brands, platforms and project types",
+  "description": "AMK Digital Agency's SEO experience across B2B, SaaS, travel and multi-brand projects, with client identities kept confidential.",
+  "intro": "AMK Digital Agency's team has delivered SEO for B2B platforms, SaaS products, travel and rental sites, multi-brand portfolios, and local and international websites. The figures below count the projects documented in our portfolio.",
+  "count_note": "Counts are projects documented in this portfolio, not a claim of every project ever handled. Client identities are kept confidential.",
+  "projects": [
+    {
+      "type": "B2B platform",
+      "model": "B2B",
+      "count": 1,
+      "services": ["technical", "onpage", "offpage", "content"],
+      "summary": "Full SEO strategy covering technical, on-page, off-page and content layout.",
+      "results": []
+    },
+    {
+      "type": "AI SaaS product",
+      "model": "SaaS",
+      "count": 1,
+      "services": ["technical", "content"],
+      "summary": "Technical SEO architecture and publishing workflows.",
+      "results": []
+    },
+    {
+      "type": "Vacation rentals",
+      "model": "Travel and rentals",
+      "count": 1,
+      "services": ["technical", "onpage", "keywords"],
+      "summary": "Technical audit, metadata overhaul and keyword-to-page mapping.",
+      "results": []
+    },
+    {
+      "type": "Multi-brand portfolio",
+      "model": "Several brands managed together",
+      "count": 5,
+      "multi_brand": true,
+      "services": [],
+      "summary": "SEO across five independent brands run as one portfolio.",
+      "results": []
+    },
+    {
+      "type": "Local and international websites",
+      "model": "Websites",
+      "count": 4,
+      "services": ["technical", "onpage", "offpage"],
+      "summary": "On-page and off-page SEO, backlink campaign support, metadata configuration and structural fixes.",
+      "results": []
+    }
+  ],
+  "platforms": ["Google Search Console", "Google Analytics", "WordPress", "SEO reporting", "Audit frameworks"],
+  "metrics": {
+    "source": null,
+    "series": [],
+    "before_after": [],
+    "keywords": []
+  }
+}

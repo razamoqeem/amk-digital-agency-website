@@ -12,7 +12,9 @@
 const crypto = require('crypto');
 const store = require('./store');
 
-const IS_PROD = process.env.VERCEL_ENV === 'production';
+// "Strict" on every Vercel deployment (production AND preview; Vercel sets VERCEL=1 in all of them), so a
+// preview can never run with the built-in test signing key or without the bot check. Only a local run is lenient.
+const IS_PROD = process.env.VERCEL_ENV === 'production' || process.env.VERCEL === '1' || process.env.AMK_STRICT === '1';
 const env = (name) => String(process.env[name] || '').trim();
 const intEnv = (name, d) => { const n = parseInt(env(name), 10); return Number.isFinite(n) && n >= 0 ? n : d; };
 

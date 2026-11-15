@@ -53,3 +53,6 @@ Thumbs.db
 public.building/
 public.old/
 .vercel/
+
+# Names that must never be published (the build checks the showcase against this list)
+content/confidential_names.txt

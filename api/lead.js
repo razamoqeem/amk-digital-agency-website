@@ -4,7 +4,14 @@
    Where the request goes (the owner chooses one, both are private to the owner):
      LEAD_WEBHOOK_URL  an https address that receives the request as JSON (for example a Slack, Make, Zapier or Apps Script webhook)
      or the Redis store (UPSTASH_REDIS_REST_URL / _TOKEN), where requests are kept in a list.
-   With neither set, the form says it is not available instead of pretending it worked. */
+   With neither set, the form says it is not available instead of pretending it worked.
+
+   Webhook verification: when LEAD_WEBHOOK_SECRET is set, every delivery carries
+     X-AMK-Timestamp   seconds since 1970
+     X-AMK-Signature   sha256=<hex>  =  HMAC-SHA256(secret, timestamp + "." + exact request body)
+   The receiver recomputes it, compares in constant time, and rejects timestamps older than 5 minutes.
+   See SECURITY_LAYERS.md for a ready-to-paste check. */
+const crypto = require('crypto');
 const store = require('./_lib/store');
 const guard = require('./_lib/guard');
 
@@ -38,7 +45,15 @@ module.exports = guard.endpoint(async (req, res) => {
   const hook = guard.env('LEAD_WEBHOOK_URL');
   try {
     if (/^https:\/\//.test(hook)) {
-      const r = await fetch(hook, { method: 'POST', redirect: 'error', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(record), signal: AbortSignal.timeout(8000) });
+      const payload = JSON.stringify(record);
+      const headers = { 'Content-Type': 'application/json', 'User-Agent': 'AMK-Website-Lead/1.0' };
+      const hookSecret = guard.env('LEAD_WEBHOOK_SECRET');
+      if (hookSecret) {
+        const ts = String(Math.floor(Date.now() / 1000));
+        headers['X-AMK-Timestamp'] = ts;
+        headers['X-AMK-Signature'] = 'sha256=' + crypto.createHmac('sha256', hookSecret).update(ts + '.' + payload).digest('hex');
+      }
+      const r = await fetch(hook, { method: 'POST', redirect: 'error', headers, body: payload, signal: AbortSignal.timeout(8000) });
       if (!r.ok) return fail(502, 'delivery_failed', 'Your request could not be sent. Please try again later.');
     } else if (!(await store.push('leads', record))) {
       return fail(503, 'not_configured', 'This form is not available yet. Please try again later.');

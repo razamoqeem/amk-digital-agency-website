@@ -54,7 +54,7 @@ The older Python service (`api/*.py`) stays for your own machine and is kept out
 3. [ ] **Root Directory:** leave as `./`.
 4. [ ] **Build Command:** turn the override on and leave it **empty**.
 5. [ ] **Output Directory:** `public` (already set by `vercel.json`).
-6. [ ] **Environment Variables:** add these **before** the first deploy. Mark every secret as **Sensitive**. Never paste a value anywhere else.
+6. [ ] **Environment Variables** (full table with scopes, secret vs public, redeploy steps and the `/api/health` check: `ENVIRONMENT.md`): add these **before** the first deploy. Mark every secret as **Sensitive**. Never paste a value anywhere else.
 
 | Name | Needed? | What it is |
 |---|---|---|
@@ -64,6 +64,7 @@ The older Python service (`api/*.py`) stays for your own machine and is kept out
 | `GEMINI_SEO_API_KEY` | For chat | Free-tier Gemini key |
 | `OPENROUTER_API_KEY` | For chat | Free-tier OpenRouter key |
 | `LEAD_WEBHOOK_URL` | For the request form | https address that receives the request as JSON |
+| `LEAD_WEBHOOK_SECRET` | Advised | 24+ characters. Signs each delivery so your receiver can verify it (`SECURITY_LAYERS.md` section 3) |
 | `SITE_URL`, `APP_URL` | When the domain is confirmed | Full addresses with https. Never a `*.vercel.app` address. |
 | `OPEN_PAGERANK_KEY` | Optional | Turns Domain Rank on (see section 1 for the address limit) |
 | `CHAT_DAILY_LIMIT` (6), `CHAT_IP_DAILY_LIMIT` (20), `CHAT_GLOBAL_DAILY_LIMIT` (1000) | Optional | Chat allowances. Defaults in brackets. |
@@ -71,6 +72,7 @@ The older Python service (`api/*.py`) stays for your own machine and is kept out
 | `CHAT_MODEL_FAST`, `CHAT_MODEL_STRATEGIST`, `CHAT_MODEL_AUTO`, `CHAT_MODEL_FALLBACK` | Optional | Change an AI model name without touching code |
 
    **Do not add** `OPENAI_API_KEY`, `ANTHROPIC_API_KEY` or `XAI_API_KEY` to this project. The website never uses them.
+   Then run `vercel env pull .env.production.local` and `node scripts/check-env.js --file .env.production.local` to see what is still missing (names only, never values).
 7. [ ] Put the Turnstile **site key** in `js/config.js` (`turnstileSiteKey`), rebuild, commit and push, so the bot check can show.
 8. [ ] Click **Deploy**.
 

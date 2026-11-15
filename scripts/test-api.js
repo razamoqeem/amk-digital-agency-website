@@ -14,6 +14,7 @@ process.env.ANTHROPIC_API_KEY = 'CANARY_ANTHROPIC_SHOULD_NEVER_BE_SENT';
 process.env.XAI_API_KEY = 'CANARY_XAI_SHOULD_NEVER_BE_SENT';
 process.env.LEAD_WEBHOOK_URL = 'https://hook.test/lead';
 process.env.TOOLS_DAILY_LIMIT = '2';
+process.env.HEALTH_TOKEN = 'health-token-for-tests-only-123456';
 
 const http = require('http');
 const fs = require('fs');
@@ -210,6 +211,15 @@ async function main() {
   r = await call('POST', '/v1/leads', { body: good, jar: lj, ip: leadIp });
   const hooked = sent.filter((s) => /hook\.test/.test(s.url));
   check('A good request is delivered once to the webhook, as JSON, with no tracking fields', r.status === 200 && hooked.length === 1 && JSON.parse(hooked[0].body).email === 'test@example.com' && !('ip' in JSON.parse(hooked[0].body)), [r.status, hooked.length]);
+  check('Without a webhook secret the delivery is unsigned (documented; the address itself is then the secret)', !hooked[0].headers['X-AMK-Signature']);
+  process.env.LEAD_WEBHOOK_SECRET = 'hook-secret-for-tests-only';
+  sent.length = 0;
+  await call('POST', '/v1/leads', { body: good, jar: lj, ip: freshIp() });
+  const signed = sent.find((x) => /hook\.test/.test(x.url));
+  const expected = 'sha256=' + require('crypto').createHmac('sha256', 'hook-secret-for-tests-only').update(signed.headers['X-AMK-Timestamp'] + '.' + signed.body).digest('hex');
+  check('With a webhook secret, the delivery is signed and the receiver can verify it (HMAC over timestamp + body)', !!signed && signed.headers['X-AMK-Signature'] === expected && Math.abs(Date.now() / 1000 - Number(signed.headers['X-AMK-Timestamp'])) < 10, signed && signed.headers);
+  check('The secret itself is never in the delivery', !JSON.stringify(signed).includes('hook-secret-for-tests-only'));
+  delete process.env.LEAD_WEBHOOK_SECRET;
   hook = { status: 500 };
   r = await call('POST', '/v1/leads', { body: good, jar: lj, ip: freshIp() });
   check('Webhook failure is reported honestly (502), not faked as success', r.status === 502, r.status);
@@ -222,21 +232,55 @@ async function main() {
   for (let i = 0; i < 7; i++) lastLead = (await call('POST', '/v1/leads', { body: good, jar: lj, ip: leadIp })).status;
   check('One network is limited to 5 requests a day (429)', lastLead === 429, lastLead);
 
+  console.log('\nOwner-only deployment check (/api/health)');
+  r = await call('GET', '/api/health', { ip: freshIp() });
+  check('No token: answers 404 as if it did not exist', r.status === 404, r.status);
+  r = await call('GET', '/api/health', { headers: { authorization: 'Bearer wrong-token-wrong-token-wrong' }, ip: freshIp() });
+  check('Wrong token: 404', r.status === 404, r.status);
+  r = await call('GET', '/api/health?wait=1', { headers: { authorization: 'Bearer health-token-for-tests-only-123456' }, ip: freshIp() });
+  check('Right token: 200 with settings reported as yes/no', r.status === 200 && r.json.settings_present.TOOLS_SECRET === true && r.json.settings_present.TURNSTILE_SECRET === true && r.json.settings_present.OPEN_PAGERANK_KEY === false, r.json);
+  check('The chat context file is readable by the function', r.json.agency_context.readable === true && r.json.agency_context.bytes > 500, r.json.agency_context);
+  check('?wait=1 holds the request about a second (used to test the time limit)', r.json.waited_seconds === 1 && r.json.elapsed_ms >= 950, [r.json.waited_seconds, r.json.elapsed_ms]);
+  check('Paid keys are reported by NAME only, as present but unused', JSON.stringify(r.json.paid_keys_present_but_unused) === JSON.stringify(['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'XAI_API_KEY']), r.json.paid_keys_present_but_unused);
+  const body = r.text;
+  check('The health reply never contains any secret value', !/(gem-key-123|or-key-456|CANARY_|fake-turnstile-secret|test-secret-test|hook-secret|health-token-for-tests)/.test(body), body.length);
+  const saved = process.env.HEALTH_TOKEN; delete process.env.HEALTH_TOKEN;
+  r = await call('GET', '/api/health', { headers: { authorization: 'Bearer health-token-for-tests-only-123456' }, ip: freshIp() });
+  check('With HEALTH_TOKEN not set the check is switched off (404)', r.status === 404, r.status);
+  process.env.HEALTH_TOKEN = saved;
+
+  console.log('\nShowcase');
+  const showFile = path.join(__dirname, '..', 'public', 'showcase', 'index.html');
+  const show = fs.existsSync(showFile) ? fs.readFileSync(showFile, 'utf8') : '';
+  check('The showcase is built from the data file', /Projects documented/.test(show) && /sc-bar-after/.test(show) && /sc-matrix/.test(show));
+  const namesFile = path.join(__dirname, '..', 'content', 'confidential_names.txt');
+  if (fs.existsSync(namesFile)) {
+    const names = fs.readFileSync(namesFile, 'utf8').split(/\r?\n/).map((n) => n.trim()).filter((n) => n && !n.startsWith('#'));
+    const hit = names.filter((n) => show.toLowerCase().includes(n.toLowerCase()));
+    check('No confidential client or brand name appears on the showcase (' + names.length + ' names checked)', hit.length === 0, hit.length + ' found');
+  } else console.log('  skip  (content/confidential_names.txt not on this machine)');
+  const dataFile = fs.readFileSync(path.join(__dirname, '..', 'content', 'showcase.json'), 'utf8');
+  check('The showcase data file holds no name fields', !/"name"\s*:/.test(dataFile));
+
   console.log('\nBuilt site and settings');
   const pub = path.join(__dirname, '..', 'public');
   const htmlFiles = []; (function walk(d) { fs.readdirSync(d, { withFileTypes: true }).forEach((e) => { const p = path.join(d, e.name); e.isDirectory() ? walk(p) : p.endsWith('.html') && htmlFiles.push(p); }); })(pub);
   const missing = htmlFiles.filter((f) => !/chat-widget\.js/.test(fs.readFileSync(f, 'utf8')));
   check('Every built page loads the chat widget and bot check (' + htmlFiles.length + ' pages)', missing.length === 0, missing.map((f) => path.relative(pub, f)));
+  const sampleLeak = htmlFiles.filter((f) => /SAMPLE DATA, NOT REAL/.test(fs.readFileSync(f, 'utf8')));
+  check('No sample-data preview page is in the built site', sampleLeak.length === 0, sampleLeak.map((f) => path.relative(pub, f)));
   const robots = fs.readFileSync(path.join(pub, 'robots.txt'), 'utf8');
   check('robots.txt keeps crawlers out of /api/ and /v1/ and lets them read pages', /Disallow: \/api\//.test(robots) && /Disallow: \/v1\//.test(robots) && /Allow: \//.test(robots), robots);
   const vj = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'vercel.json'), 'utf8'));
   const all = vj.headers.find((h) => h.source === '/(.*)').headers.reduce((m, h) => (m[h.key] = h.value, m), {});
   check('Every page gets HSTS, a Content-Security-Policy, frame blocking and nosniff', !!all['Strict-Transport-Security'] && /frame-ancestors 'none'/.test(all['Content-Security-Policy']) && all['X-Frame-Options'] === 'DENY' && all['X-Content-Type-Options'] === 'nosniff', Object.keys(all));
   check('The policy allows only our own address plus the bot-check service', !/\*/.test(all['Content-Security-Policy'].replace(/'self'/g, '')) && /challenges\.cloudflare\.com/.test(all['Content-Security-Policy']));
+  const guardSrc = fs.readFileSync(path.join(__dirname, '..', 'api', '_lib', 'guard.js'), 'utf8');
+  check('Every Vercel deployment (preview too, not only production) runs in strict mode', /VERCEL === '1'/.test(guardSrc) && /VERCEL_ENV === 'production'/.test(guardSrc));
   const banned = ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'XAI_API_KEY'];
-  const apiSrc = fs.readdirSync(path.join(__dirname, '..', 'api')).filter((f) => f.endsWith('.js')).concat(fs.readdirSync(path.join(__dirname, '..', 'api', '_lib')).map((f) => '_lib/' + f)).map((f) => fs.readFileSync(path.join(__dirname, '..', 'api', f), 'utf8')).join('\n');
+  const apiSrc = fs.readdirSync(path.join(__dirname, '..', 'api')).filter((f) => f.endsWith('.js') && f !== 'health.js').concat(fs.readdirSync(path.join(__dirname, '..', 'api', '_lib')).map((f) => '_lib/' + f)).map((f) => fs.readFileSync(path.join(__dirname, '..', 'api', f), 'utf8')).join('\n');
   const code = apiSrc.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
-  check('The website functions never read the paid-provider keys', banned.every((k) => !code.includes(k)));
+  check('The website functions never use the paid-provider keys (health.js only reports yes/no, see its own test)', banned.every((k) => !code.includes(k)));
   const clientSide = ['js/chat-widget.js', 'js/bot-check.js', 'js/tools-client.js', 'js/config.js'].map((f) => fs.readFileSync(path.join(__dirname, '..', f), 'utf8')).join('\n');
   check('No secret or key name appears in browser files', !/(SECRET|API_KEY|OPEN_PAGERANK_KEY|TOOLS_SECRET)/.test(clientSide.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '')));
 
