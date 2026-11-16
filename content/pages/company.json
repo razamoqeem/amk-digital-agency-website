@@ -17,11 +17,11 @@
     { "type": "paragraph", "html": "To replace guesswork with a clear framework: sound content structure, clean technical crawling, better search index presence and support for sustainable growth.", "size": "md", "color": "ink", "opacity": 100 },
     { "type": "heading", "level": 2, "text": "How we work", "size": "lg", "color": "ink", "opacity": 100 },
     { "type": "heading", "level": 3, "text": "Generative engine optimization", "size": "md", "color": "ink", "opacity": 100 },
-    { "type": "paragraph", "html": "We structure pages so that AI search systems such as Google Gemini, Perplexity and ChatGPT search can find, understand and cite them.", "size": "md", "color": "ink", "opacity": 100 },
+    { "type": "paragraph", "html": "We structure pages so that AI search assistants and AI answer engines can find, understand and cite them.", "size": "md", "color": "ink", "opacity": 100 },
     { "type": "heading", "level": 3, "text": "Technical crawl checks", "size": "md", "color": "ink", "opacity": 100 },
     { "type": "paragraph", "html": "We run diagnostic scans covering index status, Core Web Vitals and crawl settings so search engines can reach key content.", "size": "md", "color": "ink", "opacity": 100 },
     { "type": "heading", "level": 3, "text": "Credibility and E-E-A-T", "size": "md", "color": "ink", "opacity": 100 },
-    { "type": "paragraph", "html": "We align site structure with Google's experience, expertise, authoritativeness and trust guidance, using structured data, author details and clear trust signals.", "size": "md", "color": "ink", "opacity": 100 },
+    { "type": "paragraph", "html": "We align site structure with search engines' published experience, expertise, authoritativeness and trust guidance, using structured data, author details and clear trust signals.", "size": "md", "color": "ink", "opacity": 100 },
     { "type": "button", "label": "Try the free SEO tools", "href": "/tools/free-tools.html", "color": "accent" }
   ]
 }
