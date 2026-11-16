@@ -121,7 +121,7 @@ def nav_html(site_name, tools_data, current, live_paths=()):
 
     return '''<header class="amk-nav" data-amk-nav>
     <div class="amk-nav-inner">
-      <a class="amk-brand" href="/"><img src="/assets/logo.png" alt="" width="28" height="28" /> <span>%(site)s</span></a>
+      <a class="amk-brand" href="/"><img src="/assets/logo-mark.svg" alt="" width="28" height="28" /> <span>%(site)s</span></a>
       <button type="button" class="amk-burger" aria-expanded="false" aria-controls="amk-nav-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
       <nav id="amk-nav-menu" class="amk-menu" aria-label="Main">
         <ul class="amk-top">

@@ -244,7 +244,7 @@ const Auth = (() => {
             <button class="auth-close" data-auth-close style="position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:20px;">✕</button>
             <div style="text-align:center;margin-bottom:24px;">
               <div class="logo" style="justify-content:center; align-items:center; gap:8px; font-size:22px; display:flex;">
-                <img src="/assets/logo.png" alt="AMK" style="height: 24px; border-radius: 3px;" />
+                <img src="/assets/logo-mark.svg" alt="AMK" style="height: 24px; border-radius: 3px;" />
                 <span>AMK</span>
               </div>
               <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">Your agency intelligence platform</p>

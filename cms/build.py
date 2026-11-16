@@ -197,7 +197,7 @@ def schema_tags(page, settings, base, url) -> list:
     for kind in page.get("schema") or []:
         if kind == "Organization":
             tags.append(json_ld({"@context": "https://schema.org", "@type": "Organization",
-                                 "name": name, "url": base + "/", "logo": base + "/assets/logo.png"}))
+                                 "name": name, "url": base + "/", "logo": base + "/assets/logo-mark.png"}))
         elif kind == "WebSite":
             tags.append(json_ld({"@context": "https://schema.org", "@type": "WebSite", "name": name, "url": base + "/"}))
         elif kind == "Article":
