@@ -40,6 +40,7 @@ _P = {
     "chat": '<path d="M4 5h16v11H9l-5 4z"/>',
     "check": '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     "arrow": '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    "gauge": '<path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4.5-5"/><path d="M8 20h8"/>',
     "image": '<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5.5-5.5L5 20"/>',
     "redirect": '<path d="M4 7h11a4 4 0 0 1 0 8H8"/><path d="M11 12l-3 3 3 3"/>',
     "lock": '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
@@ -49,6 +50,13 @@ _P = {
     "compare": '<rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/>',
     "pen": '<path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/>',
 }
+
+
+# Logo A (rising line). Inline, so the line can draw itself in once on load (css/motion.css).
+LOGO_SVG = ('<svg class="amk-logo" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" focusable="false">'
+            '<rect width="64" height="64" rx="14" fill="#4f46e5"/>'
+            '<path class="amk-logo-line" d="M15 46 L27 22 L36 37 L48 19" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pathLength="100"/>'
+            '<circle class="amk-logo-dot" cx="48" cy="19" r="4.75" fill="#38bdf8"/></svg>')
 
 
 def icon(name, cls="ic"):
@@ -121,7 +129,7 @@ def nav_html(site_name, tools_data, current, live_paths=()):
 
     return '''<header class="amk-nav" data-amk-nav>
     <div class="amk-nav-inner">
-      <a class="amk-brand" href="/"><img src="/assets/logo-mark.svg" alt="" width="28" height="28" /> <span>%(site)s</span></a>
+      <a class="amk-brand" href="/">%(logo)s <span>%(site)s</span></a>
       <button type="button" class="amk-burger" aria-expanded="false" aria-controls="amk-nav-menu" aria-label="Open menu"><span></span><span></span><span></span></button>
       <nav id="amk-nav-menu" class="amk-menu" aria-label="Main">
         <ul class="amk-top">
@@ -149,7 +157,7 @@ def nav_html(site_name, tools_data, current, live_paths=()):
       </nav>
     </div>
   </header>''' % {
-        "site": esc(site_name), "home": top("/", "Home"), "tools": top("/tools/", "Tools", tool_paths),
+        "site": esc(site_name), "logo": LOGO_SVG, "home": top("/", "Home"), "tools": top("/tools/", "Tools", tool_paths),
         "res": top("/docs/", "Resources", resource_paths), "contact": top("/contact/", "Contact Us"),
         "chev": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         "arrow": icon("arrow", "ic ic-s"), "globe": icon("globe", "ic ic-l"), "groups": "".join(groups), "res_items": res_items}
@@ -203,11 +211,37 @@ def _hero(intro, page_kind, secondary):
     if secondary:
         ctas += '<a class="x-btn x-btn-ghost" href="%s">%s</a>' % secondary
     lede = "".join('<p class="x-lede" data-mx="fade">%s</p>' % clean_rich_text(p.get("html", "")) for p in paras[:1])
-    visual = _hero_visual() if page_kind == "home" else ""
+    visual = _hero_stack() if page_kind == "home" else ""
     return ('<section class="x-hero%s">\n      <div class="x-hero-copy">\n        <p class="x-eyebrow" data-mx="fade">%s</p>\n'
             '        <h1 data-mx="rise">%s</h1>\n        %s\n        <div class="x-ctas" data-mx="fade">%s</div>\n      </div>%s\n    </section>'
-            % (" x-hero-split" if visual else "", "AI search, SEO and digital marketing" if page_kind == "home" else "About AMK Digital Agency",
+            % (" x-hero-split" if visual else "", "Conversion SEO, AEO and GEO" if page_kind == "home" else "About AMK Digital Agency",
                esc(h1.get("text", "")), lede, ctas, visual))
+
+
+# The hero "growth stack": four broken SEO blocks the visitor fixes with a click or tap.
+# Each fix lifts the growth line (js/site-fx.js). It shows progress only, never invented results.
+STACK_BLOCKS = [("gauge", "Slow Core Web Vitals"), ("layers", "Missing AEO and schema markup"),
+                ("link", "Orphaned money pages"), ("spark", "Zero AI citation visibility")]
+
+
+def _hero_stack():
+    blocks = "".join(
+        '<li><button type="button" class="x-block x-block-%d" aria-pressed="false">'
+        '<span class="x-block-ic">%s</span><span class="x-block-text"><b>%s</b>'
+        '<small class="x-block-bad">Broken: tap to fix</small><small class="x-block-ok">Optimised</small></span>'
+        '<span class="x-block-mark">%s</span></button></li>' % (i, icon(ic), esc(t), icon("check", "ic ic-ok"))
+        for i, (ic, t) in enumerate(STACK_BLOCKS))
+    return ('\n      <div class="x-hero-visual" data-mx="scale">\n        <div class="x-panel x-stack" data-stack>\n'
+            '          <div class="x-panel-head"><span class="x-dot"></span><span class="x-dot"></span><span class="x-dot"></span><b>Build your growth stack</b></div>\n'
+            '          <p class="x-stack-hint">Click or tap the broken SEO blocks below to fix them and watch your growth line climb.</p>\n'
+            '          <div class="x-stack-chart" aria-hidden="true"><svg viewBox="0 0 320 120" preserveAspectRatio="none">'
+            '<path class="x-stack-grid" d="M0 30H320M0 60H320M0 90H320"/>'
+            '<g class="x-stack-rise"><path class="x-stack-line" d="M8 110 L84 84 L146 96 L222 52 L306 16" vector-effect="non-scaling-stroke"/></g>'
+            '<circle class="x-stack-dot" cx="306" cy="16" r="6"/></svg></div>\n'
+            '          <ul class="x-stack-blocks">%s</ul>\n'
+            '          <div class="x-stack-foot"><p class="x-stack-score" role="status" aria-live="polite"><b data-stack-count>0</b> of %d fixed</p>'
+            '<a class="x-btn x-stack-cta" href="/tools/">Audit your live domain free %s</a></div>\n'
+            '        </div>\n      </div>' % (blocks, len(STACK_BLOCKS), icon("arrow", "ic ic-s")))
 
 
 def _hero_visual():
@@ -310,7 +344,7 @@ def designed_body(page, tools_data, stats=None):
     for s in sections:
         s["blocks"] = [b for b in s["blocks"] if b.get("type") != "button"]
     out = [_hero(intro, kind,
-                 ("/contact/", "Contact us") if kind == "home" else ("/contact/", "Talk to us"))]
+                 ("/contact/", "Request App access") if kind == "home" else ("/contact/", "Talk to us"))]
     intro_paras = [b for b in intro if b.get("type") == "paragraph"][1:]
     if intro_paras and kind == "story":
         out.append(_statement({"title": "Who we are", "blocks": intro_paras}))

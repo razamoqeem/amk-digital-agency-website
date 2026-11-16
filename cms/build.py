@@ -31,6 +31,7 @@ from validate import validate_page, heading_outline, page_url_path, HOME_SLUG  #
 import collections_engine  # noqa: E402
 import showcase  # noqa: E402
 import layouts  # noqa: E402
+import schema as ld  # noqa: E402
 
 CONTENT = os.path.join(ROOT, "content")
 PAGES_DIR = os.path.join(CONTENT, "pages")
@@ -82,7 +83,8 @@ WIDGET_HEAD = ('  <link rel="stylesheet" href="/css/chat-widget.css" />\n'
 NAV_RE = re.compile(r'<header class="(?:site-header|top|tool-header)"[^>]*>.*?</header>|<nav class="top-bar"[^>]*>.*?</nav>', re.S)
 # Pages designed from their CMS blocks (hero, statement, cards ...). The words stay editable in the CMS.
 DESIGNED = {"home", "company"}
-WIDGET_BODY = '  <script src="/js/bot-check.js" defer></script>\n  <script src="/js/chat-widget.js" defer></script>\n'
+WIDGET_BODY = ('  <script src="/js/bot-check.js" defer></script>\n  <script src="/js/chat-widget.js" defer></script>\n'
+               '  <script src="/js/site-fx.js" defer></script>\n')
 
 
 # ── Loading ────────────────────────────────────────────────────────────────
@@ -188,38 +190,6 @@ def json_ld(data) -> str:
     return '  <script type="application/ld+json">%s</script>' % text
 
 
-def schema_tags(page, settings, base, url) -> list:
-    """Structured data built only from the page's own content. Needs SITE_URL."""
-    if not base:
-        return []
-    name = settings.get("site_name", "")
-    tags = []
-    for kind in page.get("schema") or []:
-        if kind == "Organization":
-            tags.append(json_ld({"@context": "https://schema.org", "@type": "Organization",
-                                 "name": name, "url": base + "/", "logo": base + "/assets/logo-mark.png"}))
-        elif kind == "WebSite":
-            tags.append(json_ld({"@context": "https://schema.org", "@type": "WebSite", "name": name, "url": base + "/"}))
-        elif kind == "Article":
-            tags.append(json_ld({"@context": "https://schema.org", "@type": "Article",
-                                 "headline": page.get("title", ""), "description": page.get("description", ""),
-                                 "mainEntityOfPage": url, "publisher": {"@type": "Organization", "name": name}}))
-        elif kind == "FAQ":
-            faqs = [b for b in page.get("blocks", []) if b.get("type") == "faq"]
-            if faqs:
-                tags.append(json_ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-                    {"@type": "Question", "name": b.get("question", ""),
-                     "acceptedAnswer": {"@type": "Answer", "text": plain_text(b.get("answer", ""))}} for b in faqs]}))
-        elif kind == "BreadcrumbList":
-            h1 = next((b.get("text") for b in page.get("blocks", []) if b.get("type") == "heading" and b.get("level") == 1), page.get("title"))
-            tags.append(json_ld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-                {"@type": "ListItem", "position": 1, "name": "Home", "item": base + "/"},
-                {"@type": "ListItem", "position": 2, "name": h1, "item": url}]}))
-    if page.get("slug") == HOME_SLUG:
-        tags = [t for t in tags if '"BreadcrumbList"' not in t]
-    return tags
-
-
 def render_document(template, settings, title, description, head_lines, body_html, live_paths=(), main_class="") -> str:
     nav = "\n".join('          <li><a href="%s">%s</a></li>' % (esc(safe_href(i.get("href", ""))), esc(i.get("label", "")))
                     for i in settings.get("nav", []))
@@ -259,8 +229,10 @@ def render_page(page, settings, template, base, live_paths=(), extras=None) -> s
     if image and (image.startswith("http") or base):
         head.append('  <meta property="og:image" content="%s" />' % esc(image if image.startswith("http") else base + image))
     head.append('  <meta name="twitter:card" content="summary" />')
-    head.extend(schema_tags(page, settings, base, url))
     extras = extras or {}
+    graph = ld.for_page(page, settings, base, url, extras.get("founder"), HOME_SLUG)
+    if graph:
+        head.append(graph)
     main_class = ""
     if page.get("slug") in DESIGNED:
         body = "    " + layouts.designed_body(page, extras.get("tools", {}), extras.get("stats") if page.get("slug") == "home" else None)
@@ -522,7 +494,8 @@ def build() -> dict:
         write(rel, text)
 
     extras = {"tools": read_json(os.path.join(CONTENT, "tools.json"), {"tools": [], "groups": []}),
-              "stats": showcase.stats(show_data) if show_live else None}
+              "stats": showcase.stats(show_data) if show_live else None,
+              "founder": ld.founder_from(next((p for p in pages if p["slug"] == "owner"), None))}
     for page in pages:
         write(page_output_rel(page["slug"]), render_page(page, settings, template, base, live_paths, extras))
 
@@ -531,7 +504,10 @@ def build() -> dict:
     write(os.path.join("contact", "index.html"), render_document(
         template, settings, "Contact Us | %s" % settings.get("site_name", ""),
         "Contact AMK Digital Agency: ask for a free audit, a question about our services, or access to the App.",
-        (['  <link rel="canonical" href="%s/contact/" />' % esc(base)] if base else []) + ['  <script src="/js/contact.js" defer></script>'],
+        (['  <link rel="canonical" href="%s/contact/" />' % esc(base),
+          ld.for_simple(settings, base, "/contact/", "Contact Us | %s" % settings.get("site_name", ""),
+                        "Contact AMK Digital Agency: ask for a free audit, a question about our services, or access to the App.",
+                        "ContactPage", "Contact Us", extras["founder"])] if base else []) + ['  <script src="/js/contact.js" defer></script>'],
         layouts.contact_body(), live_paths, " is-designed"))
 
     if show_live:
@@ -580,6 +556,17 @@ def build() -> dict:
         robots += ["", "Sitemap: %s/sitemap.xml" % base]
     write("robots.txt", "\n".join(robots) + "\n")
 
+    # Structured data for the tools hub and every tool page (hand-written or generated).
+    tool_href = lambda t: t.get("page") or "/tools/%s.html" % t["slug"]
+    tool_graphs = {}
+    if base:
+        tdata = extras["tools"]
+        tool_graphs["/tools/"] = ld.for_tools_hub(tdata, settings, base, tool_href, extras["founder"],
+                                                  "Free Tools & AI Tools | AMK Digital Agency",
+                                                  "Free SEO tools and AI utilities from AMK Digital Agency.")
+        for tl in tdata.get("tools", []):
+            tool_graphs[tool_href(tl)] = ld.for_tool(tl, settings, base, tool_href(tl), extras["founder"])
+
     # chat widget and bot check on every page (hand-written pages are copied as they are, so this runs last)
     for folder, _dirs, files in os.walk(staging):
         for name in files:
@@ -597,6 +584,8 @@ def build() -> dict:
             if not swapped:
                 html = html.replace('<a class="skip-link"', header + '\n  <a class="skip-link"', 1) if '<a class="skip-link"' in html else html.replace("<body>", "<body>\n  " + header, 1)
             head = WIDGET_HEAD if "theme-engine.js" in html else '  <script src="/js/theme-engine.js"></script>\n' + WIDGET_HEAD
+            if current in tool_graphs and "application/ld+json" not in html:
+                head = tool_graphs[current] + "\n" + head
             html = html.replace("</head>", head + "</head>", 1).replace("</body>", WIDGET_BODY + "</body>", 1)
             with open(path, "w", encoding="utf-8", newline="\n") as f:
                 f.write(html)

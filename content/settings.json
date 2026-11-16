@@ -67,7 +67,8 @@
     "js/chat-widget.js",
     "js/motion.js",
     "js/site-nav.js",
-    "js/contact.js"
+    "js/contact.js",
+    "js/site-fx.js"
   ],
   "legacy_sitemap_paths": [
     "/tools/free-tools.html",
@@ -91,5 +92,20 @@
       "href": "/terms/",
       "page": "terms"
     }
-  ]
+  ],
+  "organization": {
+    "description": "AI-powered Conversion SEO, Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO) agency.",
+    "knowsAbout": [
+      "Conversion SEO",
+      "Answer Engine Optimization (AEO)",
+      "Generative Engine Optimization (GEO)",
+      "Technical SEO Audits",
+      "Autonomous AI Content Systems"
+    ],
+    "founderJobTitle": "Founder",
+    "software": {
+      "name": "AMK Digital Agency App",
+      "description": "Invite-only workspace for running SEO audits and keeping saved reports."
+    }
+  }
 }

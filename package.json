@@ -2,9 +2,12 @@
   "name": "amk-digital-agency-website",
   "private": true,
   "description": "Static pages in public/ plus small dependency-free Node functions in api/.",
-  "engines": { "node": "22.x" },
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "node scripts/dev-vercel.js",
-    "test": "node scripts/test-api.js"
+    "test": "node scripts/test-api.js",
+    "check:schema": "node scripts/validate-schema.mjs"
   }
 }

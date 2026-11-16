@@ -1,7 +1,7 @@
 {
   "slug": "home",
-  "title": "AMK Digital Agency | AI-Powered SEO and Digital Marketing",
-  "description": "AMK Digital Agency offers AI-powered SEO audits, E-E-A-T analysis and AI-search readiness checks, plus free SEO tools you can try in your browser.",
+  "title": "AMK Digital Agency | Conversion SEO, AEO and GEO",
+  "description": "Stop chasing clicks. AMK Digital Agency turns search intent into revenue with Conversion SEO, Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO), plus free live SEO audits.",
   "canonical": "",
   "noindex": false,
   "og": {
@@ -17,22 +17,22 @@
     {
       "type": "heading",
       "level": 1,
-      "text": "AI-powered SEO and digital marketing",
+      "text": "Stop chasing clicks. Engineer organic revenue.",
       "size": "xl",
       "color": "ink",
       "opacity": 100
     },
     {
       "type": "paragraph",
-      "html": "AMK Digital Agency combines 8-pillar SEO audits, E-E-A-T analysis and AI-search readiness checks, built to turn traffic into trust and trust into revenue.",
+      "html": "The Conversion SEO, AEO and GEO engine built to turn search intent into pipeline, not vanity traffic.",
       "size": "lg",
       "color": "muted",
       "opacity": 100
     },
     {
       "type": "button",
-      "label": "Try the free SEO tools",
-      "href": "/tools/free-tools.html",
+      "label": "Run free live audit",
+      "href": "/tools/",
       "color": "accent"
     },
     {
