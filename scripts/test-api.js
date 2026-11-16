@@ -211,6 +211,10 @@ async function main() {
   r = await call('POST', '/v1/leads', { body: good, jar: lj, ip: leadIp });
   const hooked = sent.filter((s) => /hook\.test/.test(s.url));
   check('A good request is delivered once to the webhook, as JSON, with no tracking fields', r.status === 200 && hooked.length === 1 && JSON.parse(hooked[0].body).email === 'test@example.com' && !('ip' in JSON.parse(hooked[0].body)), [r.status, hooked.length]);
+  sent.length = 0;
+  await call('POST', '/v1/leads', { body: { ...good, message: 'Please review my site', source: 'contact' }, jar: lj, ip: freshIp() });
+  const withMsg = sent.find((x) => /hook\.test/.test(x.url));
+  check('A contact message is delivered with the request (and trimmed to 1000 characters)', !!withMsg && JSON.parse(withMsg.body).message === 'Please review my site' && JSON.parse(withMsg.body).source === 'contact');
   check('Without a webhook secret the delivery is unsigned (documented; the address itself is then the secret)', !hooked[0].headers['X-AMK-Signature']);
   process.env.LEAD_WEBHOOK_SECRET = 'hook-secret-for-tests-only';
   sent.length = 0;
@@ -267,6 +271,14 @@ async function main() {
   const htmlFiles = []; (function walk(d) { fs.readdirSync(d, { withFileTypes: true }).forEach((e) => { const p = path.join(d, e.name); e.isDirectory() ? walk(p) : p.endsWith('.html') && htmlFiles.push(p); }); })(pub);
   const missing = htmlFiles.filter((f) => !/chat-widget\.js/.test(fs.readFileSync(f, 'utf8')));
   check('Every built page loads the chat widget and bot check (' + htmlFiles.length + ' pages)', missing.length === 0, missing.map((f) => path.relative(pub, f)));
+  const navCount = htmlFiles.filter((f) => (fs.readFileSync(f, 'utf8').match(/class="amk-nav"/g) || []).length !== 1);
+  check('Every built page has exactly one shared navigation bar (' + htmlFiles.length + ' pages)', navCount.length === 0, navCount.map((f) => path.relative(pub, f)));
+  const oldHeaders = htmlFiles.filter((f) => /<header class="(site-header|top|tool-header)"|<nav class="top-bar"/.test(fs.readFileSync(f, 'utf8')));
+  check('No old page header is left anywhere', oldHeaders.length === 0, oldHeaders.map((f) => path.relative(pub, f)));
+  const contactHtml = fs.existsSync(path.join(pub, 'contact', 'index.html')) ? fs.readFileSync(path.join(pub, 'contact', 'index.html'), 'utf8') : '';
+  check('The Contact page exists, uses the secure form and has no inline styles or scripts', /id="contact-form"/.test(contactHtml) && /js\/contact\.js/.test(contactHtml) && !/ style="|<script>/.test(contactHtml));
+  const vjc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'vercel.json'), 'utf8'));
+  check('The Contact page gets the strict security policy', vjc.headers.some((h) => h.source === '/contact/' && h.headers.some((x) => x.key === 'Content-Security-Policy' && /script-src 'self' https/.test(x.value) && !/unsafe-inline/.test(x.value))));
   const sampleLeak = htmlFiles.filter((f) => /SAMPLE DATA, NOT REAL/.test(fs.readFileSync(f, 'utf8')));
   check('No sample-data preview page is in the built site', sampleLeak.length === 0, sampleLeak.map((f) => path.relative(pub, f)));
   const robots = fs.readFileSync(path.join(pub, 'robots.txt'), 'utf8');

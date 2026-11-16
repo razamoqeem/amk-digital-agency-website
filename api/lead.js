@@ -19,7 +19,7 @@ const EMAIL_RE = /^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+$/;
 const clean = (v, n) => String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, n);
 
 module.exports = guard.endpoint(async (req, res) => {
-  const ctx = await guard.door(req, res, { rateKind: 'lead', perMinute: 5, maxBytes: 4000 });
+  const ctx = await guard.door(req, res, { rateKind: 'lead', perMinute: 5, maxBytes: 8000 });
   if (!ctx) return;
   const reply = (status, body) => guard.send(res, status, body, { cookies: ctx.cookies });
   const fail = (status, code, message) => reply(status, { ok: false, error: { code, message } });
@@ -41,7 +41,8 @@ module.exports = guard.endpoint(async (req, res) => {
   try { if ((await store.incr('lead:ip:' + guard.hash('ip', ctx.ip) + ':' + guard.day(), guard.secondsToEndOfDay())) > 5) return fail(429, 'rate_limited', 'Too many requests from this network today. Please try again tomorrow.'); }
   catch (e) { return fail(503, 'busy', 'Please try again in a moment.'); }
 
-  const record = { name, email, website: website || null, source: clean(ctx.body.source, 40) || 'chat', submitted_at: new Date().toISOString() };
+  const message = clean(ctx.body.message, 1000);
+  const record = { name, email, website: website || null, message: message || null, source: clean(ctx.body.source, 40) || 'chat', submitted_at: new Date().toISOString() };
   const hook = guard.env('LEAD_WEBHOOK_URL');
   try {
     if (/^https:\/\//.test(hook)) {

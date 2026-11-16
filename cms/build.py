@@ -17,6 +17,7 @@ import datetime
 import html
 import json
 import os
+import re
 import shutil
 import sys
 from string import Template
@@ -29,6 +30,7 @@ from sanitize import clean_rich_text, plain_text, safe_href  # noqa: E402
 from validate import validate_page, heading_outline, page_url_path, HOME_SLUG  # noqa: E402
 import collections_engine  # noqa: E402
 import showcase  # noqa: E402
+import layouts  # noqa: E402
 
 CONTENT = os.path.join(ROOT, "content")
 PAGES_DIR = os.path.join(CONTENT, "pages")
@@ -71,7 +73,15 @@ REWRITES = [
     ("/v1/leads", "/api/lead"),
 ]
 # Added to every page when the site is built: chat widget, bot check, their styles.
-WIDGET_HEAD = '  <link rel="stylesheet" href="/css/chat-widget.css" />\n'
+WIDGET_HEAD = ('  <link rel="stylesheet" href="/css/chat-widget.css" />\n'
+               '  <link rel="stylesheet" href="/css/nav.css" />\n'
+               '  <link rel="stylesheet" href="/css/motion.css" />\n'
+               '  <script src="/js/site-nav.js"></script>\n'
+               '  <script src="/js/motion.js"></script>\n')
+# The old page headers that the shared navigation replaces (one per page family).
+NAV_RE = re.compile(r'<header class="(?:site-header|top|tool-header)"[^>]*>.*?</header>|<nav class="top-bar"[^>]*>.*?</nav>', re.S)
+# Pages designed from their CMS blocks (hero, statement, cards ...). The words stay editable in the CMS.
+DESIGNED = {"home", "company"}
 WIDGET_BODY = '  <script src="/js/bot-check.js" defer></script>\n  <script src="/js/chat-widget.js" defer></script>\n'
 
 
@@ -210,7 +220,7 @@ def schema_tags(page, settings, base, url) -> list:
     return tags
 
 
-def render_document(template, settings, title, description, head_lines, body_html, live_paths=()) -> str:
+def render_document(template, settings, title, description, head_lines, body_html, live_paths=(), main_class="") -> str:
     nav = "\n".join('          <li><a href="%s">%s</a></li>' % (esc(safe_href(i.get("href", ""))), esc(i.get("label", "")))
                     for i in settings.get("nav", []))
     # A footer link to a page of ours is shown only while that page is published.
@@ -224,14 +234,14 @@ def render_document(template, settings, title, description, head_lines, body_htm
         title=esc(title), description=esc(description),
         head_extra="\n".join(head_lines),
         site_name=esc(settings.get("site_name", "")),
-        nav_items=nav, body=body_html,
+        nav_items=nav, body=body_html, main_class=main_class,
         year=datetime.date.today().year,
         footer_text=esc(settings.get("footer_text", "")),
         preview_label=esc(settings.get("preview_label", "")),
     )
 
 
-def render_page(page, settings, template, base, live_paths=()) -> str:
+def render_page(page, settings, template, base, live_paths=(), extras=None) -> str:
     path = page_url_path(page["slug"])
     url = (page.get("canonical") or "").strip() or (base + path if base else "")
     og = page.get("og") or {}
@@ -250,8 +260,17 @@ def render_page(page, settings, template, base, live_paths=()) -> str:
         head.append('  <meta property="og:image" content="%s" />' % esc(image if image.startswith("http") else base + image))
     head.append('  <meta name="twitter:card" content="summary" />')
     head.extend(schema_tags(page, settings, base, url))
-    body = "\n".join(render_block(b) for b in page.get("blocks", []))
-    return render_document(template, settings, page.get("title", ""), page.get("description", ""), head, body, live_paths)
+    extras = extras or {}
+    main_class = ""
+    if page.get("slug") in DESIGNED:
+        body = "    " + layouts.designed_body(page, extras.get("tools", {}), extras.get("stats") if page.get("slug") == "home" else None)
+        main_class = " is-designed"
+    else:
+        body = "\n".join(render_block(b) for b in page.get("blocks", []))
+        if str(page.get("slug", "")).startswith("docs/"):
+            body = layouts.add_toc(body)
+            main_class = " is-doc"
+    return render_document(template, settings, page.get("title", ""), page.get("description", ""), head, body, live_paths, main_class)
 
 
 def render_collection_item(item, schema, settings, template, base, live_paths=()) -> str:
@@ -376,7 +395,10 @@ def tool_pages(settings, base):
     for group in data["groups"]:
         cards = "".join('<a class="card link" href="%s"><h3>%s</h3><p>%s</p></a>' % (
             esc(href(tools[s])), esc(tools[s]["name"]), esc(tools[s]["summary"])) for s in group["tools"] if s in tools)
-        groups.append('    <section><h2>%s</h2><div class="cards">%s</div></section>' % (esc(group["name"]), cards))
+        gid = re.sub(r"[^a-z0-9]+", "-", group["name"].lower()).strip("-")
+        groups.append('    <section id="%s"><h2>%s</h2><div class="cards">%s</div></section>' % (gid, esc(group["name"]), cards))
+    chips = "".join('<a href="#%s">%s</a>' % (re.sub(r"[^a-z0-9]+", "-", g["name"].lower()).strip("-"), esc(g["name"])) for g in data["groups"])
+    groups.insert(0, '    <nav class="x-chips" aria-label="Tool categories">%s</nav>' % chips)
     body = "\n".join([
         '    <section class="hero">', "      <h1>Free Tools &amp; AI Tools</h1>",
         "      <p>Professional diagnostic analysers and AI content generators. Every check uses real data with zero invented metrics.</p>",
@@ -499,8 +521,18 @@ def build() -> dict:
     for rel, text in tool_files.items():
         write(rel, text)
 
+    extras = {"tools": read_json(os.path.join(CONTENT, "tools.json"), {"tools": [], "groups": []}),
+              "stats": showcase.stats(show_data) if show_live else None}
     for page in pages:
-        write(page_output_rel(page["slug"]), render_page(page, settings, template, base, live_paths))
+        write(page_output_rel(page["slug"]), render_page(page, settings, template, base, live_paths, extras))
+
+    # Contact page (form posts to the existing secure request endpoint)
+    live_paths.add("/contact/")
+    write(os.path.join("contact", "index.html"), render_document(
+        template, settings, "Contact Us | %s" % settings.get("site_name", ""),
+        "Contact AMK Digital Agency: ask for a free audit, a question about our services, or access to the App.",
+        (['  <link rel="canonical" href="%s/contact/" />' % esc(base)] if base else []) + ['  <script src="/js/contact.js" defer></script>'],
+        layouts.contact_body(), live_paths, " is-designed"))
 
     if show_live:
         live_paths.add("/showcase/")
@@ -540,7 +572,7 @@ def build() -> dict:
     # are told to skip them and spend their crawl budget on real content.
     robots = ["User-agent: *", "Allow: /", "Disallow: /api/", "Disallow: /v1/"]
     if base:
-        paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex")] + col_paths + (["/showcase/"] if show_live else [])
+        paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex")] + col_paths + (["/showcase/"] if show_live else []) + ["/contact/"]
         today = datetime.date.today().isoformat()
         urls = "\n".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>" % (esc(base + p), today) for p in paths)
         write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -558,7 +590,14 @@ def build() -> dict:
                 html = f.read()
             if "chat-widget.js" in html or "</body>" not in html or "</head>" not in html:
                 continue
-            html = html.replace("</head>", WIDGET_HEAD + "</head>", 1).replace("</body>", WIDGET_BODY + "</body>", 1)
+            rel = os.path.relpath(path, staging).replace(os.sep, "/")
+            current = "/" + (rel[:-len("index.html")] if rel.endswith("index.html") else rel)
+            header = layouts.nav_html(settings.get("site_name", ""), extras["tools"], current, live_paths)
+            html, swapped = NAV_RE.subn(header, html, count=1)
+            if not swapped:
+                html = html.replace('<a class="skip-link"', header + '\n  <a class="skip-link"', 1) if '<a class="skip-link"' in html else html.replace("<body>", "<body>\n  " + header, 1)
+            head = WIDGET_HEAD if "theme-engine.js" in html else '  <script src="/js/theme-engine.js"></script>\n' + WIDGET_HEAD
+            html = html.replace("</head>", head + "</head>", 1).replace("</body>", WIDGET_BODY + "</body>", 1)
             with open(path, "w", encoding="utf-8", newline="\n") as f:
                 f.write(html)
 
@@ -576,7 +615,7 @@ def build() -> dict:
         shutil.rmtree(staging, ignore_errors=True)
         return report
 
-    headers_txt, redirects_txt, vercel = host_files(pages, redirects, ["/showcase/"] if show_live else [])
+    headers_txt, redirects_txt, vercel = host_files(pages, redirects, (["/showcase/"] if show_live else []) + ["/contact/"])
     write("_headers", headers_txt)
     write("_redirects", redirects_txt)
 

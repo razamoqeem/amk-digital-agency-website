@@ -64,7 +64,10 @@
     "js/page-tools.js",
     "js/website-comparison.js",
     "js/bot-check.js",
-    "js/chat-widget.js"
+    "js/chat-widget.js",
+    "js/motion.js",
+    "js/site-nav.js",
+    "js/contact.js"
   ],
   "legacy_sitemap_paths": [
     "/tools/free-tools.html",
