@@ -219,3 +219,16 @@
   .docs-menu { border: 0; padding: 0; background: none; }
   .docs-menu > summary { display: none; }
 }
+
+/* ── Page widths: articles, docs and hubs use the wide page container (like the home page);
+      reading columns inside them stay at a comfortable line length. ── */
+.page-body.is-article, .page-body.is-doc { max-width: var(--container); }
+.art { max-width: 1180px; }
+.docs { max-width: 1280px; }
+@media (min-width: 1024px) {
+  .art-layout { grid-template-columns: 250px minmax(0, 1fr); gap: clamp(32px, 4vw, 64px); }
+  .art-head { max-width: none; padding-left: calc(250px + clamp(32px, 4vw, 64px)); }
+  .art-head > * { max-width: 760px; }
+  .art-body { max-width: 760px; }
+  .art .crumbs, .art .draft-banner { margin-left: 0; }
+}
