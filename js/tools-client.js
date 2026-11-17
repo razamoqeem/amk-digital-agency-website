@@ -22,7 +22,8 @@
     return h >= 48 ? Math.ceil(h / 24) + ' days' : h >= 1 ? h + ' h ' + m + ' min' : m + ' min';
   }
 
-  // The status line: runs left today and this month, plus dynamic usage progress bar.
+  // The usage panel: one headline (runs left now), then one row per limit, all worded the
+  // same way ("X used · Y left of Z"), and a bar for whichever limit runs out first.
   function showRuns(all) {
     const line = document.getElementById('runs-line');
     if (!line || !all) return;
@@ -31,40 +32,62 @@
     const lim = first && first.limits;
     if (!lim) return;
 
+    const el = (tag, cls, text) => {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text != null) n.textContent = text;
+      return n;
+    };
     line.textContent = '';
-    const part = (label, p) => p.limit ? label + ': ' + p.remaining + ' of ' + p.limit : null;
-    let text;
+
     if (!lim.enforced) {
-      text = (lim.tier === 'tester' ? 'Tester access: limits are off. ' : 'Limits are off. ') + 'Runs counted today: ' + lim.daily.used;
-    } else {
-      text = 'Free runs left. ' + [part('Today', lim.daily), part('This month', lim.monthly),
-        lim.tool_daily.limit ? part('This tool today', lim.tool_daily) : null].filter(Boolean).join('  ·  ');
-      if (lim.warning) text += '  ·  ' + lim.warning;
+      line.appendChild(el('span', '', (lim.tier === 'tester' ? 'Tester access: limits are off.' : 'Limits are off.') +
+        ' Runs counted today: ' + ((lim.daily && lim.daily.used) || 0)));
+      line.hidden = false;
+      return;
     }
 
-    const textSpan = document.createElement('span');
-    textSpan.textContent = text;
-    line.appendChild(textSpan);
+    // Each limit that is switched on, in the order a visitor cares about.
+    const rows = [
+      ['This tool today', lim.tool_daily],
+      ['All tools today', lim.daily],
+      ['This visit', lim.session],
+      ['This month', lim.monthly]
+    ].filter(r => r[1] && r[1].limit > 0);
+    if (!rows.length) return;
 
-    if (lim.daily && lim.daily.limit > 0) {
-      const used = lim.daily.used || 0;
-      const limit = lim.daily.limit;
-      const pct = Math.min(100, Math.round((used / limit) * 100));
-      const colorClass = pct < 50 ? 'green' : (pct < 80 ? 'yellow' : 'red');
+    // The limit that runs out first decides how many runs are left right now.
+    const tight = rows.reduce((a, b) => (b[1].remaining < a[1].remaining ? b : a));
+    const left = Math.max(0, tight[1].remaining || 0);
 
-      const progContainer = document.createElement('div');
-      progContainer.className = 'usage-progress-container';
-      progContainer.innerHTML =
-        '<div class="usage-progress-label">' +
-          '<span>Daily Allowance: <strong>' + used + ' / ' + limit + '</strong></span>' +
-          '<span>' + (lim.daily.remaining || 0) + ' remaining</span>' +
-        '</div>' +
-        '<div class="usage-progress-track">' +
-          '<div class="usage-progress-fill ' + colorClass + '" style="width:' + pct + '%;"></div>' +
-        '</div>';
-      line.appendChild(progContainer);
-    }
+    const box = el('div', 'usage-progress-container');
+    const head = el('div', 'usage-progress-label');
+    const h = el('span');
+    h.appendChild(document.createTextNode('Free runs left now: '));
+    h.appendChild(el('strong', '', String(left)));
+    head.appendChild(h);
+    if (tight[1].resets_at) head.appendChild(el('span', '', 'Resets in ' + timeLeft(tight[1].resets_at)));
+    box.appendChild(head);
 
+    const used = tight[1].limit - left;
+    const pct = Math.min(100, Math.round((used / tight[1].limit) * 100));
+    const track = el('div', 'usage-progress-track');
+    const fill = el('div', 'usage-progress-fill ' + (pct < 50 ? 'green' : pct < 80 ? 'yellow' : 'red'));
+    fill.style.width = pct + '%';
+    track.appendChild(fill);
+    box.appendChild(track);
+
+    const list = el('ul', 'usage-rows');
+    rows.forEach(([label, p]) => {
+      const li = el('li', p === tight[1] ? 'is-tight' : '');
+      li.appendChild(el('span', '', label));
+      li.appendChild(el('span', '', (p.used || 0) + ' used · ' + Math.max(0, p.remaining || 0) + ' left of ' + p.limit));
+      list.appendChild(li);
+    });
+    box.appendChild(list);
+    if (lim.warning) box.appendChild(el('p', 'usage-warning', lim.warning));
+
+    line.appendChild(box);
     line.hidden = false;
   }
 

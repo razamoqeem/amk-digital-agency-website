@@ -325,6 +325,11 @@ li::marker { color: var(--accent); }
 .usage-progress-fill.green { background: var(--good); }
 .usage-progress-fill.yellow { background: var(--warn); }
 .usage-progress-fill.red { background: var(--bad); }
+.usage-rows { list-style: none; margin: 8px 0 0; padding: 0; font-size: var(--fs-sm); }
+.usage-rows li { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; margin: 0; color: var(--muted); }
+.usage-rows li::marker { content: none; }
+.usage-rows li.is-tight { color: var(--text); font-weight: 600; }
+.usage-warning { margin: 8px 0 0; font-size: var(--fs-sm); color: var(--warn); }
 
 /* Side-by-side Domain Comparison Table */
 .compare-grid {
