@@ -73,7 +73,14 @@ async function getDomainAge(domain) {
     let r;
     try { r = await safeGet(base + '/domain/' + encodeURIComponent(name), { headers: RDAP_HEADERS, timeout: 10000 }); }
     catch (e) { throw new ToolError(422, 'lookup_failed', 'The domain registry did not answer. Please try again later.'); }
-    if (r.status === 404) continue;
+    if (r.status === 404) {
+      // A real "no such domain" answer is RDAP JSON. An HTML error page means the registry's service itself
+      // is failing, so say that instead of wrongly telling the visitor the domain is not registered.
+      if (/^\s*</.test(String(r.body || ''))) {
+        throw new ToolError(422, 'lookup_failed', 'The .' + ending + ' registry is not answering correctly right now. Please try again later.');
+      }
+      continue;
+    }
     if (r.status === 429) throw new ToolError(422, 'lookup_failed', 'The domain registry is busy. Please try again in a few minutes.');
     if (r.status !== 200) throw new ToolError(422, 'lookup_failed', 'The domain registry did not answer. Please try again later.');
     let record;

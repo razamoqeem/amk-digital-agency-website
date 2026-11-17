@@ -38,9 +38,16 @@
     return 'rise';
   }
 
+  var atLoad = true;
+  setTimeout(function () { atLoad = false; }, 1500);
+
   function mark(el, delay) {
     if (!el || el.classList.contains('mx-reveal') || el.closest(SKIP)) return;
     if (!el.getClientRects().length) return;   // not shown yet (for example tool results): never animate it later
+    // Text already on screen when the page opens is shown at once (no fade), so the main heading paints
+    // immediately; this keeps Largest Contentful Paint fast. Cards and pictures still animate in.
+    if (atLoad && el.matches('h1, h2, h3, p, ul, ol, .x-kicker, .art-meta, .crumbs, .hub-kicker, .art-cat') &&
+        el.getBoundingClientRect().top < window.innerHeight) return;
     if (!el.hasAttribute('data-mx')) el.setAttribute('data-mx', guess(el));
     if (el.getAttribute('data-mx') === 'words') splitWords(el);
     el.classList.add('mx-reveal');

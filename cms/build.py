@@ -273,6 +273,101 @@ def tool_learn_html(current, extras):
             '<ul>%s</ul></section>' % "".join(links))
 
 
+# ── Speed: one stylesheet and one head script per page instead of many ─────────
+FONT_PRELOAD = '  <link rel="preload" href="/assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />\n'
+CSS_LINK_RE = re.compile(r'[ \t]*<link rel="stylesheet" href="(/[^"?#]+\.css)(?:\?[^"]*)?"\s*/?>\n?')
+HEAD_JS_RE = re.compile(r'[ \t]*<script src="(/js/(?:theme-engine|site-nav|motion)\.js)(?:\?[^"]*)?"></script>\n?')
+IMPORT_RE = re.compile(r'@import\s+url\(\s*["\']?([^"\')]+)["\']?\s*\)\s*;')
+URL_RE = re.compile(r'url\(\s*(["\']?)([^"\')]+)\1\s*\)')
+
+
+def _css_source(staging, web_path):
+    """A stylesheet's text with local @imports pulled in and relative url()s made absolute.
+    Returns (css, outside_imports)."""
+    import posixpath
+    full = os.path.join(staging, web_path.lstrip("/"))
+    if not os.path.isfile(full):
+        return "", []
+    text = open(full, encoding="utf-8").read()
+    base = posixpath.dirname(web_path)
+    outside = []
+
+    def fix_url(m):
+        u = m.group(2).strip()
+        if u.startswith(("data:", "http:", "https:", "/", "#")):
+            return m.group(0)
+        return 'url("%s")' % posixpath.normpath(posixpath.join(base, u))
+
+    def pull(m):
+        target = m.group(1).strip()
+        if target.startswith(("http:", "https:", "//")):
+            outside.append(m.group(0))
+            return ""
+        target = target if target.startswith("/") else posixpath.normpath(posixpath.join(base, target))
+        inner, more = _css_source(staging, target.split("?")[0])
+        outside.extend(more)
+        return inner
+    text = IMPORT_RE.sub(pull, text)
+    return URL_RE.sub(fix_url, text), outside
+
+
+def bundle_page(html, staging, made):
+    """Replace a page's local stylesheets with one bundle and its early head scripts with one script.
+    Bundles are named by their content, so they can be cached for a year."""
+    import hashlib
+    head_end = html.find("</head>")
+    if head_end < 0:
+        return html
+    head, rest = html[:head_end], html[head_end:]
+
+    css_paths = CSS_LINK_RE.findall(head)
+    if len(css_paths) > 1 or (css_paths and IMPORT_RE.search(open(os.path.join(staging, css_paths[0].lstrip("/")), encoding="utf-8").read() if os.path.isfile(os.path.join(staging, css_paths[0].lstrip("/"))) else "")):
+        parts, outside, seen = [], [], set()
+        for path in css_paths:
+            if path in seen:
+                continue
+            seen.add(path)
+            css, more = _css_source(staging, path)
+            parts.append("/* %s */\n%s" % (path, css))
+            outside += [o for o in more if o not in outside]
+        css = "\n".join(outside) + ("\n" if outside else "") + "\n".join(parts)
+        name = "/assets/b/%s.css" % hashlib.sha256(css.encode()).hexdigest()[:12]
+        if name not in made:
+            os.makedirs(os.path.join(staging, "assets", "b"), exist_ok=True)
+            open(os.path.join(staging, name.lstrip("/")), "w", encoding="utf-8", newline="\n").write(css)
+            made.add(name)
+        link = '  <link rel="stylesheet" href="%s" />\n' % name
+        if "inter-latin-var.woff2" in css and "inter-latin-var.woff2\" as=\"font\"" not in head:
+            link = FONT_PRELOAD + link
+        first = [True]
+
+        def swap(m):
+            if first[0]:
+                first[0] = False
+                return link
+            return ""
+        head = CSS_LINK_RE.sub(swap, head)
+
+    js_paths = HEAD_JS_RE.findall(head)
+    if len(js_paths) > 1:
+        js = "\n;\n".join("/* %s */\n%s" % (p, open(os.path.join(staging, p.lstrip("/")), encoding="utf-8").read())
+                          for p in dict.fromkeys(js_paths) if os.path.isfile(os.path.join(staging, p.lstrip("/"))))
+        name = "/assets/b/%s.js" % hashlib.sha256(js.encode()).hexdigest()[:12]
+        if name not in made:
+            os.makedirs(os.path.join(staging, "assets", "b"), exist_ok=True)
+            open(os.path.join(staging, name.lstrip("/")), "w", encoding="utf-8", newline="\n").write(js)
+            made.add(name)
+        first = [True]
+
+        def swap_js(m):
+            if first[0]:
+                first[0] = False
+                return '  <script src="%s"></script>\n' % name
+            return ""
+        head = HEAD_JS_RE.sub(swap_js, head)
+    return head + rest
+
+
 def json_ld(data) -> str:
     text = json.dumps(data, ensure_ascii=False).replace("<", "\\u003c")
     return '  <script type="application/ld+json">%s</script>' % text
@@ -509,7 +604,9 @@ def host_files(pages, redirects, extra_paths=()):
                    [{"source": "/api/(.*)", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"},
                                                         {"key": "Cache-Control", "value": "no-store"}]},
                     {"source": "/v1/(.*)", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"},
-                                                       {"key": "Cache-Control", "value": "no-store"}]}],
+                                                       {"key": "Cache-Control", "value": "no-store"}]},
+                    {"source": "/assets/b/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
+                    {"source": "/assets/fonts/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=604800"}]}],
     }
     return "\n".join(headers_txt) + "\n", "\n".join(redirects_txt) + "\n", vercel
 
@@ -714,6 +811,7 @@ def build() -> dict:
             tool_graphs[tool_href(tl)] = ld.for_tool(tl, settings, base, tool_href(tl), extras["founder"])
 
     # chat widget and bot check on every page (hand-written pages are copied as they are, so this runs last)
+    bundles_made = set()
     for folder, _dirs, files in os.walk(staging):
         for name in files:
             if not name.endswith(".html"):
@@ -748,6 +846,7 @@ def build() -> dict:
             if current in tool_graphs and "application/ld+json" not in html:
                 head = tool_graphs[current] + "\n" + head
             html = html.replace("</head>", head + "</head>", 1).replace("</body>", WIDGET_BODY + "</body>", 1)
+            html = bundle_page(html, staging, bundles_made)
             with open(path, "w", encoding="utf-8", newline="\n") as f:
                 f.write(html)
 
