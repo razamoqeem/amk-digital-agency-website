@@ -12,5 +12,5 @@ window.AMK_SITE = {
   apiUrl: "",
   // Cloudflare Turnstile SITE key (public by design, safe to commit). Empty = bot check off.
   // The matching SECRET key goes in the host environment variables as TURNSTILE_SECRET, never here.
-  turnstileSiteKey: ""
+  turnstileSiteKey: "0x4AAAAAAGFrDO7LLNU3A2Fl"
 };
