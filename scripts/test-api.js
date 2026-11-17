@@ -268,7 +268,8 @@ async function main() {
 
   console.log('\nBuilt site and settings');
   const pub = path.join(__dirname, '..', 'public');
-  const htmlFiles = []; (function walk(d) { fs.readdirSync(d, { withFileTypes: true }).forEach((e) => { const p = path.join(d, e.name); e.isDirectory() ? walk(p) : p.endsWith('.html') && htmlFiles.push(p); }); })(pub);
+  const htmlFiles = []; (function walk(d) { fs.readdirSync(d, { withFileTypes: true }).forEach((e) => { const p = path.join(d, e.name); e.isDirectory() ? walk(p) : p.endsWith('.html') && !/^google[0-9a-f]{16}\.html$/.test(e.name) && htmlFiles.push(p); }); })(pub);
+  // Google Search Console verification files are one-line tokens, not pages, so they are skipped here.
   const missing = htmlFiles.filter((f) => !/chat-widget\.js/.test(fs.readFileSync(f, 'utf8')));
   check('Every built page loads the chat widget and bot check (' + htmlFiles.length + ' pages)', missing.length === 0, missing.map((f) => path.relative(pub, f)));
   const navCount = htmlFiles.filter((f) => (fs.readFileSync(f, 'utf8').match(/class="amk-nav"/g) || []).length !== 1);

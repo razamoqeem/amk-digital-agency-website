@@ -688,6 +688,15 @@ def build() -> dict:
         robots += ["", "Sitemap: %s/sitemap.xml" % base]
     write("robots.txt", "\n".join(robots) + "\n")
 
+    # Google Search Console verification, from content/settings.json "search_console".
+    # To remove it: delete the entry there, rebuild, commit, push.
+    gsc = settings.get("search_console", {}) or {}
+    for name in gsc.get("files", []):
+        if re.fullmatch(r"google[0-9a-f]{16}", str(name)):
+            write(name + ".html", "google-site-verification: %s.html" % name)
+        else:
+            report["warnings"].append("search_console: ignored file name %r (expected google + 16 letters/numbers)" % name)
+
     # Structured data for the tools hub and every tool page (hand-written or generated).
     tool_href = lambda t: t.get("page") or "/tools/%s.html" % t["slug"]
     tool_graphs = {}
@@ -726,6 +735,10 @@ def build() -> dict:
             learn = tool_learn_html(current, extras)
             if learn:
                 html = html.replace("</main>", learn + "\n  </main>", 1)
+            if current == "/":
+                for code in (settings.get("search_console", {}) or {}).get("meta", []):
+                    if re.fullmatch(r"[A-Za-z0-9_-]{20,100}", str(code)):
+                        html = html.replace("</head>", '  <meta name="google-site-verification" content="%s" />\n</head>' % code, 1)
             head = WIDGET_HEAD if "theme-engine.js" in html else '  <script src="/js/theme-engine.js"></script>\n' + WIDGET_HEAD
             if current in tool_graphs and "application/ld+json" not in html:
                 head = tool_graphs[current] + "\n" + head
