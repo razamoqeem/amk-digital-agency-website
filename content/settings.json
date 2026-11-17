@@ -107,5 +107,15 @@
       "name": "AMK Digital Agency App",
       "description": "Invite-only workspace for running SEO audits and keeping saved reports."
     }
-  }
+  },
+  "contact": {
+    "email": "",
+    "phone": ""
+  },
+  "social": [
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/ahmad-raza-5000341ab/"
+    }
+  ]
 }

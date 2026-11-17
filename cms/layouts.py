@@ -163,6 +163,77 @@ def nav_html(site_name, tools_data, current, live_paths=()):
         "arrow": icon("arrow", "ic ic-s"), "globe": icon("globe", "ic ic-l"), "groups": "".join(groups), "res_items": res_items}
 
 
+def footer_html(settings, tools_data, live_paths, year):
+    """One footer for every page: call to action, brand, link columns, contact and social links.
+    Contact details and social links come from content/settings.json; empty ones are left out."""
+    tools = {t["slug"]: t for t in tools_data.get("tools", [])}
+    tool_links = [(tool_href(tools[s]), tools[s]["name"]) for s in
+                  ("domain-overview", "website-comparison", "meta-tags", "links", "ssl-check") if s in tools]
+    tool_links.append(("/tools/", "All free tools"))
+    resources = [("/docs/", "Documentation"), ("/docs/how-to-use-the-free-tools/", "How to use the tools"),
+                 ("/docs/seo-starter-guide/", "SEO starter guide")]
+    company = [("/company/", "About the company"), ("/owner/", "About the founder")]
+    if "/showcase/" in live_paths:
+        company.append(("/showcase/", "Our work"))
+    company.append(("/contact/", "Contact us"))
+
+    def col(title, links):
+        return '<div class="amk-fcol"><p class="amk-ftitle">%s</p><ul>%s</ul></div>' % (
+            esc(title), "".join('<li><a href="%s">%s</a></li>' % (esc(h), esc(n)) for h, n in links))
+
+    contact = settings.get("contact", {}) or {}
+    reach = []
+    email = str(contact.get("email", "")).strip()
+    if re.fullmatch(r"[^@\s<>\"]+@[^@\s<>\"]+\.[A-Za-z]{2,}", email):
+        reach.append('<li><a href="mailto:%s">%s%s</a></li>' % (esc(email), icon("mail", "ic ic-s"), esc(email)))
+    phone = str(contact.get("phone", "")).strip()
+    if re.fullmatch(r"\+?[0-9 ()-]{6,20}", phone):
+        reach.append('<li><a href="tel:%s">%s</a></li>' % (esc(re.sub(r"[^0-9+]", "", phone)), esc(phone)))
+    reach.append('<li><a href="/contact/">%sSend us a message</a></li>' % icon("arrow", "ic ic-s"))
+    social = "".join(
+        '<li><a href="%s" rel="noopener me" target="_blank">%s<span class="amk-sr"> (opens in a new tab)</span></a></li>'
+        % (esc(i["url"]), esc(i.get("label", "")))
+        for i in settings.get("social", [])
+        if re.match(r"^https://[^\s\"<>]+$", str(i.get("url", ""))) and i.get("label"))
+    legal = "".join(' <a href="%s">%s</a>' % (esc(i["href"]), esc(i["label"]))
+                    for i in settings.get("footer_links", [])
+                    if i.get("page") is None or "/%s/" % i["page"] in live_paths)
+    about = (settings.get("organization", {}) or {}).get("description", "")
+
+    parts = {
+        "logo": LOGO_SVG, "site": esc(settings.get("site_name", "")), "about": esc(about),
+        "social": ('<ul class="amk-social" aria-label="Follow us">%s</ul>' % social) if social else "",
+        "tools": col("Free tools", tool_links), "resources": col("Resources", resources),
+        "company": col("Company", company), "reach": "".join(reach), "year": year, "legal": legal}
+    return (
+        '<footer class="amk-footer">\n'
+        '    <section class="amk-fcta" aria-label="Get started">\n'
+        '      <div>\n'
+        '        <p class="amk-fcta-title">Check your website for free</p>\n'
+        '        <p class="amk-fcta-text">Run a real SEO check on any website, or tell us what you need help with.</p>\n'
+        '      </div>\n'
+        '      <div class="amk-fcta-actions">\n'
+        '        <a class="amk-fbtn" href="/tools/domain-overview.html">Run a free check</a>\n'
+        '        <a class="amk-fbtn amk-fbtn-ghost" href="/contact/">Contact us</a>\n'
+        '      </div>\n'
+        '    </section>\n'
+        '    <div class="amk-fgrid">\n'
+        '      <div class="amk-fbrand">\n'
+        '        <a class="amk-brand" href="/">%(logo)s <span>%(site)s</span></a>\n'
+        '        <p>%(about)s</p>\n'
+        '        %(social)s\n'
+        '      </div>\n'
+        '      %(tools)s\n'
+        '      %(resources)s\n'
+        '      %(company)s\n'
+        '      <div class="amk-fcol"><p class="amk-ftitle">Get in touch</p><ul>%(reach)s</ul></div>\n'
+        '    </div>\n'
+        '    <div class="amk-fbottom">\n'
+        '      <span>&copy; %(year)s %(site)s</span>\n'
+        '      <span class="amk-flegal">%(legal)s</span>\n'
+        '    </div>\n'
+        '  </footer>') % parts
+
 def _short(text, n):
     text = re.sub(r"\s+", " ", str(text)).strip()
     return text if len(text) <= n else text[: n - 1].rsplit(" ", 1)[0] + "…"

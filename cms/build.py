@@ -76,9 +76,12 @@ REWRITES = [
 # Added to every page when the site is built: chat widget, bot check, their styles.
 WIDGET_HEAD = ('  <link rel="stylesheet" href="/css/chat-widget.css" />\n'
                '  <link rel="stylesheet" href="/css/nav.css" />\n'
+               '  <link rel="stylesheet" href="/css/footer.css" />\n'
                '  <link rel="stylesheet" href="/css/motion.css" />\n'
                '  <script src="/js/site-nav.js"></script>\n'
                '  <script src="/js/motion.js"></script>\n')
+# The old page footers that the shared footer replaces.
+FOOT_RE = re.compile(r'<footer\b[^>]*(?:class="(?:site-footer|foot|tool-footer|page-footer)"|id="site-footer")[^>]*>.*?</footer>', re.S)
 # The old page headers that the shared navigation replaces (one per page family).
 NAV_RE = re.compile(r'<header class="(?:site-header|top|tool-header)"[^>]*>.*?</header>|<nav class="top-bar"[^>]*>.*?</nav>', re.S)
 # Pages designed from their CMS blocks (hero, statement, cards ...). The words stay editable in the CMS.
@@ -584,6 +587,10 @@ def build() -> dict:
             html, swapped = NAV_RE.subn(header, html, count=1)
             if not swapped:
                 html = html.replace('<a class="skip-link"', header + '\n  <a class="skip-link"', 1) if '<a class="skip-link"' in html else html.replace("<body>", "<body>\n  " + header, 1)
+            footer = layouts.footer_html(settings, extras["tools"], live_paths, datetime.date.today().year)
+            html, fswapped = FOOT_RE.subn(lambda m: footer, html, count=1)
+            if not fswapped:
+                html = html.replace("</body>", "  " + footer + "\n</body>", 1)
             head = WIDGET_HEAD if "theme-engine.js" in html else '  <script src="/js/theme-engine.js"></script>\n' + WIDGET_HEAD
             if current in tool_graphs and "application/ld+json" not in html:
                 head = tool_graphs[current] + "\n" + head
