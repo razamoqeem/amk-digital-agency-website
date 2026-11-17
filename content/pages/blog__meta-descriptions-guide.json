@@ -2,7 +2,6 @@
   "slug": "blog/meta-descriptions-guide",
   "title": "Meta Descriptions: How to Write Them | AMK Digital Agency",
   "description": "How Google chooses the snippet under a result, when it uses your meta description, and how to write unique descriptions that help people choose.",
-  "draft": true,
   "canonical": "",
   "noindex": false,
   "og": {
@@ -34,7 +33,8 @@
       "There is no length limit; long descriptions are shortened to fit the screen.",
       "Write a unique description for each important page, starting with your key pages."
     ],
-    "checked": "2026-11-18"
+    "checked": "2026-11-18",
+    "draft_reviewed": true
   },
   "blocks": [
     {

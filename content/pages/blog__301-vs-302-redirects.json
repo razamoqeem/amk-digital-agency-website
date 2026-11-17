@@ -2,7 +2,6 @@
   "slug": "blog/301-vs-302-redirects",
   "title": "301 vs 302 Redirects: Which One to Use | AMK Digital Agency",
   "description": "The difference between permanent and temporary redirects, how Google treats each one, and how to avoid long redirect chains when you move pages.",
-  "draft": true,
   "canonical": "",
   "noindex": false,
   "og": {
@@ -34,7 +33,8 @@
       "Use a temporary redirect (302, 303 or 307) only when the original address will come back.",
       "Keep chains short: Google's crawlers follow up to 10 redirect hops by default."
     ],
-    "checked": "2026-11-18"
+    "checked": "2026-11-18",
+    "draft_reviewed": true
   },
   "blocks": [
     {

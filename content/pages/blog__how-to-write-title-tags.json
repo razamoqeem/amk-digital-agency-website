@@ -2,7 +2,6 @@
   "slug": "blog/how-to-write-title-tags",
   "title": "How to Write Title Tags | AMK Digital Agency",
   "description": "What a title tag does, where Google gets the title link it shows, and a simple method for writing clear, unique page titles.",
-  "draft": true,
   "canonical": "",
   "noindex": false,
   "og": {
@@ -34,7 +33,8 @@
       "Google can show a different title link if yours is unclear, stuffed or repeated.",
       "There is no fixed character limit; long titles are shortened to fit the screen, so put the key words first."
     ],
-    "checked": "2026-11-18"
+    "checked": "2026-11-18",
+    "draft_reviewed": true
   },
   "blocks": [
     {

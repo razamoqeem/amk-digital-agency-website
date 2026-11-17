@@ -2,7 +2,6 @@
   "slug": "blog/robots-txt-and-xml-sitemaps",
   "title": "robots.txt and XML Sitemaps Explained | AMK Digital Agency",
   "description": "What robots.txt and XML sitemaps do, the limits Google applies to each, and the common mistake of using robots.txt to hide pages from search.",
-  "draft": true,
   "canonical": "",
   "noindex": false,
   "og": {
@@ -35,7 +34,8 @@
       "To keep a page out of results, use noindex, and let crawlers reach the page so they can see it.",
       "One sitemap holds up to 50,000 addresses or 50 MB uncompressed; split larger sets."
     ],
-    "checked": "2026-11-18"
+    "checked": "2026-11-18",
+    "draft_reviewed": true
   },
   "blocks": [
     {
