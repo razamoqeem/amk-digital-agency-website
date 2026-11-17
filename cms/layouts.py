@@ -237,7 +237,7 @@ def footer_html(settings, tools_data, live_paths, year):
         '      <div class="amk-fcol"><p class="amk-ftitle">Get in touch</p><ul>%(reach)s</ul></div>\n'
         '    </div>\n'
         '    <div class="amk-fbottom">\n'
-        '      <span>&copy; %(year)s %(site)s</span>\n'
+        '      <span>&copy; %(year)s %(site)s. All Rights Reserved.</span>\n'
         '      <span class="amk-flegal">%(legal)s</span>\n'
         '    </div>\n'
         '  </footer>') % parts

@@ -18,5 +18,10 @@
     "from": "/docs.html",
     "to": "/docs/",
     "status": 301
+  },
+  {
+    "from": "/resources.html",
+    "to": "/resources/",
+    "status": 301
   }
 ]

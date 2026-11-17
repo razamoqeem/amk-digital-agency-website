@@ -1,7 +1,7 @@
 {
   "slug": "docs/js-seo-mobile-rendering",
-  "title": "JavaScript SEO & Modern Rendering | AMK Digital Agency",
-  "description": "Google uses an evergreen Chromium to render pages. Rendering Workflow: Crawl -> Render Queue -> Render -> Index. Lazy-loading: Google supports native…",
+  "title": "JavaScript SEO and Rendering | AMK Digital Agency",
+  "description": "How Google renders JavaScript: rendering basics, single-page apps and routing, web components and app shell sites.",
   "canonical": "",
   "noindex": false,
   "og": {

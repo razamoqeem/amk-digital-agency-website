@@ -1,123 +1,202 @@
 {
   "slug": "privacy",
-  "title": "Privacy | AMK Digital Agency",
-  "description": "What the AMK Digital Agency website and its free SEO tools store when you use them, why, and for how long. Draft awaiting the owner's review.",
+  "title": "Privacy Policy | AMK Digital Agency",
+  "description": "What information the AMK Digital Agency website collects, why, how long it is kept, who processes it and the choices and rights you have.",
+  "draft": true,
   "canonical": "",
-  "noindex": true,
+  "noindex": false,
   "og": {
     "title": "",
     "description": "",
     "image": ""
   },
-  "schema": [],
+  "schema": [
+    "BreadcrumbList"
+  ],
   "blocks": [
     {
       "type": "heading",
       "level": 1,
-      "text": "Privacy",
-      "size": "xl",
-      "color": "ink",
-      "opacity": 100
+      "text": "Privacy Policy"
     },
     {
       "type": "paragraph",
-      "html": "Draft. This page describes what the website actually stores today. It is awaiting the owner's review and is not final legal text.",
-      "size": "md",
-      "color": "muted",
-      "opacity": 100
+      "html": "Last updated: 18 November 2026. This page is a draft and is not yet published."
+    },
+    {
+      "type": "paragraph",
+      "html": "This policy explains how the AMK Digital Agency website handles information when you read its pages, use its free SEO tools or send a request. It covers this website only. The separate AMK Digital Agency App has its own terms and privacy information."
     },
     {
       "type": "heading",
       "level": 2,
-      "text": "Reading the website",
-      "size": "lg",
-      "color": "ink",
-      "opacity": 100
+      "text": "Who is responsible"
     },
     {
       "type": "paragraph",
-      "html": "The pages of this website can be read without an account. The pages built by our own system load no advertising or tracking scripts.",
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+      "html": "The website is operated by [TO BE CONFIRMED: legal name of the business owner or registered business, and country of registration], trading as AMK Digital Agency. Contact for privacy requests: [TO BE CONFIRMED: contact email address for legal and privacy requests]."
     },
     {
       "type": "heading",
       "level": 2,
-      "text": "Using the free tools",
-      "size": "lg",
-      "color": "ink",
-      "opacity": 100
+      "text": "What we collect and why"
+    },
+    {
+      "type": "table",
+      "caption": "Information the website processes",
+      "headers": [
+        "Information",
+        "When",
+        "Why",
+        "How long"
+      ],
+      "rows": [
+        [
+          "A random visitor ID in a cookie named <code>amk_vid</code>",
+          "When you use a free tool",
+          "To count free runs fairly and apply daily and monthly limits",
+          "The cookie lasts 1 year; the counters linked to it expire at the end of each day or month"
+        ],
+        [
+          "Your IP address, turned into a keyed hash (a scrambled code) before it is stored",
+          "When you use a free tool or a form",
+          "To limit abuse and repeated requests from one network",
+          "Counters expire at the end of the day or month they count"
+        ],
+        [
+          "The web address or domain you enter in a tool",
+          "When you run a tool",
+          "To fetch that public page or public records (DNS, domain registry) and show you the result",
+          "Results are kept in temporary memory for up to 24 hours so a repeat check is instant"
+        ],
+        [
+          "Name, email address, website and message",
+          "Only when you send the request form",
+          "To answer your request",
+          "[TO BE CONFIRMED: how long requests are kept and where (webhook destination or database)]"
+        ],
+        [
+          "Theme choice and the time your free runs refresh",
+          "Stored in your own browser (local storage)",
+          "To remember light or dark mode and show a countdown",
+          "Until you clear your browser storage"
+        ]
+      ],
+      "align": [
+        "left",
+        "left",
+        "left",
+        "left"
+      ]
     },
     {
       "type": "paragraph",
-      "html": "When you run a free tool, the tools service stores the following.",
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+      "html": "We do not use analytics or advertising cookies, we do not sell personal information, and the website does not take payments."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Legal bases (where the GDPR or UK GDPR applies)"
     },
     {
       "type": "list",
-      "ordered": false,
       "items": [
-        "<strong>A cookie named amk_vid.</strong> It holds a random number, not your name or email. It lets us count your free runs. It lasts up to one year.",
-        "<strong>A scrambled form of your network address.</strong> We store a one-way hash, not the address itself. It is used to slow down abuse and to apply the daily limit.",
-        "<strong>The web address or domain you check, with its result.</strong> The result is saved for up to 24 hours so a repeat check is fast and does not use another run.",
-        "<strong>Your email address, only if you enter it.</strong> It is used to send a confirmation link and to give you the extra free runs."
-      ],
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+        "<strong>Legitimate interests</strong>: running the free tools, counting free runs and protecting the service from abuse.",
+        "<strong>Consent</strong>: answering a request you send with the form (you tick a box to agree). You can withdraw consent at any time.",
+        "<strong>Strictly necessary storage</strong>: the visitor cookie is needed for the free-run limits you ask to use."
+      ]
     },
     {
       "type": "heading",
       "level": 2,
-      "text": "Who else receives data",
-      "size": "lg",
-      "color": "ink",
-      "opacity": 100
-    },
-    {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "The website you ask us to check receives a normal page request from our server.",
-        "The domain age tool asks the public domain registry for the registration record of the domain you enter.",
-        "The domain rank tool, when it is switched on, sends the domain you enter to the Open PageRank service."
-      ],
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+      "text": "Service providers"
     },
     {
       "type": "paragraph",
-      "html": "Your email address is not sent to any of these.",
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+      "html": "These companies process information on our behalf to run the website:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "<strong>Vercel</strong>: hosting. Servers that run the tools are in the United States (Washington, D.C. region). Vercel keeps technical logs, which can include IP addresses, under its own policies.",
+        "<strong>Upstash</strong>: database for usage counters and, if no other destination is set, request form submissions. Region: United States (east).",
+        "<strong>Cloudflare Turnstile</strong>: a security check that tells people from automated traffic. Cloudflare processes information such as your IP address and browser signals for this purpose.",
+        "<strong>Public sources a tool reads</strong>: the website you ask a tool to check, the domain registries (RDAP or WHOIS) and DNS. These receive only what is needed for the check."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "html": "The website has an AI chat assistant that is currently switched off. If it is switched on, messages you type would be sent to an AI provider (Google or OpenRouter) to produce a reply; this policy will be updated before that happens."
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "title": "For legal review",
+      "html": "Confirm the provider list against the accounts actually in use, and link each provider's privacy policy and data processing terms."
     },
     {
       "type": "heading",
       "level": 2,
-      "text": "Still to be confirmed",
-      "size": "lg",
-      "color": "ink",
-      "opacity": 100
+      "text": "International transfers"
     },
     {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "How long email addresses are kept: [TO BE CONFIRMED]",
-        "Whether you will receive any email other than the confirmation link: [TO BE CONFIRMED]",
-        "The email delivery service that sends the confirmation link: [TO BE CONFIRMED]",
-        "How to ask for your data to be removed, and the contact address: [TO BE CONFIRMED]",
-        "The legal name and address of the business: [TO BE CONFIRMED]"
-      ],
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+      "type": "paragraph",
+      "html": "Our service providers process information in the United States. Where the law requires it, transfers rely on the providers' contractual safeguards, such as standard contractual clauses. [TO BE CONFIRMED: safeguards in place with each provider]"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Your rights"
+    },
+    {
+      "type": "paragraph",
+      "html": "Depending on where you live, you may have the right to access, correct, delete or receive a copy of your personal information, to object to or restrict processing, and to withdraw consent. People in the EU and UK can also complain to their data protection authority. Residents of California may have rights under the CCPA/CPRA; we do not sell or share personal information for cross-context behavioural advertising."
+    },
+    {
+      "type": "paragraph",
+      "html": "To use a right, contact [TO BE CONFIRMED: contact email address for legal and privacy requests]. We may need to confirm your request before acting on it. We will answer within the time the applicable law requires."
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "title": "For legal review",
+      "html": "Check which laws apply based on where the business is established and who it targets, including Pakistan's data protection requirements, the GDPR/UK GDPR and US state laws. Do not state compliance with any law until this review is done."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Security"
+    },
+    {
+      "type": "paragraph",
+      "html": "The website uses encrypted connections (HTTPS), stores IP addresses only as keyed hashes, signs the visitor cookie so it cannot be forged, and limits how often each tool can be used. No method of storage or transfer is completely secure."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Children"
+    },
+    {
+      "type": "paragraph",
+      "html": "The website is meant for adults and businesses. It is not directed at children under [TO BE CONFIRMED: minimum age, for example 16], and we do not knowingly collect their information."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Changes to this policy"
+    },
+    {
+      "type": "paragraph",
+      "html": "We will update this page when our practices change and show the date of the latest version at the top."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Contact"
+    },
+    {
+      "type": "paragraph",
+      "html": "Privacy questions and requests: [TO BE CONFIRMED: contact email address for legal and privacy requests]."
     }
-  ],
-  "draft": true
+  ]
 }

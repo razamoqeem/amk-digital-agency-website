@@ -1,7 +1,7 @@
 {
   "slug": "docs/compliance-index",
-  "title": "Ahmad SEO Suite: Google Search Central Compliance Index | AMK Digital Agency",
-  "description": "This document maps official Google Search Central regulations to the automated forensics implemented in the Ahmad SEO Suite. Regulation …",
+  "title": "Google Search Guidelines Index | AMK Digital Agency",
+  "description": "An index of Google Search Central guidelines mapped to practical checks, so you can audit a website against each requirement.",
   "canonical": "",
   "noindex": false,
   "og": {
@@ -17,7 +17,7 @@
     {
       "type": "heading",
       "level": 1,
-      "text": "Ahmad SEO Suite: Google Search Central Compliance Index",
+      "text": "Google Search Central Guidelines Index",
       "size": "xl",
       "color": "ink",
       "opacity": 100

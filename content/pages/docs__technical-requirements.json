@@ -1,7 +1,7 @@
 {
   "slug": "docs/technical-requirements",
   "title": "Google Search Technical Requirements | AMK Digital Agency",
-  "description": "No Blocks: Robots.txt must not block Googlebot from the target URLs. Public Accessibility: No login/password protection on content intended for search.…",
+  "description": "The three technical requirements for appearing in Google Search: Googlebot access, a working server and indexable content.",
   "canonical": "",
   "noindex": false,
   "og": {

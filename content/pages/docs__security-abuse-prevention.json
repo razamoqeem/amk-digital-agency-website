@@ -1,7 +1,7 @@
 {
   "slug": "docs/security-abuse-prevention",
-  "title": "1. Preventing User-Generated Spam | AMK Digital Agency",
-  "description": "Spammers exploit open forms, comments, and guestbooks. Remedy: Use CAPTCHAs, moderation, and rel=\"nofollow ugc\" for user links. Malware: Harmful…",
+  "title": "Preventing Spam and Malware on Your Site | AMK Digital Agency",
+  "description": "Protect a website from user-generated spam, malware, unwanted software and phishing, with a site health checklist.",
   "canonical": "",
   "noindex": false,
   "og": {
@@ -17,10 +17,15 @@
     {
       "type": "heading",
       "level": 1,
-      "text": "1. Preventing User-Generated Spam",
+      "text": "Preventing Spam, Malware and Phishing",
       "size": "xl",
       "color": "ink",
       "opacity": 100
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. Preventing User-Generated Spam"
     },
     {
       "type": "list",

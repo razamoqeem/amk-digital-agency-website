@@ -1,0 +1,81 @@
+{
+  "slug": "disclaimer",
+  "title": "Disclaimer | AMK Digital Agency",
+  "description": "What the AMK Digital Agency free SEO tools and articles can and cannot tell you, and why results are general information, not guarantees.",
+  "draft": true,
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Disclaimer"
+    },
+    {
+      "type": "paragraph",
+      "html": "Last updated: 18 November 2026. This page is a draft and is not yet published."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "General information"
+    },
+    {
+      "type": "paragraph",
+      "html": "Articles, guides and tool results on this website are general information about search engines and websites. They are not legal, financial or other professional advice for your situation."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Tool results"
+    },
+    {
+      "type": "paragraph",
+      "html": "Our tools check what they can see at the moment they run: the page as it was served to our server, public DNS and registry records, and similar public data. Results can differ from what a search engine sees, can change at any time, and depend on the website being checked. Scores are our own checks, not search engine scores."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "No guarantees"
+    },
+    {
+      "type": "paragraph",
+      "html": "No tool, article or service can guarantee rankings, traffic or sales, because search engines decide what to show. We do not promise any particular result."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Sources and external links"
+    },
+    {
+      "type": "paragraph",
+      "html": "We cite official documentation and other sources where we use them. We are not responsible for the content of other websites, and their information may change after we link to it."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Third-party names"
+    },
+    {
+      "type": "paragraph",
+      "html": "Mentions of other companies, products or platforms are for identification and reference only and do not imply endorsement."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Contact"
+    },
+    {
+      "type": "paragraph",
+      "html": "If you find an error, please tell us: [TO BE CONFIRMED: contact email address for legal and privacy requests]."
+    }
+  ]
+}

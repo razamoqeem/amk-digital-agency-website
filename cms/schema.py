@@ -119,11 +119,7 @@ def for_page(page, settings, base, url, founder_name, home_slug="home"):
         if founder_name:
             art["author"] = {"@id": base + FOUNDER}
         nodes.append(art)
-    faqs = [b for b in page.get("blocks", []) if b.get("type") == "faq"]
-    if faqs:
-        nodes.append({"@type": "FAQPage", "@id": url + "#faq", "mainEntity": [
-            {"@type": "Question", "name": b.get("question", ""),
-             "acceptedAnswer": {"@type": "Answer", "text": _plain(b.get("answer", ""))}} for b in faqs]})
+    # No FAQPage markup: Google shows FAQ rich results only for well-known government and health sites.
     return tag(nodes)
 
 

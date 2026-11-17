@@ -1,7 +1,7 @@
 {
   "slug": "docs/redirects-migrations-testing",
-  "title": "Redirects, Migrations, and A/B Testing | AMK Digital Agency",
-  "description": "Permanent (301/308): Signal to Google that the target is the new canonical. Temporary (302/303/307): Signal that the source should remain the…",
+  "title": "Redirects and Site Migrations | AMK Digital Agency",
+  "description": "Redirect types, moving a site safely, A/B testing without hurting search, and how to avoid redirect chains.",
   "canonical": "",
   "noindex": false,
   "og": {

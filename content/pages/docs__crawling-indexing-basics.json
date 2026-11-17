@@ -1,7 +1,7 @@
 {
   "slug": "docs/crawling-indexing-basics",
-  "title": "Google Crawling & Indexing Fundamentals | AMK Digital Agency",
-  "description": "Googlebot must be able to find and parse your content. Key files include: Indexable File Types: Google can index most text-based files (HTML, PDF…",
+  "title": "Crawling and Indexing Basics | AMK Digital Agency",
+  "description": "How Google finds and indexes pages: crawling, URL canonicalisation, fixing crawl errors and pausing a site safely.",
   "canonical": "",
   "noindex": false,
   "og": {

@@ -20,6 +20,11 @@
       "source": "/docs.html",
       "destination": "/docs/",
       "permanent": true
+    },
+    {
+      "source": "/resources.html",
+      "destination": "/resources/",
+      "permanent": true
     }
   ],
   "rewrites": [

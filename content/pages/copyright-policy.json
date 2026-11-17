@@ -1,0 +1,138 @@
+{
+  "slug": "copyright-policy",
+  "title": "Copyright Policy | AMK Digital Agency",
+  "description": "Who owns the content on the AMK Digital Agency website, how you may use it, how to ask for permission and how to report infringement.",
+  "draft": true,
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Copyright Policy"
+    },
+    {
+      "type": "paragraph",
+      "html": "Last updated: 18 November 2026. This page is a draft and is not yet published."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Ownership"
+    },
+    {
+      "type": "paragraph",
+      "html": "© 2026 AMK Digital Agency. All rights reserved. The original text, articles, guides, documentation, graphics, logos, design, software, source code and tools on this website belong to [TO BE CONFIRMED: legal name of the business owner or registered business, and country of registration] or its licensors, unless a page states otherwise."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Protection in different countries"
+    },
+    {
+      "type": "paragraph",
+      "html": "Copyright arises automatically in most countries. International agreements, including the Berne Convention for the Protection of Literary and Artistic Works, the WTO TRIPS Agreement and the WIPO Copyright Treaty, mean that works are generally protected in member countries under each country's own national law. How protection and enforcement work depends on the work, the country and the circumstances; copyright rules are not identical everywhere."
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "title": "For legal review",
+      "html": "Confirm the owner named in the notice, and whether any content, images or code on the site are licensed from others."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What you may do"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Read and share links to our pages.",
+        "Quote short passages with a clear link to the source page, and any other use the law allows, such as fair use or fair dealing.",
+        "Use the results of our free tools for your own work."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What needs our written permission"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Republishing complete articles, guides or documentation, or translating them.",
+        "Copying our content into another website, app, product, course or publication.",
+        "Reproducing our tools, interfaces, designs or source code.",
+        "Scraping or bulk-copying content (normal search engine indexing is allowed).",
+        "Removing copyright notices or attribution.",
+        "Selling, licensing or using our material in a competing commercial product."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Asking for permission"
+    },
+    {
+      "type": "paragraph",
+      "html": "Write to [TO BE CONFIRMED: contact email address for legal and privacy requests] with what you want to use, where and how. We reply to every request."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Reporting suspected infringement"
+    },
+    {
+      "type": "paragraph",
+      "html": "If you believe content on this website infringes your copyright, or that someone has copied our content, send a notice to [TO BE CONFIRMED: contact email address for legal and privacy requests] with:"
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "The work",
+          "html": "A description of the copyrighted work and who owns it."
+        },
+        {
+          "title": "Where it appears",
+          "html": "The exact web address of the material in question."
+        },
+        {
+          "title": "Your contact details",
+          "html": "Your name, email address and, if you act for the owner, your authority to do so."
+        },
+        {
+          "title": "Your statement",
+          "html": "A statement that you believe in good faith that the use is not authorised, and that the information in your notice is accurate."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "html": "We review each notice and remove or correct material where that is justified."
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "title": "For legal review",
+      "html": "If the business wants to rely on the US DMCA safe harbour, a designated agent must be registered with the US Copyright Office and named here."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Third-party marks and material"
+    },
+    {
+      "type": "paragraph",
+      "html": "Names of other companies, products and platforms mentioned on this website, and material quoted from other sources, belong to their owners and are used only for identification, reference or quotation."
+    }
+  ]
+}

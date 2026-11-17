@@ -1,92 +1,227 @@
 {
   "slug": "terms",
-  "title": "Terms of use | AMK Digital Agency",
-  "description": "Terms for using the AMK Digital Agency website and its free SEO tools. This is a draft awaiting the owner's review and is not final legal text.",
+  "title": "Terms and Conditions | AMK Digital Agency",
+  "description": "The terms for using the AMK Digital Agency website and its free SEO tools: acceptable use, intellectual property, limits and liability.",
+  "draft": true,
   "canonical": "",
-  "noindex": true,
+  "noindex": false,
   "og": {
     "title": "",
     "description": "",
     "image": ""
   },
-  "schema": [],
+  "schema": [
+    "BreadcrumbList"
+  ],
   "blocks": [
     {
       "type": "heading",
       "level": 1,
-      "text": "Terms of use",
-      "size": "xl",
-      "color": "ink",
-      "opacity": 100
+      "text": "Terms and Conditions"
     },
     {
       "type": "paragraph",
-      "html": "Draft. These terms are awaiting the owner's review and are not final legal text.",
-      "size": "md",
-      "color": "muted",
-      "opacity": 100
+      "html": "Last updated: 18 November 2026. This page is a draft and is not yet published."
     },
     {
       "type": "heading",
       "level": 2,
-      "text": "The free tools",
-      "size": "lg",
-      "color": "ink",
-      "opacity": 100
+      "text": "1. Acceptance of terms"
     },
     {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "Each tool has a limited number of free runs. The current numbers are shown on the tools page.",
-        "Results come from automated checks of public pages and public records. They are information, not a guarantee of search rankings or business results.",
-        "A tool can be paused, changed or removed at any time."
-      ],
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+      "type": "paragraph",
+      "html": "By using the AMK Digital Agency website (the \"website\") you agree to these terms. If you do not agree, please do not use the website. The website is operated by [TO BE CONFIRMED: legal name of the business owner or registered business, and country of registration]."
     },
     {
       "type": "heading",
       "level": 2,
-      "text": "Fair use",
-      "size": "lg",
-      "color": "ink",
-      "opacity": 100
+      "text": "2. Access and eligibility"
     },
     {
-      "type": "list",
-      "ordered": false,
-      "items": [
-        "Use the tools to check websites in the normal way, one request at a time.",
-        "Do not use scripts or other automated means to run the tools.",
-        "Do not try to make the tools reach private or internal systems."
-      ],
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+      "type": "paragraph",
+      "html": "The website is intended for adults and businesses. You may use it if you can form a binding agreement under the law that applies to you. [TO BE CONFIRMED: minimum age]"
     },
     {
       "type": "heading",
       "level": 2,
-      "text": "Still to be confirmed",
-      "size": "lg",
-      "color": "ink",
-      "opacity": 100
+      "text": "3. Permitted and prohibited use"
+    },
+    {
+      "type": "paragraph",
+      "html": "You may read the website and use the free tools for your own or your organisation's work. You must not:"
     },
     {
       "type": "list",
-      "ordered": false,
       "items": [
-        "The legal name and address of the business: [TO BE CONFIRMED]",
-        "Liability, governing law and how disputes are handled: [TO BE CONFIRMED]",
-        "Paid plans, prices and refunds: [TO BE CONFIRMED]",
-        "Contact address: [TO BE CONFIRMED]"
-      ],
-      "size": "md",
-      "color": "ink",
-      "opacity": 100
+        "use a tool to check a website or address you are not allowed to test, or to attack, overload or probe any system;",
+        "try to get around free-run limits, the security check or other protections, for example by rotating identities or automating requests;",
+        "use the website for anything unlawful, misleading or harmful, or to collect other people's personal information;",
+        "interfere with the website's operation or security, or try to access parts of it that are not public."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "4. Your responsibilities"
+    },
+    {
+      "type": "paragraph",
+      "html": "You are responsible for the addresses you enter, for how you use the results, and for complying with the laws and terms that apply to the websites you check."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "5. Intellectual property and copyright"
+    },
+    {
+      "type": "paragraph",
+      "html": "Unless stated otherwise, the website's original content (text, articles, guides, documentation, graphics, logos, design, software, source code and tool interfaces) belongs to [TO BE CONFIRMED: legal name of the business owner or registered business, and country of registration] or its licensors and is protected by copyright and other intellectual property laws. All rights are reserved. Using the website does not transfer ownership or give you a licence except the limited right to view and use it under these terms. Third-party names, trademarks and referenced materials belong to their owners. See the <a href=\"/copyright-policy/\">Copyright Policy</a> for details."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "6. Copying, scraping and republishing"
+    },
+    {
+      "type": "paragraph",
+      "html": "Except where the law allows it (for example quotation, fair use or fair dealing), you must not, without written permission:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "republish complete articles or documentation, or copy them into another website, app, product or publication;",
+        "reproduce the tools, interfaces, designs or source code;",
+        "scrape, bulk-download or systematically copy content (normal search engine indexing is allowed);",
+        "remove copyright notices or attribution;",
+        "sell, license or distribute website material, or use it to build a competing commercial product."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "html": "Short quotations with a clear link back to the source page are welcome."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "7. Accounts"
+    },
+    {
+      "type": "paragraph",
+      "html": "The website itself has no user accounts. Accounts for the separate AMK Digital Agency App are governed by the App's own terms."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "8. Tools and availability"
+    },
+    {
+      "type": "paragraph",
+      "html": "The free tools are provided as they are, with daily and monthly limits that may change. Tools may be unavailable, changed or withdrawn at any time, for example for maintenance or because a data source stops working."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "9. Accuracy and educational content"
+    },
+    {
+      "type": "paragraph",
+      "html": "We work to keep results and articles accurate, and we cite our sources, but results depend on the website being checked and on outside data, and search engines change their behaviour. Content is general information, not professional advice for your situation, and no result guarantees any ranking or traffic."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "10. Third-party websites and services"
+    },
+    {
+      "type": "paragraph",
+      "html": "The website links to and reads from other websites and services. We are not responsible for their content, availability or practices."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "11. Content you send us"
+    },
+    {
+      "type": "paragraph",
+      "html": "If you send us a request or message, you confirm you are allowed to share it. We use it only to answer you, as explained in the <a href=\"/privacy/\">Privacy Policy</a>."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "12. Disclaimer of warranties"
+    },
+    {
+      "type": "paragraph",
+      "html": "To the extent the law allows, the website and tools are provided \"as is\" and \"as available\", without warranties of any kind. Nothing in these terms removes rights you have as a consumer that cannot be excluded by law."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "13. Limitation of liability"
+    },
+    {
+      "type": "paragraph",
+      "html": "To the extent the law allows, AMK Digital Agency is not liable for indirect or consequential losses, or for loss of profits, data or business, arising from use of the free website and tools. Nothing in these terms limits liability that cannot be limited by law, such as for fraud or, where applicable, death or personal injury caused by negligence."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "14. Indemnity"
+    },
+    {
+      "type": "paragraph",
+      "html": "If you break these terms and that causes a claim against us, you agree to cover the reasonable costs of that claim, where the law allows such an agreement."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "15. Suspension and termination"
+    },
+    {
+      "type": "paragraph",
+      "html": "We may limit or block access to the website or tools, for example to stop abuse or protect the service."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "16. Privacy"
+    },
+    {
+      "type": "paragraph",
+      "html": "How we handle information is explained in the <a href=\"/privacy/\">Privacy Policy</a> and <a href=\"/cookie-policy/\">Cookie Policy</a>."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "17. International access and governing law"
+    },
+    {
+      "type": "paragraph",
+      "html": "The website can be reached from many countries, and mandatory consumer laws where you live may still apply to you. Subject to those, these terms are governed by [TO BE CONFIRMED: governing law], and disputes go to [TO BE CONFIRMED: courts]."
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "title": "For legal review",
+      "html": "Choose the governing law and courts, and confirm the liability, indemnity and termination clauses are enforceable in that country and for consumers in other countries."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "18. Changes to these terms"
+    },
+    {
+      "type": "paragraph",
+      "html": "We may update these terms. The date at the top shows the latest version. Continuing to use the website after a change means you accept the new terms."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "19. Contact"
+    },
+    {
+      "type": "paragraph",
+      "html": "Questions about these terms: [TO BE CONFIRMED: contact email address for legal and privacy requests]."
     }
-  ],
-  "draft": true
+  ]
 }

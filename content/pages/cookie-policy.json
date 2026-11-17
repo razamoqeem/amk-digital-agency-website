@@ -1,0 +1,94 @@
+{
+  "slug": "cookie-policy",
+  "title": "Cookie Policy | AMK Digital Agency",
+  "description": "The one cookie and the browser storage the AMK Digital Agency website uses, what each is for, how long it lasts and how to remove it.",
+  "draft": true,
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Cookie Policy"
+    },
+    {
+      "type": "paragraph",
+      "html": "Last updated: 18 November 2026. This page is a draft and is not yet published."
+    },
+    {
+      "type": "paragraph",
+      "html": "The website uses one cookie and a little storage in your browser. It does not use analytics, advertising or tracking cookies."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What is stored"
+    },
+    {
+      "type": "table",
+      "caption": "Cookies and browser storage",
+      "headers": [
+        "Name",
+        "Type",
+        "Purpose",
+        "Lasts"
+      ],
+      "rows": [
+        [
+          "<code>amk_vid</code>",
+          "Cookie (strictly necessary)",
+          "A random ID, signed so it cannot be forged, used to count free tool runs",
+          "1 year"
+        ],
+        [
+          "<code>amk_theme</code>, <code>amk_os_theme</code>",
+          "Browser storage",
+          "Remembers your light, dark or automatic theme",
+          "Until you clear it"
+        ],
+        [
+          "<code>amk_limit_until</code>",
+          "Browser storage",
+          "Remembers when your free runs refresh, to show a countdown",
+          "Until the runs refresh or you clear it"
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "html": "The Cloudflare security check that protects the tools and forms may also use technical data in your browser to tell people from automated traffic; see Cloudflare's own privacy information."
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "title": "For legal review",
+      "html": "Confirm whether a consent banner is needed in the countries the site targets. Strictly necessary storage is usually exempt from consent, but the Cloudflare check and any future additions should be reviewed."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How to remove them"
+    },
+    {
+      "type": "paragraph",
+      "html": "You can delete cookies and site data in your browser settings at any time. If you delete <code>amk_vid</code>, the website gives you a new ID next time you use a tool."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Changes"
+    },
+    {
+      "type": "paragraph",
+      "html": "If we add any cookie or storage, we will list it here before it is used. More detail is in the <a href=\"/privacy/\">Privacy Policy</a>."
+    }
+  ]
+}

@@ -141,13 +141,16 @@ def load_pages():
 
 
 def site_url() -> str:
-    """SITE_URL from the environment or website/.env. Empty until the domain is confirmed."""
+    """The site address, set in ONE place: content/settings.json "site_url".
+    SITE_URL in the environment or website/.env overrides it (for example for a test build)."""
     value = os.environ.get("SITE_URL", "")
     env_path = os.path.join(ROOT, ".env")
     if not value and os.path.exists(env_path):
         for line in open(env_path, encoding="utf-8"):
             if line.strip().startswith("SITE_URL="):
                 value = line.split("=", 1)[1].strip()
+    if not value:
+        value = str(read_json(os.path.join(CONTENT, "settings.json"), {}).get("site_url", ""))
     value = value.strip().rstrip("/")
     return value if value.startswith(("http://", "https://")) else ""
 
@@ -193,6 +196,81 @@ def render_block(block) -> str:
     if kind == "tool-embed":
         return '    <p><a class="btn t-bg-accent" href="/tools/%s.html">Open the tool</a></p>' % esc(block.get("tool", ""))
     return articles.render_block(block)
+
+
+def git_date(path):
+    """Date of the last commit that changed a file (YYYY-MM-DD), or today for files not yet committed."""
+    import subprocess
+    try:
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", path], cwd=ROOT, capture_output=True, text=True, timeout=10)
+        dirty = subprocess.run(["git", "status", "--porcelain", "--", path], cwd=ROOT, capture_output=True, text=True, timeout=10)
+        if dirty.stdout.strip() or not out.stdout.strip():
+            return datetime.date.today().isoformat()
+        return out.stdout.strip()
+    except Exception:
+        return ""
+
+
+def lastmod_map(pages, settings, tool_paths, extras):
+    """Genuine last-modified dates for the sitemap: an article's own updated date, otherwise the
+    date its source file last changed."""
+    mod = {}
+    for p in pages:
+        info = p.get("article") or {}
+        if info.get("updated") or info.get("published"):
+            mod[page_url_path(p["slug"])] = info.get("updated") or info["published"]
+        elif p.get("_file") == "(generated)":
+            src = "content/limits.json" if p["slug"].endswith("usage-limits") else "content/tools.json"
+            mod[page_url_path(p["slug"])] = git_date(src)
+        else:
+            mod[page_url_path(p["slug"])] = git_date("content/pages/" + p["_file"])
+    for path in list(settings.get("legacy_sitemap_paths", [])) + list(tool_paths):
+        src = path.lstrip("/")
+        mod[path] = git_date(src) if os.path.exists(os.path.join(ROOT, src)) else git_date("content/tools.json")
+    dates = [mod[page_url_path(p["slug"])] for p in extras.get("articles", [])]
+    if dates:
+        mod["/blog/"] = max(dates)
+    mod["/resources/"] = max(dates + [git_date("cms/articles.py")])
+    mod["/contact/"] = git_date("cms/layouts.py")
+    return mod
+
+
+def social_head(html_text, url, canonical=True):
+    """Canonical and sharing tags for pages written by hand, taken from their own title and description."""
+    title = re.search(r"<title>(.*?)</title>", html_text, re.S)
+    desc = re.search(r'<meta name="description" content="([^"]*)"', html_text)
+    lines = []
+    if canonical:
+        lines.append('  <link rel="canonical" href="%s" />' % esc(url))
+    lines.append('  <meta property="og:url" content="%s" />' % esc(url))
+    if 'property="og:type"' not in html_text:
+        lines.append('  <meta property="og:type" content="website" />')
+    if title and 'property="og:title"' not in html_text:
+        lines.append('  <meta property="og:title" content="%s" />' % title.group(1).strip())
+    if desc and 'property="og:description"' not in html_text:
+        lines.append('  <meta property="og:description" content="%s" />' % desc.group(1))
+    if 'name="twitter:card"' not in html_text:
+        lines.append('  <meta name="twitter:card" content="summary" />')
+    return "\n".join(lines) + "\n"
+
+
+def tool_learn_html(current, extras):
+    """On each tool page: links to its guide and to the articles that use it (internal linking)."""
+    tools = (extras.get("tools") or {}).get("tools", [])
+    tool = next((t for t in tools if layouts.tool_href(t) == current), None)
+    if not tool:
+        return ""
+    docs = {p["slug"] for p in extras.get("docs", [])}
+    links = []
+    if "docs/tools/" + tool["slug"] in docs:
+        links.append('<li><a href="/docs/tools/%s/">How to use the %s</a></li>' % (esc(tool["slug"]), esc(tool["name"])))
+    for p in extras.get("articles", []):
+        if tool["slug"] in (p.get("article") or {}).get("related_tools", []) and not p.get("draft"):
+            links.append('<li><a href="%s">%s</a></li>' % (esc(articles.url_of(p)), esc(articles.h1_of(p))))
+    if not links:
+        return ""
+    return ('    <section class="tool-learn" aria-labelledby="tool-learn-h"><h2 id="tool-learn-h">Learn more</h2>'
+            '<ul>%s</ul></section>' % "".join(links))
 
 
 def json_ld(data) -> str:
@@ -535,7 +613,7 @@ def build() -> dict:
         ("blog", "SEO and Digital Marketing Blog | %s" % settings.get("site_name", ""),
          "Practical, sourced articles on technical SEO, AI search and website optimisation from AMK Digital Agency.",
          articles.blog_body(extras["articles"])),
-        ("resources", "Resources: SEO Guides, Articles and Tools | %s" % settings.get("site_name", ""),
+        ("resources", "SEO Resources: Guides, Articles and Tools | %s" % settings.get("site_name", ""),
          "Learn SEO, AI search and website optimisation with guides, articles, documentation and free tools.",
          articles.resources_body(extras["articles"], extras["docs"], tools_json, layouts.tool_href)),
     ]
@@ -583,7 +661,8 @@ def build() -> dict:
         rel_out = os.path.join(*url_path.split("/"), "index.html")
         full_route = "/" + url_path + "/"
         live_paths.add(full_route)
-        col_paths.append(full_route)
+        if not (it.get("seo") or {}).get("noindex"):
+            col_paths.append(full_route)
         write(rel_out, render_collection_item(it, schema, settings, template, base, live_paths))
 
     nf = settings.get("not_found", {})
@@ -601,8 +680,9 @@ def build() -> dict:
     robots = ["User-agent: *", "Allow: /", "Disallow: /api/", "Disallow: /v1/"]
     if base:
         paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex") and not p.get("draft")] + col_paths + (["/showcase/"] if show_live else []) + ["/contact/", "/resources/"] + (["/blog/"] if "/blog/" in live_paths else [])
-        today = datetime.date.today().isoformat()
-        urls = "\n".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>" % (esc(base + p), today) for p in paths)
+        mod = lastmod_map(pages, settings, tool_paths, extras)
+        urls = "\n".join("  <url><loc>%s</loc>%s</url>" % (esc(base + p), "<lastmod>%s</lastmod>" % mod[p] if mod.get(p) else "")
+                         for p in dict.fromkeys(paths))
         write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % urls)
         robots += ["", "Sitemap: %s/sitemap.xml" % base]
@@ -639,6 +719,13 @@ def build() -> dict:
             html, fswapped = FOOT_RE.subn(lambda m: footer, html, count=1)
             if not fswapped:
                 html = html.replace("</body>", "  " + footer + "\n</body>", 1)
+            if base and 'rel="canonical"' not in html and 'name="robots" content="noindex' not in html:
+                html = html.replace("</head>", social_head(html, base + current) + "</head>", 1)
+            elif base and 'property="og:url"' not in html and 'rel="canonical"' in html:
+                html = html.replace("</head>", social_head(html, base + current, canonical=False) + "</head>", 1)
+            learn = tool_learn_html(current, extras)
+            if learn:
+                html = html.replace("</main>", learn + "\n  </main>", 1)
             head = WIDGET_HEAD if "theme-engine.js" in html else '  <script src="/js/theme-engine.js"></script>\n' + WIDGET_HEAD
             if current in tool_graphs and "application/ld+json" not in html:
                 head = tool_graphs[current] + "\n" + head

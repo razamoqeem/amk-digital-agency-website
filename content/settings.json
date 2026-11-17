@@ -74,7 +74,8 @@
   "legacy_sitemap_paths": [
     "/tools/free-tools.html",
     "/tools/title-generator.html",
-    "/tools/domain-overview.html"
+    "/tools/domain-overview.html",
+    "/tools/website-comparison.html"
   ],
   "not_found": {
     "title": "Page not found",
@@ -84,14 +85,29 @@
   },
   "footer_links": [
     {
-      "label": "Privacy",
+      "label": "Privacy Policy",
       "href": "/privacy/",
       "page": "privacy"
     },
     {
-      "label": "Terms",
+      "label": "Terms and Conditions",
       "href": "/terms/",
       "page": "terms"
+    },
+    {
+      "label": "Copyright Policy",
+      "href": "/copyright-policy/",
+      "page": "copyright-policy"
+    },
+    {
+      "label": "Cookie Policy",
+      "href": "/cookie-policy/",
+      "page": "cookie-policy"
+    },
+    {
+      "label": "Disclaimer",
+      "href": "/disclaimer/",
+      "page": "disclaimer"
     }
   ],
   "organization": {
@@ -119,5 +135,6 @@
       "url": "https://www.linkedin.com/in/ahmad-raza-5000341ab/",
       "platform": "linkedin"
     }
-  ]
+  ],
+  "site_url": "https://amk-digital-agency-website.vercel.app"
 }

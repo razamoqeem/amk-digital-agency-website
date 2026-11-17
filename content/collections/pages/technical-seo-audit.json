@@ -16,7 +16,7 @@
     "metaTitle": "Technical SEO Architecture & Audit | AMK Digital Agency",
     "metaDesc": "In-depth technical SEO audit covering crawl budgets, Core Web Vitals, and architecture.",
     "canonical": "",
-    "noindex": false,
+    "noindex": true,
     "ogImage": ""
   },
   "jsonLd": {
