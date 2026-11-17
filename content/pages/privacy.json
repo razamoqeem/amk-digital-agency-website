@@ -2,7 +2,6 @@
   "slug": "privacy",
   "title": "Privacy Policy | AMK Digital Agency",
   "description": "What information the AMK Digital Agency website collects, why, how long it is kept, who processes it and the choices and rights you have.",
-  "draft": true,
   "canonical": "",
   "noindex": false,
   "og": {
@@ -21,7 +20,7 @@
     },
     {
       "type": "paragraph",
-      "html": "Last updated: 18 November 2026. This page is a draft and is not yet published."
+      "html": "Last updated: 18 November 2026."
     },
     {
       "type": "paragraph",

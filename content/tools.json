@@ -34,13 +34,13 @@
       "slug": "domain-overview",
       "page": "/tools/domain-overview.html",
       "name": "Domain Overview",
-      "summary": "One report for a whole website: SEO health, domain rank, technical status, registration and security."
+      "summary": "Domain age, WHOIS details, SEO health and security for any website in one free report."
     },
     {
       "slug": "website-comparison",
       "page": "/tools/website-comparison.html",
       "name": "Website Comparison",
-      "summary": "Side-by-side SEO comparison of two websites: authority, health, and security."
+      "summary": "Competitor website analysis: compare two sites side by side for SEO health, domain age and security."
     },
     {
       "slug": "free-tools",
@@ -75,8 +75,8 @@
       "name": "Heading Checker",
       "button": "Check headings",
       "placeholder": "https://example.com/page",
-      "title": "H1 to H6 Heading Checker | AMK Digital Agency",
-      "description": "Free heading checker. See the full H1 to H6 outline of a page, how many of each level it has, and whether a level is skipped or the H1 is missing.",
+      "title": "H1, H2, H3 Heading Checker | AMK Digital Agency",
+      "description": "Free H1, H2 and H3 heading checker. See the full H1 to H6 outline of a page and find a missing H1, extra H1s or skipped levels.",
       "summary": "The full H1 to H6 outline of a page and any structure problems.",
       "intro": "Enter a page address to see its headings in order, the way a search engine or screen reader meets them.",
       "what": [
@@ -167,7 +167,7 @@
       "button": "Check page",
       "placeholder": "https://example.com/page",
       "title": "Schema and Open Graph Checker | AMK Digital Agency",
-      "description": "Free structured data and Open Graph checker. See which schema types a page declares, any errors in them, and its social preview tags.",
+      "description": "Free schema markup checker: see which structured data types a page declares for rich results, any errors in them, and its Open Graph tags.",
       "summary": "Structured data types on a page, errors in them, and social preview tags.",
       "intro": "Enter a page address to see the structured data and social preview tags it declares.",
       "what": [

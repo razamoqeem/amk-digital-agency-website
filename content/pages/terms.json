@@ -2,7 +2,6 @@
   "slug": "terms",
   "title": "Terms and Conditions | AMK Digital Agency",
   "description": "The terms for using the AMK Digital Agency website and its free SEO tools: acceptable use, intellectual property, limits and liability.",
-  "draft": true,
   "canonical": "",
   "noindex": false,
   "og": {
@@ -21,7 +20,7 @@
     },
     {
       "type": "paragraph",
-      "html": "Last updated: 18 November 2026. This page is a draft and is not yet published."
+      "html": "Last updated: 18 November 2026."
     },
     {
       "type": "heading",
@@ -75,7 +74,7 @@
     },
     {
       "type": "paragraph",
-      "html": "Unless stated otherwise, the website's original content (text, articles, guides, documentation, graphics, logos, design, software, source code and tool interfaces) belongs to [TO BE CONFIRMED: legal name of the business owner or registered business, and country of registration] or its licensors and is protected by copyright and other intellectual property laws. All rights are reserved. Using the website does not transfer ownership or give you a licence except the limited right to view and use it under these terms. Third-party names, trademarks and referenced materials belong to their owners. See the <a href=\"/copyright-policy/\">Copyright Policy</a> for details."
+      "html": "Unless stated otherwise, the website's original content (text, articles, guides, documentation, graphics, logos, design, software, source code and tool interfaces) belongs to [TO BE CONFIRMED: legal name of the business owner or registered business, and country of registration] or its licensors and is protected by copyright and other intellectual property laws. All rights are reserved. Using the website does not transfer ownership or give you a licence except the limited right to view and use it under these terms. Third-party names, trademarks and referenced materials belong to their owners. A separate Copyright Policy with details is being prepared."
     },
     {
       "type": "heading",
@@ -188,7 +187,7 @@
     },
     {
       "type": "paragraph",
-      "html": "How we handle information is explained in the <a href=\"/privacy/\">Privacy Policy</a> and <a href=\"/cookie-policy/\">Cookie Policy</a>."
+      "html": "How we handle information is explained in the <a href=\"/privacy/\">Privacy Policy</a>."
     },
     {
       "type": "heading",
