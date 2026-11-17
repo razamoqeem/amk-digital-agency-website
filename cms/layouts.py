@@ -12,6 +12,7 @@ import html
 import re
 
 from sanitize import clean_rich_text, plain_text, safe_href
+import articles
 
 
 def esc(t):
@@ -97,7 +98,7 @@ def nav_html(site_name, tools_data, current, live_paths=()):
         return any(current == p or (p.endswith("/") and current.startswith(p)) for p in prefixes)
 
     tool_paths = ["/tools/"] + [tool_href(t) for t in tools.values()]
-    resource_paths = ["/docs/", "/company/", "/owner/", "/showcase/", "/resources.html"]
+    resource_paths = ["/resources/", "/blog/", "/docs/", "/company/", "/owner/", "/showcase/", "/resources.html"]
 
     groups = []
     for g in tools_data.get("groups", []):
@@ -112,14 +113,16 @@ def nav_html(site_name, tools_data, current, live_paths=()):
         groups.append('<div class="amk-mgroup"><p class="amk-mtitle">%s</p><ul>%s</ul></div>' % (esc(g["name"]), "".join(items)))
 
     resources = [
-        ("/docs/", "book", "Documentation", "Search and SEO guides"),
+        ("/resources/", "compass", "Resources hub", "Guides, articles and tools in one place"),
+        ("/blog/", "file", "Blog", "Sourced SEO and marketing articles"),
+        ("/docs/", "book", "Documentation", "Help centre and tool guides"),
         ("/docs/how-to-use-the-free-tools/", "file", "How to use the tools", "Step-by-step help"),
-        ("/docs/seo-starter-guide/", "compass", "SEO starter guide", "Where to begin"),
         ("/company/", "building", "Company", "Vision, purpose and goals"),
         ("/owner/", "user", "About the founder", "Experience and expertise"),
     ]
     if "/showcase/" in live_paths:
         resources.append(("/showcase/", "briefcase", "Our work", "Experience across project types"))
+    resources = [r for r in resources if r[0] != "/blog/" or "/blog/" in live_paths]
     res_items = "".join('<li><a class="amk-mi" href="%s"%s>%s<span><b>%s</b><small>%s</small></span></a></li>' % (
         esc(h), cur(h), icon(ic), esc(n), esc(s)) for h, ic, n, s in resources)
 
@@ -158,7 +161,7 @@ def nav_html(site_name, tools_data, current, live_paths=()):
     </div>
   </header>''' % {
         "site": esc(site_name), "logo": LOGO_SVG, "home": top("/", "Home"), "tools": top("/tools/", "Tools", tool_paths),
-        "res": top("/docs/", "Resources", resource_paths), "contact": top("/contact/", "Contact Us"),
+        "res": top("/resources/", "Resources", resource_paths), "contact": top("/contact/", "Contact Us"),
         "chev": '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         "arrow": icon("arrow", "ic ic-s"), "globe": icon("globe", "ic ic-l"), "groups": "".join(groups), "res_items": res_items}
 
@@ -170,16 +173,20 @@ def footer_html(settings, tools_data, live_paths, year):
     tool_links = [(tool_href(tools[s]), tools[s]["name"]) for s in
                   ("domain-overview", "website-comparison", "meta-tags", "links", "ssl-check") if s in tools]
     tool_links.append(("/tools/", "All free tools"))
-    resources = [("/docs/", "Documentation"), ("/docs/how-to-use-the-free-tools/", "How to use the tools"),
-                 ("/docs/seo-starter-guide/", "SEO starter guide")]
+    resources = [("/resources/", "Resources hub"), ("/blog/", "Blog"), ("/docs/", "Documentation"),
+                 ("/docs/how-to-use-the-free-tools/", "How to use the tools")]
+    resources = [r for r in resources if r[0] != "/blog/" or "/blog/" in live_paths]
     company = [("/company/", "About the company"), ("/owner/", "About the founder")]
     if "/showcase/" in live_paths:
         company.append(("/showcase/", "Our work"))
     company.append(("/contact/", "Contact us"))
 
-    def col(title, links):
+    def col(title, links, icons=None):
         return '<div class="amk-fcol"><p class="amk-ftitle">%s</p><ul>%s</ul></div>' % (
-            esc(title), "".join('<li><a href="%s">%s</a></li>' % (esc(h), esc(n)) for h, n in links))
+            esc(title), "".join('<li><a href="%s">%s%s</a></li>' % (
+                esc(h), icon(icons.get(h, "arrow"), "ic ic-s") if icons is not None else "", esc(n)) for h, n in links))
+    tool_icons = {tool_href(tools[s]): TOOL_ICONS.get(s, "search") for s in tools}
+    tool_icons["/tools/"] = "arrow"
 
     contact = settings.get("contact", {}) or {}
     reach = []
@@ -191,8 +198,9 @@ def footer_html(settings, tools_data, live_paths, year):
         reach.append('<li><a href="tel:%s">%s</a></li>' % (esc(re.sub(r"[^0-9+]", "", phone)), esc(phone)))
     reach.append('<li><a href="/contact/">%sSend us a message</a></li>' % icon("arrow", "ic ic-s"))
     social = "".join(
-        '<li><a href="%s" rel="noopener me" target="_blank">%s<span class="amk-sr"> (opens in a new tab)</span></a></li>'
-        % (esc(i["url"]), esc(i.get("label", "")))
+        '<li><a href="%s" rel="noopener me" target="_blank" title="%s" aria-label="%s on %s (opens in a new tab)">%s<span class="amk-soc-name">%s</span></a></li>'
+        % (esc(i["url"]), esc(i.get("label", "")), esc(settings.get("site_name", "")), esc(i.get("label", "")),
+           articles.social_icon(articles.platform_key(i)), esc(i.get("label", "")))
         for i in settings.get("social", [])
         if re.match(r"^https://[^\s\"<>]+$", str(i.get("url", ""))) and i.get("label"))
     legal = "".join(' <a href="%s">%s</a>' % (esc(i["href"]), esc(i["label"]))
@@ -203,7 +211,7 @@ def footer_html(settings, tools_data, live_paths, year):
     parts = {
         "logo": LOGO_SVG, "site": esc(settings.get("site_name", "")), "about": esc(about),
         "social": ('<ul class="amk-social" aria-label="Follow us">%s</ul>' % social) if social else "",
-        "tools": col("Free tools", tool_links), "resources": col("Resources", resources),
+        "tools": col("Free tools", tool_links, tool_icons), "resources": col("Resources", resources),
         "company": col("Company", company), "reach": "".join(reach), "year": year, "legal": legal}
     return (
         '<footer class="amk-footer">\n'

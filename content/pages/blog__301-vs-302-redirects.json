@@ -1,0 +1,174 @@
+{
+  "slug": "blog/301-vs-302-redirects",
+  "title": "301 vs 302 Redirects: Which One to Use | AMK Digital Agency",
+  "description": "The difference between permanent and temporary redirects, how Google treats each one, and how to avoid long redirect chains when you move pages.",
+  "draft": true,
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "SEO",
+    "category": "Technical SEO",
+    "summary": "Moving a page? The type of redirect tells search engines whether the move is permanent. Here is how to choose, and how to keep redirects short.",
+    "tags": [
+      "redirects",
+      "technical SEO",
+      "site migration"
+    ],
+    "published": "2026-11-18",
+    "updated": "2026-11-18",
+    "author": "AMK Digital Agency",
+    "featured": false,
+    "related_tools": [
+      "redirects"
+    ],
+    "takeaways": [
+      "Use a permanent redirect (301 or 308) when a page has moved for good.",
+      "Use a temporary redirect (302, 303 or 307) only when the original address will come back.",
+      "Keep chains short: Google's crawlers follow up to 10 redirect hops by default."
+    ],
+    "checked": "2026-11-18"
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "301 vs 302 redirects: which one to use"
+    },
+    {
+      "type": "paragraph",
+      "html": "A redirect sends visitors and search engines from one address to another. It is how you keep old links working when a page moves, a site changes domain or you switch from <code>http</code> to <code>https</code>."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Permanent or temporary"
+    },
+    {
+      "type": "paragraph",
+      "html": "Server-side redirects come with a status code. The code tells search engines whether the move is permanent or temporary, and that changes which address Google shows in its results."
+    },
+    {
+      "type": "table",
+      "caption": "Redirect status codes and what they signal",
+      "headers": [
+        "Code",
+        "Type",
+        "What it tells Google",
+        "Use it when"
+      ],
+      "rows": [
+        [
+          "301",
+          "Permanent",
+          "The new address should be shown in results",
+          "A page or site has moved for good"
+        ],
+        [
+          "308",
+          "Permanent",
+          "Same as 301",
+          "A permanent move where the request method must not change"
+        ],
+        [
+          "302",
+          "Temporary",
+          "Keep showing the original address",
+          "A page is briefly elsewhere and will come back"
+        ],
+        [
+          "303",
+          "Temporary",
+          "Keep showing the original address",
+          "Sending a visitor to another page after a form"
+        ],
+        [
+          "307",
+          "Temporary",
+          "Keep showing the original address",
+          "A temporary move where the method must not change"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "html": "A common mistake is using a temporary 302 for a permanent move. The original address can then stay in search results instead of the new one."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Keep redirect chains short"
+    },
+    {
+      "type": "paragraph",
+      "html": "A chain is when one redirect leads to another, and another. Google's crawlers follow up to 10 redirect hops by default, but each extra hop slows visitors down and adds a chance of failure. Point every old address straight to its final destination."
+    },
+    {
+      "type": "flow",
+      "items": [
+        "http://example.com/old",
+        "https://example.com/old",
+        "https://example.com/new"
+      ],
+      "caption": "A two-hop chain: better to send the first address straight to the last one."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Moving a page: step by step"
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "List the old and new addresses",
+          "html": "One line per page that moves."
+        },
+        {
+          "title": "Add permanent redirects",
+          "html": "From each old address directly to its new address."
+        },
+        {
+          "title": "Update your own links",
+          "html": "Change internal links and your sitemap to the new addresses, so visitors do not need the redirect."
+        },
+        {
+          "title": "Test every old address",
+          "html": "Check that each one reaches the right page in one hop with a 200 status at the end."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "html": "Our free <a href=\"/tools/redirects.html\">Redirect and Status Checker</a> follows any address hop by hop and shows every status code until the final page."
+    },
+    {
+      "type": "faq",
+      "question": "How long should I keep a redirect?",
+      "answer": "Keep permanent redirects in place for as long as people and other sites might still use the old address. Removing them too early breaks old links."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "Redirects and Google Search",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/301-redirects",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "How HTTP status codes, and network and DNS errors affect Google Search",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/http-network-errors",
+          "publisher": "Google Search Central"
+        }
+      ]
+    }
+  ]
+}

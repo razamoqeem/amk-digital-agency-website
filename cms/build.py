@@ -31,12 +31,17 @@ from validate import validate_page, heading_outline, page_url_path, HOME_SLUG  #
 import collections_engine  # noqa: E402
 import showcase  # noqa: E402
 import layouts  # noqa: E402
+import articles  # noqa: E402
 import schema as ld  # noqa: E402
 
 CONTENT = os.path.join(ROOT, "content")
 PAGES_DIR = os.path.join(CONTENT, "pages")
 TEMPLATES = os.path.join(ROOT, "templates")
 PUBLIC = os.path.join(ROOT, "public")
+# --preview builds into preview/ (not committed) and includes drafts, marked and hidden from search engines.
+PREVIEW = "--preview" in sys.argv
+if PREVIEW:
+    PUBLIC = os.path.join(ROOT, "preview")
 
 # Bot-check service (Cloudflare Turnstile) is the only outside script and frame we allow.
 TURNSTILE = "https://challenges.cloudflare.com"
@@ -77,6 +82,8 @@ REWRITES = [
 WIDGET_HEAD = ('  <link rel="stylesheet" href="/css/chat-widget.css" />\n'
                '  <link rel="stylesheet" href="/css/nav.css" />\n'
                '  <link rel="stylesheet" href="/css/footer.css" />\n'
+               '  <link rel="stylesheet" href="/css/article.css" />\n'
+               '  <script src="/js/article.js" defer></script>\n'
                '  <link rel="stylesheet" href="/css/motion.css" />\n'
                '  <script src="/js/site-nav.js"></script>\n'
                '  <script src="/js/motion.js"></script>\n')
@@ -185,7 +192,7 @@ def render_block(block) -> str:
             esc(block.get("question", "")), clean_rich_text(block.get("answer", "")))
     if kind == "tool-embed":
         return '    <p><a class="btn t-bg-accent" href="/tools/%s.html">Open the tool</a></p>' % esc(block.get("tool", ""))
-    return ""
+    return articles.render_block(block)
 
 
 def json_ld(data) -> str:
@@ -221,7 +228,7 @@ def render_page(page, settings, template, base, live_paths=(), extras=None) -> s
     head = []
     if url:
         head.append('  <link rel="canonical" href="%s" />' % esc(url))
-    if page.get("noindex"):
+    if page.get("noindex") or page.get("draft"):
         head.append('  <meta name="robots" content="noindex, nofollow" />')
     head.append('  <meta property="og:type" content="website" />')
     head.append('  <meta property="og:title" content="%s" />' % esc(og.get("title") or page.get("title", "")))
@@ -241,9 +248,19 @@ def render_page(page, settings, template, base, live_paths=(), extras=None) -> s
         body = "    " + layouts.designed_body(page, extras.get("tools", {}), extras.get("stats") if page.get("slug") == "home" else None)
         main_class = " is-designed"
     else:
-        body = "\n".join(render_block(b) for b in page.get("blocks", []))
-        if str(page.get("slug", "")).startswith("docs/"):
-            body = layouts.add_toc(body)
+        slug = str(page.get("slug", ""))
+        if slug.startswith("blog/"):
+            body = articles.article_body(page, render_block, extras.get("articles", []), extras.get("tools", {}),
+                                         layouts.tool_href, PREVIEW)
+            main_class = " is-article"
+        else:
+            body = "\n".join(render_block(b) for b in page.get("blocks", []))
+        if slug == "docs" or slug.startswith("docs/"):
+            body, toc = articles.with_toc(body)
+            if toc:
+                idx = body.find("</p>")
+                body = body[: idx + 4] + toc + body[idx + 4:] if idx >= 0 else toc + body
+            body = articles.docs_shell(page, body, extras.get("docs", []))
             main_class = " is-doc"
     return render_document(template, settings, page.get("title", ""), page.get("description", ""), head, body, live_paths, main_class)
 
@@ -463,7 +480,15 @@ def build() -> dict:
         return report
 
     drafts = [p["slug"] for p in pages if p.get("draft")]
-    pages = [p for p in pages if not p.get("draft")]     # drafts stay in the admin only
+    if not PREVIEW:
+        pages = [p for p in pages if not p.get("draft")]     # drafts stay in the admin only
+    # Generated help-centre pages: one guide per tool, plus free runs and limits.
+    tools_json = read_json(os.path.join(CONTENT, "tools.json"), {"tools": [], "groups": []})
+    limits_json = read_json(os.path.join(CONTENT, "limits.json"), {})
+    for t in tools_json.get("tools", []):
+        if t.get("what") and not any(p["slug"] == "docs/tools/" + t["slug"] for p in pages):
+            pages.append(dict(articles.tool_doc_page(t, layouts.tool_href, limits_json), _file="(generated)"))
+    pages.append(dict(articles.usage_doc_page(limits_json), _file="(generated)"))
     report["drafts"] = drafts
     live_paths = {page_url_path(p["slug"]) for p in pages}
 
@@ -497,11 +522,34 @@ def build() -> dict:
     for rel, text in tool_files.items():
         write(rel, text)
 
-    extras = {"tools": read_json(os.path.join(CONTENT, "tools.json"), {"tools": [], "groups": []}),
+    extras = {"tools": tools_json,
+              "articles": [p for p in pages if p["slug"].startswith("blog/")],
+              "docs": [p for p in pages if p["slug"] == "docs" or p["slug"].startswith("docs/")],
               "stats": showcase.stats(show_data) if show_live else None,
               "founder": ld.founder_from(next((p for p in pages if p["slug"] == "owner"), None))}
     for page in pages:
         write(page_output_rel(page["slug"]), render_page(page, settings, template, base, live_paths, extras))
+
+    # Blog listing, resources hub and the search index used by both and by the docs
+    hub_pages = [
+        ("blog", "SEO and Digital Marketing Blog | %s" % settings.get("site_name", ""),
+         "Practical, sourced articles on technical SEO, AI search and website optimisation from AMK Digital Agency.",
+         articles.blog_body(extras["articles"])),
+        ("resources", "Resources: SEO Guides, Articles and Tools | %s" % settings.get("site_name", ""),
+         "Learn SEO, AI search and website optimisation with guides, articles, documentation and free tools.",
+         articles.resources_body(extras["articles"], extras["docs"], tools_json, layouts.tool_href)),
+    ]
+    for name, h_title, h_desc, h_body in hub_pages:
+        if name == "blog" and not extras["articles"]:
+            continue                                  # no empty blog page: it appears with the first published article
+        live_paths.add("/%s/" % name)
+        head = ['  <link rel="canonical" href="%s/%s/" />' % (esc(base), name)] if base else []
+        if base:
+            head.append(ld.for_simple(settings, base, "/%s/" % name, h_title, h_desc, "CollectionPage", name.title(), extras["founder"]))
+        write(os.path.join(name, "index.html"), render_document(template, settings, h_title, h_desc, head, "    " + h_body,
+                                                              live_paths, " is-designed is-hub"))
+    write("search-index.json", json.dumps(articles.search_index(extras["articles"], extras["docs"], tools_json, layouts.tool_href),
+                                          ensure_ascii=False, separators=(",", ":")))
 
     # Contact page (form posts to the existing secure request endpoint)
     live_paths.add("/contact/")
@@ -552,7 +600,7 @@ def build() -> dict:
     # are told to skip them and spend their crawl budget on real content.
     robots = ["User-agent: *", "Allow: /", "Disallow: /api/", "Disallow: /v1/"]
     if base:
-        paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex")] + col_paths + (["/showcase/"] if show_live else []) + ["/contact/"]
+        paths = list(settings.get("legacy_sitemap_paths", [])) + tool_paths + [page_url_path(p["slug"]) for p in pages if not p.get("noindex") and not p.get("draft")] + col_paths + (["/showcase/"] if show_live else []) + ["/contact/", "/resources/"] + (["/blog/"] if "/blog/" in live_paths else [])
         today = datetime.date.today().isoformat()
         urls = "\n".join("  <url><loc>%s</loc><lastmod>%s</lastmod></url>" % (esc(base + p), today) for p in paths)
         write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -612,7 +660,7 @@ def build() -> dict:
         shutil.rmtree(staging, ignore_errors=True)
         return report
 
-    headers_txt, redirects_txt, vercel = host_files(pages, redirects, (["/showcase/"] if show_live else []) + ["/contact/"])
+    headers_txt, redirects_txt, vercel = host_files(pages, redirects, (["/showcase/"] if show_live else []) + ["/contact/", "/blog/", "/resources/"])
     write("_headers", headers_txt)
     write("_redirects", redirects_txt)
 
@@ -623,7 +671,8 @@ def build() -> dict:
         os.replace(PUBLIC, old)
     os.replace(staging, PUBLIC)
     shutil.rmtree(old, ignore_errors=True)
-    write_json(os.path.join(ROOT, "vercel.json"), vercel)
+    if not PREVIEW:
+        write_json(os.path.join(ROOT, "vercel.json"), vercel)
 
     report["ok"] = True
     return report
@@ -639,9 +688,9 @@ def main():
         print("\nBuild stopped. public/ was not changed.")
         return 1
     drafts = report.get("drafts", [])
-    print("Built %d page(s) into public/ (%d files written by the build)." % (len(report["pages"]) - len(drafts), len(report["written"])))
+    print("Built %d page(s) into %s/ (%d files written by the build)." % (len(report["pages"]) - (0 if PREVIEW else len(drafts)), os.path.basename(PUBLIC), len(report["written"])))
     if drafts:
-        print("Drafts kept out of the website: %s" % ", ".join(drafts))
+        print(("Drafts included for review (marked, hidden from search engines): %s" if PREVIEW else "Drafts kept out of the website: %s") % ", ".join(drafts))
     return 0
 
 

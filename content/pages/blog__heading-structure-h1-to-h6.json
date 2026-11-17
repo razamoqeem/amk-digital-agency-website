@@ -1,0 +1,173 @@
+{
+  "slug": "blog/heading-structure-h1-to-h6",
+  "title": "Heading Structure Explained: H1 to H6 | AMK Digital Agency",
+  "description": "How headings help visitors and assistive technologies, what Google says about the number and order of headings, and a simple outline method.",
+  "draft": true,
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "SEO",
+    "category": "On-Page SEO",
+    "summary": "Headings turn a page into a clear outline. Here is what they do for readers and assistive technologies, and what Google says about their order.",
+    "tags": [
+      "headings",
+      "accessibility",
+      "on-page SEO"
+    ],
+    "published": "2026-11-18",
+    "updated": "2026-11-18",
+    "author": "AMK Digital Agency",
+    "featured": false,
+    "related_tools": [
+      "headings"
+    ],
+    "takeaways": [
+      "Headings are an outline: they help people scan and help assistive technologies navigate.",
+      "For Google, there is no ideal number of headings and the order does not matter for ranking.",
+      "For accessibility, use the levels in order and avoid jumps such as H2 straight to H4."
+    ],
+    "checked": "2026-11-18"
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Heading structure explained: H1 to H6"
+    },
+    {
+      "type": "paragraph",
+      "html": "HTML has six heading levels, from <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>. Together they form the outline of a page, like the chapter and section titles of a book."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Why headings matter"
+    },
+    {
+      "type": "list",
+      "items": [
+        "<strong>Readers</strong> scan headings to find the part they need.",
+        "<strong>Assistive technologies</strong> such as screen readers use headings to move around a page.",
+        "<strong>Search engines</strong> read the page structure to understand its content."
+      ],
+      "ordered": false
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What Google says"
+    },
+    {
+      "type": "paragraph",
+      "html": "Google's SEO Starter Guide says headings help users navigate the page. It also says there is no magic ideal number of headings, and that the order you use them in does not matter to Google. In other words, headings are not a ranking trick; they are there to make the content easier to use."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What accessibility guidance says"
+    },
+    {
+      "type": "paragraph",
+      "html": "The W3C's Web Accessibility Initiative explains that headings communicate how a page is organised and that assistive technologies use them for navigation. It recommends nesting headings by rank and avoiding skipped ranks where possible, for example an <code>&lt;h2&gt;</code> followed directly by an <code>&lt;h4&gt;</code>."
+    },
+    {
+      "type": "table",
+      "caption": "A clear heading outline",
+      "headers": [
+        "Level",
+        "Used for",
+        "Example"
+      ],
+      "rows": [
+        [
+          "H1",
+          "The page's main topic",
+          "Heading structure explained"
+        ],
+        [
+          "H2",
+          "Main sections",
+          "Why headings matter"
+        ],
+        [
+          "H3",
+          "Parts of a section",
+          "Headings for screen readers"
+        ],
+        [
+          "H4",
+          "Rarely needed details",
+          "A note inside a part"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "html": "Do not choose a heading level because of its size. Use the level that matches the outline, and change the look with styles."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "A simple outline method"
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Write the page topic as the main heading",
+          "html": "One clear main heading that matches the page title."
+        },
+        {
+          "title": "List the main sections",
+          "html": "Each becomes the next level down."
+        },
+        {
+          "title": "Split long sections",
+          "html": "Only add a lower level when a section has several distinct parts."
+        },
+        {
+          "title": "Check the outline on its own",
+          "html": "Read only the headings. They should make sense as a table of contents."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Check a page"
+    },
+    {
+      "type": "paragraph",
+      "html": "Our free <a href=\"/tools/headings.html\">Heading Checker</a> shows every heading on a page in order, counts each level and flags missing main headings and skipped levels."
+    },
+    {
+      "type": "faq",
+      "question": "Is more than one H1 bad for SEO?",
+      "answer": "Google says the number and order of headings do not matter to it. For readers and accessibility, one clear main heading per page is usually the easiest structure to follow."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "SEO Starter Guide",
+          "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Headings (Page Structure Tutorial)",
+          "url": "https://www.w3.org/WAI/tutorials/page-structure/headings/",
+          "publisher": "W3C Web Accessibility Initiative"
+        }
+      ]
+    }
+  ]
+}

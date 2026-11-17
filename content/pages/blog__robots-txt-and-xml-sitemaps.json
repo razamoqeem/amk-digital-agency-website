@@ -1,0 +1,155 @@
+{
+  "slug": "blog/robots-txt-and-xml-sitemaps",
+  "title": "robots.txt and XML Sitemaps Explained | AMK Digital Agency",
+  "description": "What robots.txt and XML sitemaps do, the limits Google applies to each, and the common mistake of using robots.txt to hide pages from search.",
+  "draft": true,
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "SEO",
+    "category": "Technical SEO",
+    "summary": "robots.txt tells crawlers where they may go; a sitemap tells them which pages exist. Here is how each works and the limits Google applies.",
+    "tags": [
+      "robots.txt",
+      "XML sitemap",
+      "crawling",
+      "technical SEO"
+    ],
+    "published": "2026-11-18",
+    "updated": "2026-11-18",
+    "author": "AMK Digital Agency",
+    "featured": false,
+    "related_tools": [
+      "robots-sitemap"
+    ],
+    "takeaways": [
+      "robots.txt manages crawling, not indexing: a blocked page can still appear in results without a description.",
+      "To keep a page out of results, use noindex, and let crawlers reach the page so they can see it.",
+      "One sitemap holds up to 50,000 addresses or 50 MB uncompressed; split larger sets."
+    ],
+    "checked": "2026-11-18"
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "robots.txt and XML sitemaps: a beginner's guide"
+    },
+    {
+      "type": "paragraph",
+      "html": "Two small files help search engines find their way around a website. <code>robots.txt</code> sets rules about where crawlers may go. An XML sitemap lists the pages you want them to know about."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What robots.txt does"
+    },
+    {
+      "type": "paragraph",
+      "html": "The robots.txt file lives at the top level of a host, for example <code>https://example.com/robots.txt</code>. It tells crawlers which parts of the site they may request. Google ignores anything in the file after its first 500 KiB."
+    },
+    {
+      "type": "code",
+      "language": "robots.txt",
+      "code": "User-agent: *\nDisallow: /cart/\nDisallow: /search\n\nSitemap: https://example.com/sitemap.xml"
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "title": "robots.txt does not hide pages",
+      "html": "A page blocked in robots.txt can still appear in search results, without a description, if other pages link to it. To keep a page out of results, use a <code>noindex</code> rule instead, and do not block that page in robots.txt, or crawlers will never see the noindex."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What an XML sitemap does"
+    },
+    {
+      "type": "paragraph",
+      "html": "A sitemap is a list of the addresses you want search engines to discover, with optional details such as when each page last changed."
+    },
+    {
+      "type": "table",
+      "caption": "Sitemap facts from Google's documentation",
+      "headers": [
+        "Item",
+        "What Google says"
+      ],
+      "rows": [
+        [
+          "Size of one sitemap",
+          "Up to 50,000 addresses or 50 MB uncompressed"
+        ],
+        [
+          "Larger sites",
+          "Split into several sitemaps, optionally listed in a sitemap index file"
+        ],
+        [
+          "<code>&lt;lastmod&gt;</code>",
+          "Used when it is consistently and verifiably accurate"
+        ],
+        [
+          "<code>&lt;priority&gt;</code> and <code>&lt;changefreq&gt;</code>",
+          "Ignored by Google"
+        ]
+      ]
+    },
+    {
+      "type": "code",
+      "language": "xml",
+      "code": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://example.com/</loc>\n    <lastmod>2026-11-18</lastmod>\n  </url>\n</urlset>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Quick check for your site"
+    },
+    {
+      "type": "checklist",
+      "items": [
+        "robots.txt is at the top level of the host",
+        "It does not block pages you want in search results",
+        "Pages you want hidden use noindex and are not blocked",
+        "Your sitemap lists only real, working pages",
+        "The sitemap's address is listed in robots.txt or submitted in Search Console"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "html": "Our free <a href=\"/tools/robots-sitemap.html\">Robots.txt and Sitemap Checker</a> reads a site's crawl rules, finds its sitemaps and counts the addresses they list."
+    },
+    {
+      "type": "faq",
+      "question": "Do I need a sitemap for a small website?",
+      "answer": "Not always. If every page is well linked from your other pages, search engines can usually find it. A sitemap still helps them discover new and updated pages, and it is simple to add."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "Introduction to robots.txt",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "How Google interprets the robots.txt specification",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/robots/robots_txt",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Build and submit a sitemap",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+          "publisher": "Google Search Central"
+        }
+      ]
+    }
+  ]
+}

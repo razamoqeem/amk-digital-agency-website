@@ -56,3 +56,8 @@ public.old/
 
 # Names that must never be published (the build checks the showcase against this list)
 content/confidential_names.txt
+
+# Local draft preview (cms/build.py --preview)
+/preview/
+/preview.building/
+/preview.old/

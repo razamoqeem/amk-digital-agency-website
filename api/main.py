@@ -733,5 +733,7 @@ def config_js(request: Request):
     return Response("window.AMK_SITE = " + json.dumps(settings) + ";\n", media_type="application/javascript")
 
 
-if (ROOT / "public").is_dir():
-    app.mount("/", StaticFiles(directory=ROOT / "public", html=True), name="site")
+# SITE_DIR=preview serves the draft preview built by `cms/build.py --preview` (local review only).
+SITE_DIR = ROOT / ("preview" if os.getenv("SITE_DIR", "").strip() == "preview" else "public")
+if SITE_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=SITE_DIR, html=True), name="site")

@@ -68,7 +68,8 @@
     "js/motion.js",
     "js/site-nav.js",
     "js/contact.js",
-    "js/site-fx.js"
+    "js/site-fx.js",
+    "js/article.js"
   ],
   "legacy_sitemap_paths": [
     "/tools/free-tools.html",
@@ -115,7 +116,8 @@
   "social": [
     {
       "label": "LinkedIn",
-      "url": "https://www.linkedin.com/in/ahmad-raza-5000341ab/"
+      "url": "https://www.linkedin.com/in/ahmad-raza-5000341ab/",
+      "platform": "linkedin"
     }
   ]
 }

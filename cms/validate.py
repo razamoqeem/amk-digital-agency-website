@@ -7,6 +7,7 @@ warnings are shown but do not block.
 import re
 
 from sanitize import plain_text, safe_href
+import articles
 
 # "about-us" or one folder deep: "docs/seo-starter-guide". The slug "home" is the front page (/).
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*(?:/[a-z0-9]+(?:-[a-z0-9]+)*)?$")
@@ -17,7 +18,7 @@ def page_url_path(slug: str) -> str:
     """Public path of a page: "/" for the front page, otherwise "/<slug>/"."""
     return "/" if slug == HOME_SLUG else "/%s/" % slug
 RESERVED_SLUGS = {"assets", "tools", "css", "js", "api", "cms", "content", "templates", "public", "index", "404"}
-BLOCK_TYPES = {"heading", "paragraph", "list", "image", "button", "faq", "tool-embed"}
+BLOCK_TYPES = {"heading", "paragraph", "list", "image", "button", "faq", "tool-embed"} | articles.RICH_BLOCKS
 SCHEMA_TYPES = {"Organization", "WebSite", "Article", "FAQ", "BreadcrumbList"}
 TOOL_EMBEDS = {"title-generator"}
 
@@ -155,6 +156,8 @@ def validate_page(page: dict, settings: dict, other_slugs=()) -> tuple:
         elif kind == "faq":
             if not (block.get("question") or "").strip() or not plain_text(block.get("answer", "")):
                 errors.append("%s: FAQ needs a question and an answer." % where)
+        elif kind in articles.RICH_BLOCKS:
+            errors += ["%s: %s." % (where, e) for e in articles.validate_block(block)]
         elif kind == "tool-embed":
             if block.get("tool") not in TOOL_EMBEDS:
                 errors.append("%s: unknown tool." % where)
@@ -171,6 +174,21 @@ def validate_page(page: dict, settings: dict, other_slugs=()) -> tuple:
             ratio = contrast_ratio("#ffffff", colours[colour])
             if ratio < 4.5:
                 warnings.append("%s: white button text on this colour has contrast %.2f:1; needs 4.5:1." % (where, ratio))
+
+    # ── Blog articles ──
+    if slug.startswith("blog/"):
+        info = page.get("article") or {}
+        if not info.get("category"):
+            errors.append("An article needs a category.")
+        if info.get("section") not in articles.SECTIONS:
+            errors.append("An article section must be one of: %s." % ", ".join(articles.SECTIONS))
+        for key in ("published", "updated"):
+            if info.get(key) and not re.match(r"^\d{4}-\d{2}-\d{2}$", str(info[key])):
+                errors.append("Article %s date must look like 2026-11-18." % key)
+        if not info.get("published"):
+            errors.append("An article needs a published date.")
+        if not info.get("draft_reviewed") and not page.get("draft"):
+            warnings.append("Article is published without the owner review flag (article.draft_reviewed).")
 
     if blocks and h1_count != 1:
         errors.append("The page must have exactly one H1 heading (found %d)." % h1_count)

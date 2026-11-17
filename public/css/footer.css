@@ -65,10 +65,17 @@
 .amk-social { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--space-md, 16px); }
 .amk-social li { margin: 0; }
 .amk-footer .amk-social a {
-  display: inline-flex; align-items: center; min-height: 36px; padding: 6px 14px;
-  border: 1px solid var(--f-line); border-radius: var(--theme-radius-full, 999px); color: var(--f-text);
+  display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0;
+  border: 1px solid var(--f-line); border-radius: 50%; color: var(--f-text);
+  transition: transform .2s ease, border-color .2s ease, color .2s ease;
 }
-.amk-footer .amk-social a:hover, .amk-footer .amk-social a:focus-visible { border-color: var(--f-brand); text-decoration: none; }
+.amk-footer .amk-social a:hover, .amk-footer .amk-social a:focus-visible { transform: translateY(-2px); border-color: currentColor; text-decoration: none; }
+.amk-footer .amk-social a[href*="linkedin.com"]:hover, .amk-footer .amk-social a[href*="linkedin.com"]:focus-visible { color: #0a66c2; }
+.amk-footer .amk-social a[href*="facebook.com"]:hover, .amk-footer .amk-social a[href*="facebook.com"]:focus-visible { color: #1877f2; }
+.amk-footer .amk-social a[href*="instagram.com"]:hover, .amk-footer .amk-social a[href*="instagram.com"]:focus-visible { color: #e1306c; }
+.amk-footer .amk-social a[href*="youtube.com"]:hover, .amk-footer .amk-social a[href*="youtube.com"]:focus-visible { color: #ff0000; }
+.amk-footer .soc-ic { --icon-on: var(--f-surface); width: 20px; height: 20px; }
+.amk-soc-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .amk-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 .amk-fbottom {

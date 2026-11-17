@@ -87,7 +87,9 @@ def for_page(page, settings, base, url, founder_name, home_slug="home"):
         return tag(nodes)
     trail = []
     if slug.startswith("docs/"):
-        trail.append(("Resources", "/docs/"))
+        trail.append(("Documentation", "/docs/"))
+    elif slug.startswith("blog/"):
+        trail.append(("Blog", "/blog/"))
     trail.append((h1, path))
     page_type = "AboutPage" if slug == "company" else "WebPage"
     extra = {"breadcrumb": {"@id": url + "#breadcrumb"}}
@@ -97,7 +99,20 @@ def for_page(page, settings, base, url, founder_name, home_slug="home"):
     crumbs = breadcrumbs(base, trail)
     crumbs["@id"] = url + "#breadcrumb"
     nodes.append(crumbs)
-    if "Article" in kinds:
+    info = page.get("article") or {}
+    if slug.startswith("blog/"):
+        post = {"@type": "BlogPosting", "@id": url + "#article", "headline": h1, "description": page.get("description", ""),
+                "mainEntityOfPage": {"@id": url + "#webpage"}, "publisher": {"@id": base + ORG},
+                "inLanguage": settings.get("language", "en"), "author": {"@id": base + ORG}}
+        if info.get("published"):
+            post["datePublished"] = info["published"]
+            post["dateModified"] = info.get("updated") or info["published"]
+        if info.get("category"):
+            post["articleSection"] = info["category"]
+        if info.get("tags"):
+            post["keywords"] = ", ".join(info["tags"])
+        nodes.append(post)
+    elif "Article" in kinds:
         art = {"@type": "TechArticle", "@id": url + "#article", "headline": h1, "description": page.get("description", ""),
                "mainEntityOfPage": {"@id": url + "#webpage"}, "publisher": {"@id": base + ORG}, "isPartOf": {"@type": "CollectionPage", "@id": base + "/docs/#webpage", "url": base + "/docs/", "name": "Resources"},
                "inLanguage": settings.get("language", "en")}

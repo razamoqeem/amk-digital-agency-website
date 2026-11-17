@@ -1,0 +1,158 @@
+{
+  "slug": "blog/meta-descriptions-guide",
+  "title": "Meta Descriptions: How to Write Them | AMK Digital Agency",
+  "description": "How Google chooses the snippet under a result, when it uses your meta description, and how to write unique descriptions that help people choose.",
+  "draft": true,
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "SEO",
+    "category": "On-Page SEO",
+    "summary": "The meta description can become the short text under your result. Learn when Google uses it and how to write one that helps people decide to click.",
+    "tags": [
+      "meta description",
+      "snippets",
+      "on-page SEO"
+    ],
+    "published": "2026-11-18",
+    "updated": "2026-11-18",
+    "author": "AMK Digital Agency",
+    "featured": false,
+    "related_tools": [
+      "meta-tags"
+    ],
+    "takeaways": [
+      "Google mainly builds snippets from the page content, and uses your meta description when it describes the page better.",
+      "There is no length limit; long descriptions are shortened to fit the screen.",
+      "Write a unique description for each important page, starting with your key pages."
+    ],
+    "checked": "2026-11-18"
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Meta descriptions: what they do and how to write them"
+    },
+    {
+      "type": "paragraph",
+      "html": "A meta description is a short summary inside the page's code: <code>&lt;meta name=\"description\" content=\"…\"&gt;</code>. Visitors do not see it on the page itself, but search engines can show it as the snippet under your result."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How Google chooses the snippet"
+    },
+    {
+      "type": "paragraph",
+      "html": "Google creates snippets automatically. The page's own content is the main source. Google may use the meta description instead when it gives a better summary of the page than the text on the page does."
+    },
+    {
+      "type": "table",
+      "caption": "Where the snippet comes from",
+      "headers": [
+        "Situation",
+        "Likely snippet source"
+      ],
+      "rows": [
+        [
+          "The meta description accurately summarises the page",
+          "Often the meta description"
+        ],
+        [
+          "The meta description is missing",
+          "Text taken from the page"
+        ],
+        [
+          "The meta description is vague or repeated on many pages",
+          "Text taken from the page"
+        ],
+        [
+          "The search is about one specific detail on the page",
+          "The part of the page that matches the search"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Length"
+    },
+    {
+      "type": "paragraph",
+      "html": "There is no limit on how long a meta description can be. In results, snippets are shortened as needed, usually to fit the device width. Keep the most useful information at the start so it is still visible after shortening."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How to write a good meta description"
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Summarise the page honestly",
+          "html": "Say what the visitor will find: the topic, the format and who it is for."
+        },
+        {
+          "title": "Include useful specifics",
+          "html": "Facts such as a price range, opening hours, a product's key feature or the steps covered."
+        },
+        {
+          "title": "Make it unique",
+          "html": "Avoid one generic description copied across many pages. If you have many pages, start with the most important ones."
+        },
+        {
+          "title": "Read it as a searcher",
+          "html": "Would this sentence help you choose between results?"
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "tip",
+      "html": "If a site has thousands of similar pages, such as product pages, descriptions can often be generated from each page's own data (name, key details, price) so every one is different and accurate."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Common mistakes"
+    },
+    {
+      "type": "checklist",
+      "items": [
+        "The same description on many pages",
+        "A list of keywords instead of a sentence",
+        "A description that does not match the page",
+        "No description on the most important pages"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "html": "Check any page with our free <a href=\"/tools/meta-tags.html\">Meta Tag Analyser</a>: it shows the description, its length and a search result preview."
+    },
+    {
+      "type": "faq",
+      "question": "Will Google always show my meta description?",
+      "answer": "No. Google chooses the snippet for each search and may use text from the page instead, especially when the search is about a specific detail."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "Control your snippets in search results",
+          "url": "https://developers.google.com/search/docs/appearance/snippet",
+          "publisher": "Google Search Central"
+        }
+      ]
+    }
+  ]
+}

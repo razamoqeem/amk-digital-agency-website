@@ -1,0 +1,188 @@
+{
+  "slug": "blog/how-to-write-title-tags",
+  "title": "How to Write Title Tags | AMK Digital Agency",
+  "description": "What a title tag does, where Google gets the title link it shows, and a simple method for writing clear, unique page titles.",
+  "draft": true,
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "SEO",
+    "category": "On-Page SEO",
+    "summary": "The title tag is often the first thing a searcher reads. Here is how Google uses it and how to write one that is clear, unique and worth clicking.",
+    "tags": [
+      "title tag",
+      "on-page SEO",
+      "search results"
+    ],
+    "published": "2026-11-18",
+    "updated": "2026-11-18",
+    "author": "AMK Digital Agency",
+    "featured": true,
+    "related_tools": [
+      "meta-tags"
+    ],
+    "takeaways": [
+      "Every page needs its own clear, descriptive <code>&lt;title&gt;</code>.",
+      "Google can show a different title link if yours is unclear, stuffed or repeated.",
+      "There is no fixed character limit; long titles are shortened to fit the screen, so put the key words first."
+    ],
+    "checked": "2026-11-18"
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "How to write title tags that get clicked"
+    },
+    {
+      "type": "paragraph",
+      "html": "The title tag is the <code>&lt;title&gt;</code> element in a page's code. Browsers show it on the tab, and search engines often use it as the clickable headline in their results. A good title tells people what the page is about before they click."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Where Google gets the title it shows"
+    },
+    {
+      "type": "paragraph",
+      "html": "Google calls the headline in its results a <em>title link</em>. It is generated automatically. The page's <code>&lt;title&gt;</code> element is one of its sources, but Google can also use the main visible title on the page, other headings, the <code>og:title</code> tag, and the text of links pointing to the page."
+    },
+    {
+      "type": "flow",
+      "items": [
+        "Your <title> tag",
+        "Main heading and other text",
+        "Google's title link"
+      ],
+      "caption": "Google builds the title link from several sources on and around the page."
+    },
+    {
+      "type": "callout",
+      "kind": "note",
+      "html": "Because the title link is generated, you cannot force a particular title. You can make your <code>&lt;title&gt;</code> the clearest option, which makes it the most likely one to be used."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What makes a good title"
+    },
+    {
+      "type": "table",
+      "caption": "Good and weak title patterns",
+      "headers": [
+        "Do",
+        "Avoid",
+        "Why"
+      ],
+      "rows": [
+        [
+          "Describe the page in plain words",
+          "Vague titles such as \"Home\" or \"Untitled\"",
+          "Searchers need to know what they will find"
+        ],
+        [
+          "Write a different title for every page",
+          "The same title on many pages",
+          "Repeated titles make pages hard to tell apart"
+        ],
+        [
+          "Keep it concise",
+          "Long lists of keywords",
+          "Keyword stuffing reads badly and can be rewritten by Google"
+        ],
+        [
+          "Add your brand once, briefly",
+          "Long repeated boilerplate on every title",
+          "Boilerplate pushes the useful words out of view"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How long should a title be?"
+    },
+    {
+      "type": "paragraph",
+      "html": "Google has no fixed limit on the length of a <code>&lt;title&gt;</code> element. In results, a title link is shortened as needed, usually to fit the width of the device. In practice, a title that is too long loses its last words, so put the most important words at the start."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "A simple method"
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Name the topic",
+          "html": "Start with the main subject of the page, in the words your visitors use."
+        },
+        {
+          "title": "Add what makes the page useful",
+          "html": "A benefit, a format or a detail: \"guide\", \"price list\", \"for beginners\", a place name."
+        },
+        {
+          "title": "Add your brand if there is room",
+          "html": "Usually at the end, separated by a short divider such as <code>|</code> or <code>-</code>."
+        },
+        {
+          "title": "Check it",
+          "html": "Read it as a searcher would. Is it clear, specific and different from your other pages?"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Check your titles"
+    },
+    {
+      "type": "checklist",
+      "items": [
+        "Every page has exactly one <code>&lt;title&gt;</code> element",
+        "No two important pages share the same title",
+        "The main topic appears near the start",
+        "The title matches what the page actually offers",
+        "No lists of repeated keywords"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "html": "Our free <a href=\"/tools/meta-tags.html\">Meta Tag Analyser</a> shows a page's title, its length, and a preview of how it can look in search results."
+    },
+    {
+      "type": "faq",
+      "question": "Does changing a title guarantee a new headline in Google?",
+      "answer": "No. Google generates the title link and may choose other text from the page. A clear, accurate title makes it more likely that your own title is used."
+    },
+    {
+      "type": "faq",
+      "question": "Should the title and the H1 be the same?",
+      "answer": "They do not have to be identical, but they should describe the same topic. Google may use the main heading as a source, so a heading that matches the page's purpose helps."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "Influencing your title links in search results",
+          "url": "https://developers.google.com/search/docs/appearance/title-link",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "SEO Starter Guide",
+          "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+          "publisher": "Google Search Central"
+        }
+      ]
+    }
+  ]
+}
