@@ -143,5 +143,9 @@
       "googleb8acbb97bde79fcc"
     ],
     "meta": []
+  },
+  "indexnow": {
+    "_help": "IndexNow key (public by design: search engines read it at /<key>.txt). Used by scripts/indexnow.py to tell Bing, Yandex and other IndexNow engines about new or changed pages. Google does not use IndexNow.",
+    "key": "e47417deec80e53154f439e860d5bc3c"
   }
 }

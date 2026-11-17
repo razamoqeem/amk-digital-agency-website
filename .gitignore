@@ -61,3 +61,6 @@ content/confidential_names.txt
 /preview/
 /preview.building/
 /preview.old/
+
+# IndexNow: which sitemap dates were already sent (local)
+.indexnow-state.json

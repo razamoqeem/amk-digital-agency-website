@@ -688,6 +688,11 @@ def build() -> dict:
         robots += ["", "Sitemap: %s/sitemap.xml" % base]
     write("robots.txt", "\n".join(robots) + "\n")
 
+    # IndexNow key file (public by design), from content/settings.json "indexnow".
+    inow = str((settings.get("indexnow", {}) or {}).get("key", ""))
+    if re.fullmatch(r"[a-f0-9]{32}", inow):
+        write(inow + ".txt", inow)
+
     # Google Search Console verification, from content/settings.json "search_console".
     # To remove it: delete the entry there, rebuild, commit, push.
     gsc = settings.get("search_console", {}) or {}
@@ -763,6 +768,30 @@ def build() -> dict:
     headers_txt, redirects_txt, vercel = host_files(pages, redirects, (["/showcase/"] if show_live else []) + ["/contact/", "/blog/", "/resources/"])
     write("_headers", headers_txt)
     write("_redirects", redirects_txt)
+
+    # Address guard: a page that was ever published must keep its address, or get a redirect.
+    # content/url-registry.json remembers every indexable address; it only grows.
+    if not PREVIEW:
+        registry_file = os.path.join(CONTENT, "url-registry.json")
+        registry = read_json(registry_file, {"paths": []})
+        redirected = {r["from"] for r in redirects}
+
+        def built(path):
+            rel = path.lstrip("/")
+            return (os.path.isfile(os.path.join(staging, rel)) or
+                    os.path.isfile(os.path.join(staging, rel, "index.html")) or path == "/")
+        lost = [p for p in registry.get("paths", []) if not built(p) and p not in redirected]
+        if lost:
+            report["errors"].append(
+                "These published addresses would disappear: %s. Keep the old slug, or add a 301 redirect for each "
+                "in content/redirects.json (from the old address to the new one)." % ", ".join(lost))
+            shutil.rmtree(staging, ignore_errors=True)
+            return report
+        if base:
+            now = sorted(set(registry.get("paths", [])) | set(paths))
+            if now != registry.get("paths"):
+                write_json(registry_file, {"_help": "Every address the site has published. Built by cms/build.py; do not "
+                                                    "remove entries. A removed or renamed page needs a redirect.", "paths": now})
 
     # swap in the new build only now that everything succeeded
     old = PUBLIC + ".old"
