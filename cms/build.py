@@ -401,8 +401,9 @@ def host_files(pages, redirects, extra_paths=()):
                       for r in redirects],
         "rewrites": [{"source": src, "destination": dst} for src, dst in REWRITES],
         "functions": {
-            "api/*.js": {"maxDuration": 30},
-            "api/chat.js": {"maxDuration": 30, "includeFiles": "AGENCY_CONTEXT.md"},
+            # One rule only: Vercel refuses two rules that match the same file (api/chat.js).
+            # The chat reads AGENCY_CONTEXT.md, so every function carries that small file.
+            "api/*.js": {"maxDuration": 30, "includeFiles": "AGENCY_CONTEXT.md"},
         },
         "headers": [{"source": "/(.*)", "headers": [{"key": k, "value": v} for k, v in BASE_HEADERS]}] +
                    [{"source": path, "headers": [{"key": "Content-Security-Policy", "value": STRICT_CSP}]}

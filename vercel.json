@@ -58,9 +58,6 @@
   ],
   "functions": {
     "api/*.js": {
-      "maxDuration": 30
-    },
-    "api/chat.js": {
       "maxDuration": 30,
       "includeFiles": "AGENCY_CONTEXT.md"
     }
