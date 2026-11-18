@@ -138,7 +138,7 @@
       "platform": "linkedin"
     }
   ],
-  "site_url": "https://amk-digital-agency-website.vercel.app",
+  "site_url": "https://kivoreach.vercel.app",
   "search_console": {
     "_help": "Google Search Console verification. To remove: delete the entry, rebuild, commit, push. files = HTML-file method (the file name without .html); meta = the content value of a google-site-verification meta tag.",
     "files": [
