@@ -312,6 +312,30 @@ def _css_source(staging, web_path):
     return URL_RE.sub(fix_url, text), outside
 
 
+def minify_css(css):
+    """Safe, small minifier: drops comments and extra spaces. Quoted strings are kept exactly as written."""
+    out, keep, i, n = [], [], 0, len(css)
+    while i < n:
+        c = css[i]
+        if c in "\"'":
+            j = i + 1
+            while j < n and css[j] != c:
+                j += 2 if css[j] == "\\" else 1
+            keep.append(css[i:j + 1])
+            out.append("\x00%d\x00" % (len(keep) - 1))
+            i = j + 1
+        elif css.startswith("/*", i):
+            j = css.find("*/", i + 2)
+            i = n if j < 0 else j + 2
+        else:
+            out.append(c)
+            i += 1
+    text = re.sub(r"\s+", " ", "".join(out))
+    text = re.sub(r"\s*([{};,>])\s*", r"\1", text)
+    text = text.replace(";}", "}").strip()
+    return re.sub(r"\x00(\d+)\x00", lambda m: keep[int(m.group(1))], text)
+
+
 def bundle_page(html, staging, made):
     """Replace a page's local stylesheets with one bundle and its early head scripts with one script.
     Bundles are named by their content, so they can be cached for a year."""
@@ -331,7 +355,7 @@ def bundle_page(html, staging, made):
             css, more = _css_source(staging, path)
             parts.append("/* %s */\n%s" % (path, css))
             outside += [o for o in more if o not in outside]
-        css = "\n".join(outside) + ("\n" if outside else "") + "\n".join(parts)
+        css = minify_css("\n".join(outside) + ("\n" if outside else "") + "\n".join(parts))
         name = "/assets/b/%s.css" % hashlib.sha256(css.encode()).hexdigest()[:12]
         if name not in made:
             os.makedirs(os.path.join(staging, "assets", "b"), exist_ok=True)
@@ -349,21 +373,41 @@ def bundle_page(html, staging, made):
             return ""
         head = CSS_LINK_RE.sub(swap, head)
 
-    js_paths = HEAD_JS_RE.findall(head)
-    if len(js_paths) > 1:
-        js = "\n;\n".join("/* %s */\n%s" % (p, open(os.path.join(staging, p.lstrip("/")), encoding="utf-8").read())
-                          for p in dict.fromkeys(js_paths) if os.path.isfile(os.path.join(staging, p.lstrip("/"))))
-        name = "/assets/b/%s.js" % hashlib.sha256(js.encode()).hexdigest()[:12]
-        if name not in made:
-            os.makedirs(os.path.join(staging, "assets", "b"), exist_ok=True)
-            open(os.path.join(staging, name.lstrip("/")), "w", encoding="utf-8", newline="\n").write(js)
-            made.add(name)
+    # Head scripts: only what must run before the page paints stays blocking (the theme, and the flag that
+    # switches animations on). The menu and the animation code itself are deferred.
+    js_paths = list(dict.fromkeys(HEAD_JS_RE.findall(head)))
+    if js_paths:
+        def read(p):
+            src = os.path.join(staging, p.lstrip("/"))
+            if not os.path.isfile(src):
+                src = os.path.join(ROOT, p.lstrip("/"))
+            return open(src, encoding="utf-8").read() if os.path.isfile(src) else None
+
+        def bundle(paths):
+            parts = [(p, read(p)) for p in paths]
+            js = "\n;\n".join("/* %s */\n%s" % (p, t) for p, t in parts if t is not None)
+            name = "/assets/b/%s.js" % hashlib.sha256(js.encode()).hexdigest()[:12]
+            if name not in made:
+                os.makedirs(os.path.join(staging, "assets", "b"), exist_ok=True)
+                open(os.path.join(staging, name.lstrip("/")), "w", encoding="utf-8", newline="\n").write(js)
+                made.add(name)
+            return name
+
+        early = [p for p in js_paths if p == "/js/theme-engine.js"]
+        if "/js/motion.js" in js_paths:
+            early.append("/js/motion-early.js")
+        later = [p for p in js_paths if p != "/js/theme-engine.js"]
+        tags = ""
+        if early:
+            tags += '  <script src="%s"></script>\n' % bundle(early)
+        if later:
+            tags += '  <script src="%s" defer></script>\n' % bundle(later)
         first = [True]
 
         def swap_js(m):
             if first[0]:
                 first[0] = False
-                return '  <script src="%s"></script>\n' % name
+                return tags
             return ""
         head = HEAD_JS_RE.sub(swap_js, head)
     return head + rest
@@ -627,7 +671,7 @@ def host_files(pages, redirects, extra_paths=()):
                     {"source": "/v1/(.*)", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"},
                                                        {"key": "Cache-Control", "value": "no-store"}]},
                     {"source": "/assets/b/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
-                    {"source": "/assets/fonts/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=604800"}]}],
+                    {"source": "/assets/fonts/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000"}]}],
     }
     return "\n".join(headers_txt) + "\n", "\n".join(redirects_txt) + "\n", vercel
 
