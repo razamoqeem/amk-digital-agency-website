@@ -29,7 +29,7 @@ PORT = 8090
 ALLOWED_HOSTS = {"127.0.0.1:%d" % PORT, "localhost:%d" % PORT}
 ALLOWED_ORIGINS = {"http://127.0.0.1:%d" % PORT, "http://localhost:%d" % PORT}
 
-app = FastAPI(title="AMK Digital Agency Website CMS", docs_url=None, redoc_url=None, openapi_url=None)
+app = FastAPI(title="KivoReach Website CMS", docs_url=None, redoc_url=None, openapi_url=None)
 
 
 @app.middleware("http")

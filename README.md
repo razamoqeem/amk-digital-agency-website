@@ -1,6 +1,6 @@
-# AMK Digital Agency Website
+# KivoReach Website
 
-The public website of AMK Digital Agency: marketing pages, documentation, resources and free SEO tools.
+The public website of KivoReach: marketing pages, documentation, resources and free SEO tools.
 
 **Status: Beta / Preview. Being rebuilt. Not deployed.**
 
@@ -79,7 +79,7 @@ Open `http://localhost:8080`. Redirects and security headers only take effect on
 
 ## Rules
 
-- Branding: "AMK Digital Agency" only.
+- Branding: "KivoReach" only.
 - No invented numbers, prices, testimonials or guarantees. Unknown values are written `[TO BE CONFIRMED]`.
 - No secrets in this repository. Copy `.env.example` to `.env` for local values.
 - Never hard-code a domain. Use `SITE_URL`, `APP_URL`, `API_URL` from config.

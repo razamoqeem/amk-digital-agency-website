@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: motion layer (scroll reveal, hero glow, progress bar, hover depth).
+/* KivoReach Website: motion layer (scroll reveal, hero glow, progress bar, hover depth).
    Colours from css/theme.css. Nothing here hides content unless js/motion.js has switched motion on
    (class "mx" on <html>), so pages stay readable without scripts, for search engines, and for visitors
    who ask for reduced motion. No inline styles: the strict page policy allows this file.

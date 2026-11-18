@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: small HTML reader (no dependencies).
+/* KivoReach Website: small HTML reader (no dependencies).
    It only extracts what the SEO checks need. It never runs or renders the page,
    and every value it returns is plain text. */
 

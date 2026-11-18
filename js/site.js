@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website — page behaviour.
+/* KivoReach Website — page behaviour.
    This file replaces the App scripts the pages used to load. The Website has
    no accounts and no sign-in: those live in the App (address from js/config.js). */
 (function () {

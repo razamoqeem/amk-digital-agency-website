@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: domain age, domain rank and the overview report.
+/* KivoReach Website: domain age, domain rank and the overview report.
    Age comes from RDAP, the registries' official JSON service (works on Vercel, unlike port-43 WHOIS).
    Rank comes from Open PageRank and needs OPEN_PAGERANK_KEY. Nothing is estimated or adjusted. */
 const dns = require('dns').promises;
@@ -10,7 +10,7 @@ const { ToolError, crawl, checkedUrl } = require('./analyze');
 const IANA_LIST = 'https://data.iana.org/rdap/dns.json';
 const RANK_ENDPOINT = 'https://openpagerank.keywordseverywhere.com/v1/domains/bulk';
 const DOMAIN_RE = /^(?=.{4,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z][a-z0-9-]{1,62}$/;
-const RDAP_HEADERS = { Accept: 'application/rdap+json, application/json', 'User-Agent': 'AMK-Domain-Age/2.0' };
+const RDAP_HEADERS = { Accept: 'application/rdap+json, application/json', 'User-Agent': 'KivoReach-Domain-Age/2.0' };
 
 function cleanDomain(text) {
   let d = String(text || '').trim().toLowerCase();

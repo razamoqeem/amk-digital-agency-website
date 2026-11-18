@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: Contact page form. Sends to the existing secure request endpoint (/v1/leads),
+/* KivoReach Website: Contact page form. Sends to the existing secure request endpoint (/v1/leads),
    with the bot check when it is switched on. All feedback is plain text. */
 (function () {
   'use strict';

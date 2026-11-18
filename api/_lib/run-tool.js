@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: the shared path every tool request takes.
+/* KivoReach Website: the shared path every tool request takes.
    Order: front door (method, same-origin, rate limit, JSON) > saved result > bot check >
    visitor allowance > network allowance > daily budget > the real work > count. */
 const crypto = require('crypto');

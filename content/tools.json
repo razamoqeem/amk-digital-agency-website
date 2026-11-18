@@ -2,6 +2,7 @@
   "groups": [
     {
       "name": "Whole Website & Domain Audits",
+      "family": "Site Scan",
       "tools": [
         "domain-overview",
         "website-comparison",
@@ -12,6 +13,7 @@
     },
     {
       "name": "Single-Page SEO Analyzers",
+      "family": "Page Check",
       "tools": [
         "meta-tags",
         "headings",
@@ -24,6 +26,7 @@
     },
     {
       "name": "AI & Content Tools",
+      "family": "Content Lab",
       "tools": [
         "title-generator"
       ]
@@ -59,7 +62,7 @@
       "name": "Meta Tag Analyser",
       "button": "Check meta tags",
       "placeholder": "https://example.com/page",
-      "title": "Free Meta Tag Checker | AMK Digital Agency",
+      "title": "Free Meta Tag Checker | KivoReach",
       "description": "Free meta tag checker. See a page's title, meta description, canonical, robots and social preview tags, with lengths and a search result preview.",
       "summary": "Title, description, canonical, robots and social tags, with a search result preview.",
       "intro": "Enter a page address to see the tags that search engines and social networks read, and whether their lengths fit.",
@@ -75,7 +78,7 @@
       "name": "Heading Checker",
       "button": "Check headings",
       "placeholder": "https://example.com/page",
-      "title": "H1, H2, H3 Heading Checker | AMK Digital Agency",
+      "title": "H1, H2, H3 Heading Checker | KivoReach",
       "description": "Free H1, H2 and H3 heading checker. See the full H1 to H6 outline of a page and find a missing H1, extra H1s or skipped levels.",
       "summary": "The full H1 to H6 outline of a page and any structure problems.",
       "intro": "Enter a page address to see its headings in order, the way a search engine or screen reader meets them.",
@@ -90,7 +93,7 @@
       "name": "Image and Alt Text Checker",
       "button": "Check images",
       "placeholder": "https://example.com/page",
-      "title": "Image Alt Text Checker | AMK Digital Agency",
+      "title": "Image Alt Text Checker | KivoReach",
       "description": "Free image SEO checker. List the images on a page that have no alt text, an empty alt text or no width and height set.",
       "summary": "Which images have no text description or no size set.",
       "intro": "Enter a page address to list its images and find the ones search engines and screen readers cannot understand.",
@@ -105,7 +108,7 @@
       "name": "Link Checker",
       "button": "Check links",
       "placeholder": "https://example.com/page",
-      "title": "Broken Link Checker for Any Page | AMK Digital Agency",
+      "title": "Broken Link Checker for Any Page | KivoReach",
       "description": "Free link checker. Count the internal and external links on a page and test up to 40 of them to find broken ones.",
       "summary": "Internal and external links on a page, with a broken-link test.",
       "intro": "Enter a page address. We count its links and test up to 40 of them, internal links first. This can take up to 30 seconds.",
@@ -120,7 +123,7 @@
       "name": "Redirect and Status Checker",
       "button": "Check address",
       "placeholder": "http://example.com",
-      "title": "Redirect Chain and Status Code Checker | AMK Digital Agency",
+      "title": "Redirect Chain and Status Code Checker | KivoReach",
       "description": "Free redirect checker. Follow an address hop by hop and see every status code until the final page, including the move from http to https.",
       "summary": "Every redirect hop and status code from the typed address to the final page.",
       "intro": "Enter any address, with http or https, to follow it step by step to the final page.",
@@ -135,7 +138,7 @@
       "name": "Robots.txt and Sitemap Checker",
       "button": "Check site",
       "placeholder": "https://example.com",
-      "title": "Robots.txt and Sitemap Checker | AMK Digital Agency",
+      "title": "Robots.txt and Sitemap Checker | KivoReach",
       "description": "Free robots.txt and sitemap checker. See the crawl rules a site gives to search engines, the sitemaps it lists and how many addresses they hold.",
       "summary": "The crawl rules a site gives search engines, and its XML sitemaps.",
       "intro": "Enter a website address to read its robots.txt file and its XML sitemaps.",
@@ -150,7 +153,7 @@
       "name": "SSL Checker",
       "button": "Check certificate",
       "placeholder": "https://example.com",
-      "title": "SSL Certificate Checker | AMK Digital Agency",
+      "title": "SSL Certificate Checker | KivoReach",
       "description": "Free SSL checker. See whether a site's security certificate is valid, who issued it, which names it covers and how many days are left.",
       "summary": "Whether the security certificate is valid, who issued it and when it ends.",
       "intro": "Enter a website address to check the certificate that makes its https connection secure.",
@@ -166,7 +169,7 @@
       "name": "Schema and Open Graph Checker",
       "button": "Check page",
       "placeholder": "https://example.com/page",
-      "title": "Schema and Open Graph Checker | AMK Digital Agency",
+      "title": "Schema and Open Graph Checker | KivoReach",
       "description": "Free schema markup checker: see which structured data types a page declares for rich results, any errors in them, and its Open Graph tags.",
       "summary": "Structured data types on a page, errors in them, and social preview tags.",
       "intro": "Enter a page address to see the structured data and social preview tags it declares.",
@@ -181,7 +184,7 @@
       "name": "Keyword Density and Readability Checker",
       "button": "Check text",
       "placeholder": "https://example.com/page",
-      "title": "Keyword Density Checker | AMK Digital Agency",
+      "title": "Keyword Density Checker | KivoReach",
       "description": "Free keyword density checker. See the most used words and two-word phrases on a page, the word count and a reading ease score for English text.",
       "summary": "Most used words and phrases on a page, word count and reading ease.",
       "intro": "Enter a page address to count its words and see which words and phrases it uses most.",
@@ -197,7 +200,7 @@
       "name": "Website Technology Checker",
       "button": "Check technology",
       "placeholder": "https://example.com",
-      "title": "Website Technology Checker | AMK Digital Agency",
+      "title": "Website Technology Checker | KivoReach",
       "description": "Free website technology checker. See the systems a site can be recognised as using, its server software and which security headers it sets.",
       "summary": "Systems a site is recognisably built with, its server and security headers.",
       "intro": "Enter a website address to see what can be recognised about how it is built.",

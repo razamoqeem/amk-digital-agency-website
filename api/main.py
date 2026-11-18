@@ -1,5 +1,5 @@
 """
-AMK Digital Agency Website: tools service.
+KivoReach Website: tools service.
 
 Real tools (SEO audit, site scan, domain age, and domain rank when a key is set)
 behind a free-use limit:
@@ -123,7 +123,7 @@ def keyed_hash(kind: str, value: str) -> str:
     return hmac.new(SECRET, f"{kind}:{value}".encode(), hashlib.sha256).hexdigest()[:40]
 
 
-app = FastAPI(title="AMK Digital Agency Website tools", docs_url=None, redoc_url=None, openapi_url=None)
+app = FastAPI(title="KivoReach Website tools", docs_url=None, redoc_url=None, openapi_url=None)
 
 _origins = [o.strip().rstrip("/") for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
 if _origins:

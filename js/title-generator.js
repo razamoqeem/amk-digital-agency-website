@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website — title generator.
+/* KivoReach Website — title generator.
    Runs fully in the browser: fixed sentence patterns filled with the visitor's
    keyword. No AI, no server, no limit. Returns plain text; callers must insert
    it with textContent (never innerHTML). */

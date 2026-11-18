@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: owner-only deployment check (served at /api/health).
+/* KivoReach Website: owner-only deployment check (served at /api/health).
 
    Purpose: after you add environment variables in Vercel and redeploy, this tells you, from the real
    deployed function, which settings it can see, whether the chat can read AGENCY_CONTEXT.md, whether the

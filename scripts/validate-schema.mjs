@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* AMK Digital Agency Website: check the structured data (JSON-LD) on every built page. No dependencies.
+/* KivoReach Website: check the structured data (JSON-LD) on every built page. No dependencies.
    Run after a build:  node scripts/validate-schema.mjs [folder]      (default: public)
    Checks: valid JSON, schema.org context, no raw "<", every @id link points to a node that exists,
    one Organization/WebSite per page, breadcrumb positions 1..n, required fields per type, no ratings

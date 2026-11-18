@@ -1,5 +1,5 @@
 /* ============================================================
-   AMK Digital Agency — API.JS
+   KivoReach — API.JS
    fetch() wrappers, polling, contact submission
    ============================================================ */
 

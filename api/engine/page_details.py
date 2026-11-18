@@ -1,5 +1,5 @@
 """
-AMK Digital Agency Website: detailed checks for the single-purpose tools.
+KivoReach Website: detailed checks for the single-purpose tools.
 
 Each function looks at one thing and reports only what it finds:
   page_details()   one fetch of a page: meta tags, headings, images, links, text

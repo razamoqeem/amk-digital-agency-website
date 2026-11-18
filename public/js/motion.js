@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: motion layer (pairs with css/motion.css).
+/* KivoReach Website: motion layer (pairs with css/motion.css).
    Loaded in <head> so the "mx" class is set before the page paints (no flash of content that then hides).
    Content is never hidden when the visitor asks for reduced motion, when IntersectionObserver is missing,
    or when this script does not run: the CSS only hides items under html.mx.

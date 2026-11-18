@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: shared code for the tool pages.
+/* KivoReach Website: shared code for the tool pages.
    Talks to the tools service, shows the free runs left, and shows the email
    step and the "Continue in the App" step when a limit is reached.
    A page needs two elements: #runs-line and #gate-panel. */
@@ -107,7 +107,7 @@
         panel.appendChild(wait);
       }
       if (/^https?:\/\//.test(upgradeUrl || '')) {
-        panel.appendChild(mk('p', 'Do not want to wait? Continue in the AMK Digital Agency App.', 'margin:8px 0 12px; color:var(--text);'));
+        panel.appendChild(mk('p', 'Do not want to wait? Continue in the KivoReach Studio.', 'margin:8px 0 12px; color:var(--text);'));
         const link = mk('a', 'Continue in the App', 'display:inline-block;');
         link.href = upgradeUrl; link.className = 'btn-primary';
         panel.appendChild(link);
@@ -180,12 +180,12 @@
     gate(panel => {
       panel.appendChild(mk('strong', message));
       if (/^https?:\/\//.test(upgradeUrl || '')) {
-        panel.appendChild(mk('p', 'Create an account in the AMK Digital Agency App to keep going.', 'margin:8px 0 12px; color:var(--text);'));
+        panel.appendChild(mk('p', 'Create an account in the KivoReach Studio to keep going.', 'margin:8px 0 12px; color:var(--text);'));
         const link = mk('a', 'Continue in the App', 'display:inline-block;');
         link.href = upgradeUrl; link.className = 'btn-primary';
         panel.appendChild(link);
       } else {
-        panel.appendChild(mk('p', 'The AMK Digital Agency App is not open yet. Please check back soon.', 'margin-top:8px; color:var(--text);'));
+        panel.appendChild(mk('p', 'The KivoReach Studio is not open yet. Please check back soon.', 'margin-top:8px; color:var(--text);'));
       }
     });
   }

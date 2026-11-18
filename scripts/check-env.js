@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: environment preflight.
+/* KivoReach Website: environment preflight.
    Tells you which settings are present or missing. It prints NAMES and a status only, never a value.
 
    Check the settings on your own PC (a .env file):   node scripts/check-env.js --file .env

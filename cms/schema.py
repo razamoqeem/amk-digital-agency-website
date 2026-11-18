@@ -39,6 +39,10 @@ def site_nodes(settings, base, founder_name):
         org["description"] = org_cfg["description"]
     if org_cfg.get("knowsAbout"):
         org["knowsAbout"] = org_cfg["knowsAbout"]
+    if org_cfg.get("alternateName"):  # earlier brand names, so search engines connect them to this one
+        org["alternateName"] = org_cfg["alternateName"]
+    if org_cfg.get("slogan"):
+        org["slogan"] = org_cfg["slogan"]
     nodes = [org, {"@type": "WebSite", "@id": base + SITE, "url": base + "/", "name": name,
                    "publisher": {"@id": base + ORG}, "inLanguage": settings.get("language", "en")}]
     if founder_name:

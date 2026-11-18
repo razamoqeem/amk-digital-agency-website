@@ -1,6 +1,6 @@
 {
   "slug": "blog/robots-txt-and-xml-sitemaps",
-  "title": "robots.txt and XML Sitemaps Explained | AMK Digital Agency",
+  "title": "robots.txt and XML Sitemaps Explained | KivoReach",
   "description": "What robots.txt and XML sitemaps do, the limits Google applies to each, and the common mistake of using robots.txt to hide pages from search.",
   "canonical": "",
   "noindex": false,
@@ -24,7 +24,7 @@
     ],
     "published": "2026-11-18",
     "updated": "2026-11-18",
-    "author": "AMK Digital Agency",
+    "author": "KivoReach",
     "featured": false,
     "related_tools": [
       "robots-sitemap"

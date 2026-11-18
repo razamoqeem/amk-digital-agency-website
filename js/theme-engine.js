@@ -1,5 +1,5 @@
 /* ============================================================
-   AMK Digital Agency — THEME-ENGINE.JS
+   KivoReach — THEME-ENGINE.JS
    Auto / Light / Dark theme. Runs in <head> before the page paints, so there is no flash.
    Auto follows the visitor's clock: light from 06:00, dark from 20:00 (checked again every
    10 minutes). Light or Dark chosen by hand is remembered and overrides Auto.

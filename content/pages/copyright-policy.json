@@ -1,7 +1,7 @@
 {
   "slug": "copyright-policy",
-  "title": "Copyright Policy | AMK Digital Agency",
-  "description": "Who owns the content on the AMK Digital Agency website, how you may use it, how to ask for permission and how to report infringement.",
+  "title": "Copyright Policy | KivoReach",
+  "description": "Who owns the content on the KivoReach website, how you may use it, how to ask for permission and how to report infringement.",
   "draft": true,
   "canonical": "",
   "noindex": false,
@@ -30,7 +30,7 @@
     },
     {
       "type": "paragraph",
-      "html": "© 2026 AMK Digital Agency. All rights reserved. The original text, articles, guides, documentation, graphics, logos, design, software, source code and tools on this website belong to [TO BE CONFIRMED: legal name of the business owner or registered business, and country of registration] or its licensors, unless a page states otherwise."
+      "html": "© 2026 KivoReach. All rights reserved. The original text, articles, guides, documentation, graphics, logos, design, software, source code and tools on this website belong to [TO BE CONFIRMED: legal name of the business owner or registered business, and country of registration] or its licensors, unless a page states otherwise."
     },
     {
       "type": "heading",

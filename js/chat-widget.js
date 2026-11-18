@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: growth assistant chat widget.
+/* KivoReach Website: growth assistant chat widget.
    Shows only when the server says the chat is switched on. All text from the server or the
    visitor is placed with textContent, never as HTML. Model names never reach this file:
    the visitor picks a friendly mode and the server maps it. */
@@ -176,17 +176,17 @@
     el.launcher.setAttribute('aria-expanded', 'false');
     el.launcher.setAttribute('aria-label', 'Open chat assistant');
     el.launcher.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>';
-    el.launcher.appendChild(node('span', '', 'Ask AMK'));
+    el.launcher.appendChild(node('span', '', 'Ask Kivo'));
 
     el.panel = node('section', 'amk-chat-panel');
     el.panel.id = 'amk-chat-panel';
     el.panel.setAttribute('role', 'dialog');
-    el.panel.setAttribute('aria-label', 'AMK Growth Assistant');
+    el.panel.setAttribute('aria-label', 'KivoReach Assistant');
     el.panel.hidden = true;
 
     var head = node('header', 'amk-chat-head');
     var title = node('div', 'amk-chat-title');
-    title.appendChild(node('strong', '', 'AMK Growth Assistant'));
+    title.appendChild(node('strong', '', 'KivoReach Assistant'));
     title.appendChild(node('span', '', 'AI assistant. Answers may be wrong.'));
     var modebar = node('div', 'amk-chat-modebar');
     var selLabel = node('label', '', 'Mode');

@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: safe outbound fetching (no dependencies).
+/* KivoReach Website: safe outbound fetching (no dependencies).
 
    Every request that uses an address typed by a visitor goes through here.
    Protection layers:

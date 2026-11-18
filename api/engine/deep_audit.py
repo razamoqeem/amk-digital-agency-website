@@ -1,5 +1,5 @@
 """
-AMK Digital Agency Website: technical SEO check of one page.
+KivoReach Website: technical SEO check of one page.
 
 Fetches the page, robots.txt, the sitemap and llms.txt, and reports only what it
 actually finds. Uses requests and beautifulsoup4 only: no paid services.

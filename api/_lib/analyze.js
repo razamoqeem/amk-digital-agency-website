@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: the SEO checks (no dependencies).
+/* KivoReach Website: the SEO checks (no dependencies).
    Every value is read from a real response. A page that cannot be read gets an error,
    never an invented score. All outside requests go through safe-fetch.js. */
 const tls = require('tls');

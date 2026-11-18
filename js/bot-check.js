@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: bot check helper (Cloudflare Turnstile).
+/* KivoReach Website: bot check helper (Cloudflare Turnstile).
    Switched on by setting turnstileSiteKey in js/config.js (the site key is public by design;
    the secret key stays on the server). Without a key, window.AMKBot.enabled is false and
    nothing is loaded. Each call to token() gives one fresh, single-use token. */

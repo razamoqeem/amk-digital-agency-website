@@ -8,7 +8,7 @@
       "description": "Educational articles, industry guides, and search insights.",
       "templateKey": "blog",
       "fields": [
-        { "key": "author", "label": "Author Name", "type": "text", "required": true, "default": "AMK Digital Agency" },
+        { "key": "author", "label": "Author Name", "type": "text", "required": true, "default": "KivoReach" },
         { "key": "authorRole", "label": "Author Role", "type": "text", "required": false, "default": "SEO Strategist" },
         { "key": "coverImage", "label": "Cover Image URL", "type": "image", "required": false, "default": "" },
         { "key": "excerpt", "label": "Article Summary / Excerpt", "type": "textarea", "required": true, "default": "" },

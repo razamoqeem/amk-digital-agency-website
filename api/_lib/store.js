@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: small counter store.
+/* KivoReach Website: small counter store.
 
    Counters (daily limits, rate limits) must survive between serverless calls.
    Preferred: a Redis database over HTTPS (Upstash, or Vercel KV which uses the same service).

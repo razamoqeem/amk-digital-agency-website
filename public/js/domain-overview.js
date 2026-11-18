@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: Domain Overview page.
+/* KivoReach Website: Domain Overview page.
    Shows one report from the tools service. Every value is put on the page as
    plain text. A part with no data says why instead of showing a number. */
 (function () {

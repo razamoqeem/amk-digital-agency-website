@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: result layouts for the single-purpose tool pages.
+/* KivoReach Website: result layouts for the single-purpose tool pages.
    Each tool has its own layout below. Values are placed as plain text only. */
 (function () {
   'use strict';

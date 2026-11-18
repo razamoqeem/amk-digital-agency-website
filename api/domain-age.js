@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: domain age from RDAP (served at /v1/tools/domain-age). */
+/* KivoReach Website: domain age from RDAP (served at /v1/tools/domain-age). */
 const guard = require('./_lib/guard');
 const { runTool } = require('./_lib/run-tool');
 const { ToolError } = require('./_lib/analyze');

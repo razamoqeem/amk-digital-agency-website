@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: free-audit / invite request form (served at /v1/leads and /api/lead).
+/* KivoReach Website: free-audit / invite request form (served at /v1/leads and /api/lead).
 
    Where the request goes (the owner chooses one, both are private to the owner):
      LEAD_WEBHOOK_URL  an https address that receives the request as JSON (for example a Slack, Make, Zapier or Apps Script webhook)
@@ -47,7 +47,7 @@ module.exports = guard.endpoint(async (req, res) => {
   try {
     if (/^https:\/\//.test(hook)) {
       const payload = JSON.stringify(record);
-      const headers = { 'Content-Type': 'application/json', 'User-Agent': 'AMK-Website-Lead/1.0' };
+      const headers = { 'Content-Type': 'application/json', 'User-Agent': 'KivoReach-Website-Lead/1.0' };
       const hookSecret = guard.env('LEAD_WEBHOOK_SECRET');
       if (hookSecret) {
         const ts = String(Math.floor(Date.now() / 1000));

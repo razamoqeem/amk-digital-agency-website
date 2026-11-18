@@ -1,4 +1,4 @@
-/* AMK Digital Agency: Website Comparison.
+/* KivoReach: Website Comparison.
    Runs the Domain Overview check on two domains and shows the results side by side.
    Uses callTool() and TOOLS_API from tools-client.js. Every value comes from the
    tools service; anything it could not find is shown as "Not available". */

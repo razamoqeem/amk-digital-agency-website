@@ -13,7 +13,7 @@ from .engine.url_safety import safe_get
 
 IANA_LIST = "https://data.iana.org/rdap/dns.json"
 DOMAIN_RE = re.compile(r"^(?=.{4,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z][a-z0-9-]{1,62}$")
-HEADERS = {"Accept": "application/rdap+json, application/json", "User-Agent": "AMK-Domain-Age/1.0"}
+HEADERS = {"Accept": "application/rdap+json, application/json", "User-Agent": "KivoReach-Domain-Age/1.0"}
 
 
 class DomainAgeError(Exception):

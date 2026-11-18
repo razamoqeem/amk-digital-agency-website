@@ -1,5 +1,5 @@
 {
-  "site_name": "AMK Digital Agency",
+  "site_name": "KivoReach",
   "language": "en",
   "preview_label": "Beta / Preview",
   "nav": [
@@ -24,7 +24,7 @@
       "href": "/owner/"
     }
   ],
-  "footer_text": "AMK Digital Agency",
+  "footer_text": "KivoReach",
   "tokens": {
     "sizes": [
       "sm",
@@ -111,7 +111,9 @@
     }
   ],
   "organization": {
-    "description": "AI-powered Conversion SEO, Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO) agency.",
+    "description": "AI-based digital marketing company that helps businesses get found, trusted and chosen, on Google and in AI search.",
+    "alternateName": ["AMK Digital Agency"],
+    "slogan": "Get found. Get trusted. Get chosen.",
     "knowsAbout": [
       "Conversion SEO",
       "Answer Engine Optimization (AEO)",
@@ -121,7 +123,7 @@
     ],
     "founderJobTitle": "Founder",
     "software": {
-      "name": "AMK Digital Agency App",
+      "name": "KivoReach Studio",
       "description": "Invite-only workspace for running SEO audits and keeping saved reports."
     }
   },

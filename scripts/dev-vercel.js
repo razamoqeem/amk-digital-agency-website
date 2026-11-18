@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: local stand-in for Vercel (testing only, never deployed).
+/* KivoReach Website: local stand-in for Vercel (testing only, never deployed).
    Serves public/, applies the rewrites and headers from vercel.json, and runs the files in api/ as functions.
    Run from the Website folder:  node scripts/dev-vercel.js [port]
    It does NOT read .env. Pass settings on the command line when you need them, for example:

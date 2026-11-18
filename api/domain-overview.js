@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: domain overview (served at /v1/tools/domain-overview). */
+/* KivoReach Website: domain overview (served at /v1/tools/domain-overview). */
 const guard = require('./_lib/guard');
 const { runTool } = require('./_lib/run-tool');
 const { ToolError } = require('./_lib/analyze');

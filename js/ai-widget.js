@@ -1,5 +1,5 @@
 /**
- * AMK Digital Agency — Floating 3D AI Assistant Widget
+ * KivoReach — Floating 3D AI Assistant Widget
  * Phase 5: Vanilla JS + CSS3D transforms
  *
  * Features:
@@ -97,7 +97,7 @@
     },
     default: {
       icon: '🤖',
-      greeting: 'AMK Digital Agency AI ready.',
+      greeting: 'KivoReach AI ready.',
       suggestions: [
         'Run a full E-E-A-T audit on my site.',
         'What are the top 3 things I should fix today?',
@@ -124,7 +124,7 @@
           <div class="widget-header-left">
             <div class="widget-avatar">🤖</div>
             <div>
-              <div class="widget-title">AMK Digital Agency AI</div>
+              <div class="widget-title">KivoReach AI</div>
               <div class="widget-subtitle" id="widget-context-label">Intelligence Engine Ready</div>
             </div>
           </div>
@@ -148,7 +148,7 @@
         <div class="widget-messages" id="widget-messages">
           <div class="widget-msg bot">
             <div class="msg-bubble">
-              Hello! I'm AMK Digital Agency's AI assistant. Ask me anything about SEO, GEO, or digital marketing strategy.
+              Hello! I'm KivoReach's AI assistant. Ask me anything about SEO, GEO, or digital marketing strategy.
             </div>
           </div>
         </div>
@@ -651,7 +651,7 @@
 
       if (restoredCount === 0) {
         this.messages.innerHTML = '';
-        const welcomeText = "Hello! I'm AMK Digital Agency's AI assistant. Ask me anything about SEO, GEO, or digital marketing strategy.";
+        const welcomeText = "Hello! I'm KivoReach's AI assistant. Ask me anything about SEO, GEO, or digital marketing strategy.";
         this._addMessage('bot', welcomeText, true, false);
       }
 
@@ -936,7 +936,7 @@
       const responseGuidance = isLongFormQuery
         ? 'Provide a comprehensive, well-structured response. Use headings, bullet points and numbered steps where appropriate. Aim for completeness — do not artificially shorten your answer.'
         : 'Be concise and direct. Use bullet points for clarity. 2-4 short paragraphs max.';
-      const systemPrompt = `You are AMK Digital Agency's expert AI consultant specialising in SEO, GEO (Generative Engine Optimisation), E-E-A-T frameworks, content strategy, and digital marketing. Your knowledge base includes the full AMK Academy curriculum, technical SEO best-practices, and the AMK 8-Pillar growth framework. ${responseGuidance} Always be actionable and data-driven. Active module: ${this.currentPillar}. When the user asks about resources in the platform, reference the relevant AMK Academy modules, docs, or tools by name.`;
+      const systemPrompt = `You are KivoReach's expert AI consultant specialising in SEO, GEO (Generative Engine Optimisation), E-E-A-T frameworks, content strategy, and digital marketing. Your knowledge base includes the full KivoReach Academy curriculum, technical SEO best-practices, and the AMK 8-Pillar growth framework. ${responseGuidance} Always be actionable and data-driven. Active module: ${this.currentPillar}. When the user asks about resources in the platform, reference the relevant KivoReach Academy modules, docs, or tools by name.`;
       
       // ── Context: send last 6 messages for better continuity ──
       let recentHistory = [];

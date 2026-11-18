@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: small interactions. No libraries, strict-CSP safe (CSSOM only).
+/* KivoReach Website: small interactions. No libraries, strict-CSP safe (CSSOM only).
    1. Hero "growth stack": click or tap a broken block to fix it; the growth line rises.
    2. Cards: a soft light follows the pointer (mouse only).
    3. Buttons: a tap ripple at the touch point (touch and pen).

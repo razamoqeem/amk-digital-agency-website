@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: shared navigation (every page).
+/* KivoReach Website: shared navigation (every page).
    Colours from css/theme.css (with fall-backs). No inline styles anywhere.
    Without JavaScript: desktop dropdowns still open on hover/keyboard focus; on phones the full menu shows as a list.
    With JavaScript (js/site-nav.js adds html.amk-js): phone menu folds behind a button, dropdowns open by tap. */

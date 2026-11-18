@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: shared footer (every page).
+/* KivoReach Website: shared footer (every page).
    Colours from css/theme.css, spacing from css/spacing.css (with fall-backs). No inline styles. */
 .amk-footer {
   --f-text: var(--theme-text, #0f172a);

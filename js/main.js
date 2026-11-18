@@ -1,5 +1,5 @@
 /* ============================================================
-   AMK Digital Agency — MAIN.JS
+   KivoReach — MAIN.JS
    App bootstrap, animations, pillar routing, UI helpers
    ============================================================ */
 

@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: how many free runs this visitor has left (served at /v1/usage). */
+/* KivoReach Website: how many free runs this visitor has left (served at /v1/usage). */
 const guard = require('./_lib/guard');
 
 const TOOLS = ['seo-audit', 'site-scan', 'domain-age', 'domain-overview', 'meta-tags', 'headings', 'images', 'keyword-density', 'links', 'redirects', 'robots-sitemap', 'ssl-check', 'schema-social', 'technology'];

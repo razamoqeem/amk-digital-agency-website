@@ -1,5 +1,5 @@
 /* ============================================================
-   AMK Digital Agency — SETTINGS.JS
+   KivoReach — SETTINGS.JS
    Modal, BYOK Vault, Plan Management, Integrations
 
    Theme logic has been extracted to /js/theme-engine.js.
@@ -371,7 +371,7 @@ const Settings = (() => {
           try {
             Dashboard.populate(JSON.parse(lastAudit));
           } catch(err) {
-            console.error("[AMK Digital Agency] Failed to repopulate on upgrade:", err);
+            console.error("[KivoReach] Failed to repopulate on upgrade:", err);
           }
         }
 
@@ -777,7 +777,7 @@ const Settings = (() => {
             },
             body: JSON.stringify({
               domain: targetDomain,
-              agency_name: "AMK Digital Agency",
+              agency_name: "KivoReach",
               primary_hex_color: "#4F46E5"
             })
           });

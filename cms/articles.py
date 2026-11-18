@@ -1,4 +1,4 @@
-"""AMK Digital Agency Website: articles, blog, resources hub, docs help centre and search index.
+"""KivoReach Website: articles, blog, resources hub, docs help centre and search index.
 
 Articles are ordinary CMS pages whose slug starts with "blog/" (content/pages/blog__<slug>.json).
 They carry an "article" object (category, dates, takeaways, related tools ...) and use the rich
@@ -371,7 +371,7 @@ def resources_body(articles, docs_pages, tools_data, tool_href):
     tools = tools_data.get("tools", [])[:6]
     tool_cards = "".join('<a class="topic-card" href="%s"><small>Free tool</small><b>%s</b><span>%s</span></a>'
                          % (esc(tool_href(t)), esc(t["name"]), esc(t.get("summary", ""))) for t in tools)
-    return ('<section class="hub-hero"><p class="hub-kicker">Resources</p><h1>Learn SEO, AI search and website optimisation</h1>'
+    return ('<section class="hub-hero"><p class="hub-kicker">KivoReach Academy</p><h1>Learn SEO, AI search and website optimisation</h1>'
             '<p>Guides, articles and documentation that explain how search works and how to fix what our free tools find.</p>'
             '<form class="hub-search" role="search" data-site-search><label class="amk-sr" for="site-q">Search guides, articles and tools</label>'
             '<input id="site-q" type="search" placeholder="Search guides, articles and tools" autocomplete="off" />'
@@ -464,7 +464,7 @@ def tool_doc_page(tool, tool_href, limits):
         {"type": "paragraph", "html": esc(limit_text) + " Results for the same address are saved for 24 hours, and a saved result does not use a run."},
         {"type": "callout", "kind": "tip", "html": "Test the exact page you care about, including <code>https://</code>. A different address, such as without <code>www</code>, can give a different result."},
     ]
-    return {"slug": "docs/tools/%s" % slug, "title": "%s Guide | AMK Digital Agency" % tool["name"],
+    return {"slug": "docs/tools/%s" % slug, "title": "%s Guide | KivoReach" % tool["name"],
             "description": "How to use the free %s: what it checks, how to run it and how to read the result." % tool["name"],
             "blocks": blocks, "schema": ["Article", "BreadcrumbList"], "generated": True}
 
@@ -495,7 +495,7 @@ def usage_doc_page(limits):
         {"type": "paragraph", "html": "The tool tells you which limit was reached and shows a countdown until it resets. Your free runs come back automatically; you do not need to do anything."},
         {"type": "callout", "kind": "note", "html": "A short security check from Cloudflare runs in the background to keep automated traffic out. Most visitors never see it."},
     ]
-    return {"slug": "docs/tools/usage-limits", "title": "Free Runs and Limits | AMK Digital Agency",
+    return {"slug": "docs/tools/usage-limits", "title": "Free Runs and Limits | KivoReach",
             "description": "How many free tool runs you get each day and month, what does not use a run, and when your free runs reset.",
             "blocks": blocks, "schema": ["Article", "BreadcrumbList"], "generated": True}
 

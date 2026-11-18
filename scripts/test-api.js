@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: security and behaviour tests for the serverless functions.
+/* KivoReach Website: security and behaviour tests for the serverless functions.
    Run from the Website folder:  node scripts/test-api.js
    The real endpoints run in "production" mode. The outside services (bot check, AI models, lead
    webhook) are replaced by fakes, so no real key, quota or address is used. Two checks talk to the

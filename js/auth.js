@@ -1,5 +1,5 @@
 /* ============================================================
-   AMK Digital Agency — AUTH.JS
+   KivoReach — AUTH.JS
    Modal, session management, tier gating
 
    SECURITY ARCHITECTURE:
@@ -183,7 +183,7 @@ const Auth = (() => {
       }
     }
 
-    if (authTitle) authTitle.innerText = "Join AMK Digital Agency";
+    if (authTitle) authTitle.innerText = "Join KivoReach";
     if (authSubtitle) authSubtitle.innerText = "Start your 14-day Ultra trial";
     if (btnSubmit) btnSubmit.innerText = "Create Account";
   }
@@ -244,7 +244,7 @@ const Auth = (() => {
             <button class="auth-close" data-auth-close style="position:absolute; top:16px; right:16px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:20px;">✕</button>
             <div style="text-align:center;margin-bottom:24px;">
               <div class="logo" style="justify-content:center; align-items:center; gap:8px; font-size:22px; display:flex;">
-                <img src="/assets/logo-mark.svg" alt="AMK" style="height: 24px; border-radius: 3px;" />
+                <img src="/assets/logo-mark.svg" alt="KivoReach" style="height: 24px; border-radius: 3px;" />
                 <span>AMK</span>
               </div>
               <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">Your agency intelligence platform</p>
@@ -256,7 +256,7 @@ const Auth = (() => {
             </div>
 
             <div class="text-center" style="text-align:center; margin-bottom:20px;">
-              <h2 id="auth-modal-title" style="font-size:24px; font-weight:700; color:var(--text); margin:0;">Join AMK Digital Agency</h2>
+              <h2 id="auth-modal-title" style="font-size:24px; font-weight:700; color:var(--text); margin:0;">Join KivoReach</h2>
               <p id="auth-modal-subtitle" style="font-size:13px; color:var(--text-muted); margin:4px 0 0 0;">Start your 14-day Ultra trial</p>
             </div>
 

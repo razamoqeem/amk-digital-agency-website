@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: the single-purpose tools (served at /v1/tools/<name>). */
+/* KivoReach Website: the single-purpose tools (served at /v1/tools/<name>). */
 const guard = require('./_lib/guard');
 const { runTool, sha } = require('./_lib/run-tool');
 const A = require('./_lib/analyze');

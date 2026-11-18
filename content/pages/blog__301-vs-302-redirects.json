@@ -1,6 +1,6 @@
 {
   "slug": "blog/301-vs-302-redirects",
-  "title": "301 vs 302 Redirects: Which One to Use | AMK Digital Agency",
+  "title": "301 vs 302 Redirects: Which One to Use | KivoReach",
   "description": "The difference between permanent and temporary redirects, how Google treats each one, and how to avoid long redirect chains when you move pages.",
   "canonical": "",
   "noindex": false,
@@ -23,7 +23,7 @@
     ],
     "published": "2026-11-18",
     "updated": "2026-11-18",
-    "author": "AMK Digital Agency",
+    "author": "KivoReach",
     "featured": false,
     "related_tools": [
       "redirects"

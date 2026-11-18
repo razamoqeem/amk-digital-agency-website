@@ -626,8 +626,9 @@ def tool_pages(settings, base):
         cards = "".join('<a class="card link" href="%s"><h3>%s</h3><p>%s</p></a>' % (
             esc(href(tools[s])), esc(tools[s]["name"]), esc(tools[s]["summary"])) for s in group["tools"] if s in tools)
         gid = re.sub(r"[^a-z0-9]+", "-", group["name"].lower()).strip("-")
-        groups.append('    <section id="%s"><h2>%s</h2><div class="cards">%s</div></section>' % (gid, esc(group["name"]), cards))
-    chips = "".join('<a href="#%s">%s</a>' % (re.sub(r"[^a-z0-9]+", "-", g["name"].lower()).strip("-"), esc(g["name"])) for g in data["groups"])
+        fam = '<p class="hub-kicker">%s</p>' % esc(group["family"]) if group.get("family") else ""
+        groups.append('    <section id="%s">%s<h2>%s</h2><div class="cards">%s</div></section>' % (gid, fam, esc(group["name"]), cards))
+    chips = "".join('<a href="#%s">%s</a>' % (re.sub(r"[^a-z0-9]+", "-", g["name"].lower()).strip("-"), esc(g.get("family") or g["name"])) for g in data["groups"])
     groups.insert(0, '    <nav class="x-chips" aria-label="Tool categories">%s</nav>' % chips)
     body = "\n".join([
         '    <section class="hero">', "      <h1>Free Tools &amp; AI Tools</h1>",
@@ -635,8 +636,8 @@ def tool_pages(settings, base):
         '      <p><a class="btn ghost" href="/docs/how-to-use-the-free-tools/">How to use the tools</a></p>', "    </section>"] + groups)
     head = ['  <link rel="canonical" href="%s/tools/" />' % esc(base)] if base else []
     out[os.path.join("tools", "index.html")] = template.substitute(
-        title="Free Tools & AI Tools | AMK Digital Agency",
-        description="Free SEO tools and AI utilities from AMK Digital Agency: domain overview, title generator, meta tags, headings, SSL, schema, links and more.",
+        title="Free Tools & AI Tools | KivoReach",
+        description="Free SEO tools and AI utilities from KivoReach: domain overview, title generator, meta tags, headings, SSL, schema, links and more.",
         head_extra="\n".join(head), scripts="", body=body, **common)
     return out, ["/tools/"] + [href(t) for t in data["tools"] if not t.get("page")]
 
@@ -773,7 +774,7 @@ def build() -> dict:
     # Blog listing, resources hub and the search index used by both and by the docs
     hub_pages = [
         ("blog", "SEO and Digital Marketing Blog | %s" % settings.get("site_name", ""),
-         "Practical, sourced articles on technical SEO, AI search and website optimisation from AMK Digital Agency.",
+         "Practical, sourced articles on technical SEO, AI search and website optimisation from KivoReach.",
          articles.blog_body(extras["articles"])),
         ("resources", "SEO Resources: Guides, Articles and Tools | %s" % settings.get("site_name", ""),
          "Learn SEO, AI search and website optimisation with guides, articles, documentation and free tools.",
@@ -795,10 +796,10 @@ def build() -> dict:
     live_paths.add("/contact/")
     write(os.path.join("contact", "index.html"), render_document(
         template, settings, "Contact Us | %s" % settings.get("site_name", ""),
-        "Contact AMK Digital Agency: ask for a free audit, a question about our services, or access to the App.",
+        "Contact KivoReach: ask for a free audit, a question about our services, or access to the App.",
         (['  <link rel="canonical" href="%s/contact/" />' % esc(base),
           ld.for_simple(settings, base, "/contact/", "Contact Us | %s" % settings.get("site_name", ""),
-                        "Contact AMK Digital Agency: ask for a free audit, a question about our services, or access to the App.",
+                        "Contact KivoReach: ask for a free audit, a question about our services, or access to the App.",
                         "ContactPage", "Contact Us", extras["founder"])] if base else []) + ['  <script src="/js/contact.js" defer></script>'],
         layouts.contact_body(), live_paths, " is-designed"))
 
@@ -870,8 +871,8 @@ def build() -> dict:
     if base:
         tdata = extras["tools"]
         tool_graphs["/tools/"] = ld.for_tools_hub(tdata, settings, base, tool_href, extras["founder"],
-                                                  "Free Tools & AI Tools | AMK Digital Agency",
-                                                  "Free SEO tools and AI utilities from AMK Digital Agency.")
+                                                  "Free Tools & AI Tools | KivoReach",
+                                                  "Free SEO tools and AI utilities from KivoReach.")
         for tl in tdata.get("tools", []):
             tool_graphs[tool_href(tl)] = ld.for_tool(tl, settings, base, tool_href(tl), extras["founder"])
 

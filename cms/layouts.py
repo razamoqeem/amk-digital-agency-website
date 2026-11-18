@@ -1,4 +1,4 @@
-"""AMK Digital Agency Website: designed layouts built from existing content.
+"""KivoReach Website: designed layouts built from existing content.
 
   nav_html()          the one shared header (Home, Tools, Resources, Contact Us) for every page
   designed_body()     Home / Company: turns the CMS blocks into hero, statement, feature cards,
@@ -110,7 +110,7 @@ def nav_html(site_name, tools_data, current, live_paths=()):
             href = tool_href(t)
             items.append('<li><a class="amk-mi" href="%s"%s>%s<span><b>%s</b><small>%s</small></span></a></li>' % (
                 esc(href), cur(href), icon(TOOL_ICONS.get(slug, "search")), esc(t["name"]), esc(_short(t.get("summary", ""), 60))))
-        groups.append('<div class="amk-mgroup"><p class="amk-mtitle">%s</p><ul>%s</ul></div>' % (esc(g["name"]), "".join(items)))
+        groups.append('<div class="amk-mgroup"><p class="amk-mtitle">%s</p><ul>%s</ul></div>' % (esc(g.get("family") or g["name"]), "".join(items)))
 
     resources = [
         ("/resources/", "compass", "Resources hub", "Guides, articles and tools in one place"),
@@ -293,7 +293,7 @@ def _hero(intro, page_kind, secondary):
     visual = _hero_stack() if page_kind == "home" else ""
     return ('<section class="x-hero%s">\n      <div class="x-hero-copy">\n        <p class="x-eyebrow" data-mx="fade">%s</p>\n'
             '        <h1 data-mx="rise">%s</h1>\n        %s\n        <div class="x-ctas" data-mx="fade">%s</div>\n      </div>%s\n    </section>'
-            % (" x-hero-split" if visual else "", "Conversion SEO, AEO and GEO" if page_kind == "home" else "About AMK Digital Agency",
+            % (" x-hero-split" if visual else "", "Conversion SEO, AEO and GEO" if page_kind == "home" else "About KivoReach",
                esc(h1.get("text", "")), lede, ctas, visual))
 
 
@@ -460,7 +460,7 @@ def contact_body():
       <div class="x-hero-copy">
         <p class="x-eyebrow" data-mx="fade">Contact</p>
         <h1 data-mx="rise">Contact Us</h1>
-        <p class="x-lede" data-mx="fade">Tell us about your website and what you need. Ask for a free audit, a question about our services, or access to the AMK Digital Agency App.</p>
+        <p class="x-lede" data-mx="fade">Tell us about your website and what you need. Ask for a free audit, a question about our services, or access to the KivoReach Studio.</p>
       </div>
     </section>
     <section class="x-sec x-contact">

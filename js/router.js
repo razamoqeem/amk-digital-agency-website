@@ -1,5 +1,5 @@
 /* ============================================================
-   AMK Digital Agency — ROUTER.JS
+   KivoReach — ROUTER.JS
    Landing <-> Workspace state machine
 
    Updated to be async-aware: waits for Auth.init() session
@@ -39,7 +39,7 @@ const Router = (() => {
     const isLandingPage = currentPath === '/' || currentPath.endsWith('index.html') || currentPath === '' || currentPath.endsWith('/');
 
     if (!isLandingPage) {
-      console.log("[AMK Digital Agency] showLanding() called on dashboard/other page. Redirecting to home.");
+      console.log("[KivoReach] showLanding() called on dashboard/other page. Redirecting to home.");
       window.location.href = 'index.html';
       return;
     }
@@ -87,7 +87,7 @@ const Router = (() => {
     const isDashboardPage = currentPath.endsWith('dashboard.html');
 
     if (!isDashboardPage) {
-      console.log("[AMK Digital Agency] showWorkspace() called on landing/other page. Redirecting to dashboard.");
+      console.log("[KivoReach] showWorkspace() called on landing/other page. Redirecting to dashboard.");
       window.location.href = 'dashboard.html';
       return;
     }
@@ -144,19 +144,19 @@ const Router = (() => {
       const hasGoogleHandoff = searchParams.has('login_token') || searchParams.get('connected') === 'google';
       // Guard dashboard: anonymous users are only allowed if they have an active URL scan handoff (?scan=...)
       if (!user && !searchParams.has('scan') && !hasGoogleHandoff) {
-        console.warn("[AMK Digital Agency] Direct anonymous access to /dashboard.html. Redirecting to login.");
+        console.warn("[KivoReach] Direct anonymous access to /dashboard.html. Redirecting to login.");
         window.location.href = 'index.html?login=1';
       } else {
-        console.log("[AMK Digital Agency] Access granted to dashboard.");
+        console.log("[KivoReach] Access granted to dashboard.");
         showWorkspace();
       }
     } else if (isLandingPage) {
-      console.log("[AMK Digital Agency] Landing page detected.");
+      console.log("[KivoReach] Landing page detected.");
       showLanding();
 
       // If ?login=1 is present, open login modal
       if (searchParams.get('login') === '1') {
-        console.log("[AMK Digital Agency] ?login=1 parameter found. Triggering login popup.");
+        console.log("[KivoReach] ?login=1 parameter found. Triggering login popup.");
         const newUrl = window.location.pathname;
         window.history.replaceState({}, document.title, newUrl);
         
@@ -167,7 +167,7 @@ const Router = (() => {
         }, 200);
       }
     } else {
-      console.log("[AMK Digital Agency] Navigated to non-routed page.");
+      console.log("[KivoReach] Navigated to non-routed page.");
     }
   }
 
@@ -182,7 +182,7 @@ const Router = (() => {
 ───────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    console.log('%c[AMK Digital Agency] Booting secure session engine...', 'color:#6C63FF; font-weight:700;');
+    console.log('%c[KivoReach] Booting secure session engine...', 'color:#6C63FF; font-weight:700;');
 
     // Step 1: Auth validates & restores (or purges) the session
     if (typeof Auth !== 'undefined') {
@@ -194,9 +194,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       Router.init();
     }
 
-    console.log('%c[AMK Digital Agency] ✅ Secure boot complete.', 'color:#1DD1A1; font-weight:700;');
+    console.log('%c[KivoReach] ✅ Secure boot complete.', 'color:#1DD1A1; font-weight:700;');
   } catch (err) {
-    console.error('[AMK Digital Agency] Critical boot error:', err);
+    console.error('[KivoReach] Critical boot error:', err);
     // Fail safe — show landing page so user isn't stuck on a blank screen
     document.querySelector('.landing-view')?.style.setProperty('display', 'block');
     document.getElementById('workspace-view')?.style.setProperty('display', 'none');

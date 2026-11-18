@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: request protection shared by every endpoint.
+/* KivoReach Website: request protection shared by every endpoint.
 
    Layers, in the order a request meets them:
      1. Method, size and content-type checks

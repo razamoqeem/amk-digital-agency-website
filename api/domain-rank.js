@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: domain rank from Open PageRank (served at /v1/tools/domain-rank).
+/* KivoReach Website: domain rank from Open PageRank (served at /v1/tools/domain-rank).
    Switched on only when OPEN_PAGERANK_KEY is set. The key stays on the server. */
 const guard = require('./_lib/guard');
 const { runTool } = require('./_lib/run-tool');

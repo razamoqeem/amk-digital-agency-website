@@ -1,5 +1,5 @@
 'use strict';
-/* AMK Digital Agency Website: SEO audit and page scan (served at /v1/tools/seo-audit and /v1/tools/site-scan). */
+/* KivoReach Website: SEO audit and page scan (served at /v1/tools/seo-audit and /v1/tools/site-scan). */
 const guard = require('./_lib/guard');
 const { runTool, sha } = require('./_lib/run-tool');
 const { ToolError, crawl, checkedUrl } = require('./_lib/analyze');

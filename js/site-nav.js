@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: shared navigation behaviour (pairs with css/nav.css).
+/* KivoReach Website: shared navigation behaviour (pairs with css/nav.css).
    Loaded in <head> so html.amk-js is set before the page paints (the phone menu never flashes open).
    Desktop: dropdowns open on hover/focus through CSS; this script adds tap-to-open, Escape, outside-click
    and keeps aria-expanded truthful. Phone: the menu button opens the menu, each section opens by tap. */

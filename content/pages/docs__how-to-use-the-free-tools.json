@@ -1,6 +1,6 @@
 {
   "slug": "docs/how-to-use-the-free-tools",
-  "title": "How to Use the Free SEO Tools | AMK Digital Agency",
+  "title": "How to Use the Free SEO Tools | KivoReach",
   "description": "Step-by-step help for each free SEO tool: what to enter, how to read the result and what to fix first.",
   "canonical": "",
   "noindex": false,
@@ -491,7 +491,7 @@
       "ordered": false,
       "items": [
         "After a few runs of a tool you are asked to confirm your email address. Open the confirmation link to keep using your free allowance.",
-        "When the daily or monthly allowance is used up, the page tells you which limit it is and how long until it refreshes. Access comes back by itself. If you do not want to wait, the page links to the AMK Digital Agency App."
+        "When the daily or monthly allowance is used up, the page tells you which limit it is and how long until it refreshes. Access comes back by itself. If you do not want to wait, the page links to the KivoReach Studio."
       ],
       "size": "md",
       "color": "ink",
@@ -507,7 +507,7 @@
     },
     {
       "type": "paragraph",
-      "html": "Paid plans with more features are planned for the AMK Digital Agency App. Plan details and prices: [TO BE CONFIRMED].",
+      "html": "Paid plans with more features are planned for the KivoReach Studio. Plan details and prices: [TO BE CONFIRMED].",
       "size": "md",
       "color": "ink",
       "opacity": 100

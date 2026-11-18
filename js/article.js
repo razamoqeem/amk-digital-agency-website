@@ -1,4 +1,4 @@
-/* AMK Digital Agency Website: reading progress, contents highlight, code copy, chart bars,
+/* KivoReach Website: reading progress, contents highlight, code copy, chart bars,
    share links, blog filter and site search. Every page works without this file; it only adds comfort. */
 (function () {
   'use strict';
