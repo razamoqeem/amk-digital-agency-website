@@ -139,9 +139,12 @@ function requestOnce(checked, { method = 'GET', headers = {}, timeout = DEFAULT_
     }, (res) => {
       let stream = res;
       const enc = String(res.headers['content-encoding'] || '').toLowerCase();
-      if (enc === 'gzip') stream = res.pipe(zlib.createGunzip());
-      else if (enc === 'deflate') stream = res.pipe(zlib.createInflate());
-      else if (enc === 'br') stream = res.pipe(zlib.createBrotliDecompress());
+      // HEAD, 204 and 304 answers have no body even when they name a compression: unpacking nothing fails,
+      // which used to turn every compressed site's links into "Could not connect" in the Link Checker.
+      const bodyless = method === 'HEAD' || res.statusCode === 204 || res.statusCode === 304;
+      if (!bodyless && enc === 'gzip') stream = res.pipe(zlib.createGunzip());
+      else if (!bodyless && enc === 'deflate') stream = res.pipe(zlib.createInflate());
+      else if (!bodyless && enc === 'br') stream = res.pipe(zlib.createBrotliDecompress());
       const chunks = []; let size = 0;
       stream.on('data', (chunk) => {
         size += chunk.length;
@@ -150,7 +153,8 @@ function requestOnce(checked, { method = 'GET', headers = {}, timeout = DEFAULT_
       });
       const finish = () => done(resolve, { status: res.statusCode, headers: res.headers, body: Buffer.concat(chunks).slice(0, maxBytes).toString('utf8') });
       stream.on('end', finish);
-      stream.on('error', (e) => (chunks.length ? finish() : done(reject, e)));
+      // A broken or empty compressed body still came with a real status code: keep the status, not a failure.
+      stream.on('error', (e) => (chunks.length || /^Z_/.test(String(e && e.code)) ? finish() : done(reject, e)));
     });
     const timer = setTimeout(() => { req.destroy(new Error('timed out')); done(reject, Object.assign(new Error('timed out'), { code: 'ETIMEDOUT' })); }, timeout);
     req.on('error', (e) => done(reject, e));

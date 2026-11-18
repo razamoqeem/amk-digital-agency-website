@@ -1,0 +1,61 @@
+# KivoReach
+
+> AI-based digital marketing company that helps businesses get found, trusted and chosen, on Google and in AI search. Get found. Get trusted. Get chosen.
+
+Free SEO tools that read real data (they say when data is not available), free guides, and SEO and AI search (GEO/AEO) services. Previously called AMK Digital Agency.
+
+## Free SEO tools
+
+- [Domain Overview](https://kivoreach.vercel.app/tools/domain-overview.html): Domain age, WHOIS details, SEO health and security for any website in one free report.
+- [Website Comparison](https://kivoreach.vercel.app/tools/website-comparison.html): Competitor website analysis: compare two sites side by side for SEO health, domain age and security.
+- [SEO Audit, Page Analyser, AI readiness, Domain Age and Domain Rank](https://kivoreach.vercel.app/tools/free-tools.html): Five quick checks on one page.
+- [Title Generator](https://kivoreach.vercel.app/tools/title-generator.html): Write page titles of the right length. Runs in your browser.
+- [Meta Tag Analyser](https://kivoreach.vercel.app/tools/meta-tags.html): Title, description, canonical, robots and social tags, with a search result preview.
+- [Heading Checker](https://kivoreach.vercel.app/tools/headings.html): The full H1 to H6 outline of a page and any structure problems.
+- [Image and Alt Text Checker](https://kivoreach.vercel.app/tools/images.html): Which images have no text description or no size set.
+- [Link Checker](https://kivoreach.vercel.app/tools/links.html): Internal and external links on a page, with a broken-link test.
+- [Redirect and Status Checker](https://kivoreach.vercel.app/tools/redirects.html): Every redirect hop and status code from the typed address to the final page.
+- [Robots.txt and Sitemap Checker](https://kivoreach.vercel.app/tools/robots-sitemap.html): The crawl rules a site gives search engines, and its XML sitemaps.
+- [SSL Checker](https://kivoreach.vercel.app/tools/ssl-check.html): Whether the security certificate is valid, who issued it and when it ends.
+- [Schema and Open Graph Checker](https://kivoreach.vercel.app/tools/schema-social.html): Structured data types on a page, errors in them, and social preview tags.
+- [Keyword Density and Readability Checker](https://kivoreach.vercel.app/tools/keyword-density.html): Most used words and phrases on a page, word count and reading ease.
+- [Website Technology Checker](https://kivoreach.vercel.app/tools/technology.html): Systems a site is recognisably built with, its server and security headers.
+
+## Guides (KivoReach Academy)
+
+- [Google Search Guidelines Index](https://kivoreach.vercel.app/docs/compliance-index/): An index of Google Search Central guidelines mapped to practical checks, so you can audit a website against each requirement.
+- [Crawling and Indexing Basics](https://kivoreach.vercel.app/docs/crawling-indexing-basics/): How Google finds and indexes pages: crawling, URL canonicalisation, fixing crawl errors and pausing a site safely.
+- [How to Use the Free SEO Tools](https://kivoreach.vercel.app/docs/how-to-use-the-free-tools/): Step-by-step help for each free SEO tool: what to enter, how to read the result and what to fix first.
+- [JavaScript SEO and Rendering](https://kivoreach.vercel.app/docs/js-seo-mobile-rendering/): How Google renders JavaScript: rendering basics, single-page apps and routing, web components and app shell sites.
+- [Redirects and Site Migrations](https://kivoreach.vercel.app/docs/redirects-migrations-testing/): Redirect types, moving a site safely, A/B testing without hurting search, and how to avoid redirect chains.
+- [Google Search Operators for SEO](https://kivoreach.vercel.app/docs/search-operators-debug/): Search operators that help debug indexing and spam issues: site:, image operators, security checks and their limits.
+- [Preventing Spam and Malware on Your Site](https://kivoreach.vercel.app/docs/security-abuse-prevention/): Protect a website from user-generated spam, malware, unwanted software and phishing, with a site health checklist.
+- [SEO for Beginners: SEO Starter Guide](https://kivoreach.vercel.app/docs/seo-starter-guide/): The basics of SEO: help Google find your pages, organise your site, improve content and control how it appears in search.
+- [Google Spam Policies Explained](https://kivoreach.vercel.app/docs/spam-policies/): Plain explanations of Google's spam policies: deceptive content, low-quality and scaled content, link schemes and hacked sites.
+- [Google Search Technical Requirements](https://kivoreach.vercel.app/docs/technical-requirements/): The three technical requirements for appearing in Google Search: Googlebot access, a working server and indexable content.
+- [Debugging Search Traffic Drops](https://kivoreach.vercel.app/docs/traffic-debug-analytics/): Find out why search traffic dropped: common causes, using Search Console with analytics, and reading trends.
+- [Meta Tag Analyser Guide](https://kivoreach.vercel.app/docs/tools/meta-tags/): How to use the free Meta Tag Analyser: what it checks, how to run it and how to read the result.
+- [Heading Checker Guide](https://kivoreach.vercel.app/docs/tools/headings/): How to use the free Heading Checker: what it checks, how to run it and how to read the result.
+- [Image and Alt Text Checker Guide](https://kivoreach.vercel.app/docs/tools/images/): How to use the free Image and Alt Text Checker: what it checks, how to run it and how to read the result.
+- [Link Checker Guide](https://kivoreach.vercel.app/docs/tools/links/): How to use the free Link Checker: what it checks, how to run it and how to read the result.
+- [Redirect and Status Checker Guide](https://kivoreach.vercel.app/docs/tools/redirects/): How to use the free Redirect and Status Checker: what it checks, how to run it and how to read the result.
+- [Robots.txt and Sitemap Checker Guide](https://kivoreach.vercel.app/docs/tools/robots-sitemap/): How to use the free Robots.txt and Sitemap Checker: what it checks, how to run it and how to read the result.
+- [SSL Checker Guide](https://kivoreach.vercel.app/docs/tools/ssl-check/): How to use the free SSL Checker: what it checks, how to run it and how to read the result.
+- [Schema and Open Graph Checker Guide](https://kivoreach.vercel.app/docs/tools/schema-social/): How to use the free Schema and Open Graph Checker: what it checks, how to run it and how to read the result.
+- [Keyword Density and Readability Checker Guide](https://kivoreach.vercel.app/docs/tools/keyword-density/): How to use the free Keyword Density and Readability Checker: what it checks, how to run it and how to read the result.
+- [Website Technology Checker Guide](https://kivoreach.vercel.app/docs/tools/technology/): How to use the free Website Technology Checker: what it checks, how to run it and how to read the result.
+- [Free Runs and Limits](https://kivoreach.vercel.app/docs/tools/usage-limits/): How many free tool runs you get each day and month, what does not use a run, and when your free runs reset.
+
+## Articles
+
+- [301 vs 302 Redirects: Which One to Use](https://kivoreach.vercel.app/blog/301-vs-302-redirects/): The difference between permanent and temporary redirects, how Google treats each one, and how to avoid long redirect chains when you move pages.
+- [Heading Structure Explained: H1 to H6](https://kivoreach.vercel.app/blog/heading-structure-h1-to-h6/): How headings help visitors and assistive technologies, what Google says about the number and order of headings, and a simple outline method.
+- [How to Write Title Tags](https://kivoreach.vercel.app/blog/how-to-write-title-tags/): What a title tag does, where Google gets the title link it shows, and a simple method for writing clear, unique page titles.
+- [Meta Descriptions: How to Write Them](https://kivoreach.vercel.app/blog/meta-descriptions-guide/): How Google chooses the snippet under a result, when it uses your meta description, and how to write unique descriptions that help people choose.
+- [robots.txt and XML Sitemaps Explained](https://kivoreach.vercel.app/blog/robots-txt-and-xml-sitemaps/): What robots.txt and XML sitemaps do, the limits Google applies to each, and the common mistake of using robots.txt to hide pages from search.
+
+## Company
+
+- [About KivoReach](https://kivoreach.vercel.app/company/): why it was built, vision and how we work
+- [Founder: Ahmad Raza](https://kivoreach.vercel.app/owner/): profile and experience
+- [Contact](https://kivoreach.vercel.app/contact/): ask for a free audit or a question

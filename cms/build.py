@@ -611,7 +611,7 @@ def tool_pages(settings, base):
                          for t in data["tools"] if t["slug"] != tool["slug"])
         body = "\n".join([
             '    <section class="hero">',
-            "      <h1>%s</h1>" % esc(tool["name"]),
+            "      <h1>%s</h1>" % esc(tool.get("h1") or tool["name"]),
             "      <p>%s</p>" % esc(tool["intro"]),
             '      <form id="tool-form" class="search" data-tool="%s">' % esc(tool["slug"]),
             '        <label class="sr-only" for="tool-url">Website address</label>',
@@ -644,13 +644,13 @@ def tool_pages(settings, base):
     chips = "".join('<a href="#%s">%s</a>' % (re.sub(r"[^a-z0-9]+", "-", g["name"].lower()).strip("-"), esc(g.get("family") or g["name"])) for g in data["groups"])
     groups.insert(0, '    <nav class="x-chips" aria-label="Tool categories">%s</nav>' % chips)
     body = "\n".join([
-        '    <section class="hero">', "      <h1>Free Tools &amp; AI Tools</h1>",
-        "      <p>Professional diagnostic analysers and AI content generators. Every check uses real data with zero invented metrics.</p>",
+        '    <section class="hero">', "      <h1>Free SEO Tools for Any Website</h1>",
+        "      <p>Free SEO tools and a website SEO analyzer. Every check reads real data from the address you enter; where data is not available, the tool says so.</p>",
         '      <p><a class="btn ghost" href="/docs/how-to-use-the-free-tools/">How to use the tools</a></p>', "    </section>"] + groups)
     head = ['  <link rel="canonical" href="%s/tools/" />' % esc(base)] if base else []
     out[os.path.join("tools", "index.html")] = template.substitute(
-        title="Free Tools & AI Tools | KivoReach",
-        description="Free SEO tools and AI utilities from KivoReach: domain overview, title generator, meta tags, headings, SSL, schema, links and more.",
+        title="Free SEO Tools and Website SEO Analyzer | KivoReach",
+        description="Free SEO tools from KivoReach: website SEO analyzer, domain age and WHOIS lookup, meta tags, headings, broken links, SSL, schema and more.",
         head_extra="\n".join(head), scripts="", body=body, **common)
     return out, ["/tools/"] + [href(t) for t in data["tools"] if not t.get("page")]
 
@@ -808,11 +808,11 @@ def build() -> dict:
     # Contact page (form posts to the existing secure request endpoint)
     live_paths.add("/contact/")
     write(os.path.join("contact", "index.html"), render_document(
-        template, settings, "Contact Us | %s" % settings.get("site_name", ""),
-        "Contact KivoReach: ask for a free audit, a question about our services, or access to the App.",
+        template, settings, "Contact %s: Free SEO Audit and Expert Help" % settings.get("site_name", ""),
+        "Contact %s for a free SEO audit, a question about SEO or AI search services, or access to KivoReach Studio." % settings.get("site_name", ""),
         (['  <link rel="canonical" href="%s/contact/" />' % esc(base),
-          ld.for_simple(settings, base, "/contact/", "Contact Us | %s" % settings.get("site_name", ""),
-                        "Contact KivoReach: ask for a free audit, a question about our services, or access to the App.",
+          ld.for_simple(settings, base, "/contact/", "Contact %s: Free SEO Audit and Expert Help" % settings.get("site_name", ""),
+                        "Contact %s for a free SEO audit, a question about SEO or AI search services, or access to KivoReach Studio." % settings.get("site_name", ""),
                         "ContactPage", "Contact Us", extras["founder"])] if base else []) + ['  <script src="/js/contact.js" defer></script>'],
         layouts.contact_body(), live_paths, " is-designed"))
 
@@ -821,7 +821,10 @@ def build() -> dict:
         write(os.path.join("showcase", "index.html"), render_document(
             template, settings, "%s | %s" % (show_data.get("title", "Selected work and results"), settings.get("site_name", "")),
             show_data.get("description", "Selected projects and measured organic search results."),
-            ['  <link rel="canonical" href="%s/showcase/" />' % esc(base)] if base else [],
+            (['  <link rel="canonical" href="%s/showcase/" />' % esc(base),
+              ld.for_simple(settings, base, "/showcase/", "%s | %s" % (show_data.get("title", "Selected work and results"), settings.get("site_name", "")),
+                            show_data.get("description", "Selected projects and measured organic search results."),
+                            "CollectionPage", "Work", extras["founder"])] if base else []),
             showcase.body_html(show_data), live_paths))
 
     # Compile custom CMS collection items
@@ -862,6 +865,29 @@ def build() -> dict:
         write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n%s\n</urlset>\n' % urls)
         robots += ["", "Sitemap: %s/sitemap.xml" % base]
+
+        # llms.txt (llmstxt.org): a short plain guide to the site for AI assistants and AI search.
+        org = settings.get("organization", {}) or {}
+        live_pages = [p for p in pages if not p.get("noindex") and not p.get("draft")]
+
+        def llm_line(path, title, text):
+            title = re.sub(r"\s*\|\s*%s\s*$" % re.escape(settings.get("site_name", "")), "", title or "").strip()
+            return "- [%s](%s%s)%s" % (title, base, path, ": " + text.strip() if text else "")
+        llms = ["# %s" % settings.get("site_name", ""), "",
+                "> %s %s" % (org.get("description", ""), org.get("slogan", "")), "",
+                "Free SEO tools that read real data (they say when data is not available), free guides, and SEO and "
+                "AI search (GEO/AEO) services. Previously called %s." % ", ".join(org.get("alternateName", []) or ["-"]), ""]
+        llms += ["## Free SEO tools", ""] + [llm_line(layouts.tool_href(t), t.get("name"), t.get("summary", ""))
+                                             for t in extras["tools"].get("tools", []) if layouts.tool_href(t) in paths]
+        for head, prefix in (("Guides (KivoReach Academy)", "docs/"), ("Articles", "blog/")):
+            items = [llm_line(page_url_path(p["slug"]), p.get("title"), p.get("description", "")) for p in live_pages
+                     if p["slug"].startswith(prefix)]
+            if items:
+                llms += ["", "## " + head, ""] + items
+        llms += ["", "## Company", "", llm_line("/company/", "About KivoReach", "why it was built, vision and how we work"),
+                 llm_line("/owner/", "Founder: Ahmad Raza", "profile and experience"),
+                 llm_line("/contact/", "Contact", "ask for a free audit or a question")]
+        write("llms.txt", "\n".join(llms) + "\n")
     write("robots.txt", "\n".join(robots) + "\n")
 
     # IndexNow key file (public by design), from content/settings.json "indexnow".
@@ -884,8 +910,8 @@ def build() -> dict:
     if base:
         tdata = extras["tools"]
         tool_graphs["/tools/"] = ld.for_tools_hub(tdata, settings, base, tool_href, extras["founder"],
-                                                  "Free Tools & AI Tools | KivoReach",
-                                                  "Free SEO tools and AI utilities from KivoReach.")
+                                                  "Free SEO Tools and Website SEO Analyzer | KivoReach",
+                                                  "Free SEO tools and a website SEO analyzer from KivoReach.")
         for tl in tdata.get("tools", []):
             tool_graphs[tool_href(tl)] = ld.for_tool(tl, settings, base, tool_href(tl), extras["founder"])
 

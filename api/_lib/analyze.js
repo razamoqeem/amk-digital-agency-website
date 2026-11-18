@@ -476,7 +476,8 @@ async function checkLinks(url) {
   await Promise.all(Array.from({ length: 6 }, async () => { while (next < todo.length) { const i = next++; results[i] = await linkStatus(todo[i].url); } }));
   const checked = todo.map((item, i) => {
     const [status, reason] = results[i];
-    const state = status === null ? 'unknown' : [401, 403, 429].includes(status) ? 'blocked' : status >= 400 ? 'broken' : 'ok';
+    // 999 is LinkedIn's (and some others') answer to automated checks: the page exists, the check was refused.
+    const state = status === null ? 'unknown' : [401, 403, 429, 999].includes(status) ? 'blocked' : status >= 400 ? 'broken' : 'ok';
     return { url: item.url, text: item.text, kind: item.kind, nofollow: item.nofollow, status_code: status, state, reason };
   });
   return { final_url: d.final_url, internal_total: d.links.internal_total, external_total: d.links.external_total, nofollow_total: d.links.nofollow_total, checked_total: checked.length, not_checked: d.links.internal_total + d.links.external_total - checked.length, broken: checked.filter((c) => c.state === 'broken').length, checked };

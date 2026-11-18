@@ -59,6 +59,7 @@
     },
     {
       "slug": "meta-tags",
+      "h1": "Free Meta Tag Checker",
       "name": "Meta Tag Analyser",
       "button": "Check meta tags",
       "placeholder": "https://example.com/page",
@@ -75,6 +76,7 @@
     },
     {
       "slug": "headings",
+      "h1": "H1 to H6 Heading Checker",
       "name": "Heading Checker",
       "button": "Check headings",
       "placeholder": "https://example.com/page",
@@ -90,6 +92,7 @@
     },
     {
       "slug": "images",
+      "h1": "Image Alt Text Checker",
       "name": "Image and Alt Text Checker",
       "button": "Check images",
       "placeholder": "https://example.com/page",
@@ -105,6 +108,7 @@
     },
     {
       "slug": "links",
+      "h1": "Broken Link Checker",
       "name": "Link Checker",
       "button": "Check links",
       "placeholder": "https://example.com/page",
@@ -120,6 +124,7 @@
     },
     {
       "slug": "redirects",
+      "h1": "Redirect and Status Code Checker",
       "name": "Redirect and Status Checker",
       "button": "Check address",
       "placeholder": "http://example.com",
@@ -150,6 +155,7 @@
     },
     {
       "slug": "ssl-check",
+      "h1": "SSL Certificate Checker",
       "name": "SSL Checker",
       "button": "Check certificate",
       "placeholder": "https://example.com",

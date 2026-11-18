@@ -99,7 +99,7 @@
 
     .tool-card-header { padding: 20px 22px 14px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--border); }
     .tool-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-    .tool-card-header h3 { font-size: 15px; font-weight: 800; color: var(--text); }
+    .tool-card-header h2 { font-size: 15px; font-weight: 800; color: var(--text); }
     .tool-card-header p { font-size: 12px; color: var(--muted); margin-top: 2px; }
     .tool-badge { font-size: 9px; font-weight: 800; padding: 3px 9px; border-radius: 5px; letter-spacing: .05em; margin-left: auto; flex-shrink: 0; }
     .badge-free { background: rgba(29,209,161,.15); color: var(--good); }
@@ -138,7 +138,7 @@
     .score-good { background: rgba(29,209,161,.15); color: var(--good); border: 2px solid var(--good); }
     .score-warn { background: rgba(255,176,32,.15); color: var(--warn); border: 2px solid var(--warn); }
     .score-bad  { background: rgba(255,92,108,.15); color: var(--bad);  border: 2px solid var(--bad); }
-    .score-desc h4 { font-size: 14px; font-weight: 700; }
+    .score-desc h3 { font-size: 14px; font-weight: 700; }
     .score-desc p { font-size: 12px; color: var(--muted); margin-top: 3px; }
 
     .result-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
