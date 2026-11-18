@@ -9,7 +9,7 @@
   <link rel="icon" href="/assets/logo-mark.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="preload" href="/assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/b/5d2f9645a914.css" />
+  <link rel="stylesheet" href="/assets/b/ef915cab8d19.css" />
   <script src="/js/config.js"></script>
   <script src="/js/title-generator.js" defer></script>
   <link rel="canonical" href="https://amk-digital-agency-website.vercel.app/tools/title-generator.html" />
@@ -58,30 +58,30 @@
     <section class="hero">
       <h1>Title Generator</h1>
       <p>Enter a focus keyword to generate high-converting title variations for articles, case studies, and landing pages with live character counts. Runs locally in your browser with zero limits.</p>
-      <div style="display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom: 24px;">
+      <div class="s-9931b04">
         <span class="tag LOW">✦ Free to Use</span>
         <span class="tag">🎯 Character Counts</span>
         <span class="tag good">🔄 Unlimited Browser Tool</span>
       </div>
 
-      <div class="panel" style="max-width: 680px; margin: 0 auto; text-align: left; padding: 24px;">
-        <div style="margin-bottom: 16px;">
-          <label for="focusKeyword" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Focus Keyword</label>
-          <input type="text" id="focusKeyword" class="tool-input" style="width:100%;" placeholder="e.g. cloud automation suite, AI marketing tools" />
+      <div class="panel s-9bbab71">
+        <div class="s-29b7980">
+          <label for="focusKeyword" class="s-e40317e">Focus Keyword</label>
+          <input type="text" id="focusKeyword" class="tool-input s-0466783" placeholder="e.g. cloud automation suite, AI marketing tools" />
         </div>
 
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; margin-bottom:16px;">
+        <div class="s-ff57c0d">
           <div>
-            <label for="contentType" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Content Intent Profile</label>
-            <select id="contentType" class="tool-input" style="width:100%;">
+            <label for="contentType" class="s-e40317e">Content Intent Profile</label>
+            <select id="contentType" class="tool-input s-0466783">
               <option value="blog post">In-Depth Blog Blueprint</option>
               <option value="case study">Data-Driven Case Study</option>
               <option value="landing page">High-Conversion Landing Page</option>
             </select>
           </div>
           <div>
-            <label for="tone" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Tone Alignment</label>
-            <select id="tone" class="tool-input" style="width:100%;">
+            <label for="tone" class="s-e40317e">Tone Alignment</label>
+            <select id="tone" class="tool-input s-0466783">
               <option value="authoritative">Authoritative &amp; Strategic</option>
               <option value="educational">Data-Backed Educational</option>
             </select>
@@ -89,28 +89,28 @@
         </div>
 
         <!-- Optional Parameters -->
-        <details style="margin-bottom: 20px;">
-          <summary style="cursor:pointer; font-size:var(--fs-sm); font-weight:600; color:var(--accent);">Optional Creative Parameters (Audience &amp; Secondary Keywords)</summary>
-          <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);">
-            <div style="margin-bottom: 14px;">
-              <label for="secondaryKeywords" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Secondary Keywords (comma separated)</label>
-              <input type="text" id="secondaryKeywords" class="tool-input" style="width:100%;" placeholder="e.g. best tools, pricing, review" />
+        <details class="s-62149a6">
+          <summary class="s-2b3fb42">Optional Creative Parameters (Audience &amp; Secondary Keywords)</summary>
+          <div class="s-9e709e2">
+            <div class="s-a0d4a03">
+              <label for="secondaryKeywords" class="s-e40317e">Secondary Keywords (comma separated)</label>
+              <input type="text" id="secondaryKeywords" class="tool-input s-0466783" placeholder="e.g. best tools, pricing, review" />
             </div>
             <div>
-              <label for="audience" style="display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text);">Target Audience</label>
-              <input type="text" id="audience" class="tool-input" style="width:100%;" placeholder="e.g. enterprise managers, solo founders" />
+              <label for="audience" class="s-e40317e">Target Audience</label>
+              <input type="text" id="audience" class="tool-input s-0466783" placeholder="e.g. enterprise managers, solo founders" />
             </div>
           </div>
         </details>
 
-        <button type="button" class="btn" id="generate-btn" style="width:100%;" onclick="runTitleGenerator()">
+        <button type="button" class="btn s-0466783" id="generate-btn" data-run="runTitleGenerator">
           ✦ Generate Title Variations
         </button>
       </div>
     </section>
 
     <!-- Results Section -->
-    <section id="title-results-container" style="max-width: 680px; margin: 32px auto 0; display:none;">
+    <section id="title-results-container" class="s-a98cfc7">
       <h2>Generated Title Patterns</h2>
       <p class="meta">Target search snippet length is 50–60 characters. Titles exceeding 60 characters are flagged in amber.</p>
       <div id="title-results"></div>
@@ -145,27 +145,7 @@
     </div>
   </footer>
 
-  <script>
-    function runTitleGenerator() {
-      var kw = document.getElementById('focusKeyword').value.trim();
-      var container = document.getElementById('title-results-container');
-      var resultsDiv = document.getElementById('title-results');
-      if (!kw) {
-        alert('Please enter a focus keyword first.');
-        return;
-      }
-      container.style.display = 'block';
-      var secondaryVal = document.getElementById('secondaryKeywords').value.trim();
-      var results = window.AMKTitleGenerator.generateTitles({
-        keyword: kw,
-        audience: document.getElementById('audience').value,
-        contentType: document.getElementById('contentType').value,
-        secondary: secondaryVal ? secondaryVal.split(',').map(function (s) { return s.trim(); }).filter(Boolean) : []
-      });
-      window.AMKTitleGenerator.renderTitles(resultsDiv, results);
-      container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  </script>
+  <script src="/tools/title-generator.page.js"></script>
   <script src="/js/bot-check.js" defer></script>
   <script src="/js/chat-widget.js" defer></script>
   <script src="/js/site-fx.js" defer></script>

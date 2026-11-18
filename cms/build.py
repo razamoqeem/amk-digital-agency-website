@@ -368,6 +368,26 @@ def bundle_page(html, staging, made):
     return head + rest
 
 
+def strict_ready_paths(staging):
+    """Addresses of built pages that need nothing the strict security policy blocks: no inline scripts
+    (JSON-LD data is fine), no onclick-style handlers, no style attributes or <style> blocks, and no outside
+    stylesheets. These get the strict policy automatically; anything else keeps the older, looser one."""
+    found = []
+    for folder, _dirs, files in os.walk(staging):
+        for name in files:
+            if not name.endswith(".html"):
+                continue
+            path = os.path.join(folder, name)
+            text = open(path, encoding="utf-8").read()
+            if (re.search(r'<script(?![^>]*\ssrc=)(?![^>]*application/ld\+json)[^>]*>', text) or
+                    re.search(r"\son[a-z]+\s*=\s*[\"']", text) or re.search(r"\sstyle\s*=\s*[\"']", text) or
+                    re.search(r'<style[\s>]', text) or "fonts.googleapis" in text):
+                continue
+            rel = os.path.relpath(path, staging).replace(os.sep, "/")
+            found.append("/" + (rel[:-len("index.html")] if rel.endswith("index.html") else rel))
+    return sorted(found)
+
+
 def json_ld(data) -> str:
     text = json.dumps(data, ensure_ascii=False).replace("<", "\\u003c")
     return '  <script type="application/ld+json">%s</script>' % text
@@ -471,7 +491,7 @@ def render_collection_item(item, schema, settings, template, base, live_paths=()
     # Title & Subtitle
     body_parts.append('    <h1 class="t-size-xl">%s</h1>' % esc(item.get("title", "")))
     if fields.get("subtitle"):
-        body_parts.append('    <p class="t-size-lg" style="color: var(--c-muted); margin-top: -6px;">%s</p>' % esc(fields["subtitle"]))
+        body_parts.append('    <p class="t-size-lg ci-sub">%s</p>' % esc(fields["subtitle"]))
 
     # Date / Author if present
     meta_info = []
@@ -482,21 +502,21 @@ def render_collection_item(item, schema, settings, template, base, live_paths=()
     if fields.get("readingTime"):
         meta_info.append('<span>%s</span>' % esc(fields["readingTime"]))
     if meta_info:
-        body_parts.append('    <p class="t-size-sm" style="color: var(--c-muted); display: flex; gap: 14px;">%s</p>' % " &bull; ".join(meta_info))
+        body_parts.append('    <p class="t-size-sm ci-meta">%s</p>' % " &bull; ".join(meta_info))
 
     # Hero / Cover image
     hero = fields.get("heroImage") or fields.get("coverImage")
     if hero:
-        body_parts.append('    <img src="%s" alt="%s" style="border-radius: 12px; margin: 18px 0;" loading="lazy" />' % (esc(safe_href(hero)), esc(item.get("title", ""))))
+        body_parts.append('    <img src="%s" alt="%s" class="ci-hero" loading="lazy" />' % (esc(safe_href(hero)), esc(item.get("title", ""))))
 
     # Main content / rich text
     content_html = fields.get("content") or fields.get("body") or ""
     if content_html:
-        body_parts.append('    <div class="content-body" style="margin: 20px 0;">%s</div>' % clean_rich_text(content_html))
+        body_parts.append('    <div class="content-body ci-body">%s</div>' % clean_rich_text(content_html))
 
     # CTA Button if present
     if fields.get("ctaLabel") and fields.get("ctaUrl"):
-        body_parts.append('    <p style="margin-top: 24px;"><a class="btn t-bg-accent" href="%s">%s</a></p>' % (esc(safe_href(fields["ctaUrl"])), esc(fields["ctaLabel"])))
+        body_parts.append('    <p class="ci-cta"><a class="btn t-bg-accent" href="%s">%s</a></p>' % (esc(safe_href(fields["ctaUrl"])), esc(fields["ctaLabel"])))
 
     body_html = "\n".join(body_parts)
     return render_document(template, settings, title, description, head, body_html, live_paths)
@@ -864,7 +884,8 @@ def build() -> dict:
         shutil.rmtree(staging, ignore_errors=True)
         return report
 
-    headers_txt, redirects_txt, vercel = host_files(pages, redirects, (["/showcase/"] if show_live else []) + ["/contact/", "/blog/", "/resources/"])
+    strict = [p for p in strict_ready_paths(staging) if p != "/404.html"]
+    headers_txt, redirects_txt, vercel = host_files(pages, redirects, sorted(set((["/showcase/"] if show_live else []) + ["/contact/", "/blog/", "/resources/"] + strict)))
     write("_headers", headers_txt)
     write("_redirects", redirects_txt)
 

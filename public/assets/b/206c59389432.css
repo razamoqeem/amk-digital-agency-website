@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 /* /css/base.css */
 /* ============================================================
    AMK Digital Agency — BASE.CSS
    Design tokens, CSS reset, typography
    ============================================================ */
 
-
+/* Fonts: Inter is self-hosted in theme.css. No outside font service is used (strict security policy). */
 
 /* Colours, fonts, text sizes, corners and shadows: theme.css (one place).
    Widths, gutters and spacing steps (--space-*): spacing.css.            */
@@ -1328,6 +1327,23 @@ ul, ol { list-style: none; }
 .title-result-count { display: block; color: var(--text-muted); font-size: 12px; }
 .title-result-count.is-long { color: var(--accent-warn); }
 
+/* /tools/keyword-generator.page.css */
+/* Moved out of keyword-generator.html so the page works under the strict security policy. */
+
+.s-0020cae { font-size:36px; margin-bottom:12px; }
+.s-0ddf068 { overflow-x:auto; }
+.s-243452e { color:var(--text-soft); }
+.s-33689a9 { width:20px;height:20px;border-width:2px; }
+.s-49589ae { color:var(--accent-error); font-weight:600; }
+.s-49f14f8 { margin-bottom:20px; }
+.s-6b99de8 { display:none; }
+.s-8cadba3 { font-size:12px; color:var(--text-muted); }
+.s-b295c12 { color:var(--text-muted); font-size:13px; margin-top:8px; }
+.s-b4fdf88 { text-align:center; color:var(--text-muted); padding:20px; }
+.s-c5d4e8a { font-size:12px; color:var(--text-faint); }
+.s-ef0b7a1 { margin-bottom:0; }
+.s-f2c9619 { text-align:center; padding:40px; }
+
 /* /css/chat-widget.css */
 /* AMK Digital Agency Website: chat widget styles.
    Colours, fonts and shape come from css/theme.css (so light/dark follow the site switch).
@@ -1961,6 +1977,28 @@ ul, ol { list-style: none; }
   .art-body { max-width: 760px; }
   .art .crumbs, .art .draft-banner { margin-left: 0; }
 }
+
+/* Service (collection) pages: formerly inline styles */
+.ci-sub { color: var(--a-muted); margin-top: -6px; }
+.ci-meta { color: var(--a-muted); display: flex; gap: 14px; }
+.ci-hero { border-radius: 12px; margin: 18px 0; }
+.ci-body { margin: 20px 0; }
+.ci-cta { margin-top: 24px; }
+
+/* Free-runs panel on pages that use the older stylesheet (the SEO Analyzer page) */
+.usage-progress-container { max-width: 420px; margin: 12px auto 0; padding: 10px 14px; background: var(--a-surface);
+  border: 1px solid var(--a-line); border-radius: 12px; text-align: left; }
+.usage-progress-label { display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  font-size: var(--theme-text-sm, .875rem); color: var(--a-text); margin-bottom: 6px; }
+.usage-progress-track { width: 100%; height: 8px; background: var(--a-soft); border: 1px solid var(--a-line); border-radius: 999px; overflow: hidden; }
+.usage-progress-fill { height: 100%; border-radius: 999px; transition: width .35s ease; }
+.usage-progress-fill.green { background: var(--a-good); }
+.usage-progress-fill.yellow { background: var(--a-warn); }
+.usage-progress-fill.red { background: var(--a-bad); }
+.usage-rows { list-style: none; margin: 8px 0 0; padding: 0; font-size: var(--theme-text-sm, .875rem); }
+.usage-rows li { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; margin: 0; color: var(--a-muted); }
+.usage-rows li::marker { content: none; }
+.usage-rows li.is-tight { color: var(--a-text); font-weight: 600; }
 
 /* /css/motion.css */
 /* AMK Digital Agency Website: motion layer (scroll reveal, hero glow, progress bar, hover depth).

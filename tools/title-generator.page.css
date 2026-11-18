@@ -1,0 +1,13 @@
+/* Moved out of title-generator.html so the page works under the strict security policy. */
+
+.s-0466783 { width:100%; }
+.s-29b7980 { margin-bottom: 16px; }
+.s-2b3fb42 { cursor:pointer; font-size:var(--fs-sm); font-weight:600; color:var(--accent); }
+.s-62149a6 { margin-bottom: 20px; }
+.s-9931b04 { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom: 24px; }
+.s-9bbab71 { max-width: 680px; margin: 0 auto; text-align: left; padding: 24px; }
+.s-9e709e2 { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+.s-a0d4a03 { margin-bottom: 14px; }
+.s-a98cfc7 { max-width: 680px; margin: 32px auto 0; display:none; }
+.s-e40317e { display:block; font-size:var(--fs-sm); font-weight:600; margin-bottom:6px; color:var(--text); }
+.s-ff57c0d { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; margin-bottom:16px; }
