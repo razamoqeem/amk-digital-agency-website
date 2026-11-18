@@ -73,3 +73,20 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindAll);
   else bindAll();
 })();
+
+/* Self-repair: if a stylesheet bundle arrived broken (for example a "not found" reply kept by the
+   browser while a new version was going live), fetch it fresh once and reload. Once per visit. */
+(function () {
+  'use strict';
+  window.addEventListener('load', function () {
+    try {
+      var bad = [].filter.call(document.querySelectorAll('link[rel="stylesheet"][href^="/assets/b/"]'), function (l) {
+        try { return !l.sheet || !l.sheet.cssRules.length; } catch (e) { return true; } /* unreadable = failed */
+      });
+      if (!bad.length || sessionStorage.getItem('amk-css-repair')) return;
+      sessionStorage.setItem('amk-css-repair', '1');
+      Promise.all(bad.map(function (l) { return fetch(l.href, { cache: 'reload' }); }))
+        .then(function () { location.reload(); }, function () {});
+    } catch (e) { /* storage blocked: do nothing */ }
+  });
+})();

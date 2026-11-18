@@ -19,6 +19,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 from string import Template
 
@@ -912,6 +913,28 @@ def build() -> dict:
             if now != registry.get("paths"):
                 write_json(registry_file, {"_help": "Every address the site has published. Built by cms/build.py; do not "
                                                     "remove entries. A removed or renamed page needs a redirect.", "paths": now})
+
+    # Keep the previous build's bundles that its pages used, so a page loaded just before this version
+    # went live never asks for a file that is gone (a missing bundle would be cached as "not found").
+    prev_b = os.path.join(PUBLIC, "assets", "b")
+    if os.path.isdir(prev_b):
+        used = set()
+        for folder, _dirs, files in os.walk(PUBLIC):
+            for name in files:
+                if name.endswith(".html"):
+                    with open(os.path.join(folder, name), encoding="utf-8", errors="ignore") as f:
+                        used.update(re.findall(r"/assets/b/([0-9a-f]{12}\.(?:css|js))", f.read()))
+        try:  # also the bundles of the last committed (deployed) pages, in case of several builds before a push
+            out = subprocess.run(["git", "grep", "-hoE", r"/assets/b/[0-9a-f]{12}\.(css|js)", "HEAD", "--", "public"],
+                                 cwd=ROOT, capture_output=True, text=True, timeout=30).stdout
+            used.update(line.rsplit("/", 1)[-1] for line in out.split())
+        except Exception:
+            pass
+        os.makedirs(os.path.join(staging, "assets", "b"), exist_ok=True)
+        for name in used:
+            src, dst = os.path.join(prev_b, name), os.path.join(staging, "assets", "b", name)
+            if os.path.isfile(src) and not os.path.exists(dst):
+                shutil.copy2(src, dst)
 
     # swap in the new build only now that everything succeeded
     old = PUBLIC + ".old"
