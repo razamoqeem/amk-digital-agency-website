@@ -1,0 +1,225 @@
+{
+  "slug": "blog/on-page-vs-off-page-seo",
+  "title": "On-Page vs Off-Page SEO: What Each One Covers | KivoReach",
+  "description": "On-page SEO is what you control on your own pages; off-page SEO is how the rest of the web sees you. What each covers and where to start.",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "SEO",
+    "category": "SEO Basics",
+    "summary": "SEO work splits into two parts: what you change on your own pages, and how other sites and people talk about you. Here is what belongs to each and how to start.",
+    "tags": [
+      "on-page SEO",
+      "off-page SEO",
+      "SEO basics"
+    ],
+    "related_tools": [
+      "free-tools",
+      "meta-tags",
+      "headings",
+      "links"
+    ],
+    "takeaways": [
+      "On-page SEO is everything on your own pages: content, titles, headings, images, links and technical setup.",
+      "Off-page SEO is how the rest of the web refers to you: links from other sites, mentions and reviews.",
+      "Start on-page. It is fully in your control, and off-page work only pays off when your pages deserve the attention."
+    ],
+    "published": "2026-11-19",
+    "updated": "2026-11-19",
+    "author": "KivoReach",
+    "featured": false,
+    "checked": "2026-11-19",
+    "draft_reviewed": true
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "On-page vs off-page SEO: what each one covers"
+    },
+    {
+      "type": "paragraph",
+      "html": "Search engine optimization (SEO) is usually split into two parts. <strong>On-page SEO</strong> is the work you do on your own website. <strong>Off-page SEO</strong> is about how the rest of the web sees your site: who links to it, mentions it or reviews it. Both matter, but they are very different jobs, and it helps to know which one you are working on."
+    },
+    {
+      "type": "table",
+      "caption": "On-page and off-page SEO side by side",
+      "headers": [
+        "",
+        "On-page SEO",
+        "Off-page SEO"
+      ],
+      "rows": [
+        [
+          "Where it happens",
+          "On your own pages and site",
+          "On other websites and platforms"
+        ],
+        [
+          "Who controls it",
+          "You, fully",
+          "Others; you can only earn and encourage it"
+        ],
+        [
+          "Main parts",
+          "Content, titles, descriptions, headings, images, internal links, technical setup",
+          "Links from other sites, brand mentions, reviews, local listings"
+        ],
+        [
+          "How fast it changes",
+          "As soon as you publish and search engines recrawl",
+          "Slowly, over months"
+        ],
+        [
+          "Main risk",
+          "Thin or unclear pages",
+          "Buying or faking links, which breaks Google's spam policies"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What on-page SEO covers"
+    },
+    {
+      "type": "paragraph",
+      "html": "On-page SEO helps search engines understand each page and helps visitors find what they came for. Google's own SEO Starter Guide focuses mostly on this side: clear content written for people, descriptive titles, helpful link text and a site that search engines can crawl."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Content:</strong> pages that answer what people actually search for, written for people first.",
+        "<strong>Title and meta description:</strong> a clear, unique <code>&lt;title&gt;</code> and a short summary for each page.",
+        "<strong>Headings:</strong> one main heading (H1) and a logical outline below it.",
+        "<strong>Images:</strong> descriptive alt text and sensible file sizes.",
+        "<strong>Internal links:</strong> links between your own pages, with link text that says where they lead.",
+        "<strong>Technical basics:</strong> pages that load, can be crawled and indexed, work on phones and use HTTPS."
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "tip",
+      "html": "Run a page through our free <a href=\"/tools/free-tools.html\">SEO Analyzer</a> to see these on-page basics in one report, then use the <a href=\"/tools/meta-tags.html\">Meta Tag Analyser</a> and <a href=\"/tools/headings.html\">Heading Checker</a> for detail."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What off-page SEO covers"
+    },
+    {
+      "type": "paragraph",
+      "html": "Off-page SEO is about reputation. When other websites link to your pages, those links help search engines discover your content and can be a sign that people find it useful. Mentions of your brand, reviews and local listings such as a Google Business Profile shape how well known you are."
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Links from other sites</strong> (backlinks) that point to your pages because the content is useful.",
+        "<strong>Brand mentions</strong> in articles, directories and community discussions.",
+        "<strong>Reviews</strong> on platforms your customers use.",
+        "<strong>Local listings</strong>, such as a Google Business Profile, for businesses that serve an area."
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "html": "Google's spam policies treat buying or selling links for ranking purposes, excessive link exchanges and automated link building as <em>link spam</em>. Off-page SEO means earning attention, not manufacturing it. Our article <a href=\"/blog/what-are-backlinks/\">What are backlinks?</a> explains the safe ways."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Which one to start with"
+    },
+    {
+      "type": "paragraph",
+      "html": "Start on-page. It is fully in your control, the results show sooner, and it makes every later off-page effort worth more: a link to a clear, useful page is worth earning, while a link to a weak page helps little."
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Check your key pages",
+          "html": "Run your home page and your most important service or product pages through a free SEO check and fix what it finds."
+        },
+        {
+          "title": "Match pages to searches",
+          "html": "Give each important topic one page, with a title and main heading in the words your customers use."
+        },
+        {
+          "title": "Link your own pages together",
+          "html": "Point related pages to each other with clear link text."
+        },
+        {
+          "title": "Then earn attention off-page",
+          "html": "Share useful pages where your audience already is, set up your local listing if you serve an area, and ask happy customers for reviews."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "A quick checklist"
+    },
+    {
+      "type": "checklist",
+      "items": [
+        "Every important page has its own clear title and meta description",
+        "Each page has one main heading that matches its topic",
+        "Images have descriptive alt text",
+        "Important pages are linked from other pages on your site",
+        "Pages work on phones and use HTTPS",
+        "No paid or exchanged links pointing to your site for ranking purposes"
+      ]
+    },
+    {
+      "type": "faq",
+      "question": "Is off-page SEO more important than on-page SEO?",
+      "answer": "They do different jobs. Off-page signals such as links help search engines find and judge your site, but they cannot make an unclear or unhelpful page rank well. Most sites gain more, sooner, from fixing their own pages first."
+    },
+    {
+      "type": "faq",
+      "question": "Is technical SEO part of on-page SEO?",
+      "answer": "Often it is listed separately, but it is work on your own site, so it sits on the on-page side: crawling, indexing, speed, mobile use, HTTPS and structured data."
+    },
+    {
+      "type": "faq",
+      "question": "Can I do off-page SEO without buying links?",
+      "answer": "Yes, and you should. Useful content, real relationships, local listings and reviews all build reputation without breaking Google's spam policies."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "SEO Starter Guide: The Basics",
+          "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Spam policies for Google web search",
+          "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Link best practices for Google",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Creating helpful, reliable, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+          "publisher": "Google Search Central"
+        }
+      ]
+    }
+  ]
+}

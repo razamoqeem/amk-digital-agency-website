@@ -1,0 +1,242 @@
+{
+  "slug": "blog/digital-marketing-strategy-for-small-business",
+  "title": "Digital Marketing Strategy for Small Business | KivoReach",
+  "description": "A simple digital marketing strategy for small businesses and beginners: set goals, know your customer, pick a few channels, publish and measure.",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "Digital Marketing",
+    "category": "Strategy",
+    "summary": "A digital marketing strategy does not need to be long. Here is a one-page plan a small business can write in an afternoon and actually follow.",
+    "tags": [
+      "digital marketing strategy",
+      "small business marketing",
+      "marketing for beginners"
+    ],
+    "related_tools": [
+      "free-tools",
+      "title-generator",
+      "domain-overview"
+    ],
+    "takeaways": [
+      "Start from one or two business goals, not from a list of channels.",
+      "Pick the few channels your customers already use and do them well.",
+      "Measure from the start with free tools such as Google Search Console, and review monthly."
+    ],
+    "published": "2026-11-19",
+    "updated": "2026-11-19",
+    "author": "KivoReach",
+    "featured": false,
+    "checked": "2026-11-19",
+    "draft_reviewed": true
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Digital marketing strategy for small business: a simple plan"
+    },
+    {
+      "type": "paragraph",
+      "html": "A <strong>digital marketing strategy</strong> is a plan for how your business will reach and win customers online: who you want to reach, where, with what message, and how you will know it works. For a small business or a beginner, the best strategy is short, specific and realistic about time and budget."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The one-page plan"
+    },
+    {
+      "type": "table",
+      "caption": "Five questions that make up a basic strategy",
+      "headers": [
+        "Question",
+        "Example answer for a local bakery"
+      ],
+      "rows": [
+        [
+          "What do we want?",
+          "More weekday pre-orders for cakes"
+        ],
+        [
+          "Who is the customer?",
+          "Parents and offices within 10 km, planning birthdays and events"
+        ],
+        [
+          "Where do they look?",
+          "Google Search and Maps, Instagram, WhatsApp"
+        ],
+        [
+          "What do we tell them?",
+          "Order online by 5 pm for next-day pickup; photos of real cakes"
+        ],
+        [
+          "How do we measure it?",
+          "Pre-orders per week, website visits from Google, calls from the Business Profile"
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Step by step"
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Set one or two goals",
+          "html": "Tie them to the business: more enquiries, bookings or sales of a specific service. \"Be on social media\" is an activity, not a goal."
+        },
+        {
+          "title": "Describe your customer",
+          "html": "Who they are, what problem they have, the words they search with, and what makes them choose you."
+        },
+        {
+          "title": "Fix your home base",
+          "html": "Your website and Google Business Profile are where every channel sends people. Make sure they load fast, work on phones and make the next step obvious."
+        },
+        {
+          "title": "Pick two or three channels",
+          "html": "Choose the ones your customers already use. It is better to do two well than six badly."
+        },
+        {
+          "title": "Plan simple content",
+          "html": "Answer your customers' common questions, show your work, and share offers. A small, steady schedule beats bursts."
+        },
+        {
+          "title": "Measure and adjust monthly",
+          "html": "Check what brought visits and enquiries, keep what works, and drop what does not."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Common channels for small businesses"
+    },
+    {
+      "type": "table",
+      "caption": "What each channel is good for",
+      "headers": [
+        "Channel",
+        "Good for",
+        "Costs mainly"
+      ],
+      "rows": [
+        [
+          "SEO (search)",
+          "People actively looking for what you offer",
+          "Time; results build over months"
+        ],
+        [
+          "Google Business Profile",
+          "Local customers searching nearby",
+          "Time; the profile is free"
+        ],
+        [
+          "Social media",
+          "Showing your work, building familiarity",
+          "Time, and money if you boost posts"
+        ],
+        [
+          "Email",
+          "Repeat customers and offers",
+          "Time and an email tool; only email people who agreed to it"
+        ],
+        [
+          "Paid search and social ads",
+          "Quick visibility while SEO builds",
+          "Money per click or view"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "tip",
+      "html": "New to SEO? Start with our <a href=\"/blog/on-page-vs-off-page-seo/\">on-page vs off-page SEO</a> guide, and if you serve a local area, read <a href=\"/blog/local-seo-for-small-business/\">local SEO for small business</a>."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How to measure without paying for tools"
+    },
+    {
+      "type": "paragraph",
+      "html": "Google Search Console is free and shows which searches bring people to your site, which pages appear in results and any problems Google finds. Your Business Profile shows calls, direction requests and website clicks. Write down the numbers once a month in a simple sheet next to your goals."
+    },
+    {
+      "type": "callout",
+      "kind": "note",
+      "html": "Be careful with promises of fixed results. No one can guarantee rankings or sales, and Google states that it does not accept payment to rank a site higher in its search results."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Strategy checklist"
+    },
+    {
+      "type": "checklist",
+      "items": [
+        "One or two goals written down, tied to sales or enquiries",
+        "A short description of your main customer and the words they use",
+        "Website and Business Profile ready to receive visitors",
+        "Two or three channels chosen, with a realistic weekly time budget",
+        "A simple content plan for the next month",
+        "Search Console set up and a monthly review in the calendar"
+      ]
+    },
+    {
+      "type": "faq",
+      "question": "How much should a small business spend on digital marketing?",
+      "answer": "There is no standard figure that fits every business. Start with the time you can give every week, and add a small, fixed ad budget only for a clear goal you can measure."
+    },
+    {
+      "type": "faq",
+      "question": "Should I do SEO or ads first?",
+      "answer": "Many small businesses do both: ads bring visits now, while SEO builds visits that do not cost per click. If the budget is zero, start with your Business Profile and the on-page basics of your website."
+    },
+    {
+      "type": "faq",
+      "question": "How often should I change my strategy?",
+      "answer": "Review it monthly and change the plan when the numbers show something is not working. Change the goals only when the business changes."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "SEO Starter Guide: The Basics",
+          "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "How to use Search Console",
+          "url": "https://developers.google.com/search/docs/monitor-debug/search-console-start",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "In-depth guide to how Google Search works",
+          "url": "https://developers.google.com/search/docs/fundamentals/how-search-works",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Tips to improve your local ranking on Google",
+          "url": "https://support.google.com/business/answer/7091",
+          "publisher": "Google Business Profile Help"
+        },
+        {
+          "title": "Creating helpful, reliable, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+          "publisher": "Google Search Central"
+        }
+      ]
+    }
+  ]
+}

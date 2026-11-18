@@ -1,0 +1,214 @@
+{
+  "slug": "blog/what-are-backlinks",
+  "title": "What Are Backlinks? How to Get Them Safely | KivoReach",
+  "description": "Backlinks explained: what they are, why they matter for SEO, which links Google treats as spam, and safe ways to get backlinks for a small website.",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "SEO",
+    "category": "Off-Page SEO",
+    "summary": "Backlinks are links from other websites to yours. They help search engines find and judge your pages, but buying them breaks Google's rules. Here is how to earn them.",
+    "tags": [
+      "backlinks",
+      "link building",
+      "off-page SEO"
+    ],
+    "related_tools": [
+      "links",
+      "domain-overview",
+      "website-comparison"
+    ],
+    "takeaways": [
+      "A backlink is a link from another website to yours.",
+      "Links help search engines discover pages and can signal that content is worth reading.",
+      "Buying links, excessive link swaps and automated link building are link spam under Google's policies; earn links with useful pages instead."
+    ],
+    "published": "2026-11-19",
+    "updated": "2026-11-19",
+    "author": "KivoReach",
+    "featured": false,
+    "checked": "2026-11-19",
+    "draft_reviewed": true
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "What are backlinks? How to get them safely"
+    },
+    {
+      "type": "paragraph",
+      "html": "A <strong>backlink</strong> is a link on another website that points to yours. If a local news site links to your shop's page, that is a backlink for you. Backlinks are the best-known part of off-page SEO, and also the part where most people get bad advice."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Why backlinks matter"
+    },
+    {
+      "type": "paragraph",
+      "html": "Search engines discover new pages by following links, so a link from a known site helps your page get found. Google's guide to how Search works describes links as one of the ways it finds pages. Links are also a sign of attention: people link to things they find useful. That is why a few links from relevant, trusted sites are worth more than many from unrelated or low-quality ones."
+    },
+    {
+      "type": "flow",
+      "items": [
+        "Useful page on your site",
+        "Another site links to it",
+        "Search engines find and judge it"
+      ],
+      "caption": "Links help pages get discovered and show that others value them."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Good links and risky links"
+    },
+    {
+      "type": "table",
+      "caption": "How Google's policies separate earned links from link spam",
+      "headers": [
+        "Usually fine",
+        "Link spam under Google's policies"
+      ],
+      "rows": [
+        [
+          "A site links to your page because it is useful",
+          "Paying money, goods or services for links that pass ranking credit"
+        ],
+        [
+          "A local paper writes about your business",
+          "Excessive link exchanges (\"link to me and I'll link to you\")"
+        ],
+        [
+          "A partner lists you, with the link marked as sponsored if paid",
+          "Automated programs or services that create links to your site"
+        ],
+        [
+          "You are listed in a genuine, relevant directory",
+          "Low-quality directory or bookmark site links"
+        ],
+        [
+          "Your guest article helps readers, with links marked appropriately",
+          "Keyword-stuffed links in articles, guest posts or press releases spread across many sites"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "html": "Google's spam policies define link spam as creating links mainly to manipulate rankings. If a link is paid for or sponsored, it should carry <code>rel=\"sponsored\"</code> (or <code>nofollow</code>) so it passes no ranking credit."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Safe ways to get backlinks"
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Publish something worth linking to",
+          "html": "A clear guide, a free tool, local data you collected, or a page that answers a common question better than anyone else."
+        },
+        {
+          "title": "Tell the people who care",
+          "html": "Share it with communities, partners and customers who would find it useful, without asking for a link in return."
+        },
+        {
+          "title": "Get listed where customers look",
+          "html": "Your Google Business Profile, your industry's genuine directories and local business associations."
+        },
+        {
+          "title": "Work with real partners",
+          "html": "Suppliers, clients and event organisers often list the businesses they work with."
+        },
+        {
+          "title": "Fix broken links to you",
+          "html": "If someone links to a page of yours that moved, ask them to update it, or redirect the old address to the new one."
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "tip",
+      "html": "Use our free <a href=\"/tools/links.html\">Broken Link Checker</a> to make sure the links on your own pages work, and <a href=\"/tools/website-comparison.html\">Website Comparison</a> to compare your site with a competitor's."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What about \"domain authority\" scores?"
+    },
+    {
+      "type": "paragraph",
+      "html": "Scores such as Domain Authority or Domain Rating are made by private SEO companies to estimate a site's link strength. They are not Google measures. They can be handy for comparing sites, but improving a third-party score is not the goal; earning real links from relevant sites is."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Backlink checklist"
+    },
+    {
+      "type": "checklist",
+      "items": [
+        "You have at least one page that is genuinely useful to link to",
+        "Your Business Profile and real directory listings are complete",
+        "Paid or sponsored links are marked <code>rel=\"sponsored\"</code> or <code>nofollow</code>",
+        "No link packages, link swaps or automated link building",
+        "Old addresses that others link to redirect to the right page"
+      ]
+    },
+    {
+      "type": "faq",
+      "question": "How many backlinks do I need?",
+      "answer": "There is no number. Google does not publish one, and a few relevant links from trusted sites can matter more than many weak ones. Focus on earning links to your most useful pages."
+    },
+    {
+      "type": "faq",
+      "question": "Can link schemes hurt my site?",
+      "answer": "Yes. Google's spam policies say it detects violations with automated systems and, when needed, human review, and that sites breaking the policies may rank lower or not appear at all. Do not buy links or join link networks."
+    },
+    {
+      "type": "faq",
+      "question": "Are nofollow links useless?",
+      "answer": "No. They can still bring visitors and attention. Google's guidance is to mark paid or sponsored links with rel=\"sponsored\" (nofollow is still accepted) so that they pass no ranking credit."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "Spam policies for Google web search",
+          "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Qualify your outbound links to Google",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "In-depth guide to how Google Search works",
+          "url": "https://developers.google.com/search/docs/fundamentals/how-search-works",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Link best practices for Google",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "Creating helpful, reliable, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+          "publisher": "Google Search Central"
+        }
+      ]
+    }
+  ]
+}

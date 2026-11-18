@@ -1,0 +1,230 @@
+{
+  "slug": "blog/local-seo-for-small-business",
+  "title": "Local SEO for Small Business: A Practical Guide | KivoReach",
+  "description": "How local SEO works for small businesses: your Google Business Profile, local ranking factors, reviews and the website basics that help you show up nearby.",
+  "canonical": "",
+  "noindex": false,
+  "og": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "schema": [
+    "BreadcrumbList"
+  ],
+  "article": {
+    "section": "SEO",
+    "category": "Local SEO",
+    "summary": "If you serve customers in an area, local SEO helps you appear when people nearby search. Here is how Google ranks local results and what a small business can do.",
+    "tags": [
+      "local SEO",
+      "small business SEO",
+      "Google Business Profile"
+    ],
+    "related_tools": [
+      "free-tools",
+      "schema-social",
+      "meta-tags"
+    ],
+    "takeaways": [
+      "Google says local results are mainly based on relevance, distance and prominence (how well known a business is).",
+      "A complete, accurate Google Business Profile is the starting point.",
+      "There is no way to pay for a better local ranking on Google; reviews, accurate details and a useful website are what you can work on."
+    ],
+    "published": "2026-11-19",
+    "updated": "2026-11-19",
+    "author": "KivoReach",
+    "featured": false,
+    "checked": "2026-11-19",
+    "draft_reviewed": true
+  },
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 1,
+      "text": "Local SEO for small business: a practical guide"
+    },
+    {
+      "type": "paragraph",
+      "html": "Local SEO helps a business appear when people search for something nearby, such as a plumber, a dentist or a coffee shop, or a search that ends in \"near me\". For a small business that serves a town or region, it is often the most valuable kind of SEO, because the people searching are close and ready to act."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How Google ranks local results"
+    },
+    {
+      "type": "paragraph",
+      "html": "Google's Business Profile help pages say local results are mainly based on three things:"
+    },
+    {
+      "type": "table",
+      "caption": "Local ranking factors, as Google describes them",
+      "headers": [
+        "Factor",
+        "What it means",
+        "What you can do"
+      ],
+      "rows": [
+        [
+          "Relevance",
+          "How well your Business Profile matches what someone searched for",
+          "Give complete, detailed business information and the right category"
+        ],
+        [
+          "Distance",
+          "How far your business is from the person searching (or the location Google knows for them)",
+          "Nothing to change; keep your address or service area accurate"
+        ],
+        [
+          "Prominence (also called popularity)",
+          "How well known your business is, including links to your business and your reviews",
+          "Earn reviews, reply to them, and get mentioned by local sites"
+        ]
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "note",
+      "html": "Google states that there is no way to request or pay for a better local ranking. Be wary of anyone who promises one."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Step 1: set up your Google Business Profile"
+    },
+    {
+      "type": "paragraph",
+      "html": "Your Google Business Profile is the listing that can appear in Google Maps and in the local results of Google Search. If you do not have one yet, you can add or claim it for free."
+    },
+    {
+      "type": "steps",
+      "items": [
+        {
+          "title": "Add or claim your profile",
+          "html": "Search for your business on Google Maps. If it exists, claim it; if not, add it, then complete verification."
+        },
+        {
+          "title": "Fill in every detail",
+          "html": "Business name (as used in real life), address or service area, phone, website, opening hours including special hours, and the category that best describes you."
+        },
+        {
+          "title": "Add photos",
+          "html": "Show your premises, products, team or work. Real photos help customers know what to expect."
+        },
+        {
+          "title": "Keep it current",
+          "html": "Update hours for holidays and changes, so customers never arrive to a closed door."
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "warning",
+      "html": "Follow Google's guidelines for representing your business: use your real business name without extra keywords, and a real address or service area. Breaking them can get a profile suspended."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Step 2: earn and answer reviews"
+    },
+    {
+      "type": "paragraph",
+      "html": "Reviews feed into prominence, and they help customers decide. Ask satisfied customers for a review, make it easy with a direct link, and reply to reviews, both good and bad, politely and helpfully. Never buy or fake reviews."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Step 3: make your website local-friendly"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "<strong>Same details everywhere:</strong> your name, address and phone on the website should match your Business Profile.",
+        "<strong>One page per service:</strong> describe each service clearly, and the area you serve, in your customers' words.",
+        "<strong>Clear titles:</strong> for example \"Emergency Plumber in [Your Town] | [Business Name]\".",
+        "<strong>Contact details people can find:</strong> on every page, usually in the footer, plus a contact page.",
+        "<strong>Structured data:</strong> LocalBusiness markup tells Google your hours, address and other details in a format it reads directly.",
+        "<strong>Phone-ready pages:</strong> most local searches happen on phones, so pages must load and read well on a small screen."
+      ]
+    },
+    {
+      "type": "callout",
+      "kind": "tip",
+      "html": "Check your page's titles with our <a href=\"/tools/meta-tags.html\">Meta Tag Analyser</a>, and see whether your structured data is present and readable with the <a href=\"/tools/schema-social.html\">Schema and Open Graph Checker</a>."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Step 4: get mentioned locally"
+    },
+    {
+      "type": "paragraph",
+      "html": "Links and mentions from local sources help Google see you as part of the community: local news, business associations, event pages, suppliers and partners. Earn them with real activity, such as sponsoring a local event or sharing useful local advice, not by buying them."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Local SEO checklist"
+    },
+    {
+      "type": "checklist",
+      "items": [
+        "Google Business Profile added or claimed and verified",
+        "Category, hours, address or service area, phone and website complete and correct",
+        "Real photos added",
+        "A simple way for customers to leave reviews, and replies to reviews",
+        "Website shows the same name, address and phone as the profile",
+        "One clear page for each main service",
+        "LocalBusiness structured data on the website",
+        "Pages work well on phones"
+      ]
+    },
+    {
+      "type": "faq",
+      "question": "Do I need a website for local SEO?",
+      "answer": "A Business Profile can appear without one, but a website gives Google and customers much more to go on: your services, your area and your proof of quality. Linking the two also helps customers take the next step."
+    },
+    {
+      "type": "faq",
+      "question": "I work from home and visit customers. Do I show my address?",
+      "answer": "No. Google's guidelines say a service-area business should hide its address from customers and show the areas it serves instead."
+    },
+    {
+      "type": "faq",
+      "question": "How long does local SEO take?",
+      "answer": "Profile changes can show quickly, while reviews and reputation build over months. Google does not publish a timeline, and anyone who guarantees one is guessing."
+    },
+    {
+      "type": "references",
+      "items": [
+        {
+          "title": "Tips to improve your local ranking on Google",
+          "url": "https://support.google.com/business/answer/7091",
+          "publisher": "Google Business Profile Help"
+        },
+        {
+          "title": "Add or claim your Business Profile",
+          "url": "https://support.google.com/business/answer/2911778",
+          "publisher": "Google Business Profile Help"
+        },
+        {
+          "title": "Guidelines for representing your business on Google",
+          "url": "https://support.google.com/business/answer/3038177",
+          "publisher": "Google Business Profile Help"
+        },
+        {
+          "title": "Local business (LocalBusiness) structured data",
+          "url": "https://developers.google.com/search/docs/appearance/structured-data/local-business",
+          "publisher": "Google Search Central"
+        },
+        {
+          "title": "SEO Starter Guide: The Basics",
+          "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+          "publisher": "Google Search Central"
+        }
+      ]
+    }
+  ]
+}

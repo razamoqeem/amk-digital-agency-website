@@ -49,10 +49,14 @@ Free SEO tools that read real data (they say when data is not available), free g
 ## Articles
 
 - [301 vs 302 Redirects: Which One to Use](https://kivoreach.vercel.app/blog/301-vs-302-redirects/): The difference between permanent and temporary redirects, how Google treats each one, and how to avoid long redirect chains when you move pages.
+- [Digital Marketing Strategy for Small Business](https://kivoreach.vercel.app/blog/digital-marketing-strategy-for-small-business/): A simple digital marketing strategy for small businesses and beginners: set goals, know your customer, pick a few channels, publish and measure.
 - [Heading Structure Explained: H1 to H6](https://kivoreach.vercel.app/blog/heading-structure-h1-to-h6/): How headings help visitors and assistive technologies, what Google says about the number and order of headings, and a simple outline method.
 - [How to Write Title Tags](https://kivoreach.vercel.app/blog/how-to-write-title-tags/): What a title tag does, where Google gets the title link it shows, and a simple method for writing clear, unique page titles.
+- [Local SEO for Small Business: A Practical Guide](https://kivoreach.vercel.app/blog/local-seo-for-small-business/): How local SEO works for small businesses: your Google Business Profile, local ranking factors, reviews and the website basics that help you show up nearby.
 - [Meta Descriptions: How to Write Them](https://kivoreach.vercel.app/blog/meta-descriptions-guide/): How Google chooses the snippet under a result, when it uses your meta description, and how to write unique descriptions that help people choose.
+- [On-Page vs Off-Page SEO: What Each One Covers](https://kivoreach.vercel.app/blog/on-page-vs-off-page-seo/): On-page SEO is what you control on your own pages; off-page SEO is how the rest of the web sees you. What each covers and where to start.
 - [robots.txt and XML Sitemaps Explained](https://kivoreach.vercel.app/blog/robots-txt-and-xml-sitemaps/): What robots.txt and XML sitemaps do, the limits Google applies to each, and the common mistake of using robots.txt to hide pages from search.
+- [What Are Backlinks? How to Get Them Safely](https://kivoreach.vercel.app/blog/what-are-backlinks/): Backlinks explained: what they are, why they matter for SEO, which links Google treats as spam, and safe ways to get backlinks for a small website.
 
 ## Company
 
