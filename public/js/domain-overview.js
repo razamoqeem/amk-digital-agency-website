@@ -73,7 +73,9 @@
     }
     if (reg.available) {
       var y = Math.floor(reg.age_days / 365);
-      card(cards, 'Domain age', y >= 1 ? plural(y, 'year') : plural(Math.floor(reg.age_days / 30), 'month'), 'Registered ' + reg.registered_on);
+      card(cards, reg.parent_of ? 'Parent domain age' : 'Domain age', y >= 1 ? plural(y, 'year') : plural(Math.floor(reg.age_days / 30), 'month'),
+           reg.parent_of ? reg.parent_of + ' is a sub-domain. This is the record of ' + reg.domain + ', registered ' + reg.registered_on
+                         : 'Registered ' + reg.registered_on);
     } else {
       card(cards, 'Domain age', 'Not available', reg.reason, 'muted');
     }
@@ -149,6 +151,7 @@
     /* ── Domain health ── */
     var h = $('ov-health');
     if (reg.available) {
+      if (reg.parent_of) row(h, 'Registration record of', reg.domain + ' (the parent domain of ' + reg.parent_of + ')');
       row(h, 'Registered on', reg.registered_on);
       row(h, 'Registration ends', reg.expires_on || 'Not disclosed');
       row(h, 'Registrar', reg.registrar || 'Not disclosed');

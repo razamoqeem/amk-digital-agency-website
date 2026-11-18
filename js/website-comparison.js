@@ -37,7 +37,8 @@
     if (!r.available || r.age_days == null) return { text: NA };
     var years = Math.floor(r.age_days / 365.25);
     var label = years >= 1 ? years + (years === 1 ? ' year' : ' years') : Math.floor(r.age_days / 30) + ' months';
-    return { text: label + ' (registered ' + r.registered_on + ')', value: r.age_days };
+    var whose = r.parent_of ? ', record of the parent domain ' + r.domain : '';
+    return { text: label + ' (registered ' + r.registered_on + whose + ')', value: r.age_days };
   }
   function section(d, name) {
     var s = d.site || {};

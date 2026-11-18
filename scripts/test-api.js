@@ -132,7 +132,7 @@ async function main() {
     check('A run with a good token works and is counted', live.json.ok && live.json.runs.used === 1 && live.json.runs.limit === 2, live.json.runs);
     check('New visitor gets a signed, HttpOnly cookie', (live.setCookie || []).some((c) => /amk_vid=[a-f0-9]{32}\.[a-f0-9]{32}/.test(c) && /HttpOnly/.test(c) && /SameSite=Lax/.test(c)), live.setCookie);
     // second run uses a .net name: the .org registry's lookup service is unreliable (seen failing on 2026-11-18)
-    await call('POST', '/v1/tools/domain-age', { body: T({ domain: 'example.net' }), jar, ip });
+    const second = await call('POST', '/v1/tools/domain-age', { body: T({ domain: 'example.net' }), jar, ip }); if (second.status !== 200) console.log('  note: second run answered', second.status, second.json && second.json.error);
     r = await call('POST', '/v1/tools/domain-age', { body: T({ domain: 'example.org' }), jar, ip });
     check('Third run is stopped by the daily allowance (429 limit_reached)', r.status === 429 && r.json.error.code === 'limit_reached', [r.status, r.json && r.json.error]);
     r = await call('GET', '/v1/usage', { jar, ip });

@@ -308,7 +308,9 @@
       el.textContent = years > 0 ? years + 'y' : months + 'm';
       el.className = 'score-circle ' + (years >= 5 ? 'score-good' : years >= 2 ? 'score-warn' : 'score-bad');
       document.getElementById('age-grade').textContent = years >= 5 ? 'Registered 5+ years ago' : years >= 2 ? 'Registered 2+ years ago' : 'Registered recently';
-      document.getElementById('age-summary').textContent = domain;
+      document.getElementById('age-summary').textContent = data.parent_of
+        ? domain + ' is a sub-domain: this is the record of its parent domain, ' + data.domain
+        : domain;
       document.getElementById('age-reg-date').textContent = regDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
       document.getElementById('age-years').textContent = ageLabel;
       document.getElementById('age-expires').textContent = expDate ? expDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Not disclosed';

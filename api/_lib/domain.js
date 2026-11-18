@@ -81,6 +81,9 @@ async function getDomainAge(domain) {
       }
       continue;
     }
+    // Some registries (for example .app) reject a sub-domain query as a bad request instead of "not found":
+    // move on to the parent name, as long as there is one left to try.
+    if ((r.status === 400 || r.status === 422) && start < labels.length - 2) continue;
     if (r.status === 429) throw new ToolError(422, 'lookup_failed', 'The domain registry is busy. Please try again in a few minutes.');
     if (r.status !== 200) throw new ToolError(422, 'lookup_failed', 'The domain registry did not answer. Please try again later.');
     let record;
@@ -89,7 +92,10 @@ async function getDomainAge(domain) {
     (record.events || []).forEach((e) => { events[e.eventAction] = e.eventDate; });
     const created = parseDate(events.registration);
     if (!created) throw new ToolError(404, 'not_available', 'The registry does not publish a registration date for ' + name + '.');
-    return ageResult(name, created, parseDate(events.expiration), registrarName(record), 'rdap', (record.nameservers || []).map((n) => n && n.ldhName));
+    const result = ageResult(name, created, parseDate(events.expiration), registrarName(record), 'rdap', (record.nameservers || []).map((n) => n && n.ldhName));
+    // A sub-domain shares its parent's record: say so, so the parent's age is never shown as the sub-domain's own.
+    if (name !== domain) result.parent_of = domain;
+    return result;
   }
   throw new ToolError(404, 'not_found', domain + ' does not appear to be registered.');
 }

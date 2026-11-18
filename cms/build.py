@@ -236,7 +236,19 @@ def lastmod_map(pages, settings, tool_paths, extras):
     return mod
 
 
-def social_head(html_text, url, canonical=True):
+def og_image_tags(settings, base, own=""):
+    """Share-image tags: the page's own image, or the site's default image (settings.default_og_image)."""
+    image = safe_href(own or "") or safe_href(settings.get("default_og_image") or "")
+    if not image or not (image.startswith("http") or base):
+        return []
+    lines = ['  <meta property="og:image" content="%s" />' % esc(image if image.startswith("http") else base + image)]
+    if not safe_href(own or ""):  # the default image is 1200 x 630
+        lines += ['  <meta property="og:image:width" content="1200" />', '  <meta property="og:image:height" content="630" />',
+                  '  <meta property="og:image:alt" content="%s" />' % esc(settings.get("site_name", ""))]
+    return lines
+
+
+def social_head(html_text, url, canonical=True, image_lines=()):
     """Canonical and sharing tags for pages written by hand, taken from their own title and description."""
     title = re.search(r"<title>(.*?)</title>", html_text, re.S)
     desc = re.search(r'<meta name="description" content="([^"]*)"', html_text)
@@ -250,8 +262,12 @@ def social_head(html_text, url, canonical=True):
         lines.append('  <meta property="og:title" content="%s" />' % title.group(1).strip())
     if desc and 'property="og:description"' not in html_text:
         lines.append('  <meta property="og:description" content="%s" />' % desc.group(1))
+    has_image = 'property="og:image"' in html_text
+    if not has_image and image_lines:
+        lines += list(image_lines)
+        has_image = True
     if 'name="twitter:card"' not in html_text:
-        lines.append('  <meta name="twitter:card" content="summary" />')
+        lines.append('  <meta name="twitter:card" content="%s" />' % ("summary_large_image" if has_image else "summary"))
     return "\n".join(lines) + "\n"
 
 
@@ -473,10 +489,9 @@ def render_page(page, settings, template, base, live_paths=(), extras=None) -> s
     head.append('  <meta property="og:description" content="%s" />' % esc(og.get("description") or page.get("description", "")))
     if url:
         head.append('  <meta property="og:url" content="%s" />' % esc(url))
-    image = safe_href(og.get("image") or "")
-    if image and (image.startswith("http") or base):
-        head.append('  <meta property="og:image" content="%s" />' % esc(image if image.startswith("http") else base + image))
-    head.append('  <meta name="twitter:card" content="summary" />')
+    image_lines = og_image_tags(settings, base, og.get("image") or "")
+    head += image_lines
+    head.append('  <meta name="twitter:card" content="%s" />' % ("summary_large_image" if image_lines else "summary"))
     extras = extras or {}
     graph = ld.for_page(page, settings, base, url, extras.get("founder"), HOME_SLUG)
     if graph:
@@ -520,9 +535,7 @@ def render_collection_item(item, schema, settings, template, base, live_paths=()
     head.append('  <meta property="og:description" content="%s" />' % esc(description))
     if url:
         head.append('  <meta property="og:url" content="%s" />' % esc(url))
-    image = safe_href(seo.get("ogImage") or seo.get("image") or "")
-    if image and (image.startswith("http") or base):
-        head.append('  <meta property="og:image" content="%s" />' % esc(image if image.startswith("http") else base + image))
+    head += og_image_tags(settings, base, seo.get("ogImage") or seo.get("image") or "")
     head.append('  <meta name="twitter:card" content="summary_large_image" />')
 
     # Custom JSON-LD schema
@@ -898,9 +911,9 @@ def build() -> dict:
             if not fswapped:
                 html = html.replace("</body>", "  " + footer + "\n</body>", 1)
             if base and 'rel="canonical"' not in html and 'name="robots" content="noindex' not in html:
-                html = html.replace("</head>", social_head(html, base + current) + "</head>", 1)
+                html = html.replace("</head>", social_head(html, base + current, image_lines=og_image_tags(settings, base)) + "</head>", 1)
             elif base and 'property="og:url"' not in html and 'rel="canonical"' in html:
-                html = html.replace("</head>", social_head(html, base + current, canonical=False) + "</head>", 1)
+                html = html.replace("</head>", social_head(html, base + current, canonical=False, image_lines=og_image_tags(settings, base)) + "</head>", 1)
             learn = tool_learn_html(current, extras)
             if learn:
                 html = html.replace("</main>", learn + "\n  </main>", 1)
